@@ -11,6 +11,7 @@ WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update "/guest/hel
 web_action=$(WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i api create /hello /world get hello --response-type json | tail -n 1)
 # Hit URL using curl
 curl -sS "$web_action"
+
 # List all prior activations and cold/warm status along with duration
 WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i activation list
 # Fetch one instance's complete status (cold responses will have additional "key": "initTime")
