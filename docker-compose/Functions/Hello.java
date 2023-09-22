@@ -14,7 +14,7 @@ public class Hello {
 
         for (int i = 0; i < arr.length; i++) {
             arr[i] = rand.nextInt(100000); 
-            // populate array with random integers between 0 and 99
+            // populate array with random integers between 0 and (100000 - 1)
         }
 
         for (int i = 0; i < arr.length; i++) {
