@@ -22,7 +22,13 @@ do
   # Call the command and get the output
   result=$(./curltime "${API_URL}?seed=$i")
 
-   # Extract the activation ID and append to the relevant file
+  # Check for bad response and raise error if found
+  if echo "$result" | grep -q '"status":404' && echo "$result" | grep -q '"message":"Error: Not found."'; then
+    echo "Error: Bad response received during iteration $i"
+    exit 1
+  fi
+
+  # Extract the activation ID and append to the relevant file
   activationId=$(echo "$result" | grep 'OpenWhisk Activation ID:' | awk -F': ' '{print $2}' | tr -d ' \r')
   echo $activationId >> $ACTIVATION_ID_OUTPUT_FILE
 

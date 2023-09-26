@@ -3,8 +3,15 @@ import numpy as np
 import sys
 
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 def plot_histogram(data, states, output_file):
     plt.figure(figsize=(12, 6))
+
+    # Compute mean and std
+    mean_val = np.mean(data)
+    std_val = np.std(data)
 
     # Create histogram bins
     n, bins, patches = plt.hist(data, bins=50, color='blue', label='Warm Response Time', alpha=0.7)
@@ -16,7 +23,11 @@ def plot_histogram(data, states, output_file):
     for count, rect, cold_count in zip(n, patches, cold_counts):
         height = count
         plt.text(rect.get_x() + rect.get_width() / 2, height + 5, str(int(cold_count)), ha='center', va='bottom', color='red')
-    
+
+    # Add text label for mean and std
+    plt.text(0.85, 0.85, f"Mean: {mean_val:.2f}\nStd: {std_val:.2f}", transform=plt.gca().transAxes, ha="right", va="top",
+             bbox=dict(boxstyle="round", facecolor="white", edgecolor="black"))
+
     plt.title('Distribution of Response Time Over {} Iterations'.format(len(data)))
     plt.xlabel('Response Time (s)')
     plt.ylabel('Number of Activations')
