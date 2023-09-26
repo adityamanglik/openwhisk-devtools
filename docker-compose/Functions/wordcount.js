@@ -1,3 +1,5 @@
+const ARRAY_SIZE = 1000000;
+
 function generateRandomNormal(mean, stdDev) {
   // Box-Muller transform to generate a random number from a normal distribution
   const u1 = Math.random();
@@ -7,21 +9,14 @@ function generateRandomNormal(mean, stdDev) {
 }
 
 function main(params) {
-  // // 1. Generate a random number X between 1000 - 10000 using a standard normal distribution
-  // const mean = 55000*params.seed;
-  // const stdDev = 25000;
-  // let X = Math.floor(generateRandomNormal(mean, stdDev));
-  // if (X < 10000) X = 10000;
-  // if (X > 100000) X = 100000;
-
   // If seed is not provided in params, default to 42
   const seedValue = params.seed ? params.seed : 42;
 
-  // 2. Create an array
+  // Create an array
   const randomNumbers = [];
 
-  // 3. Write X random numbers into the array
-  for (let i = 0; i < 1000000; i++) {
+  // Write random numbers into the array up to ARRAY_SIZE
+  for (let i = 0; i < ARRAY_SIZE; i++) {
     const randomNum = Math.random() * seedValue;
     randomNumbers.push(randomNum);
   }
@@ -33,4 +28,3 @@ function main(params) {
 }
 
 // For testing purposes
-//   console.log(main({}));

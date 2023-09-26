@@ -2,6 +2,10 @@ import com.google.gson.JsonObject;
 import java.util.Random;
 
 public class Hello {
+
+    // Introduced a constant for the array size
+    private static final int ARRAY_SIZE = 1000000;
+
     public static JsonObject main(JsonObject args) {
         int seed = 42; // default seed value
         if (args.has("seed")) {
@@ -9,7 +13,7 @@ public class Hello {
         }
 
         Random rand = new Random(seed);
-        Integer[] arr = new Integer[1000000];
+        Integer[] arr = new Integer[ARRAY_SIZE];
         long sum = 0;
 
         for (int i = 0; i < arr.length; i++) {
