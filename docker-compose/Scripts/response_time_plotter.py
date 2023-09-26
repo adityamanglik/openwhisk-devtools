@@ -2,62 +2,56 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-def plot_scatter(data, output_file):
-    # Generate X values (iteration numbers)
+def plot_scatter(data, states, output_file):
     x = np.arange(1, len(data) + 1)
+    
+    cold_data = [data[i] for i, state in enumerate(states) if state == "cold"]
+    warm_data = [data[i] for i, state in enumerate(states) if state == "warm"]
+    cold_x = [x[i] for i, state in enumerate(states) if state == "cold"]
+    warm_x = [x[i] for i, state in enumerate(states) if state == "warm"]
 
-    # Create the scatter plot
     plt.figure(figsize=(12, 6))
-    plt.scatter(x, data, s=2, label=output_file+' Response Time')
+    plt.scatter(cold_x, cold_data, s=50, color='red', label='Cold Response Time')
+    plt.scatter(warm_x, warm_data, s=2, color='blue', label='Warm Response Time')
     plt.title('Response Time Over {} Iterations'.format(len(data)))
     plt.xlabel('Iteration')
     plt.ylabel('Response Time (s)')
     plt.grid(True)
     plt.legend()
-
-    # Save the plot as a PNG file
     plt.savefig('../Graphs/'+ output_file.replace('.txt', '_scatter_plot.png'))
-
-    # Show the plot
     # plt.show()
 
-def plot_line(data, output_file):
-    # # Only use the first 500 data points
-    # data = data[:500]
-
-    # Generate X values (iteration numbers)
+def plot_line(data, states, output_file):
     x = np.arange(1, len(data) + 1)
 
-    # Create the line plot
     plt.figure(figsize=(12, 6))
-    plt.plot(x, data, label=output_file+' Response Time', linewidth=2)
+    plt.plot(x, data, label=output_file+' Response Time', linewidth=2, color='blue')
+    cold_x = [x[i] for i, state in enumerate(states) if state == "cold"]
+    cold_data = [data[i] for i, state in enumerate(states) if state == "cold"]
+    plt.scatter(cold_x, cold_data, color='red', label='Cold Activation', s=50)
     plt.title('Response Time for First 500 Iterations')
     plt.xlabel('Iteration')
     plt.ylabel('Response Time (s)')
     plt.grid(True)
     plt.legend()
-
-    # Save the plot as a PNG file
     plt.savefig('../Graphs/'+ output_file.replace('.txt', '_line_plot.png'))
-
-    # Show the plot
     # plt.show()
 
 if __name__ == '__main__':
-    # Command line arguments
-    if len(sys.argv) < 2:
-        print("Usage: python script_name.py output_file.txt")
+    if len(sys.argv) < 3:
+        print("Usage: python script_name.py latency_output_file.txt state_file.txt")
         sys.exit(1)
 
     output_file = sys.argv[1]
-    
-    # Read the data from the specified output file
+    state_file = sys.argv[2]
+
     with open(output_file, 'r') as f:
         lines = f.readlines()
 
-    # Convert string data to floats
+    with open(state_file, 'r') as f:
+        states = [line.strip().split(': ')[1].replace('"', '') for line in f.readlines()]
+
     data = [float(line.strip()) for line in lines]
 
-    # Plot both scatter and line plots
-    plot_scatter(data, output_file)
-    plot_line(data, output_file)
+    plot_scatter(data, states, output_file)
+    plot_line(data, states, output_file)

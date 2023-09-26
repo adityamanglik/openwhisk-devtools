@@ -15,7 +15,7 @@ OUTPUT_FILE="$1_startStates.txt"
 # Loop through each activation ID in the input file
 while IFS= read -r activation_id; do
     # Fetch activation details
-    activation_output=$(WSK_CONFIG_FILE=../.wskprops ../openwhisk-src/bin/wsk -i activation get "$activation_id")
+    activation_output=$(WSK_CONFIG_FILE=/users/am_CU/openwhisk-devtools/docker-compose/.wskprops /users/am_CU/openwhisk-devtools/docker-compose/openwhisk-src/bin/wsk -i activation get "$activation_id")
     
     # Extract startState (if exists)
     startState=$(echo "$activation_output" | grep "startState" | awk -F': ' '{print $2}' | tr -d ',' | tr -d ' ')
