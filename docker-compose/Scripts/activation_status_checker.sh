@@ -1,19 +1,30 @@
 #!/bin/bash
 
-# Define the OpenWhisk CLI command with the configuration file
-WSK_CLI="WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i"
+# Check if input file is provided
+if [ "$#" -ne 1 ]; then
+    echo "Usage: $0 <FILE_WITH_ACTIVATION_IDS>"
+    exit 1
+fi
 
-# Assuming you have a file named activation_ids.txt with one activation ID per line
-while read -r activation_id; do
-  # Fetch the logs for the activation ID
-  logs=$($WSK_CLI activation logs "$activation_id")
+INPUT_FILE=$1
+OUTPUT_FILE="$1_startStates.txt"
 
-  # Check the logs for cold/warm status
-  if echo "$logs" | grep -q "starting up"; then
-    echo "$activation_id: cold"
-  elif echo "$logs" | grep -q "already running"; then
-    echo "$activation_id: warm"
-  else
-    echo "$activation_id: unknown"
-  fi
-done < activation_ids.txt
+# Empty or create the output file
+> $OUTPUT_FILE
+
+# Loop through each activation ID in the input file
+while IFS= read -r activation_id; do
+    # Fetch activation details
+    activation_output=$(WSK_CONFIG_FILE=../.wskprops ../openwhisk-src/bin/wsk -i activation get "$activation_id")
+    
+    # Extract startState (if exists)
+    startState=$(echo "$activation_output" | grep "startState" | awk -F': ' '{print $2}' | tr -d ',' | tr -d ' ')
+
+    # Check if startState is found and write to output file
+    if [[ ! -z "$startState" ]]; then
+        echo "$activation_id: $startState" >> $OUTPUT_FILE
+    else
+        echo "$activation_id: startState not found" >> $OUTPUT_FILE
+    fi
+
+done < "$INPUT_FILE"
