@@ -2,6 +2,8 @@
 rm *.txt || true
 
 # Make sure we get fresh data by resetting functions via update
+ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/Functions/; javac -cp gson-2.10.1.jar Hello.java"
+ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/Functions/; jar cvf hello.jar Hello.class"
 ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloJava Functions/hello.jar --main Hello"
 ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update hello Functions/wordcount.js"
 

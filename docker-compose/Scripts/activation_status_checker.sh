@@ -17,14 +17,11 @@ while IFS= read -r activation_id; do
     # Fetch activation details
     activation_output=$(WSK_CONFIG_FILE=/users/am_CU/openwhisk-devtools/docker-compose/.wskprops /users/am_CU/openwhisk-devtools/docker-compose/openwhisk-src/bin/wsk -i activation get "$activation_id")
     
-    # Extract startState (if exists)
-    startState=$(echo "$activation_output" | grep "startState" | awk -F': ' '{print $2}' | tr -d ',' | tr -d ' ')
-
-    # Check if startState is found and write to output file
-    if [[ ! -z "$startState" ]]; then
-        echo "$activation_id: $startState" >> $OUTPUT_FILE
+    # Check if initTime key exists in the output
+    if echo "$activation_output" | grep -q '"key": "initTime"'; then
+        echo "$activation_id: cold" >> $OUTPUT_FILE
     else
-        echo "$activation_id: startState not found" >> $OUTPUT_FILE
+        echo "$activation_id: warm" >> $OUTPUT_FILE
     fi
-
+    
 done < "$INPUT_FILE"
