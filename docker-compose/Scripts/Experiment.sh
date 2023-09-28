@@ -12,9 +12,15 @@ LANGUAGE=$2
 # Create or empty the output files
 TIME_OUTPUT_FILE="${LANGUAGE}OutputTime.txt"
 ACTIVATION_ID_OUTPUT_FILE="${LANGUAGE}activation_ids.txt"
+GC_COLLECTIONS_OUTPUT_FILE="gcCollections.txt"
+GC_COLLECTION_TIME_OUTPUT_FILE="gcCollectionTime.txt"
+GC_TOTAL_COLLECTORS_OUTPUT_FILE="gcTotalCollectors.txt"
 
 > $TIME_OUTPUT_FILE
 > $ACTIVATION_ID_OUTPUT_FILE
+> $GC_COLLECTIONS_OUTPUT_FILE
+> $GC_COLLECTION_TIME_OUTPUT_FILE
+> $GC_TOTAL_COLLECTORS_OUTPUT_FILE
 
 # Loop 10,000 times
 for i in {1..1000}
@@ -35,6 +41,18 @@ do
   # Extract the time value and append to the relevant file
   timeValue=$(echo "$result" | grep -E 'time_total:' | awk -F': ' '{print $2}' | tr -d ' ')
   echo $timeValue >> $TIME_OUTPUT_FILE
+
+  # Extract the gcTotalCollections value and append to the relevant file
+  gcCollectionsValue=$(echo "$result" | grep -Eo '"gcTotalCollectionCount": [0-9]+' | awk '{print $2}')
+  echo $gcCollectionsValue >> $GC_COLLECTIONS_OUTPUT_FILE
+
+  # Extract the gcTotalCollectionTime value and append to the relevant file
+  gcCollectionTimeValue=$(echo "$result" | grep -Eo '"gcTotalCollectionTime": [0-9]+' | awk '{print $2}')
+  echo $gcCollectionTimeValue >> $GC_COLLECTION_TIME_OUTPUT_FILE
+
+  # Extract the gcTotalCollectors value and append to the relevant file
+  gcTotalCollectorsValue=$(echo "$result" | grep -Eo '"gcTotalCollectors": [0-9]+' | awk '{print $2}')
+  echo $gcTotalCollectorsValue >> $GC_TOTAL_COLLECTORS_OUTPUT_FILE
 
   # Optionally print progress
   echo "Iteration $i done"
