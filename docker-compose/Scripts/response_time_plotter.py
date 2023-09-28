@@ -2,10 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-
-import numpy as np
-import matplotlib.pyplot as plt
-
 def plot_histogram(data, states, output_file):
     plt.figure(figsize=(12, 6))
 
@@ -37,7 +33,7 @@ def plot_histogram(data, states, output_file):
     plt.ylabel('Number of Activations')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_histogram_plot.png'))
+    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_histogram_plot.pdf'))
     # plt.show()
 
 
@@ -54,10 +50,10 @@ def plot_line_orig(data, states, output_file):
     plt.ylabel('Response Time (s)')
     plt.grid(True)
     plt.legend()
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_line_plot.png'))
+    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_line_plot.pdf'))
     # plt.show()
 
-def plot_line(data, states, gc_collections, gc_collection_times, gc_total_collectors, output_file):
+def plot_line(data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
     x = np.arange(1, len(data) + 1)
 
     fig, ax1 = plt.figure(figsize=(12, 6)), plt.gca()
@@ -72,9 +68,10 @@ def plot_line(data, states, gc_collections, gc_collection_times, gc_total_collec
 
     ax2 = ax1.twinx()  # instantiate a second axes that shares the same x-axis
     ax2.set_ylabel('GC Metrics', color='red')  # we already handled the x-label with ax
-    ax2.plot(x, gc_collections, label='GC Collections', linewidth=1, color='darkred')
-    ax2.plot(x, gc_collection_times, label='GC Collection Times', linewidth=1, color='red')
-    ax2.plot(x, gc_total_collectors, label='Total GC Collectors', linewidth=1, color='lightcoral')
+    ax2.plot(x, gc1_collections, label='GC1 Collections', linewidth=1, color='darkred')
+    ax2.plot(x, gc1_collection_times, label='GC1 Collection Times', linewidth=1, color='red')
+    ax2.plot(x, gc2_collections, label='GC2 Collections', linewidth=1, color='lightcoral')
+    ax2.plot(x, gc2_collection_times, label='GC2 Collection Times', linewidth=1, color='pink')
     ax2.tick_params(axis='y', labelcolor='red')
     ax2.set_yscale('symlog')
 
@@ -82,23 +79,25 @@ def plot_line(data, states, gc_collections, gc_collection_times, gc_total_collec
     plt.grid(True)
     fig.legend(loc='center right')
     plt.title('Response Time and GC Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_combined_line_plot.png'))
+    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_combined_line_plot.pdf'))
 
-def plot_gc_stats(gc_collections, gc_collection_times, gc_total_collectors, output_file):
-    x = np.arange(1, len(gc_collections) + 1)
+
+def plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
+    x = np.arange(1, len(gc1_collections) + 1)
 
     fig, ax1 = plt.subplots(figsize=(12, 6))
 
-    # Plotting GC Collections and Total GC Collectors on the left y-axis
-    ax1.plot(x, gc_collections, label='GC Collections', color='darkred')
-    ax1.plot(x, gc_total_collectors, label='Total GC Collectors', color='lightcoral')
+    # Plotting GC1 and GC2 Collections on the left y-axis
+    ax1.plot(x, gc1_collections, label='GC1 Collections', color='darkred')
+    ax1.plot(x, gc2_collections, label='GC2 Collections', color='lightcoral')
     ax1.set_xlabel('Iteration')
     ax1.set_ylabel('GC Object Collections')
     ax1.grid(True)
     
     # Instantiate a second y-axis that shares the same x-axis
-    ax2 = ax1.twinx()  
-    ax2.plot(x, gc_collection_times, label='GC Collection Time', color='red')
+    ax2 = ax1.twinx()
+    ax2.plot(x, gc1_collection_times, label='GC1 Collection Time', color='red')
+    ax2.plot(x, gc2_collection_times, label='GC2 Collection Time', color='pink')
     ax2.set_ylabel('GC Collection Time')
 
     # Combined legend for both y-axes
@@ -106,21 +105,22 @@ def plot_gc_stats(gc_collections, gc_collection_times, gc_total_collectors, outp
     lines2, labels2 = ax2.get_legend_handles_labels()
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
-    plt.title('GC Metrics Over {} Iterations'.format(len(gc_collections)))
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_gc_stats_plot.png'))
+    plt.title('GC Metrics Over {} Iterations'.format(len(gc1_collections)))
+    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_gc_stats_plot.pdf'))
     # plt.show()
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 6:
-        print("Usage: python script_name.py latency_output_file.txt state_file.txt gcCollections.txt gcCollectionTime.txt gcTotalCollectors.txt")
+    if len(sys.argv) < 7:
+        print("Usage: python script_name.py latency_output_file.txt state_file.txt gc1Collections.txt gc1CollectionTime.txt gc2Collections.txt gc2CollectionTime.txt")
         sys.exit(1)
 
     output_file = sys.argv[1]
     state_file = sys.argv[2]
-    gc_collections_file = sys.argv[3]
-    gc_collection_time_file = sys.argv[4]
-    gc_total_collectors_file = sys.argv[5]
+    gc1_collections_file = sys.argv[3]
+    gc1_collection_time_file = sys.argv[4]
+    gc2_collections_file = sys.argv[5]
+    gc2_collection_time_file = sys.argv[6]
 
     with open(output_file, 'r') as f:
         latency_data = [float(line.strip()) for line in f.readlines()]
@@ -128,17 +128,21 @@ if __name__ == '__main__':
     with open(state_file, 'r') as f:
         states = [line.strip().split(': ')[1].replace('"', '') for line in f.readlines()]
 
-    # Loading GC data
-    with open(gc_collections_file, 'r') as f:
-        gc_collections = [float(line.strip()) for line in f.readlines()]
+    # Loading GC1 data
+    with open(gc1_collections_file, 'r') as f:
+        gc1_collections = [float(line.strip()) for line in f.readlines()]
 
-    with open(gc_collection_time_file, 'r') as f:
-        gc_collection_times = [float(line.strip()) for line in f.readlines()]
+    with open(gc1_collection_time_file, 'r') as f:
+        gc1_collection_times = [float(line.strip()) for line in f.readlines()]
 
-    with open(gc_total_collectors_file, 'r') as f:
-        gc_total_collectors = [float(line.strip()) for line in f.readlines()]
+    # Loading GC2 data
+    with open(gc2_collections_file, 'r') as f:
+        gc2_collections = [float(line.strip()) for line in f.readlines()]
 
-    plot_gc_stats(gc_collections, gc_collection_times, gc_total_collectors, output_file)
+    with open(gc2_collection_time_file, 'r') as f:
+        gc2_collection_times = [float(line.strip()) for line in f.readlines()]
+
+    plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file)
     plot_line_orig(latency_data, states, output_file)
-    plot_line(latency_data, states, gc_collections, gc_collection_times, gc_total_collectors, output_file)
+    plot_line(latency_data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file)  # Modified the function arguments
     plot_histogram(latency_data, states, output_file)

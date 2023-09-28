@@ -37,15 +37,16 @@ function runExperiment() {
     
     # Java plotter
     # python response_time_plotter.py JavaOutputTime.txt Javaactivation_ids.txt_startStates.txt
-    python response_time_plotter.py JavaOutputTime.txt Javaactivation_ids.txt_startStates.txt gcCollections.txt gcCollectionTime.txt gcTotalCollectors.txt
-
-    # Clean up after each iteration
-    rm *.txt || true
+    python response_time_plotter.py JavaOutputTime.txt Javaactivation_ids.txt_startStates.txt gc1Collections.txt gc1CollectionTime.txt gc2Collections.txt gc2CollectionTime.txt
 }
 
 # Run the experiments for the three array sizes
 for size in 100 10000 1000000 5000000 ; do
     runExperiment $size
-    # Move all PNG files to that directory
-    mv /users/am_CU/openwhisk-devtools/docker-compose/Graphs/*.png "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/$size/"
+    # Move all log and image files to that directory
+    mv /users/am_CU/openwhisk-devtools/docker-compose/Graphs/*.pdf "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/$size/"
+    mv /users/am_CU/openwhisk-devtools/docker-compose/Scripts/*.txt "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/$size/"
+    
+    # Clean up after each iteration
+    # rm *.txt || true
 done
