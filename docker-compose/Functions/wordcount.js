@@ -1,4 +1,4 @@
-const ARRAY_SIZE = 1000000;
+const ARRAY_SIZE = 5000000;
 
 function generateRandomNormal(mean, stdDev) {
   // Box-Muller transform to generate a random number from a normal distribution
