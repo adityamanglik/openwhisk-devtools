@@ -1,7 +1,12 @@
+OW_SERVER_NODE="am_CU@apt069.apt.emulab.net"
+JAVA_API="http://128.110.96.69:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloJava/world"
+JAVASCRIPT_API="http://128.110.96.69:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
+OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
+
 function updateArraySize() {
     local size=$1
-    ssh am_CU@apt069.apt.emulab.net "sed -i 's/const ARRAY_SIZE = [0-9]\+;/const ARRAY_SIZE = ${size};/' /users/am_CU/openwhisk-devtools/docker-compose/Functions/wordcount.js"
-    ssh am_CU@apt069.apt.emulab.net "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' /users/am_CU/openwhisk-devtools/docker-compose/Functions/Hello.java"
+    ssh $OW_SERVER_NODE "sed -i 's/const ARRAY_SIZE = [0-9]\+;/const ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Functions/wordcount.js"
+    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Functions/Hello.java"
 }
 
 function runExperiment() {
@@ -9,34 +14,33 @@ function runExperiment() {
     updateArraySize $1
 
     # Make sure we get fresh data by resetting functions via update
-    ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/Functions/; javac -cp gson-2.10.1.jar Hello.java"
-    ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/Functions/; jar cvf hello.jar Hello.class"
-    ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloJava Functions/hello.jar --main Hello"
-    ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update hello Functions/wordcount.js"
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Functions/; javac -cp gson-2.10.1.jar Hello.java"
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Functions/; jar cvf hello.jar Hello.class"
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloJava Functions/hello.jar --main Hello"
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update hello Functions/wordcount.js"
 
     # DISABLE JS DUE TO FOCUS ON JAVA GC PROFILING
     # # Start generating load
-    # source Experiment.sh http://128.110.96.69:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world JS
+    # source Experiment.sh $JAVASCRIPT_API JS
 
     # # Retrieve warm/cold status of each activation
-    # scp JSactivation_ids.txt am_CU@apt069.apt.emulab.net:/users/am_CU/openwhisk-devtools/docker-compose/Scripts/
-    # ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/Scripts/; bash ./activation_status_checker.sh ./JSactivation_ids.txt"
-    # scp am_CU@apt069.apt.emulab.net:/users/am_CU/openwhisk-devtools/docker-compose/Scripts/JSactivation_ids.txt_startStates.txt ./ 
+    # scp JSactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
+    # ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; bash ./activation_status_checker.sh ./JSactivation_ids.txt"
+    # scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/JSactivation_ids.txt_startStates.txt ./ 
 
     # Start generating load
-    source Experiment.sh http://128.110.96.69:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloJava/world Java
+    source Experiment.sh $JAVA_API Java
 
     # Retrieve warm/cold status of each activation
-    scp Javaactivation_ids.txt am_CU@apt069.apt.emulab.net:/users/am_CU/openwhisk-devtools/docker-compose/Scripts/
-    ssh am_CU@apt069.apt.emulab.net "cd /users/am_CU/openwhisk-devtools/docker-compose/Scripts/; bash ./activation_status_checker.sh ./Javaactivation_ids.txt"
-    scp am_CU@apt069.apt.emulab.net:/users/am_CU/openwhisk-devtools/docker-compose/Scripts/Javaactivation_ids.txt_startStates.txt ./ 
+    scp Javaactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; bash ./activation_status_checker.sh ./Javaactivation_ids.txt"
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Javaactivation_ids.txt_startStates.txt ./ 
 
     # Plot response curves
     # JS Plotter
     # python response_time_plotter.py JSOutputTime.txt JSactivation_ids.txt_startStates.txt
     
     # Java plotter
-    # python response_time_plotter.py JavaOutputTime.txt Javaactivation_ids.txt_startStates.txt
     python response_time_plotter.py JavaOutputTime.txt Javaactivation_ids.txt_startStates.txt gc1Collections.txt gc1CollectionTime.txt gc2Collections.txt gc2CollectionTime.txt
 }
 
@@ -44,9 +48,7 @@ function runExperiment() {
 for size in 100 10000 1000000 5000000 ; do
     runExperiment $size
     # Move all log and image files to that directory
-    mv /users/am_CU/openwhisk-devtools/docker-compose/Graphs/*.pdf "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/$size/"
-    mv /users/am_CU/openwhisk-devtools/docker-compose/Scripts/*.txt "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/$size/"
-    
-    # Clean up after each iteration
-    # rm *.txt || true
+    mv $OW_DIRECTORY/Graphs/*.pdf "$OW_DIRECTORY/Graphs/$size/"
+    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/$size/"
+
 done

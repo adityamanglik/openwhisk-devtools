@@ -24,7 +24,19 @@ function main(params) {
   // Calculate the sum of the array
   const arraySum = randomNumbers.reduce((acc, val) => acc + val, 0);
 
-  return { payload: `Seed: ${seedValue}, The sum of the array values is ${arraySum}` };
+  // Calculate size of heap
+  const usedHeapSize = window.performance.memory.usedJSHeapSize;
+  const totalHeapSize = window.performance.memory.totalJSHeapSize;
+  const HeapSizeLimit = window.performance.memory.jsHeapSizeLimit;
+
+  // return { payload: `Seed: ${seedValue}\nThe sum of the array values is ${arraySum}` };
+  return { 
+    payload: `usedHeapSize: ${usedHeapSize}\n` +
+             `totalHeapSize: ${totalHeapSize}\n` +
+             `HeapSizeLimit: ${HeapSizeLimit}\n` +
+             `The sum of the array values is ${arraySum}` 
+};
+
 }
 
 // For testing purposes

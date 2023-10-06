@@ -25,7 +25,7 @@ GC2_COLLECTION_TIME_OUTPUT_FILE="gc2CollectionTime.txt"
 > $GC2_COLLECTION_TIME_OUTPUT_FILE
 
 # Loop 10,000 times
-for i in {1..1000}
+for i in {1..5000}
 do
   # Call the command and get the output
   result=$(./curltime "${API_URL}?seed=$i")
