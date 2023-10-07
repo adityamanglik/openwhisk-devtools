@@ -70,11 +70,27 @@ esac
 
 # Loop 
 for i in $(seq 1 $ITERATIONS); do
-  result=$(./curltime "${API_URL}?seed=$i")
+  retry_counter=0
+  max_retries=5
+  success=0
 
-  # Check for bad response and raise error if found
-  if echo "$result" | grep -q '"status":404' && echo "$result" | grep -q '"message":"Error: Not found."'; then
-    echo "\nError: Bad response received during iteration $i"
+  while [ $retry_counter -lt $max_retries ]; do
+    result=$(./curltime "${API_URL}?seed=$i")
+
+    # If good response, break out of inner loop
+    if ! (echo "$result" | grep -q '"status":404' && echo "$result" | grep -q '"message":"Error: Not found."'); then
+      success=1
+      break
+    fi
+
+    echo "Attempt $(($retry_counter + 1)) failed for iteration $i. Resetting API and retrying..."
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; source action_API_setup.sh"
+    retry_counter=$(($retry_counter + 1))
+  done
+
+  # If after 5 retries we still haven't received a good response, quit or decide to continue
+  if [ $success -eq 0 ]; then
+    echo "\nError: Bad response received during iteration $i after $max_retries attempts."
     exit 1
   fi
 
@@ -97,7 +113,21 @@ for i in $(seq 1 $ITERATIONS); do
           ;;
 
       "Java")
-          # ... your Java-specific extraction logic here ...
+          # Extract the gc1CollectionCount value and append to the relevant file
+          gc1CollectionsValue=$(echo "$result" | grep -Eo '"gc1CollectionCount": [0-9]+' | awk '{print $2}')
+          echo $gc1CollectionsValue >> $GC1_COLLECTIONS_OUTPUT_FILE
+
+          # Extract the gc1CollectionTime value and append to the relevant file
+          gc1CollectionTimeValue=$(echo "$result" | grep -Eo '"gc1CollectionTime": [0-9]+' | awk '{print $2}')
+          echo $gc1CollectionTimeValue >> $GC1_COLLECTION_TIME_OUTPUT_FILE
+
+          # Extract the gc2CollectionCount value and append to the relevant file
+          gc2CollectionsValue=$(echo "$result" | grep -Eo '"gc2CollectionCount": [0-9]+' | awk '{print $2}')
+          echo $gc2CollectionsValue >> $GC2_COLLECTIONS_OUTPUT_FILE
+
+          # Extract the gc2CollectionTime value and append to the relevant file
+          gc2CollectionTimeValue=$(echo "$result" | grep -Eo '"gc2CollectionTime": [0-9]+' | awk '{print $2}')
+          echo $gc2CollectionTimeValue >> $GC2_COLLECTION_TIME_OUTPUT_FILE
           ;;
   esac
 
