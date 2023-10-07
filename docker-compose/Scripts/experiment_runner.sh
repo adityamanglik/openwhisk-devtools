@@ -44,6 +44,12 @@ function runExperiment() {
     python response_time_plotter.py JavaOutputTime.txt Javaactivation_ids.txt_startStates.txt gc1Collections.txt gc1CollectionTime.txt gc2Collections.txt gc2CollectionTime.txt
 }
 
+# Delete previous actions
+
+# Initialize functions
+ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action create hello Functions/wordcount.js"
+WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action create JS Functions/wordcount.js 
+
 # Run the experiments for the three array sizes
 for size in 100 10000 1000000 5000000 ; do
     runExperiment $size

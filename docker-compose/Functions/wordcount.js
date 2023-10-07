@@ -25,17 +25,20 @@ function main(params) {
   const arraySum = randomNumbers.reduce((acc, val) => acc + val, 0);
 
   // Calculate size of heap
-  const usedHeapSize = window.performance.memory.usedJSHeapSize;
-  const totalHeapSize = window.performance.memory.totalJSHeapSize;
-  const HeapSizeLimit = window.performance.memory.jsHeapSizeLimit;
+  const { performance } = require('perf_hooks');
+  const usedHeapSize = process.memoryUsage().heapUsed;
+  const totalHeapSize = process.memoryUsage().heapTotal;
+  // Again, Node.js doesn't provide a direct equivalent to jsHeapSizeLimit, but you can get the resident set size
+  const residentSetSize = process.memoryUsage().rss;
 
   // return { payload: `Seed: ${seedValue}\nThe sum of the array values is ${arraySum}` };
   return { 
-    payload: `usedHeapSize: ${usedHeapSize}\n` +
-             `totalHeapSize: ${totalHeapSize}\n` +
-             `HeapSizeLimit: ${HeapSizeLimit}\n` +
-             `The sum of the array values is ${arraySum}` 
+    payload: `usedHeapSize: ${usedHeapSize}\n ` +
+             `totalHeapSize: ${totalHeapSize}\n ` +
+             `HeapSizeLimit: ${residentSetSize}\n ` +
+             `The sum of the array values is ${arraySum}`
 };
+
 
 }
 
