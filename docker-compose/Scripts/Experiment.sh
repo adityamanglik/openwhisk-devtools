@@ -10,6 +10,20 @@ API_URL=$1
 LANGUAGE=$2
 ITERATIONS=5000
 
+# Function to print the progress bar and iteration
+print_progress() {
+    local current=$1
+    local total=$2
+    local width=50
+    local progress=$(( ($current * $width) / $total ))
+    local remaining=$(( $width - $progress ))
+    printf "\r["
+    printf "%${progress}s" | tr ' ' '#'
+    printf "%${remaining}s" ' ' 
+    printf "] (%d/%d)" $current $total
+}
+
+
 # Create or empty the output files
 TIME_OUTPUT_FILE="${LANGUAGE}OutputTime.txt"
 ACTIVATION_ID_OUTPUT_FILE="${LANGUAGE}activation_ids.txt"
@@ -46,6 +60,7 @@ for i in $(seq 1 $ITERATIONS); do
   # Check for bad response and raise error if found
   if echo "$result" | grep -q '"status":404' && echo "$result" | grep -q '"message":"Error: Not found."'; then
     echo "Error: Bad response received during iteration $i"
+    # 
     exit 1
   fi
 
@@ -87,7 +102,6 @@ for i in $(seq 1 $ITERATIONS); do
       echo $heapSizeLimitValue >> $HEAP_SIZE_LIMIT_FILE
   fi
 
-
-  # Optionally print progress
-  echo "Iteration $i done"
+    # Print progress
+  print_progress $i $ITERATIONS
 done
