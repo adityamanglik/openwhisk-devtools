@@ -39,12 +39,23 @@ initialize_java_files() {
     GC1_COLLECTION_TIME_OUTPUT_FILE="gc1CollectionTime.txt"
     GC2_COLLECTIONS_OUTPUT_FILE="gc2Collections.txt"
     GC2_COLLECTION_TIME_OUTPUT_FILE="gc2CollectionTime.txt"
+    
+    HEAP_COMMITTED_MEMORY_FILE="heapCommittedMemory.txt"
+    HEAP_INIT_MEMORY_FILE="heapInitMemory.txt"
+    HEAP_MAX_MEMORY_FILE="heapMaxMemory.txt"
+    HEAP_USED_MEMORY_FILE="heapUsedMemory.txt"
 
     > $GC1_COLLECTIONS_OUTPUT_FILE
     > $GC1_COLLECTION_TIME_OUTPUT_FILE
     > $GC2_COLLECTIONS_OUTPUT_FILE
     > $GC2_COLLECTION_TIME_OUTPUT_FILE
+
+    > $HEAP_COMMITTED_MEMORY_FILE
+    > $HEAP_INIT_MEMORY_FILE
+    > $HEAP_MAX_MEMORY_FILE
+    > $HEAP_USED_MEMORY_FILE
 }
+
 
 # Main script
 
@@ -84,7 +95,7 @@ for i in $(seq 1 $ITERATIONS); do
     fi
 
     echo "Attempt $(($retry_counter + 1)) failed for iteration $i. Resetting API and retrying..."
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; source action_API_setup.sh"
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; source Scripts/action_API_setup.sh"
     retry_counter=$(($retry_counter + 1))
   done
 
@@ -113,6 +124,22 @@ for i in $(seq 1 $ITERATIONS); do
           ;;
 
       "Java")
+          # Extract the heapCommittedMemory value and append to the relevant file
+            heapCommittedMemoryValue=$(echo "$result" | grep -Eo '"heapCommittedMemory: ": [0-9]+' | awk '{print $3}')
+            echo $heapCommittedMemoryValue >> heapCommittedMemory.txt
+
+            # Extract the heapInitMemory value and append to the relevant file
+            heapInitMemoryValue=$(echo "$result" | grep -Eo '"heapInitMemory: ": [0-9]+' | awk '{print $3}')
+            echo $heapInitMemoryValue >> heapInitMemory.txt
+
+            # Extract the heapMaxMemory value and append to the relevant file
+            heapMaxMemoryValue=$(echo "$result" | grep -Eo '"heapMaxMemory: ": [0-9]+' | awk '{print $3}')
+            echo $heapMaxMemoryValue >> heapMaxMemory.txt
+
+            # Extract the heapUsedMemory value and append to the relevant file
+            heapUsedMemoryValue=$(echo "$result" | grep -Eo '"heapUsedMemory: ": [0-9]+' | awk '{print $3}')
+            echo $heapUsedMemoryValue >> heapUsedMemory.txt
+
           # Extract the gc1CollectionCount value and append to the relevant file
           gc1CollectionsValue=$(echo "$result" | grep -Eo '"gc1CollectionCount": [0-9]+' | awk '{print $2}')
           echo $gc1CollectionsValue >> $GC1_COLLECTIONS_OUTPUT_FILE

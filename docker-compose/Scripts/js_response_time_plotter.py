@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
-import sys
+import os
 
 def plot_js_memory_stats(used_heap, total_heap, heap_limit, output_file):
     x = np.arange(1, len(used_heap) + 1)
@@ -25,7 +25,7 @@ def plot_js_memory_stats(used_heap, total_heap, heap_limit, output_file):
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
     plt.title('JavaScript Memory Metrics Over {} Iterations'.format(len(used_heap)))
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_js_memory_stats_plot.pdf'))
+    plt.savefig('../Graphs/JS/'+ 'memory_stats_plot.pdf')
     # plt.show()
 
 def plot_histogram(data, states, output_file):
@@ -60,7 +60,7 @@ def plot_histogram(data, states, output_file):
     plt.yscale('symlog')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_histogram_plot.pdf'))
+    plt.savefig('../Graphs/JS/'+ 'histogram_plot.pdf')
     # plt.show()
 
 
@@ -78,7 +78,7 @@ def plot_line_orig(data, states, output_file):
     plt.grid(True)
     plt.yscale('symlog')
     plt.legend()
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_line_plot.pdf'))
+    plt.savefig('../Graphs/JS/'+ 'line_plot.pdf')
     # plt.show()
 
 def plot_line(data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
@@ -107,7 +107,7 @@ def plot_line(data, states, gc1_collections, gc1_collection_times, gc2_collectio
     plt.grid(True)
     fig.legend(loc='center right')
     plt.title('Response Time and GC Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_combined_line_plot.pdf'))
+    plt.savefig('../Graphs/JS/'+ 'combined_line_plot.pdf')
 
 
 def plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
@@ -134,17 +134,17 @@ def plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_co
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
     plt.title('GC Metrics Over {} Iterations'.format(len(gc1_collections)))
-    plt.savefig('../Graphs/'+ output_file.replace('.txt', '_gc_stats_plot.pdf'))
+    plt.savefig('../Graphs/JS/'+ 'gc_stats_plot.pdf')
     # plt.show()
 
 
 if __name__ == '__main__':
-    if len(sys.argv) < 5:
-        print("Usage: python script_name.py latency_output_file.txt state_file.txt usedHeapSize.txt totalHeapSize.txt HeapSizeLimit.txt")
-        sys.exit(1)
+    output_file = os.path.join(os.getcwd(), "JSOutputTime.txt")
+    state_file = os.path.join(os.getcwd(), "JSactivation_ids.txt_startStates.txt")
+    used_heap_file = os.path.join(os.getcwd(), "usedHeapSize.txt")
+    total_heap_file = os.path.join(os.getcwd(), "totalHeapSize.txt")
+    heap_limit_file = os.path.join(os.getcwd(), "HeapSizeLimit.txt")
 
-    output_file = sys.argv[1]
-    state_file = sys.argv[2]
 
     with open(output_file, 'r') as f:
         latency_data = [float(line.strip()) for line in f.readlines()]
@@ -153,13 +153,13 @@ if __name__ == '__main__':
         states = [line.strip().split(': ')[1].replace('"', '') for line in f.readlines()]
 
     # Loading JS memory data
-    with open(sys.argv[3], 'r') as f:
+    with open(used_heap_file, 'r') as f:
         used_heap = [float(line.strip()) for line in f.readlines()]
 
-    with open(sys.argv[4], 'r') as f:
+    with open(total_heap_file, 'r') as f:
         total_heap = [float(line.strip()) for line in f.readlines()]
 
-    with open(sys.argv[5], 'r') as f:
+    with open(heap_limit_file, 'r') as f:
         heap_limit = [float(line.strip()) for line in f.readlines()]
 
     plot_line_orig(latency_data, states, output_file)

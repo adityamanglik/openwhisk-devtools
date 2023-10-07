@@ -22,7 +22,7 @@ function runJavaExperiment() {
     scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Javaactivation_ids.txt_startStates.txt ./ 
 
     # Java plotter
-    python java_response_time_plotter.py JavaOutputTime.txt Javaactivation_ids.txt_startStates.txt gc1Collections.txt gc1CollectionTime.txt gc2Collections.txt gc2CollectionTime.txt
+    python java_response_time_plotter.py
 }
 
 function runJSExperiment() {
@@ -42,18 +42,18 @@ function runJSExperiment() {
     scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/JSactivation_ids.txt_startStates.txt ./ 
 
     # JS Plotter
-    python js_response_time_plotter.py JSOutputTime.txt JSactivation_ids.txt_startStates.txt usedHeapSize.txt totalHeapSize.txt HeapSizeLimit.txt
+    python js_response_time_plotter.py
 }
 
 # Run the experiments for the three array sizes
 for size in 100 10000 1000000 5000000 ; do
     runJavaExperiment $size
     # Move all log and image files to that directory
-    mv $OW_DIRECTORY/Graphs/*.pdf "$OW_DIRECTORY/Graphs/Java/$size/"
+    # mv $OW_DIRECTORY/Graphs/*.pdf "$OW_DIRECTORY/Graphs/Java/$size/"
     mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/Java/$size/"
 
     runJSExperiment $size
     # Move all log and image files to that directory
-    mv $OW_DIRECTORY/Graphs/*.pdf "$OW_DIRECTORY/Graphs/JS/$size/"
+    # mv $OW_DIRECTORY/Graphs/*.pdf "$OW_DIRECTORY/Graphs/JS/$size/"
     mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/JS/$size/"
 done
