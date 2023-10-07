@@ -1,13 +1,11 @@
 import com.google.gson.JsonObject;
 import java.util.Random;
 import java.lang.management.ManagementFactory;
-import java.lang.management.MemoryMXBean;
-import java.lang.management.MemoryUsage;
 import java.lang.management.GarbageCollectorMXBean;
 
 public class Hello {
 
-    private static final int ARRAY_SIZE = 10000;
+    private static final int ARRAY_SIZE = 5000000;
 
     public static JsonObject main(JsonObject args) {
         int seed = 42; // default seed value
@@ -43,19 +41,6 @@ public class Hello {
                 response.addProperty("gc" + gcIndex + "CollectionTime", timer);
             }
         }
-
-        MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
-
-        MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
-
-        long initMemory = heapMemoryUsage.getInit();  // Initial memory amount
-        long usedMemory = heapMemoryUsage.getUsed();  // Amount of used memory
-        long committedMemory = heapMemoryUsage.getCommitted(); // Amount of memory guaranteed to be available for the JVM
-        long maxMemory = heapMemoryUsage.getMax();   // Maximum amount of memory (can change over time, can be undefined)
-        response.addProperty("heapInitMemory: ", initMemory);
-        response.addProperty("heapUsedMemory: ", usedMemory);
-        response.addProperty("heapCommittedMemory: ", committedMemory);
-        response.addProperty("heapMaxMemory: ", maxMemory);
         
         return response;
     }

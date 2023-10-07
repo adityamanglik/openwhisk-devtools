@@ -45,3 +45,6 @@ Packages/
 # OpenWhisk project-specific
 openwhisk-src
 .wskprops
+docker-compose/Scripts/Javaactivation_ids.txt_startStates.txt
+docker-compose/Scripts/JSactivation_ids.txt_startStates.txt
+docker-compose/Functions/hello.jar
