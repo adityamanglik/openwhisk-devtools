@@ -45,14 +45,6 @@ function runJSExperiment() {
     python js_response_time_plotter.py JSOutputTime.txt JSactivation_ids.txt_startStates.txt usedHeapSize.txt totalHeapSize.txt HeapSizeLimit.txt
 }
 
-
-
-# TODO: Add code to each language runner to delete previous actions, APIs, recreate actions, APIs
-# Delete previous actions
-# Initialize functions
-# ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action create hello Functions/wordcount.js"
-# WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action create JS Functions/wordcount.js 
-
 # Run the experiments for the three array sizes
 for size in 100 10000 1000000 5000000 ; do
     runJavaExperiment $size
