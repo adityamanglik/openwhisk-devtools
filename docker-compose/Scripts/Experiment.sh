@@ -17,15 +17,27 @@ GC1_COLLECTION_TIME_OUTPUT_FILE="gc1CollectionTime.txt"
 GC2_COLLECTIONS_OUTPUT_FILE="gc2Collections.txt"
 GC2_COLLECTION_TIME_OUTPUT_FILE="gc2CollectionTime.txt"
 
-> $TIME_OUTPUT_FILE
-> $ACTIVATION_ID_OUTPUT_FILE
-> $GC1_COLLECTIONS_OUTPUT_FILE
-> $GC1_COLLECTION_TIME_OUTPUT_FILE
-> $GC2_COLLECTIONS_OUTPUT_FILE
-> $GC2_COLLECTION_TIME_OUTPUT_FILE
+USED_HEAP_SIZE_FILE="usedHeapSize.txt"
+TOTAL_HEAP_SIZE_FILE="totalHeapSize.txt"
+HEAP_SIZE_LIMIT_FILE="HeapSizeLimit.txt"
+
+if [ "$LANGUAGE" == "JS" ]; then
+    > $USED_HEAP_SIZE_FILE
+    > $TOTAL_HEAP_SIZE_FILE
+    > $HEAP_SIZE_LIMIT_FILE
+fi
+
+if [ "$LANGUAGE" == "JS" ]; then
+    > $TIME_OUTPUT_FILE
+    > $ACTIVATION_ID_OUTPUT_FILE
+    > $GC1_COLLECTIONS_OUTPUT_FILE
+    > $GC1_COLLECTION_TIME_OUTPUT_FILE
+    > $GC2_COLLECTIONS_OUTPUT_FILE
+    > $GC2_COLLECTION_TIME_OUTPUT_FILE
+fi
 
 # Loop 10,000 times
-for i in {1..5000}
+for i in {1..5}
 do
   # Call the command and get the output
   result=$(./curltime "${API_URL}?seed=$i")
@@ -44,21 +56,35 @@ do
   timeValue=$(echo "$result" | grep -E 'time_total:' | awk -F': ' '{print $2}' | tr -d ' ')
   echo $timeValue >> $TIME_OUTPUT_FILE
 
-  # Extract the gc1CollectionCount value and append to the relevant file
-  gc1CollectionsValue=$(echo "$result" | grep -Eo '"gc1CollectionCount": [0-9]+' | awk '{print $2}')
-  echo $gc1CollectionsValue >> $GC1_COLLECTIONS_OUTPUT_FILE
+  if [ "$LANGUAGE" == "Java" ]; then
+      # Extract the gc1CollectionCount value and append to the relevant file
+      gc1CollectionsValue=$(echo "$result" | grep -Eo '"gc1CollectionCount": [0-9]+' | awk '{print $2}')
+      echo $gc1CollectionsValue >> $GC1_COLLECTIONS_OUTPUT_FILE
 
-  # Extract the gc1CollectionTime value and append to the relevant file
-  gc1CollectionTimeValue=$(echo "$result" | grep -Eo '"gc1CollectionTime": [0-9]+' | awk '{print $2}')
-  echo $gc1CollectionTimeValue >> $GC1_COLLECTION_TIME_OUTPUT_FILE
+      # Extract the gc1CollectionTime value and append to the relevant file
+      gc1CollectionTimeValue=$(echo "$result" | grep -Eo '"gc1CollectionTime": [0-9]+' | awk '{print $2}')
+      echo $gc1CollectionTimeValue >> $GC1_COLLECTION_TIME_OUTPUT_FILE
 
-  # Extract the gc2CollectionCount value and append to the relevant file
-  gc2CollectionsValue=$(echo "$result" | grep -Eo '"gc2CollectionCount": [0-9]+' | awk '{print $2}')
-  echo $gc2CollectionsValue >> $GC2_COLLECTIONS_OUTPUT_FILE
+      # Extract the gc2CollectionCount value and append to the relevant file
+      gc2CollectionsValue=$(echo "$result" | grep -Eo '"gc2CollectionCount": [0-9]+' | awk '{print $2}')
+      echo $gc2CollectionsValue >> $GC2_COLLECTIONS_OUTPUT_FILE
 
-  # Extract the gc2CollectionTime value and append to the relevant file
-  gc2CollectionTimeValue=$(echo "$result" | grep -Eo '"gc2CollectionTime": [0-9]+' | awk '{print $2}')
-  echo $gc2CollectionTimeValue >> $GC2_COLLECTION_TIME_OUTPUT_FILE
+      # Extract the gc2CollectionTime value and append to the relevant file
+      gc2CollectionTimeValue=$(echo "$result" | grep -Eo '"gc2CollectionTime": [0-9]+' | awk '{print $2}')
+      echo $gc2CollectionTimeValue >> $GC2_COLLECTION_TIME_OUTPUT_FILE
+  fi
+  
+  # If LANGUAGE is JS, extract the memory statistics and append to the relevant files
+  if [ "$LANGUAGE" == "JS" ]; then
+      usedHeapSizeValue=$(echo "$result" | grep -Eo '"usedHeapSize": [0-9]+' | awk '{print $2}')
+      echo $usedHeapSizeValue >> $USED_HEAP_SIZE_FILE
+
+      totalHeapSizeValue=$(echo "$result" | grep -Eo '"totalHeapSize": [0-9]+' | awk '{print $2}')
+      echo $totalHeapSizeValue >> $TOTAL_HEAP_SIZE_FILE
+
+      heapSizeLimitValue=$(echo "$result" | grep -Eo '"HeapSizeLimit": [0-9]+' | awk '{print $2}')
+      echo $heapSizeLimitValue >> $HEAP_SIZE_LIMIT_FILE
+  fi
 
   # Optionally print progress
   echo "Iteration $i done"
