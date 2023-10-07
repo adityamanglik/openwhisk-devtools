@@ -33,9 +33,9 @@ function main(params) {
 
   // return { payload: `Seed: ${seedValue}\nThe sum of the array values is ${arraySum}` };
   return { 
-    payload: `usedHeapSize: ${usedHeapSize}\n ` +
-             `totalHeapSize: ${totalHeapSize}\n ` +
-             `HeapSizeLimit: ${residentSetSize}\n ` +
+    payload: `usedHeapSize: ${usedHeapSize} ` +
+             `totalHeapSize: ${totalHeapSize} ` +
+             `HeapSizeLimit: ${residentSetSize} ` +
              `The sum of the array values is ${arraySum}`
 };
 

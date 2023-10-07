@@ -8,26 +8,28 @@ fi
 
 API_URL=$1
 LANGUAGE=$2
+ITERATIONS=5000
 
 # Create or empty the output files
 TIME_OUTPUT_FILE="${LANGUAGE}OutputTime.txt"
 ACTIVATION_ID_OUTPUT_FILE="${LANGUAGE}activation_ids.txt"
-GC1_COLLECTIONS_OUTPUT_FILE="gc1Collections.txt"
-GC1_COLLECTION_TIME_OUTPUT_FILE="gc1CollectionTime.txt"
-GC2_COLLECTIONS_OUTPUT_FILE="gc2Collections.txt"
-GC2_COLLECTION_TIME_OUTPUT_FILE="gc2CollectionTime.txt"
 
+if [ "$LANGUAGE" == "JS" ]; then
 USED_HEAP_SIZE_FILE="usedHeapSize.txt"
 TOTAL_HEAP_SIZE_FILE="totalHeapSize.txt"
 HEAP_SIZE_LIMIT_FILE="HeapSizeLimit.txt"
 
-if [ "$LANGUAGE" == "JS" ]; then
     > $USED_HEAP_SIZE_FILE
     > $TOTAL_HEAP_SIZE_FILE
     > $HEAP_SIZE_LIMIT_FILE
 fi
 
-if [ "$LANGUAGE" == "JS" ]; then
+if [ "$LANGUAGE" == "Java" ]; then
+GC1_COLLECTIONS_OUTPUT_FILE="gc1Collections.txt"
+GC1_COLLECTION_TIME_OUTPUT_FILE="gc1CollectionTime.txt"
+GC2_COLLECTIONS_OUTPUT_FILE="gc2Collections.txt"
+GC2_COLLECTION_TIME_OUTPUT_FILE="gc2CollectionTime.txt"
+
     > $TIME_OUTPUT_FILE
     > $ACTIVATION_ID_OUTPUT_FILE
     > $GC1_COLLECTIONS_OUTPUT_FILE
@@ -37,8 +39,7 @@ if [ "$LANGUAGE" == "JS" ]; then
 fi
 
 # Loop 10,000 times
-for i in {1..5}
-do
+for i in $(seq 1 $ITERATIONS); do
   # Call the command and get the output
   result=$(./curltime "${API_URL}?seed=$i")
 
@@ -76,15 +77,16 @@ do
   
   # If LANGUAGE is JS, extract the memory statistics and append to the relevant files
   if [ "$LANGUAGE" == "JS" ]; then
-      usedHeapSizeValue=$(echo "$result" | grep -Eo '"usedHeapSize": [0-9]+' | awk '{print $2}')
+      usedHeapSizeValue=$(echo "$result" | grep -Eo 'usedHeapSize: [0-9]+' | awk '{print $2}')
       echo $usedHeapSizeValue >> $USED_HEAP_SIZE_FILE
 
-      totalHeapSizeValue=$(echo "$result" | grep -Eo '"totalHeapSize": [0-9]+' | awk '{print $2}')
+      totalHeapSizeValue=$(echo "$result" | grep -Eo 'totalHeapSize: [0-9]+' | awk '{print $2}')
       echo $totalHeapSizeValue >> $TOTAL_HEAP_SIZE_FILE
 
-      heapSizeLimitValue=$(echo "$result" | grep -Eo '"HeapSizeLimit": [0-9]+' | awk '{print $2}')
+      heapSizeLimitValue=$(echo "$result" | grep -Eo 'HeapSizeLimit: [0-9]+' | awk '{print $2}')
       echo $heapSizeLimitValue >> $HEAP_SIZE_LIMIT_FILE
   fi
+
 
   # Optionally print progress
   echo "Iteration $i done"

@@ -1,4 +1,4 @@
-OW_SERVER_NODE="am_CU@apt069.apt.emulab.net"
+OW_SERVER_NODE="am_CU@node1"
 JAVA_API="http://128.110.96.8:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloJava/world"
 JAVASCRIPT_API="http://128.110.96.8:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
@@ -55,10 +55,13 @@ function runJSExperiment() {
 
 # Run the experiments for the three array sizes
 for size in 100 10000 1000000 5000000 ; do
-    runExperiment $size
+    runJavaExperiment $size
+    # Move all log and image files to that directory
+    mv $OW_DIRECTORY/Graphs/*.pdf "$OW_DIRECTORY/Graphs/Java/$size/"
+    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/Java/$size/"
+
     runJSExperiment $size
     # Move all log and image files to that directory
-    mv $OW_DIRECTORY/Graphs/*.pdf "$OW_DIRECTORY/Graphs/$size/"
-    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/$size/"
-
+    mv $OW_DIRECTORY/Graphs/*.pdf "$OW_DIRECTORY/Graphs/JS/$size/"
+    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/JS/$size/"
 done
