@@ -1,8 +1,9 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import sys
 
-def plot_heap_stats(heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory, output_file):
+def plot_heap_stats(input_size, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory, output_file):
     x = np.arange(1, len(heap_committed_memory) + 1)
 
     fig, ax1 = plt.subplots(figsize=(12, 6))
@@ -26,10 +27,10 @@ def plot_heap_stats(heap_committed_memory, heap_init_memory, heap_max_memory, he
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
     plt.title('Heap Memory Metrics Over {} Iterations'.format(len(heap_committed_memory)))
-    plt.savefig('../Graphs/Java/'+ 'heap_stats_plot.pdf')
+    plt.savefig(f'../Graphs/Java/{input_size}'+ 'heap_stats_plot.pdf')
     # plt.show()
 
-def plot_histogram(data, states, output_file):
+def plot_histogram(input_size, data, states, output_file):
     plt.figure(figsize=(12, 6))
 
     # Compute mean and std
@@ -61,15 +62,15 @@ def plot_histogram(data, states, output_file):
     plt.yscale('symlog')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
-    plt.savefig('../Graphs/Java/'+ 'histogram_plot.pdf')
+    plt.savefig(f'../Graphs/Java/{input_size}'+ 'histogram_plot.pdf')
     # plt.show()
 
 
-def plot_line_orig(data, states, output_file):
+def plot_line_orig(input_size, data, states):
     x = np.arange(1, len(data) + 1)
 
     plt.figure(figsize=(12, 6))
-    plt.plot(x, data, label=output_file+' Response Time', linewidth=2, color='blue')
+    plt.plot(x, data, label='Response Time', linewidth=2, color='blue')
     cold_x = [x[i] for i, state in enumerate(states) if state == "cold"]
     cold_data = [data[i] for i, state in enumerate(states) if state == "cold"]
     plt.scatter(cold_x, cold_data, color='red', label='Cold Activation', s=50)
@@ -79,10 +80,10 @@ def plot_line_orig(data, states, output_file):
     plt.yscale('symlog')
     plt.grid(True)
     plt.legend()
-    plt.savefig('../Graphs/Java/'+ 'line_plot.pdf')
+    plt.savefig(f'../Graphs/Java/{input_size}'+ 'line_plot.pdf')
     # plt.show()
 
-def plot_line(data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory, output_file):
+def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory, output_file):
     x = np.arange(1, len(data) + 1)
 
     fig, ax1 = plt.subplots(figsize=(12, 6))
@@ -122,12 +123,12 @@ def plot_line(data, states, gc1_collections, gc1_collection_times, gc2_collectio
     plt.grid(True)
     fig.legend(loc='center right')
     plt.title('Response Time, GC, and Heap Memory Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig('../Graphs/Java/'+ 'combined_line_plot.pdf')
+    plt.savefig(f'../Graphs/Java/{input_size}'+ 'combined_line_plot.pdf')
     # plt.show()
 
 
 
-def plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
+def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
     x = np.arange(1, len(gc1_collections) + 1)
 
     fig, ax1 = plt.subplots(figsize=(12, 6))
@@ -151,11 +152,18 @@ def plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_co
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
     plt.title('GC Metrics Over {} Iterations'.format(len(gc1_collections)))
-    plt.savefig('../Graphs/Java/'+ 'gc_stats_plot.pdf')
+    plt.savefig(f'../Graphs/Java/{input_size}'+ 'gc_stats_plot.pdf')
     # plt.show()
 
 
 if __name__ == '__main__':
+    # Check if the right number of arguments is provided
+    if len(sys.argv) != 2:
+        print("Usage: python script_name.py <size>")
+        sys.exit(1)
+
+    # Get size from command line
+    input_size = int(sys.argv[1])
 
     # Read files
     output_file = os.path.join(os.getcwd(), "JavaOutputTime.txt")
@@ -202,9 +210,9 @@ if __name__ == '__main__':
     with open(heap_used_memory_file, 'r') as f:
         heap_used_memory = [float(line.strip()) for line in f.readlines()]
 
-    plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file)
-    plot_line_orig(latency_data, states, output_file)
-    plot_line(latency_data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory, output_file)  # Modified the function arguments
-    plot_histogram(latency_data, states, output_file)
+    plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file)
+    plot_line_orig(input_size, latency_data, states, output_file)
+    plot_line(input_size, latency_data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory, output_file)  # Modified the function arguments
+    plot_histogram(input_size, latency_data, states)
     # Now plot heap stats
-    plot_heap_stats(heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory, output_file)
+    plot_heap_stats(input_size, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory, output_file)

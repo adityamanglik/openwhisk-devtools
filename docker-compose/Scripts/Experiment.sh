@@ -8,7 +8,7 @@ fi
 
 API_URL=$1
 LANGUAGE=$2
-ITERATIONS=5000
+ITERATIONS=5
 
 # Functions
 

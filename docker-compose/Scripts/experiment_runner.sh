@@ -22,7 +22,7 @@ function runJavaExperiment() {
     scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Javaactivation_ids.txt_startStates.txt ./ 
 
     # Java plotter
-    python java_response_time_plotter.py
+    python java_response_time_plotter.py $size
 }
 
 function runJSExperiment() {
@@ -42,7 +42,7 @@ function runJSExperiment() {
     scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/JSactivation_ids.txt_startStates.txt ./ 
 
     # JS Plotter
-    python js_response_time_plotter.py
+    python js_response_time_plotter.py $size
 }
 
 # Run the experiments for the three array sizes

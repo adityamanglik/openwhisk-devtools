@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import os
+import sys
 
 def plot_js_memory_stats(used_heap, total_heap, heap_limit, output_file):
     x = np.arange(1, len(used_heap) + 1)
@@ -25,7 +26,7 @@ def plot_js_memory_stats(used_heap, total_heap, heap_limit, output_file):
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
     plt.title('JavaScript Memory Metrics Over {} Iterations'.format(len(used_heap)))
-    plt.savefig('../Graphs/JS/'+ 'memory_stats_plot.pdf')
+    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'memory_stats_plot.pdf')
     # plt.show()
 
 def plot_histogram(data, states, output_file):
@@ -60,15 +61,15 @@ def plot_histogram(data, states, output_file):
     plt.yscale('symlog')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
-    plt.savefig('../Graphs/JS/'+ 'histogram_plot.pdf')
+    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'histogram_plot.pdf')
     # plt.show()
 
 
-def plot_line_orig(data, states, output_file):
+def plot_line_orig(input_size, data, states):
     x = np.arange(1, len(data) + 1)
 
     plt.figure(figsize=(12, 6))
-    plt.plot(x, data, label=output_file+' Response Time', linewidth=2, color='blue')
+    plt.plot(x, data, label='Response Time', linewidth=2, color='blue')
     cold_x = [x[i] for i, state in enumerate(states) if state == "cold"]
     cold_data = [data[i] for i, state in enumerate(states) if state == "cold"]
     plt.scatter(cold_x, cold_data, color='red', label='Cold Activation', s=50)
@@ -78,10 +79,10 @@ def plot_line_orig(data, states, output_file):
     plt.grid(True)
     plt.yscale('symlog')
     plt.legend()
-    plt.savefig('../Graphs/JS/'+ 'line_plot.pdf')
+    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'line_plot.pdf')
     # plt.show()
 
-def plot_line(data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
+def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
     x = np.arange(1, len(data) + 1)
 
     fig, ax1 = plt.figure(figsize=(12, 6)), plt.gca()
@@ -107,10 +108,10 @@ def plot_line(data, states, gc1_collections, gc1_collection_times, gc2_collectio
     plt.grid(True)
     fig.legend(loc='center right')
     plt.title('Response Time and GC Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig('../Graphs/JS/'+ 'combined_line_plot.pdf')
+    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'combined_line_plot.pdf')
 
 
-def plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
+def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
     x = np.arange(1, len(gc1_collections) + 1)
 
     fig, ax1 = plt.subplots(figsize=(12, 6))
@@ -134,11 +135,19 @@ def plot_gc_stats(gc1_collections, gc1_collection_times, gc2_collections, gc2_co
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
     plt.title('GC Metrics Over {} Iterations'.format(len(gc1_collections)))
-    plt.savefig('../Graphs/JS/'+ 'gc_stats_plot.pdf')
+    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'gc_stats_plot.pdf')
     # plt.show()
 
 
 if __name__ == '__main__':
+        # Check if the right number of arguments is provided
+    if len(sys.argv) != 2:
+        print("Usage: python script_name.py <size>")
+        sys.exit(1)
+        
+    # Get size from command line
+    input_size = int(sys.argv[1])
+
     output_file = os.path.join(os.getcwd(), "JSOutputTime.txt")
     state_file = os.path.join(os.getcwd(), "JSactivation_ids.txt_startStates.txt")
     used_heap_file = os.path.join(os.getcwd(), "usedHeapSize.txt")
@@ -162,6 +171,6 @@ if __name__ == '__main__':
     with open(heap_limit_file, 'r') as f:
         heap_limit = [float(line.strip()) for line in f.readlines()]
 
-    plot_line_orig(latency_data, states, output_file)
-    plot_histogram(latency_data, states, output_file)
-    plot_js_memory_stats(used_heap, total_heap, heap_limit, output_file)
+    plot_line_orig(input_size, latency_data, states, output_file)
+    plot_histogram(input_size, latency_data, states, output_file)
+    plot_js_memory_stats(input_size, used_heap, total_heap, heap_limit, output_file)
