@@ -1,0 +1,5 @@
+038b2ae1f1b04d2f8b2ae1f1b06d2f9f: cold
+96c5608df7fe433085608df7fe8330fe: warm
+79eff7c595f54eefaff7c595f57eef7f: warm
+4db66b34a6d6458db66b34a6d6e58dc7: warm
+1628fc0c8fde4aefa8fc0c8fde1aef89: warm

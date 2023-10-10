@@ -3,7 +3,7 @@ import numpy as np
 import os
 import sys
 
-def plot_js_memory_stats(used_heap, total_heap, heap_limit, output_file):
+def plot_js_memory_stats(input_size, used_heap, total_heap, heap_limit):
     x = np.arange(1, len(used_heap) + 1)
 
     fig, ax1 = plt.subplots(figsize=(12, 6))
@@ -29,7 +29,7 @@ def plot_js_memory_stats(used_heap, total_heap, heap_limit, output_file):
     plt.savefig(f'../Graphs/JS/{input_size}/'+ 'memory_stats_plot.pdf')
     # plt.show()
 
-def plot_histogram(data, states, output_file):
+def plot_histogram(input_size, data, states):
     plt.figure(figsize=(12, 6))
 
     # Compute mean and std
@@ -82,14 +82,14 @@ def plot_line_orig(input_size, data, states):
     plt.savefig(f'../Graphs/JS/{input_size}/'+ 'line_plot.pdf')
     # plt.show()
 
-def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
+def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times):
     x = np.arange(1, len(data) + 1)
 
     fig, ax1 = plt.figure(figsize=(12, 6)), plt.gca()
     
     ax1.set_xlabel('Iteration')
     ax1.set_ylabel('Response Time (s)', color='blue')
-    ax1.plot(x, data, label=output_file+' Response Time', linewidth=2, color='blue')
+    ax1.plot(x, data, label='Response Time', linewidth=2, color='blue')
     cold_x = [x[i] for i, state in enumerate(states) if state == "cold"]
     cold_data = [data[i] for i, state in enumerate(states) if state == "cold"]
     ax1.scatter(cold_x, cold_data, color='red', label='Cold Activation', s=50)
@@ -111,7 +111,7 @@ def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, g
     plt.savefig(f'../Graphs/JS/{input_size}/'+ 'combined_line_plot.pdf')
 
 
-def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, output_file):
+def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times):
     x = np.arange(1, len(gc1_collections) + 1)
 
     fig, ax1 = plt.subplots(figsize=(12, 6))
@@ -148,6 +148,10 @@ if __name__ == '__main__':
     # Get size from command line
     input_size = int(sys.argv[1])
 
+    directory_path = f'../Graphs/JS/{input_size}/'
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+
     output_file = os.path.join(os.getcwd(), "JSOutputTime.txt")
     state_file = os.path.join(os.getcwd(), "JSactivation_ids.txt_startStates.txt")
     used_heap_file = os.path.join(os.getcwd(), "usedHeapSize.txt")
@@ -171,6 +175,6 @@ if __name__ == '__main__':
     with open(heap_limit_file, 'r') as f:
         heap_limit = [float(line.strip()) for line in f.readlines()]
 
-    plot_line_orig(input_size, latency_data, states, output_file)
-    plot_histogram(input_size, latency_data, states, output_file)
-    plot_js_memory_stats(input_size, used_heap, total_heap, heap_limit, output_file)
+    plot_line_orig(input_size, latency_data, states)
+    plot_histogram(input_size, latency_data, states)
+    plot_js_memory_stats(input_size, used_heap, total_heap, heap_limit)

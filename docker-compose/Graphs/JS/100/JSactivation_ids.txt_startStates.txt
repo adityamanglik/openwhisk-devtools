@@ -1,5 +1,5 @@
-: warm
-: warm
-: warm
-: warm
-: warm
+c1549343fb2c4118949343fb2cd118ab: cold
+b28ad36eacb1424b8ad36eacb1724b8d: warm
+c5b0786c703e4097b0786c703ed097b2: warm
+ea1733b8f21442f49733b8f21482f4d9: warm
+27b3fa1638ce4312b3fa1638cee312b3: warm
