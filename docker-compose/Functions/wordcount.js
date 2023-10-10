@@ -1,9 +1,4 @@
-<<<<<<< Updated upstream
 const ARRAY_SIZE = 100;
-=======
-const ARRAY_SIZE = 1000000;
->>>>>>> Stashed changes
-
 function generateRandomNormal(mean, stdDev) {
   // Box-Muller transform to generate a random number from a normal distribution
   const u1 = Math.random();
