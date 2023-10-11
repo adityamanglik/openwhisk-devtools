@@ -8,20 +8,23 @@ fi
 
 API_URL=$1
 LANGUAGE=$2
-ITERATIONS=5
+ITERATIONS=5000
 
 # Functions
 
 print_progress() {
     local current=$1
     local total=$2
+    local elapsed=$3
+    local est_total=$(echo "scale=2; ($elapsed / $current) * $total" | bc)
+    local est_remaining=$(echo "scale=2; $est_total - $elapsed" | bc)
     local width=50
     local progress=$(( ($current * $width) / $total ))
     local remaining=$(( $width - $progress ))
     printf "\r["
     printf "%${progress}s" | tr ' ' '#'
     printf "%${remaining}s" ' ' 
-    printf "] (%d/%d)" $current $total
+    printf "] (%d/%d) Elapsed: %.2fs Est. Remaining: %.2fs" $current $total $elapsed $est_remaining
 }
 
 initialize_js_files() {
@@ -81,6 +84,7 @@ esac
 
 # Loop 
 for i in $(seq 1 $ITERATIONS); do
+  start_time=$SECONDS
   retry_counter=0
   max_retries=5
   success=0
@@ -158,8 +162,12 @@ for i in $(seq 1 $ITERATIONS); do
           ;;
   esac
 
+  end_time=$SECONDS
+  elapsed_time=$(($end_time-$start_time))
+  total_elapsed_time=$(($SECONDS))
+
   # Print progress
-  print_progress $i $ITERATIONS
+  print_progress $i $ITERATIONS $total_elapsed_time
 done
 
 echo # Print a newline after completion

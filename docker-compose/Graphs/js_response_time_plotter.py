@@ -2,6 +2,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import sys
+from matplotlib.widgets import CheckButtons
+
+def read_data(file_name):
+    """Utility function to read data from a file."""
+    with open(file_name, 'r') as f:
+        return [float(line.strip()) for line in f.readlines()]
 
 def plot_js_memory_stats(input_size, used_heap, total_heap, heap_limit):
     x = np.arange(1, len(used_heap) + 1)
@@ -138,43 +144,75 @@ def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collect
     plt.savefig(f'../Graphs/JS/{input_size}/'+ 'gc_stats_plot.pdf')
     # plt.show()
 
+def plot_js_metrics(input_size, data, states, used_heap, total_heap, heap_limit):
+    x = np.arange(1, len(data) + 1)
+    fig, ax1 = plt.subplots(figsize=(12, 6))
+    
+    # Response Time
+    l1, = ax1.plot(x, data, label='Response Time', linewidth=2, color='blue', marker='o')
+    cold_x = [x[i] for i, state in enumerate(states) if state == "cold"]
+    cold_data = [data[i] for i, state in enumerate(states) if state == "cold"]
+    ax1.scatter(cold_x, cold_data, color='red', label='Cold Activation', s=50)
+    ax1.set_xlabel('Iteration')
+    ax1.set_ylabel('Response Time (s)', color='blue')
+    ax1.tick_params(axis='y', labelcolor='blue')
+    ax1.grid(True)
+
+    # Memory statistics
+    ax2 = ax1.twinx()
+    l2, = ax2.plot(x, used_heap, label='Used Heap Size', color='darkgreen')
+    l3, = ax2.plot(x, total_heap, label='Total Heap Size', color='green')
+    l4, = ax2.plot(x, heap_limit, label='Heap Size Limit', color='red')
+    ax2.set_ylabel('Memory (bytes)', color='green')
+    ax2.tick_params(axis='y', labelcolor='green')
+    
+    fig.tight_layout()
+    
+    # Setting up checkboxes
+    lines = [l1, l2, l3, l4]
+    ax_legend = plt.axes([0.05, 0.4, 0.2, 0.5], frame_on=False)
+    ax_legend.axis('off')
+    labels = [str(line.get_label()) for line in lines]
+    visibility = [line.get_visible() for line in lines]
+    check = CheckButtons(ax_legend, labels, visibility)
+    
+    def set_line_visibility(label):
+        index = labels.index(label)
+        lines[index].set_visible(not lines[index].get_visible())
+        plt.draw()
+
+    check.on_clicked(set_line_visibility)
+
+    plt.title('JavaScript Response Time and Memory Metrics Over {} Iterations'.format(len(data)))
+    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'combined_js_metrics_plot.pdf')
+    plt.show()
+
 
 if __name__ == '__main__':
-        # Check if the right number of arguments is provided
+    # Check the number of arguments
     if len(sys.argv) != 2:
         print("Usage: python script_name.py <size>")
         sys.exit(1)
-        
-    # Get size from command line
-    input_size = int(sys.argv[1])
 
+    # Get size from the command line and set up directories
+    input_size = sys.argv[1]
     directory_path = f'../Graphs/JS/{input_size}/'
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
-    output_file = os.path.join(os.getcwd(), "JSOutputTime.txt")
-    state_file = os.path.join(os.getcwd(), "JSactivation_ids.txt_startStates.txt")
-    used_heap_file = os.path.join(os.getcwd(), "usedHeapSize.txt")
-    total_heap_file = os.path.join(os.getcwd(), "totalHeapSize.txt")
-    heap_limit_file = os.path.join(os.getcwd(), "HeapSizeLimit.txt")
+    # Base file path
+    base_path = os.getcwd()
+    base_path = os.path.join(base_path, f'JS/{input_size}/')
 
+    # Reading data
+    latency_data = read_data(os.path.join(base_path, "JSOutputTime.txt"))
+    states = [line.split(': ')[1].replace('"', '').strip() for line in open(os.path.join(base_path, "JSactivation_ids.txt_startStates.txt"))]
+    used_heap = read_data(os.path.join(base_path, "usedHeapSize.txt"))
+    total_heap = read_data(os.path.join(base_path, "totalHeapSize.txt"))
+    heap_limit = read_data(os.path.join(base_path, "HeapSizeLimit.txt"))
 
-    with open(output_file, 'r') as f:
-        latency_data = [float(line.strip()) for line in f.readlines()]
-
-    with open(state_file, 'r') as f:
-        states = [line.strip().split(': ')[1].replace('"', '') for line in f.readlines()]
-
-    # Loading JS memory data
-    with open(used_heap_file, 'r') as f:
-        used_heap = [float(line.strip()) for line in f.readlines()]
-
-    with open(total_heap_file, 'r') as f:
-        total_heap = [float(line.strip()) for line in f.readlines()]
-
-    with open(heap_limit_file, 'r') as f:
-        heap_limit = [float(line.strip()) for line in f.readlines()]
-
+    # Plotting functions
     plot_line_orig(input_size, latency_data, states)
     plot_histogram(input_size, latency_data, states)
     plot_js_memory_stats(input_size, used_heap, total_heap, heap_limit)
+    plot_js_metrics(input_size, latency_data, states, used_heap, total_heap, heap_limit)

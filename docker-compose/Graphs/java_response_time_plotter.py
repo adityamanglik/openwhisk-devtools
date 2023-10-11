@@ -2,6 +2,12 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import sys
+from matplotlib.widgets import CheckButtons
+
+def read_data(file_name):
+    """Utility function to read data from a file."""
+    with open(file_name, 'r') as f:
+        return [float(line.strip()) for line in f.readlines()]
 
 def plot_heap_stats(input_size, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory):
     x = np.arange(1, len(heap_committed_memory) + 1)
@@ -85,12 +91,11 @@ def plot_line_orig(input_size, data, states):
 
 def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory):
     x = np.arange(1, len(data) + 1)
-
     fig, ax1 = plt.subplots(figsize=(12, 6))
-    
     ax1.set_xlabel('Iteration')
     ax1.set_ylabel('Response Time (s)', color='blue')
-    ax1.plot(x, data, label='Response Time', linewidth=2, color='blue', marker='o')
+    
+    l1, = ax1.plot(x, data, label='Response Time', linewidth=2, color='blue', marker='o')
     cold_x = [x[i] for i, state in enumerate(states) if state == "cold"]
     cold_data = [data[i] for i, state in enumerate(states) if state == "cold"]
     ax1.scatter(cold_x, cold_data, color='red', label='Cold Activation', s=50)
@@ -98,33 +103,49 @@ def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, g
 
     ax2 = ax1.twinx()
     ax2.set_ylabel('GC Metrics', color='red')
-    ax2.plot(x, gc1_collections, label='GC1 Collections', linewidth=1, color='darkred', marker='^')
-    ax2.plot(x, gc1_collection_times, label='GC1 Collection Times', linewidth=1, color='red', marker='v')
-    ax2.plot(x, gc2_collections, label='GC2 Collections', linewidth=1, color='lightcoral', marker='<')
-    ax2.plot(x, gc2_collection_times, label='GC2 Collection Times', linewidth=1, color='pink', marker='>')
+    l2, = ax2.plot(x, gc1_collections, label='GC1 Collections', linewidth=1, color='darkred', marker='^')
+    l3, = ax2.plot(x, gc1_collection_times, label='GC1 Collection Times', linewidth=1, color='red', marker='v')
+    l4, = ax2.plot(x, gc2_collections, label='GC2 Collections', linewidth=1, color='lightcoral', marker='<')
+    l5, = ax2.plot(x, gc2_collection_times, label='GC2 Collection Times', linewidth=1, color='pink', marker='>')
     ax2.tick_params(axis='y', labelcolor='red')
     ax2.set_yscale('symlog')
 
     ax3 = ax1.twinx()
     ax3.spines['right'].set_position(('outward', 60))
     ax3.set_ylabel('Heap Memory (Committed & Used)')
-    ax3.plot(x, heap_committed_memory, label='Heap Committed Memory', color='darkgreen', linestyle='--')
-    ax3.plot(x, heap_used_memory, label='Heap Used Memory', color='lightgreen', linestyle=':')
+    l6, = ax3.plot(x, heap_committed_memory, label='Heap Committed Memory', color='darkgreen', linestyle='--')
+    l7, = ax3.plot(x, heap_used_memory, label='Heap Used Memory', color='lightgreen', linestyle=':')
     ax3.tick_params(axis='y', labelcolor='green')
 
     ax4 = ax1.twinx()
     ax4.spines['right'].set_position(('outward', 120))
     ax4.set_ylabel('Heap Memory (Initial & Max)')
-    ax4.plot(x, heap_init_memory, label='Heap Init Memory', color='green', linestyle='-')
-    ax4.plot(x, heap_max_memory, label='Heap Max Memory', color='lime', linestyle='-.')
+    l8, = ax4.plot(x, heap_init_memory, label='Heap Init Memory', color='green', linestyle='-')
+    l9, = ax4.plot(x, heap_max_memory, label='Heap Max Memory', color='lime', linestyle='-.')
     ax4.tick_params(axis='y', labelcolor='darkgreen')
 
     fig.tight_layout()
     plt.grid(True)
-    fig.legend(loc='center right')
+
+    # Set up checkbuttons with all plotted lines with correct visibility
+    lines = [l1, l2, l3, l4, l5, l6, l7, l8, l9]
+    ax_legend = plt.axes([0.05, 0.4, 0.2, 0.5], frame_on=False)
+    ax_legend.axis('off')
+    labels = [str(line.get_label()) for line in lines]
+    visibility = [line.get_visible() for line in lines]
+    check = CheckButtons(ax_legend, labels, visibility)
+    
+    def set_line_visibility(label):
+        index = labels.index(label)
+        lines[index].set_visible(not lines[index].get_visible())
+        plt.draw()
+
+    check.on_clicked(set_line_visibility)
+
     plt.title('Response Time, GC, and Heap Memory Metrics Over {} Iterations'.format(len(data)))
     plt.savefig(f'../Graphs/Java/{input_size}/'+ 'combined_line_plot.pdf')
     # plt.show()
+
 
 
 
@@ -162,61 +183,30 @@ if __name__ == '__main__':
         print("Usage: python script_name.py <size>")
         sys.exit(1)
 
-    # Get size from command line
-    input_size = int(sys.argv[1])
-
+    # Get size from command line and set up directories
+    input_size = sys.argv[1]
     directory_path = f'../Graphs/Java/{input_size}/'
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
-    # Read files
-    output_file = os.path.join(os.getcwd(), "JavaOutputTime.txt")
-    state_file = os.path.join(os.getcwd(), "Javaactivation_ids.txt_startStates.txt")
-    gc1_collections_file = os.path.join(os.getcwd(), "gc1Collections.txt")
-    gc1_collection_time_file = os.path.join(os.getcwd(), "gc1CollectionTime.txt")
-    gc2_collections_file = os.path.join(os.getcwd(), "gc2Collections.txt")
-    gc2_collection_time_file = os.path.join(os.getcwd(), "gc2CollectionTime.txt")
-    heap_committed_memory_file = os.path.join(os.getcwd(), "heapCommittedMemory.txt")
-    heap_init_memory_file = os.path.join(os.getcwd(), "heapInitMemory.txt")
-    heap_max_memory_file = os.path.join(os.getcwd(), "heapMaxMemory.txt")
-    heap_used_memory_file = os.path.join(os.getcwd(), "heapUsedMemory.txt")
-
-    with open(output_file, 'r') as f:
-        latency_data = [float(line.strip()) for line in f.readlines()]
-
-    with open(state_file, 'r') as f:
-        states = [line.strip().split(': ')[1].replace('"', '') for line in f.readlines()]
-
-    # Loading GC1 data
-    with open(gc1_collections_file, 'r') as f:
-        gc1_collections = [float(line.strip()) for line in f.readlines()]
-
-    with open(gc1_collection_time_file, 'r') as f:
-        gc1_collection_times = [float(line.strip()) for line in f.readlines()]
-
-    # Loading GC2 data
-    with open(gc2_collections_file, 'r') as f:
-        gc2_collections = [float(line.strip()) for line in f.readlines()]
-
-    with open(gc2_collection_time_file, 'r') as f:
-        gc2_collection_times = [float(line.strip()) for line in f.readlines()]
-
-    # Loading heap data
-    with open(heap_committed_memory_file, 'r') as f:
-        heap_committed_memory = [float(line.strip()) for line in f.readlines()]
-
-    with open(heap_init_memory_file, 'r') as f:
-        heap_init_memory = [float(line.strip()) for line in f.readlines()]
-
-    with open(heap_max_memory_file, 'r') as f:
-        heap_max_memory = [float(line.strip()) for line in f.readlines()]
-
-    with open(heap_used_memory_file, 'r') as f:
-        heap_used_memory = [float(line.strip()) for line in f.readlines()]
+    # Base file path
+    base_path = os.getcwd()
+    base_path = os.path.join(base_path, f'Java/{input_size}/')
+    
+    # Reading data from files
+    latency_data = read_data(os.path.join(base_path, "JavaOutputTime.txt"))
+    states = [line.split(': ')[1].replace('"', '').strip() for line in open(os.path.join(base_path, "Javaactivation_ids.txt_startStates.txt"))]
+    gc1_collections = read_data(os.path.join(base_path, "gc1Collections.txt"))
+    gc1_collection_times = read_data(os.path.join(base_path, "gc1CollectionTime.txt"))
+    gc2_collections = read_data(os.path.join(base_path, "gc2Collections.txt"))
+    gc2_collection_times = read_data(os.path.join(base_path, "gc2CollectionTime.txt"))
+    heap_committed_memory = read_data(os.path.join(base_path, "heapCommittedMemory.txt"))
+    heap_init_memory = read_data(os.path.join(base_path, "heapInitMemory.txt"))
+    heap_max_memory = read_data(os.path.join(base_path, "heapMaxMemory.txt"))
+    heap_used_memory = read_data(os.path.join(base_path, "heapUsedMemory.txt"))
 
     plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times)
     plot_line_orig(input_size, latency_data, states)
-    plot_line(input_size, latency_data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory)  # Modified the function arguments
+    plot_line(input_size, latency_data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory)
     plot_histogram(input_size, latency_data, states)
-    # Now plot heap stats
     plot_heap_stats(input_size, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory)

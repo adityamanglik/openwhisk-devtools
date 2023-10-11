@@ -21,8 +21,11 @@ function runJavaExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; bash ./activation_status_checker.sh ./Javaactivation_ids.txt"
     scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Javaactivation_ids.txt_startStates.txt ./ 
 
+    # Move all log and image files to that directory
+    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/Java/$size/"
+
     # Java plotter
-    python java_response_time_plotter.py $size
+    python ../Graphs/java_response_time_plotter.py $size
 }
 
 function runJSExperiment() {
@@ -41,17 +44,15 @@ function runJSExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; bash ./activation_status_checker.sh ./JSactivation_ids.txt"
     scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/JSactivation_ids.txt_startStates.txt ./ 
 
+    # Move all log and image files to that directory
+    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/JS/$size/"
+
     # JS Plotter
-    python js_response_time_plotter.py $size
+    python ../Graphs/js_response_time_plotter.py $size
 }
 
 # Run the experiments for the three array sizes
 for size in 100 10000 1000000 5000000 ; do
     runJavaExperiment $size
-    # Move all log and image files to that directory
-    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/Java/$size/"
-
     runJSExperiment $size
-    # Move all log and image files to that directory
-    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/JS/$size/"
 done
