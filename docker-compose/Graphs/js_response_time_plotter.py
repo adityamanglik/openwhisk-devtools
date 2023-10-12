@@ -146,7 +146,7 @@ def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collect
 
 def plot_js_metrics(input_size, data, states, used_heap, total_heap, heap_limit):
     x = np.arange(1, len(data) + 1)
-    fig, ax1 = plt.subplots(figsize=(12, 6))
+    fig, ax1 = plt.subplots()  # Removed the figsize argument to let matplotlib auto-size
     
     # Response Time
     l1, = ax1.plot(x, data, label='Response Time', linewidth=2, color='blue', marker='o')
@@ -168,24 +168,10 @@ def plot_js_metrics(input_size, data, states, used_heap, total_heap, heap_limit)
     
     fig.tight_layout()
     
-    # Setting up checkboxes
-    lines = [l1, l2, l3, l4]
-    ax_legend = plt.axes([0.05, 0.4, 0.2, 0.5], frame_on=False)
-    ax_legend.axis('off')
-    labels = [str(line.get_label()) for line in lines]
-    visibility = [line.get_visible() for line in lines]
-    check = CheckButtons(ax_legend, labels, visibility)
-    
-    def set_line_visibility(label):
-        index = labels.index(label)
-        lines[index].set_visible(not lines[index].get_visible())
-        plt.draw()
-
-    check.on_clicked(set_line_visibility)
-
     plt.title('JavaScript Response Time and Memory Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'combined_js_metrics_plot.pdf')
+    plt.savefig(f'../Graphs/JS/{input_size}/' + 'combined_js_metrics_plot.pdf')
     plt.show()
+
 
 
 if __name__ == '__main__':

@@ -91,7 +91,7 @@ def plot_line_orig(input_size, data, states):
 
 def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory):
     x = np.arange(1, len(data) + 1)
-    fig, ax1 = plt.subplots(figsize=(12, 6))
+    fig, ax1 = plt.subplots()
     ax1.set_xlabel('Iteration')
     ax1.set_ylabel('Response Time (s)', color='blue')
     
@@ -122,32 +122,12 @@ def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, g
     ax4.set_ylabel('Heap Memory (Initial & Max)')
     l8, = ax4.plot(x, heap_init_memory, label='Heap Init Memory', color='green', linestyle='-')
     l9, = ax4.plot(x, heap_max_memory, label='Heap Max Memory', color='lime', linestyle='-.')
-    ax4.tick_params(axis='y', labelcolor='darkgreen')
 
     fig.tight_layout()
     plt.grid(True)
-
-    # Set up checkbuttons with all plotted lines with correct visibility
-    lines = [l1, l2, l3, l4, l5, l6, l7, l8, l9]
-    ax_legend = plt.axes([0.05, 0.4, 0.2, 0.5], frame_on=False)
-    ax_legend.axis('off')
-    labels = [str(line.get_label()) for line in lines]
-    visibility = [line.get_visible() for line in lines]
-    check = CheckButtons(ax_legend, labels, visibility)
-    
-    def set_line_visibility(label):
-        index = labels.index(label)
-        lines[index].set_visible(not lines[index].get_visible())
-        plt.draw()
-
-    check.on_clicked(set_line_visibility)
-
     plt.title('Response Time, GC, and Heap Memory Metrics Over {} Iterations'.format(len(data)))
     plt.savefig(f'../Graphs/Java/{input_size}/'+ 'combined_line_plot.pdf')
     # plt.show()
-
-
-
 
 def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times):
     x = np.arange(1, len(gc1_collections) + 1)
