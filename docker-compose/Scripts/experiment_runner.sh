@@ -53,6 +53,8 @@ function runJSExperiment() {
 
 # Run the experiments for the three array sizes
 for size in 100 10000 1000000 5000000 ; do
-    runJavaExperiment $size
-    runJSExperiment $size
+    # runJavaExperiment $size
+    # runJSExperiment $size
+    python ../Graphs/js_response_time_plotter.py $size
+    python ../Graphs/java_response_time_plotter.py $size
 done

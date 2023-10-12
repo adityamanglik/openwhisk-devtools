@@ -185,6 +185,17 @@ if __name__ == '__main__':
     heap_max_memory = read_data(os.path.join(base_path, "heapMaxMemory.txt"))
     heap_used_memory = read_data(os.path.join(base_path, "heapUsedMemory.txt"))
 
+    latency_data = latency_data[:50]
+    states = states[:50]
+    gc1_collections = gc1_collections[:50]
+    gc1_collection_times = gc1_collection_times[:50]
+    gc2_collections = gc2_collections[:50]
+    gc2_collection_times = gc2_collection_times[:50]
+    heap_committed_memory = heap_committed_memory[:50]
+    heap_init_memory = heap_init_memory[:50]
+    heap_max_memory = heap_max_memory[:50]
+    heap_used_memory = heap_used_memory[:50]
+
     plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times)
     plot_line_orig(input_size, latency_data, states)
     plot_line(input_size, latency_data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times, heap_committed_memory, heap_init_memory, heap_max_memory, heap_used_memory)
