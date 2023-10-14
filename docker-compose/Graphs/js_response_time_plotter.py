@@ -4,6 +4,8 @@ import os
 import sys
 from matplotlib.widgets import CheckButtons
 
+ITERATIONS = 50
+
 def read_data(file_name):
     """Utility function to read data from a file."""
     with open(file_name, 'r') as f:
@@ -196,6 +198,12 @@ if __name__ == '__main__':
     used_heap = read_data(os.path.join(base_path, "usedHeapSize.txt"))
     total_heap = read_data(os.path.join(base_path, "totalHeapSize.txt"))
     heap_limit = read_data(os.path.join(base_path, "HeapSizeLimit.txt"))
+
+    latency_data = latency_data[:ITERATIONS]
+    states = states[:ITERATIONS]
+    used_heap = used_heap[:ITERATIONS]
+    total_heap = total_heap[:ITERATIONS]
+    heap_limit = heap_limit[:ITERATIONS]
 
     # Plotting functions
     plot_line_orig(input_size, latency_data, states)

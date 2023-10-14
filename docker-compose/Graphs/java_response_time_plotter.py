@@ -4,6 +4,8 @@ import os
 import sys
 from matplotlib.widgets import CheckButtons
 
+ITERATIONS = 50
+
 def read_data(file_name):
     """Utility function to read data from a file."""
     with open(file_name, 'r') as f:
@@ -185,16 +187,16 @@ if __name__ == '__main__':
     heap_max_memory = read_data(os.path.join(base_path, "heapMaxMemory.txt"))
     heap_used_memory = read_data(os.path.join(base_path, "heapUsedMemory.txt"))
 
-    latency_data = latency_data[:50]
-    states = states[:50]
-    gc1_collections = gc1_collections[:50]
-    gc1_collection_times = gc1_collection_times[:50]
-    gc2_collections = gc2_collections[:50]
-    gc2_collection_times = gc2_collection_times[:50]
-    heap_committed_memory = heap_committed_memory[:50]
-    heap_init_memory = heap_init_memory[:50]
-    heap_max_memory = heap_max_memory[:50]
-    heap_used_memory = heap_used_memory[:50]
+    latency_data = latency_data[:ITERATIONS]
+    states = states[:ITERATIONS]
+    gc1_collections = gc1_collections[:ITERATIONS]
+    gc1_collection_times = gc1_collection_times[:ITERATIONS]
+    gc2_collections = gc2_collections[:ITERATIONS]
+    gc2_collection_times = gc2_collection_times[:ITERATIONS]
+    heap_committed_memory = heap_committed_memory[:ITERATIONS]
+    heap_init_memory = heap_init_memory[:ITERATIONS]
+    heap_max_memory = heap_max_memory[:ITERATIONS]
+    heap_used_memory = heap_used_memory[:ITERATIONS]
 
     plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times)
     plot_line_orig(input_size, latency_data, states)
