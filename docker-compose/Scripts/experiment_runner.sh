@@ -57,7 +57,7 @@ function runJSExperiment() {
 function runGoExperiment() {
     # Update the Go code with the new array size
     local size=$1
-    ssh $OW_SERVER_NODE "sed -i 's/const ARRAY_SIZE = [0-9]\+;/const ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Functions/hello.go"
+    ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" size \";\";next}1' size=${size} $OW_DIRECTORY/Functions/hello.go > $OW_DIRECTORY/Functions/temp.go && mv $OW_DIRECTORY/Functions/temp.go $OW_DIRECTORY/Functions/hello.go"
 
     # Make sure we get fresh data by resetting functions via update
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloGo Functions/hello.go"
@@ -79,8 +79,8 @@ function runGoExperiment() {
 
 # Run the experiments for the three array sizes
 for size in 100 10000 1000000 5000000 ; do
-    # runJavaExperiment $size
-    # runJSExperiment $size
+    runJavaExperiment $size
+    runJSExperiment $size
     runGoExperiment $size
     # python ../Graphs/js_response_time_plotter.py $size
     # python ../Graphs/java_response_time_plotter.py $size
