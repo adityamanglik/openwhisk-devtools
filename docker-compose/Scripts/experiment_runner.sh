@@ -3,7 +3,7 @@ JAVA_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hel
 JAVASCRIPT_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
 GO_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloGo/world"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
-
+ITERATIONS=5000
 ssh $OW_SERVER_NODE "export OW_DIRECTORY='/users/am_CU/openwhisk-devtools/docker-compose';"
 
 function runJavaExperiment() {
@@ -17,7 +17,7 @@ function runJavaExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloJava Functions/hello.jar --main Hello"
 
     # Start generating load
-    source Experiment.sh $JAVA_API Java
+    source Experiment.sh $JAVA_API Java $ITERATIONS
 
     # Retrieve warm/cold status of each activation
     scp Javaactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
@@ -40,7 +40,7 @@ function runJSExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update hello Functions/wordcount.js"
 
     # Start generating load
-    source Experiment.sh $JAVASCRIPT_API JS
+    source Experiment.sh $JAVASCRIPT_API JS $ITERATIONS
 
     # Retrieve warm/cold status of each activation
     scp JSactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
@@ -63,7 +63,7 @@ function runGoExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloGo Functions/hello.go"
 
     # Start generating load
-    source Experiment.sh $GO_API Go
+    source Experiment.sh $GO_API Go $ITERATIONS
 
     # Retrieve warm/cold status of each activation
     scp Goactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
