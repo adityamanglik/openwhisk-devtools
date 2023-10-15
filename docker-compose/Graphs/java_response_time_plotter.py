@@ -4,7 +4,7 @@ import os
 import sys
 from matplotlib.widgets import CheckButtons
 
-ITERATIONS = 50
+ITERATIONS = 5000
 
 def read_data(file_name):
     """Utility function to read data from a file."""
