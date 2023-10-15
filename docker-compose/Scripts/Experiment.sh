@@ -8,7 +8,7 @@ fi
 
 API_URL=$1
 LANGUAGE=$2
-ITERATIONS=5000
+ITERATIONS=5
 
 # Functions
 
@@ -16,16 +16,15 @@ print_progress() {
     local current=$1
     local total=$2
     local elapsed=$3
-    local est_total=$(echo "scale=2; ($elapsed / $current) * $total" | bc)
-    local est_remaining=$(echo "scale=2; $est_total - $elapsed" | bc)
     local width=50
     local progress=$(( ($current * $width) / $total ))
     local remaining=$(( $width - $progress ))
     printf "\r["
     printf "%${progress}s" | tr ' ' '#'
     printf "%${remaining}s" ' ' 
-    printf "] (%d/%d) Elapsed: %.2fs Est. Remaining: %.2fs" $current $total $elapsed $est_remaining
+    printf "] (%d/%d) Elapsed: %.2fs" $current $total $elapsed
 }
+
 
 initialize_js_files() {
     USED_HEAP_SIZE_FILE="usedHeapSize.txt"
@@ -59,6 +58,24 @@ initialize_java_files() {
     > $HEAP_USED_MEMORY_FILE
 }
 
+initialize_go_files() {
+    HEAP_ALLOC_MEMORY_FILE="heapAllocMemory.txt"
+    HEAP_IDLE_MEMORY_FILE="heapIdleMemory.txt"
+    HEAP_INUSE_MEMORY_FILE="heapInuseMemory.txt"
+    HEAP_OBJECTS_FILE="heapObjects.txt"
+    HEAP_RELEASED_MEMORY_FILE="heapReleasedMemory.txt"
+    HEAP_SYS_MEMORY_FILE="heapSysMemory.txt"
+    SUM_FILE="sum.txt"
+
+    > $HEAP_ALLOC_MEMORY_FILE
+    > $HEAP_IDLE_MEMORY_FILE
+    > $HEAP_INUSE_MEMORY_FILE
+    > $HEAP_OBJECTS_FILE
+    > $HEAP_RELEASED_MEMORY_FILE
+    > $HEAP_SYS_MEMORY_FILE
+    > $SUM_FILE
+}
+
 
 # Main script
 
@@ -75,6 +92,9 @@ case "$LANGUAGE" in
         ;;
     "Java")
         initialize_java_files
+        ;;
+    "Go")
+        initialize_go_files
         ;;
     *)
         echo "Unsupported language: $LANGUAGE"
@@ -160,6 +180,28 @@ for i in $(seq 1 $ITERATIONS); do
           gc2CollectionTimeValue=$(echo "$result" | grep -Eo '"gc2CollectionTime": [0-9]+' | awk '{print $2}')
           echo $gc2CollectionTimeValue >> $GC2_COLLECTION_TIME_OUTPUT_FILE
           ;;
+      "Go")
+        heapAllocMemoryValue=$(echo "$result" | grep -Eo '"heapAllocMemory": [0-9]+' | awk '{print $2}')
+        echo $heapAllocMemoryValue >> $HEAP_ALLOC_MEMORY_FILE
+
+        heapIdleMemoryValue=$(echo "$result" | grep -Eo '"heapIdleMemory": [0-9]+' | awk '{print $2}')
+        echo $heapIdleMemoryValue >> $HEAP_IDLE_MEMORY_FILE
+
+        heapInuseMemoryValue=$(echo "$result" | grep -Eo '"heapInuseMemory": [0-9]+' | awk '{print $2}')
+        echo $heapInuseMemoryValue >> $HEAP_INUSE_MEMORY_FILE
+
+        heapObjectsValue=$(echo "$result" | grep -Eo '"heapObjects": [0-9]+' | awk '{print $2}')
+        echo $heapObjectsValue >> $HEAP_OBJECTS_FILE
+
+        heapReleasedMemoryValue=$(echo "$result" | grep -Eo '"heapReleasedMemory": [0-9]+' | awk '{print $2}')
+        echo $heapReleasedMemoryValue >> $HEAP_RELEASED_MEMORY_FILE
+
+        heapSysMemoryValue=$(echo "$result" | grep -Eo '"heapSysMemory": [0-9]+' | awk '{print $2}')
+        echo $heapSysMemoryValue >> $HEAP_SYS_MEMORY_FILE
+
+        sumValue=$(echo "$result" | grep -Eo '"sum": [0-9]+' | awk '{print $2}')
+        echo $sumValue >> $SUM_FILE
+        ;;
   esac
 
   end_time=$SECONDS

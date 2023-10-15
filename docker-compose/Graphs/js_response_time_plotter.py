@@ -182,6 +182,8 @@ if __name__ == '__main__':
         print("Usage: python script_name.py <size>")
         sys.exit(1)
 
+    os.chdir('/users/am_CU/openwhisk-devtools/docker-compose/Graphs/')
+
     # Get size from the command line and set up directories
     input_size = sys.argv[1]
     directory_path = f'../Graphs/JS/{input_size}/'
