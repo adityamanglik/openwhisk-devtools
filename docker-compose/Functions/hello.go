@@ -6,8 +6,6 @@ import (
 	"runtime"
 )
 
-const ARRAY_SIZE = 100
-
 type Response struct {
 	Sum               int64  `json:"sum"`
 	HeapAllocMemory   uint64 `json:"heapAllocMemory"`
@@ -17,6 +15,9 @@ type Response struct {
 	HeapReleasedMemory uint64 `json:"heapReleasedMemory"`
 	HeapObjects       uint64 `json:"heapObjects"`
 }
+
+// MARKER_FOR_SIZE_UPDATE
+const ARRAY_SIZE = 5000000;
 
 // Main is the function implementing the action
 func Main(obj map[string]interface{}) map[string]interface{} {
