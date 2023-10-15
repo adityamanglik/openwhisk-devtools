@@ -48,3 +48,5 @@ openwhisk-src
 docker-compose/Scripts/Javaactivation_ids.txt_startStates.txt
 docker-compose/Scripts/JSactivation_ids.txt_startStates.txt
 docker-compose/Functions/hello.jar
+docker-compose/Functions/hello
+docker-compose/Functions/hello.jar
