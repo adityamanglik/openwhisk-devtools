@@ -5,13 +5,15 @@ JAVA_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hel
 JAVASCRIPT_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
 GO_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloGo/world"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
+GC_FLAGS="-Xmx64m -XX:MaxGCPauseMillis=50 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/PureJava/gc_log"
+NO_GC_FLAGS="-Xmx4g -XX:MaxGCPauseMillis=500 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/PureJava/no_gc_log"
 ITERATIONS=10
 
 ssh $OW_SERVER_NODE "export OW_DIRECTORY='/users/am_CU/openwhisk-devtools/docker-compose';"
 
 function runJavaExperiment() {
     # Update the Java code with the new array size
-    local size=$1    
+    local size=$1
     ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Functions/Hello.java"
 
     # Make sure we get fresh data by resetting functions via update
@@ -25,7 +27,7 @@ function runJavaExperiment() {
     # Retrieve warm/cold status of each activation
     scp Javaactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; bash ./activation_status_checker.sh ./Javaactivation_ids.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Javaactivation_ids.txt_startStates.txt ./ 
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Javaactivation_ids.txt_startStates.txt ./
 
     # Move all log and image files to that directory
     mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/Java/$size/"
@@ -50,30 +52,30 @@ function runNativeJavaExperiment() {
     fi
 
     # Update the Java code with the new array size
-    local size=$1    
+    local size=$1
     ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/PureJava/Hello.java"
 
     # compile code and start server
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
-    # ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar JsonServer &"
-    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
 
     # Warm up until server is read to serve requests
     while :; do
-    # Send request and store response
-    RESPONSE=$(curl -s "$NATIVE_JAVA_API")
+        # Send request and store response
+        RESPONSE=$(curl -s "$NATIVE_JAVA_API")
 
-    # Check if response is valid (i.e., starts with '{')
-    if [[ "$RESPONSE" == "{"* ]]; then
-        echo "Received valid response!"
-        echo "$RESPONSE"
-        break
-    else
-        echo "Invalid response, retrying..."
-    fi
+        # Check if response is valid (i.e., starts with '{')
+        if [[ "$RESPONSE" == "{"* ]]; then
+            echo "Received valid response!"
+            # echo "$RESPONSE"
+            break
+        else
+            # echo "$RESPONSE"
+            echo "Invalid response, retrying..."
+        fi
 
-    # Optional: Sleep for a short duration before the next request
-    sleep 1
+        # Optional: Sleep for a short duration before the next request
+        sleep 1
     done
 
     # Start generating load
@@ -101,6 +103,71 @@ function runNativeJavaExperiment() {
 
 }
 
+function runNativeJavaNoGCExperiment() {
+    # Kill java server IF IT IS RUNNING
+
+    # Find the process ID
+    PID=$(ssh $OW_SERVER_NODE "jps | awk '/JsonServer/ {print \$1}'")
+
+    # Check if PID was found
+    if [ -z "$PID" ]; then
+        echo "JsonServer is not running."
+    else
+        # Kill the process
+        ssh $OW_SERVER_NODE "kill $PID"
+        echo "Killed JsonServer with PID $PID."
+    fi
+
+    # Update the Java code with the new array size
+    local size=$1
+    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/PureJava/Hello.java"
+
+    # compile code and start server
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar $NO_GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+
+    # Warm up until server is read to serve requests
+    while :; do
+        # Send request and store response
+        RESPONSE=$(curl -s "$NATIVE_JAVA_API")
+
+        # Check if response is valid (i.e., starts with '{')
+        if [[ "$RESPONSE" == "{"* ]]; then
+            echo "Received valid response!"
+            # echo "$RESPONSE"
+            break
+        else
+            echo "Invalid response, retrying..."
+        fi
+
+        # Optional: Sleep for a short duration before the next request
+        sleep 1
+    done
+
+    # Start generating load
+    source Experiment.sh $NATIVE_JAVA_API NativeJava $ITERATIONS
+
+    # Move all log and image files to that directory
+    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/NativeJava/$size/"
+
+    # Java plotter
+    python ../Graphs/native_java_response_time_plotter.py $size
+
+    # Kill java server
+
+    # Find the process ID
+    PID=$(ssh $OW_SERVER_NODE "jps | awk '/JsonServer/ {print \$1}'")
+
+    # Check if PID was found
+    if [ -z "$PID" ]; then
+        echo "JsonServer is not running."
+    else
+        # Kill the process
+        ssh $OW_SERVER_NODE "kill $PID"
+        echo "Killed JsonServer with PID $PID."
+    fi
+
+}
 
 function runJSExperiment() {
     # Update the JavaScript code with the new array size
@@ -116,7 +183,7 @@ function runJSExperiment() {
     # Retrieve warm/cold status of each activation
     scp JSactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; bash ./activation_status_checker.sh ./JSactivation_ids.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/JSactivation_ids.txt_startStates.txt ./ 
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/JSactivation_ids.txt_startStates.txt ./
 
     # Move all log and image files to that directory
     mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/JS/$size/"
@@ -139,7 +206,7 @@ function runGoExperiment() {
     # Retrieve warm/cold status of each activation
     scp Goactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; bash ./activation_status_checker.sh ./Goactivation_ids.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Goactivation_ids.txt_startStates.txt ./ 
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Goactivation_ids.txt_startStates.txt ./
 
     # Move all log and image files to that directory
     mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/Go/$size/"
@@ -149,8 +216,11 @@ function runGoExperiment() {
 }
 
 # Run the experiments for the three array sizes
-for size in 100; do
+for size in 100 10000 1000000 5000000; do
+    echo "Size: $size"
     runNativeJavaExperiment $size
+    cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/* 
+    runNativeJavaNoGCExperiment $size
     # runJavaExperiment $size
     # runJSExperiment $size
     # runGoExperiment $size
