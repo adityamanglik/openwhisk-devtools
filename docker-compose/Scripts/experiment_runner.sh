@@ -7,7 +7,7 @@ GO_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
 GC_FLAGS="-Xmx64m -XX:MaxGCPauseMillis=50 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/PureJava/gc_log"
 NO_GC_FLAGS="-Xmx4g -XX:MaxGCPauseMillis=500 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/PureJava/no_gc_log"
-ITERATIONS=10
+ITERATIONS=5000
 
 ssh $OW_SERVER_NODE "export OW_DIRECTORY='/users/am_CU/openwhisk-devtools/docker-compose';"
 
@@ -57,7 +57,7 @@ function runNativeJavaExperiment() {
 
     # compile code and start server
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
-    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; taskset -c 1 java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
 
     # Warm up until server is read to serve requests
     while :; do
@@ -124,7 +124,7 @@ function runNativeJavaNoGCExperiment() {
 
     # compile code and start server
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
-    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar $NO_GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; taskset -c 1 java -cp .:gson-2.10.1.jar $NO_GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
 
     # Warm up until server is read to serve requests
     while :; do
@@ -214,9 +214,9 @@ function runGoExperiment() {
     # Go plotter (Assuming you have a python plotter for Go as well. If not, remove the next line)
     python ../Graphs/go_response_time_plotter.py $size
 }
-
+# Backup size: 5000000
 # Run the experiments for the three array sizes
-for size in 100 10000 1000000 5000000; do
+for size in 100 10000 1000000; do
     echo "Size: $size"
     runNativeJavaExperiment $size
     cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/* 
