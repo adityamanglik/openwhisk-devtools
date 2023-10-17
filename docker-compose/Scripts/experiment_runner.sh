@@ -5,7 +5,7 @@ JAVA_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hel
 JAVASCRIPT_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
 GO_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloGo/world"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
-ITERATIONS=5
+ITERATIONS=10
 
 ssh $OW_SERVER_NODE "export OW_DIRECTORY='/users/am_CU/openwhisk-devtools/docker-compose';"
 
@@ -57,6 +57,24 @@ function runNativeJavaExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
     # ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar JsonServer &"
     ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+
+    # Warm up until server is read to serve requests
+    while :; do
+    # Send request and store response
+    RESPONSE=$(curl -s "$NATIVE_JAVA_API")
+
+    # Check if response is valid (i.e., starts with '{')
+    if [[ "$RESPONSE" == "{"* ]]; then
+        echo "Received valid response!"
+        echo "$RESPONSE"
+        break
+    else
+        echo "Invalid response, retrying..."
+    fi
+
+    # Optional: Sleep for a short duration before the next request
+    sleep 1
+    done
 
     # Start generating load
     source Experiment.sh $NATIVE_JAVA_API NativeJava $ITERATIONS
