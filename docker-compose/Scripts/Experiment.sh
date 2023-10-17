@@ -76,6 +76,28 @@ initialize_go_files() {
     > $SUM_FILE
 }
 
+initialize_native_java_files() {
+    GC1_COLLECTIONS_OUTPUT_FILE="gc1NativeCollections.txt"
+    GC1_COLLECTION_TIME_OUTPUT_FILE="gc1NativeCollectionTime.txt"
+    GC2_COLLECTIONS_OUTPUT_FILE="gc2NativeCollections.txt"
+    GC2_COLLECTION_TIME_OUTPUT_FILE="gc2NativeCollectionTime.txt"
+    
+    HEAP_COMMITTED_MEMORY_FILE="nativeHeapCommittedMemory.txt"
+    HEAP_INIT_MEMORY_FILE="nativeHeapInitMemory.txt"
+    HEAP_MAX_MEMORY_FILE="nativeHeapMaxMemory.txt"
+    HEAP_USED_MEMORY_FILE="nativeHeapUsedMemory.txt"
+
+    > $GC1_COLLECTIONS_OUTPUT_FILE
+    > $GC1_COLLECTION_TIME_OUTPUT_FILE
+    > $GC2_COLLECTIONS_OUTPUT_FILE
+    > $GC2_COLLECTION_TIME_OUTPUT_FILE
+
+    > $HEAP_COMMITTED_MEMORY_FILE
+    > $HEAP_INIT_MEMORY_FILE
+    > $HEAP_MAX_MEMORY_FILE
+    > $HEAP_USED_MEMORY_FILE
+}
+
 
 # Main script
 
@@ -92,6 +114,9 @@ case "$LANGUAGE" in
         ;;
     "Java")
         initialize_java_files
+        ;;
+    "NativeJava")
+        initialize_native_java_files
         ;;
     "Go")
         initialize_go_files
@@ -149,20 +174,20 @@ for i in $(seq 1 $ITERATIONS); do
 
       "Java")
           # Extract the heapCommittedMemory value and append to the relevant file
-            heapCommittedMemoryValue=$(echo "$result" | grep -Eo '"heapCommittedMemory: ": [0-9]+' | awk '{print $3}')
-            echo $heapCommittedMemoryValue >> heapCommittedMemory.txt
+          heapCommittedMemoryValue=$(echo "$result" | grep -Eo '"heapCommittedMemory: ": [0-9]+' | awk '{print $3}')
+          echo $heapCommittedMemoryValue >> heapCommittedMemory.txt
 
-            # Extract the heapInitMemory value and append to the relevant file
-            heapInitMemoryValue=$(echo "$result" | grep -Eo '"heapInitMemory: ": [0-9]+' | awk '{print $3}')
-            echo $heapInitMemoryValue >> heapInitMemory.txt
+          # Extract the heapInitMemory value and append to the relevant file
+          heapInitMemoryValue=$(echo "$result" | grep -Eo '"heapInitMemory: ": [0-9]+' | awk '{print $3}')
+          echo $heapInitMemoryValue >> heapInitMemory.txt
 
-            # Extract the heapMaxMemory value and append to the relevant file
-            heapMaxMemoryValue=$(echo "$result" | grep -Eo '"heapMaxMemory: ": [0-9]+' | awk '{print $3}')
-            echo $heapMaxMemoryValue >> heapMaxMemory.txt
+          # Extract the heapMaxMemory value and append to the relevant file
+          heapMaxMemoryValue=$(echo "$result" | grep -Eo '"heapMaxMemory: ": [0-9]+' | awk '{print $3}')
+          echo $heapMaxMemoryValue >> heapMaxMemory.txt
 
-            # Extract the heapUsedMemory value and append to the relevant file
-            heapUsedMemoryValue=$(echo "$result" | grep -Eo '"heapUsedMemory: ": [0-9]+' | awk '{print $3}')
-            echo $heapUsedMemoryValue >> heapUsedMemory.txt
+          # Extract the heapUsedMemory value and append to the relevant file
+          heapUsedMemoryValue=$(echo "$result" | grep -Eo '"heapUsedMemory: ": [0-9]+' | awk '{print $3}')
+          echo $heapUsedMemoryValue >> heapUsedMemory.txt
 
           # Extract the gc1CollectionCount value and append to the relevant file
           gc1CollectionsValue=$(echo "$result" | grep -Eo '"gc1CollectionCount": [0-9]+' | awk '{print $2}')
@@ -180,6 +205,7 @@ for i in $(seq 1 $ITERATIONS); do
           gc2CollectionTimeValue=$(echo "$result" | grep -Eo '"gc2CollectionTime": [0-9]+' | awk '{print $2}')
           echo $gc2CollectionTimeValue >> $GC2_COLLECTION_TIME_OUTPUT_FILE
           ;;
+          
       "Go")
         heapAllocMemoryValue=$(echo "$result" | grep -Eo '"heapAllocMemory": [0-9]+' | awk '{print $2}')
         echo $heapAllocMemoryValue >> $HEAP_ALLOC_MEMORY_FILE
@@ -201,6 +227,33 @@ for i in $(seq 1 $ITERATIONS); do
 
         sumValue=$(echo "$result" | grep -Eo '"sum": [0-9]+' | awk '{print $2}')
         echo $sumValue >> $SUM_FILE
+        ;;
+      "NativeJava")
+        
+# Extraction and writing to the files
+        heapCommittedMemoryValue=$(echo "$result" | sed -n 's/.*"heapCommittedMemory: ":[ \t]*\([0-9]*\).*/\1/p')
+        echo $heapCommittedMemoryValue >> nativeHeapCommittedMemory.txt
+
+        heapInitMemoryValue=$(echo "$result" | sed -n 's/.*"heapInitMemory: ":[ \t]*\([0-9]*\).*/\1/p')
+        echo $heapInitMemoryValue >> nativeHeapInitMemory.txt
+
+        heapMaxMemoryValue=$(echo "$result" | sed -n 's/.*"heapMaxMemory: ":[ \t]*\([0-9]*\).*/\1/p')
+        echo $heapMaxMemoryValue >> nativeHeapMaxMemory.txt
+
+        heapUsedMemoryValue=$(echo "$result" | sed -n 's/.*"heapUsedMemory: ":[ \t]*\([0-9]*\).*/\1/p')
+        echo $heapUsedMemoryValue >> nativeHeapUsedMemory.txt
+
+        gc1CollectionsValue=$(echo "$result" | awk -F'"gc1CollectionCount":' '{print $2}' | awk -F, '{print $1}')
+        echo $gc1CollectionsValue >> gc1NativeCollections.txt
+
+        gc1CollectionTimeValue=$(echo "$result" | awk -F'"gc1CollectionTime":' '{print $2}' | awk -F, '{print $1}')
+        echo $gc1CollectionTimeValue >> gc1NativeCollectionTime.txt
+
+        gc2CollectionsValue=$(echo "$result" | awk -F'"gc2CollectionCount":' '{print $2}' | awk -F, '{print $1}')
+        echo $gc2CollectionsValue >> gc2NativeCollections.txt
+
+        gc2CollectionTimeValue=$(echo "$result" | awk -F'"gc2CollectionTime":' '{print $2}' | awk -F, '{print $1}')
+        echo $gc2CollectionTimeValue >> gc2NativeCollectionTime.txt
         ;;
   esac
 

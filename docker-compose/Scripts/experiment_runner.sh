@@ -1,9 +1,12 @@
+# set -x
 OW_SERVER_NODE="am_CU@node0"
+NATIVE_JAVA_API="http://128.110.96.15:9876/jsonresponse"
 JAVA_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloJava/world"
 JAVASCRIPT_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
 GO_API="http://128.110.96.15:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloGo/world"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
-ITERATIONS=5000
+ITERATIONS=5
+
 ssh $OW_SERVER_NODE "export OW_DIRECTORY='/users/am_CU/openwhisk-devtools/docker-compose';"
 
 function runJavaExperiment() {
@@ -30,6 +33,56 @@ function runJavaExperiment() {
     # Java plotter
     python ../Graphs/java_response_time_plotter.py $size
 }
+
+function runNativeJavaExperiment() {
+    # Kill java server IF IT IS RUNNING
+
+    # Find the process ID
+    PID=$(ssh $OW_SERVER_NODE "jps | awk '/JsonServer/ {print \$1}'")
+
+    # Check if PID was found
+    if [ -z "$PID" ]; then
+        echo "JsonServer is not running."
+    else
+        # Kill the process
+        ssh $OW_SERVER_NODE "kill $PID"
+        echo "Killed JsonServer with PID $PID."
+    fi
+
+    # Update the Java code with the new array size
+    local size=$1    
+    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/PureJava/Hello.java"
+
+    # compile code and start server
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
+    # ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar JsonServer &"
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; java -cp .:gson-2.10.1.jar JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+
+    # Start generating load
+    source Experiment.sh $NATIVE_JAVA_API NativeJava $ITERATIONS
+
+    # Move all log and image files to that directory
+    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/NativeJava/$size/"
+
+    # Java plotter
+    python ../Graphs/native_java_response_time_plotter.py $size
+
+    # Kill java server
+
+    # Find the process ID
+    PID=$(ssh $OW_SERVER_NODE "jps | awk '/JsonServer/ {print \$1}'")
+
+    # Check if PID was found
+    if [ -z "$PID" ]; then
+        echo "JsonServer is not running."
+    else
+        # Kill the process
+        ssh $OW_SERVER_NODE "kill $PID"
+        echo "Killed JsonServer with PID $PID."
+    fi
+
+}
+
 
 function runJSExperiment() {
     # Update the JavaScript code with the new array size
@@ -78,10 +131,11 @@ function runGoExperiment() {
 }
 
 # Run the experiments for the three array sizes
-for size in 100 10000 1000000 5000000 ; do
-    runJavaExperiment $size
-    runJSExperiment $size
-    runGoExperiment $size
+for size in 100; do
+    runNativeJavaExperiment $size
+    # runJavaExperiment $size
+    # runJSExperiment $size
+    # runGoExperiment $size
     # python ../Graphs/js_response_time_plotter.py $size
     # python ../Graphs/java_response_time_plotter.py $size
     # python ../Graphs/go_response_time_plotter.py $size
