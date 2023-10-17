@@ -219,7 +219,7 @@ function runGoExperiment() {
 for size in 100 10000 1000000; do
     echo "Size: $size"
     runNativeJavaExperiment $size
-    cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/* 
+    cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/
     runNativeJavaNoGCExperiment $size
     # runJavaExperiment $size
     # runJSExperiment $size
