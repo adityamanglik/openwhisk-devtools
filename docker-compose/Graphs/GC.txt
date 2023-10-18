@@ -1,0 +1,15 @@
+4.0K	1000000/gc2NativeCollections.txt
+4.0K	1000000/NativeJavaactivation_ids.txt
+4.0K	1000000/gc2NativeCollectionTime.txt
+16K	1000000/histogram_plot.pdf
+8.0K	1000000/nativeHeapInitMemory.txt
+28K	1000000/gc_stats_plot.pdf
+8.0K	1000000/nativeHeapCommittedMemory.txt
+20K	1000000/line_plot.pdf
+8.0K	1000000/nativeHeapUsedMemory.txt
+8.0K	1000000/nativeHeapMaxMemory.txt
+4.0K	1000000/gc1NativeCollections.txt
+20K	1000000/heap_stats_plot.pdf
+4.0K	1000000/gc1NativeCollectionTime.txt
+8.0K	1000000/NativeJavaOutputTime.txt
+148K	1000000
