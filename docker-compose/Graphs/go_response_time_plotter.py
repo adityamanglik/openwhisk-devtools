@@ -2,14 +2,13 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 import sys
-from matplotlib.widgets import CheckButtons
 
 ITERATIONS = 5000
 
 def read_data(file_name):
     """Utility function to read data from a file."""
     with open(file_name, 'r') as f:
-        return [float(line.strip()) for line in f.readlines()]
+        return [float(line.strip()) for line in f.readlines() if line.strip()]
 
 def plot_go_memory_stats(input_size, heap_alloc, heap_idle, heap_inuse, heap_objects, heap_released, heap_sys):
     x = np.arange(1, len(heap_alloc) + 1)
@@ -63,7 +62,7 @@ def plot_histogram(input_size, data, states):
     plt.yscale('symlog')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
-    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'histogram_plot.pdf')
+    plt.savefig(f'../Graphs/Go/{input_size}/'+ 'histogram_plot.pdf')
     # plt.show()
 
 
@@ -81,7 +80,7 @@ def plot_line_orig(input_size, data, states):
     plt.grid(True)
     plt.yscale('symlog')
     plt.legend()
-    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'line_plot.pdf')
+    plt.savefig(f'../Graphs/Go/{input_size}/'+ 'line_plot.pdf')
     # plt.show()
 
 def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times):
@@ -110,7 +109,7 @@ def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, g
     plt.grid(True)
     fig.legend(loc='center right')
     plt.title('Response Time and GC Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'combined_line_plot.pdf')
+    plt.savefig(f'../Graphs/Go/{input_size}/'+ 'combined_line_plot.pdf')
 
 
 def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times):
@@ -137,7 +136,7 @@ def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collect
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
     plt.title('GC Metrics Over {} Iterations'.format(len(gc1_collections)))
-    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'gc_stats_plot.pdf')
+    plt.savefig(f'../Graphs/Go/{input_size}/'+ 'gc_stats_plot.pdf')
     # plt.show()
 
 def plot_js_metrics(input_size, data, states, used_heap, total_heap, heap_limit):
@@ -165,7 +164,7 @@ def plot_js_metrics(input_size, data, states, used_heap, total_heap, heap_limit)
     fig.tight_layout()
     
     plt.title('JavaScript Response Time and Memory Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig(f'../Graphs/JS/{input_size}/' + 'combined_js_metrics_plot.pdf')
+    plt.savefig(f'../Graphs/Go/{input_size}/' + 'combined_Go_metrics_plot.pdf')
     plt.show()
 
 
