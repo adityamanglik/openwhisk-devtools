@@ -223,8 +223,8 @@ for size in 100 10000 1000000 3200000; do
     # runNativeJavaNoGCExperiment $size
     # runJavaExperiment $size
     # runJSExperiment $size
-    runGoExperiment $size
+    # runGoExperiment $size
     # python ../Graphs/js_response_time_plotter.py $size
     # python ../Graphs/java_response_time_plotter.py $size
-    # python ../Graphs/go_response_time_plotter.py $size
+    python ../Graphs/go_response_time_plotter.py $size
 done
