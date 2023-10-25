@@ -9,7 +9,7 @@ ITERATIONS = 5000
 def read_data(file_name):
     """Utility function to read data from a file."""
     with open(file_name, 'r') as f:
-        return [float(line.strip()) for line in f.readlines()]
+        return [float(line.strip()) for line in f.readlines() if line.strip()]
 
 def plot_js_memory_stats(input_size, used_heap, total_heap, heap_limit):
     x = np.arange(1, len(used_heap) + 1)
@@ -37,12 +37,14 @@ def plot_js_memory_stats(input_size, used_heap, total_heap, heap_limit):
     plt.savefig(f'../Graphs/JS/{input_size}/'+ 'memory_stats_plot.pdf')
     # plt.show()
 
-def plot_histogram(input_size, data, states):
+def plot_histogram(input_size, data, states):    
     plt.figure(figsize=(12, 6))
 
-    # Compute mean and std
-    mean_val = np.mean(data)
-    std_val = np.std(data)
+    # Compute median, p90, p95, and p99
+    median_val = np.median(data)
+    p90_val = np.percentile(data, 90)
+    p95_val = np.percentile(data, 95)
+    p99_val = np.percentile(data, 99)
 
     # Create histogram bins
     n, bins, patches = plt.hist(data, bins=50, color='blue', label='Warm Response Time', alpha=0.7)
@@ -55,12 +57,12 @@ def plot_histogram(input_size, data, states):
         height = count
         plt.text(rect.get_x() + rect.get_width() / 2, height + 5, str(int(cold_count)), ha='center', va='bottom', color='red')
 
-    # Add text label for mean and std
-    plt.text(0.85, 0.85, f"Mean: {mean_val:.2f}\nStd: {std_val:.2f}", transform=plt.gca().transAxes, ha="right", va="top",
+    # Add text label for median, p90, p95, and p99
+    plt.text(0.85, 0.85, f"Median: {median_val:.2f}\nP90: {p90_val:.2f}\nP95: {p95_val:.2f}\nP99: {p99_val:.2f}", transform=plt.gca().transAxes, ha="right", va="top",
              bbox=dict(boxstyle="round", facecolor="white", edgecolor="black"))
 
-    # Add text label for mean and std
-    plt.text(0.85, 0.85, f"Cold starts: {len([x for x in states if x == 'cold'])}\nTotal: {len(states)}", transform=plt.gca().transAxes, ha="right", va="top",
+    # Add text label for cold starts and total counts
+    plt.text(0.85, 0.55, f"Cold starts: {len([x for x in states if x == 'cold'])}\nTotal: {len(states)}", transform=plt.gca().transAxes, ha="right", va="top",
              bbox=dict(boxstyle="round", facecolor="white", edgecolor="black"))
 
     plt.title('Distribution of Response Time Over {} Iterations'.format(len(data)))
@@ -69,7 +71,7 @@ def plot_histogram(input_size, data, states):
     plt.yscale('symlog')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
-    plt.savefig(f'../Graphs/JS/{input_size}/'+ 'histogram_plot.pdf')
+    plt.savefig(f'../Graphs/JS/{input_size}/' + 'histogram_plot.pdf')
     # plt.show()
 
 
