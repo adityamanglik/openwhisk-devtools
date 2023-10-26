@@ -72,8 +72,8 @@ throughput_values = []
 # Number of iterations
 iterations = 100
 
-APIs = [NATIVE_JAVA_API, JAVA_API, JAVASCRIPT_API, GO_API]
-
+# APIs = [NATIVE_JAVA_API, JAVA_API, JAVASCRIPT_API, GO_API]
+APIs = [NATIVE_JAVA_API]
 # A dictionary to store throughput results for each API
 api_results = {}
 

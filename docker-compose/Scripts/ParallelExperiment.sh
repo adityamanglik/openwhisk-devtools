@@ -14,27 +14,10 @@ SLEEP_TIME=$(awk "BEGIN {print 1.0/$RATE}")
 
 # Functions
 
-print_progress() {
-    local current=$1
-    local total=$2
-    local elapsed=$3
-    local width=50
-    local progress=$((($current * $width) / $total))
-    local remaining=$(($width - $progress))
-    printf "\r["
-    printf "%${progress}s" | tr ' ' '#'
-    printf "%${remaining}s" ' '
-    printf "] (%d/%d) Elapsed: %.2fs" $current $total $elapsed
-}
-
-# Main script
-
 # Create or empty the common output files
 TIME_OUTPUT_FILE="${LANGUAGE}OutputTime.txt"
-ACTIVATION_ID_OUTPUT_FILE="${LANGUAGE}activation_ids.txt"
 
 >$TIME_OUTPUT_FILE
->$ACTIVATION_ID_OUTPUT_FILE
 
 # Loop
 for i in $(seq 1 $ITERATIONS); do
@@ -65,8 +48,6 @@ for i in $(seq 1 $ITERATIONS); do
     fi
 
     # Common extraction
-    activationId=$(echo "$result" | grep 'OpenWhisk Activation ID:' | awk -F': ' '{print $2}' | tr -d ' \r')
-    echo $activationId >>$ACTIVATION_ID_OUTPUT_FILE
     timeValue=$(echo "$result" | grep -E 'time_total:' | awk -F': ' '{print $2}' | tr -d ' ')
     echo $timeValue >>$TIME_OUTPUT_FILE
 
@@ -77,9 +58,4 @@ for i in $(seq 1 $ITERATIONS); do
     elapsed_time=$(($end_time - $start_time))
     total_elapsed_time=$(($SECONDS))
     } &
-
-    # Print progress
-    print_progress $i $ITERATIONS $total_elapsed_time
 done
-
-echo # Print a newline after completion
