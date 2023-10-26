@@ -29,9 +29,15 @@ lock = threading.Lock()
 def send_request(url):
     global total_requests
     try:
-        # Send a GET request
+        # Generate a random seed value
+        seed_value = np.random.randint(0, 1e6)
+        if url != NATIVE_JAVA_API:
+        # Append the seed parameter to the URL
+            url = f"{url}?seed={seed_value}"
+
+        # Send a GET request with the seed parameter
         response = requests.get(url)
-        
+
         # Check if the response has the correct structure
         data = response.json()
         if is_java_response_correct(data) or is_go_response_correct(data) or is_generic_response_correct(data):
@@ -40,6 +46,7 @@ def send_request(url):
                 total_requests += 1
     except:
         pass
+
 
 # Function to inject traffic
 def inject_traffic(num_threads, url):
@@ -93,17 +100,11 @@ for URL in APIs:
     mean_throughput = np.mean(throughput_values)
     percentile_99_throughput = np.percentile(throughput_values, 99)
     
-    # Store results in dictionary
-    api_results[URL] = {
-        'median_throughput': median_throughput,
-        'mean_throughput': mean_throughput,
-        'percentile_99_throughput': percentile_99_throughput
-    }
-
-# Print results for each API
-for URL, results in api_results.items():
     print(f"Results for {URL}:")
-    print(f"Median Throughput: {results['median_throughput']} requests/second")
-    print(f"Mean Throughput: {results['mean_throughput']} requests/second")
-    print(f"99th Percentile Throughput: {results['percentile_99_throughput']} requests/second")
-    print("-" * 50)
+    print(f"Median Throughput: {median_throughput} requests/second")
+    print(f"Mean Throughput: {mean_throughput} requests/second")
+    print(f"99th Percentile Throughput: {percentile_99_throughput} requests/second")
+
+    with open(f"throughput_values_{URL.split('/')[-2]}.txt", "w") as file:
+        for value in throughput_values:
+            file.write(str(value) + "\n")
