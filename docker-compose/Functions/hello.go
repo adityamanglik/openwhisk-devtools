@@ -4,6 +4,7 @@ import (
 	"log"
 	"math/rand"
 	"runtime"
+	"runtime/debug" // Added this import
 )
 
 type Response struct {
@@ -17,7 +18,11 @@ type Response struct {
 }
 
 // MARKER_FOR_SIZE_UPDATE
-const ARRAY_SIZE = 5000000;
+const ARRAY_SIZE = 3200000;
+
+func init() {
+	debug.SetGCPercent(-1) // Disable the garbage collector
+}
 
 // Main is the function implementing the action
 func Main(obj map[string]interface{}) map[string]interface{} {
