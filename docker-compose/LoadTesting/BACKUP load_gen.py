@@ -70,12 +70,10 @@ def inject_traffic(num_threads, url):
 throughput_values = []
 
 # Number of iterations
-iterations = 100
+iterations = 10
 
 # APIs = [NATIVE_JAVA_API, JAVA_API, JAVASCRIPT_API, GO_API]
 APIs = [NATIVE_JAVA_API]
-# A dictionary to store throughput results for each API
-api_results = {}
 
 for URL in APIs:
     # List to store throughput values for this API

@@ -4,7 +4,7 @@ import numpy as np
 MaxGCPauseMillis_values = [50, 100, 150, 200, 250, 300]
 Xmx_values = ["64m", "128m", "256m", "512m", "1g", "2g", "4g"]
 
-colors = ['blue', 'green', 'red', 'cyan']
+colors = ['blue', 'green', 'red', 'cyan', 'yellow', 'purple', 'black']
 
 def plot_values(latency_values, title, filename, ylabel="Latency"):
     plt.figure(figsize=(12, 6))
@@ -31,7 +31,7 @@ for idx, xmx in enumerate(Xmx_values):
             medians[idx].append(np.median(latencies))
             p90s[idx].append(np.percentile(latencies, 90))
             p99s[idx].append(np.percentile(latencies, 99))
-
+print(medians, p90s, p99s)
 plot_values(medians, 'Median Latencies', 'median')
 plot_values(p90s, 'P90 Latencies', 'p90')
 plot_values(p99s, 'P99 Latencies', 'p99')
