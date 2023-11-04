@@ -1,18 +1,20 @@
 from locust import HttpUser, task, between
 import numpy as np
 import random
+import locust.stats
 
+locust.stats.CSV_STATS_FLUSH_INTERVAL_SEC = 1
 class ServerLoadTest(HttpUser):
     # Specify a wait time between tasks
     # wait_time = between(0.1, 1)
     
     # Server URLs
-    NATIVE_JAVA_API = "/jsonresponse?seed="
+    NATIVE_JAVA_API = ":9876/jsonresponse?seed="
     
     @task
     def send_native_java_request(self):
         # Generate a random number and append to the NATIVE_JAVA_API string
-        random_seed = random.randint(0, 1e6)
+        random_seed = random.randint(0, 1000)
         request_url = self.NATIVE_JAVA_API + str(random_seed)
 
         with self.client.get(request_url, catch_response=True) as response:
