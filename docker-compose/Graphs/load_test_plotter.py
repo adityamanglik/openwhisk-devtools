@@ -1,5 +1,22 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import csv
+
+def extract_values_from_csv(file_path):
+    with open(file_path, newline='') as csvfile:
+        # Create a CSV reader object
+        csv_reader = csv.reader(csvfile)
+        last_row = None
+        for row in csv_reader:
+            last_row = row  # Keep overwriting until the last row is stored
+        
+        # Extracting the required values
+        # Indices are determined by the column positions in your CSV
+        p90 = last_row[10]
+        p99 = last_row[13]
+        median = last_row[6]  # This is assuming 'Total Median Response Time' is the median value you want
+        
+        return p90, p99, median
 
 MaxGCPauseMillis_values = [50, 100, 150, 200, 250, 300]
 Xmx_values = ["64m", "128m", "256m", "512m", "1g", "2g", "4g"]
@@ -25,12 +42,11 @@ p99s = [[] for _ in Xmx_values]
 
 for idx, xmx in enumerate(Xmx_values):
     for max_gc in MaxGCPauseMillis_values:
-        file_name = f"../Graphs/LoadTesting/Time_Xmx{xmx}_MaxGCPauseMillis{max_gc}.txt"
-        with open(file_name, 'r') as f:
-            latencies = [float(line.strip()) for line in f]
-            medians[idx].append(np.median(latencies))
-            p90s[idx].append(np.percentile(latencies, 90))
-            p99s[idx].append(np.percentile(latencies, 99))
+        file_name = f"../Graphs/LoadTesting/Time_Xmx{xmx}_MaxGCPauseMillis{max_gc}.csv"
+        p90, p99, median = extract_values_from_csv(file_name)
+        medians[idx].append(median)
+        p90s[idx].append(p90)
+        p99s[idx].append(p99)
 print(medians, p90s, p99s)
 plot_values(medians, 'Median Latencies', 'median')
 plot_values(p90s, 'P90 Latencies', 'p90')
