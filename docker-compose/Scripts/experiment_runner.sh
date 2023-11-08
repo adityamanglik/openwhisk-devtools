@@ -216,16 +216,16 @@ function runGoExperiment() {
 }
 # Backup size: 5000000
 # Run the experiments for the three array sizes
-for size in 100 10000 1000000 3200000; do
+for size in 1000000; do
     echo "Size: $size"
-    # runNativeJavaExperiment $size
-    # cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/
-    # runNativeJavaNoGCExperiment $size
+    runNativeJavaExperiment $size
+    cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/
+    runNativeJavaNoGCExperiment $size
     # runJavaExperiment $size
     # runJSExperiment $size
     # runGoExperiment $size
-    python ../Graphs/js_response_time_plotter.py $size
-    python ../Graphs/java_response_time_plotter.py $size
-    python ../Graphs/go_response_time_plotter.py $size
-    python ../Graphs/native_java_response_time_plotter.py $size
+    # python ../Graphs/js_response_time_plotter.py $size
+    # python ../Graphs/java_response_time_plotter.py $size
+    # python ../Graphs/go_response_time_plotter.py $size
+    # python ../Graphs/native_java_response_time_plotter.py $size
 done
