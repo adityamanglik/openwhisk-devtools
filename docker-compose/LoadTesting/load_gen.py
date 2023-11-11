@@ -1,5 +1,5 @@
 from locust import HttpUser, task, between
-import numpy as np
+# import numpy as np
 import random
 import locust.stats
 
@@ -9,13 +9,13 @@ class ServerLoadTest(HttpUser):
     # wait_time = between(0.1, 1)
     
     # Server URLs
-    NATIVE_JAVA_API = ":9876/jsonresponse?seed="
+    API = ":9876/jsonresponse?seed="
     
     @task
     def send_native_java_request(self):
         # Generate a random number and append to the NATIVE_JAVA_API string
         random_seed = random.randint(0, 1000)
-        request_url = self.NATIVE_JAVA_API + str(random_seed)
+        request_url = self.API + str(random_seed)
 
         with self.client.get(request_url, catch_response=True) as response:
             if response.status_code == 404:
