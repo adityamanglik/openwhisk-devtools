@@ -22,7 +22,7 @@ function runJavaExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloJava Functions/hello.jar --main Hello"
 
     # Start generating load
-    source Experiment.sh $JAVA_API Java $ITERATIONS
+    source gc_metric_experiment_base.sh $JAVA_API Java $ITERATIONS
 
     # Retrieve warm/cold status of each activation
     scp Javaactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
@@ -79,7 +79,7 @@ function runNativeJavaExperiment() {
     done
 
     # Start generating load
-    source Experiment.sh $NATIVE_JAVA_API NativeJava $ITERATIONS
+    source gc_metric_experiment_base.sh $NATIVE_JAVA_API NativeJava $ITERATIONS
 
     # Move all log and image files to that directory
     mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/NativeJava/$size/"
@@ -145,7 +145,7 @@ function runNativeJavaNoGCExperiment() {
     done
 
     # Start generating load
-    source Experiment.sh $NATIVE_JAVA_API NativeJava $ITERATIONS
+    source gc_metric_experiment_base.sh $NATIVE_JAVA_API NativeJava $ITERATIONS
 
     # Move all log and image files to that directory
     mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/NativeJava/$size/"
@@ -178,7 +178,7 @@ function runJSExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update hello Functions/wordcount.js"
 
     # Start generating load
-    source Experiment.sh $JAVASCRIPT_API JS $ITERATIONS
+    source gc_metric_experiment_base.sh $JAVASCRIPT_API JS $ITERATIONS
 
     # Retrieve warm/cold status of each activation
     scp JSactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
@@ -201,7 +201,7 @@ function runGoExperiment() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloGo Functions/hello.go"
 
     # Start generating load
-    source Experiment.sh $GO_API Go $ITERATIONS
+    source gc_metric_experiment_base.sh $GO_API Go $ITERATIONS
 
     # Retrieve warm/cold status of each activation
     scp Goactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
