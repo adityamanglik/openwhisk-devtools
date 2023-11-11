@@ -66,7 +66,7 @@ for current_Xmx in "${Xmx_values[@]}"; do
         # Enable file flush
         sleep 1
         # Move file for postprocessing
-        mv locust_stats_history.csv ../Graphs/LoadTesting/Time_Xmx${current_Xmx}_MaxGCPauseMillis${current_MaxGCPauseMillis}.csv
+        mv locust_stats_history.csv ../Graphs/LoadTesting/Java/Time_Xmx${current_Xmx}_MaxGCPauseMillis${current_MaxGCPauseMillis}.csv
         # Kill server after execution
         kill_java_server
     done

@@ -35,7 +35,7 @@ def plot_values(latency_values, title, filename, ylabel="Latency"):
     plt.title(title)
     plt.legend()
     plt.tight_layout()
-    plt.savefig(f'../Graphs/LoadTesting/' + filename + '.pdf')
+    plt.savefig(f'../Graphs/LoadTesting/Java/' + filename + '.pdf')
     plt.show()
 
 medians = [[] for _ in Xmx_values]
@@ -44,7 +44,7 @@ p99s = [[] for _ in Xmx_values]
 averages = [[] for _ in Xmx_values]
 for idx, xmx in enumerate(Xmx_values):
     for max_gc in MaxGCPauseMillis_values:
-        file_name = f"../Graphs/LoadTesting/Time_Xmx{xmx}_MaxGCPauseMillis{max_gc}.csv"
+        file_name = f"../Graphs/LoadTesting/Java/Time_Xmx{xmx}_MaxGCPauseMillis{max_gc}.csv"
         p90, p99, median, aver = extract_values_from_csv(file_name)
         medians[idx].append(median)
         p90s[idx].append(p90)

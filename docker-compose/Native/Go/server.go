@@ -9,11 +9,11 @@ import (
     "strconv"
 )
 
-const arraySize = 100
+const arraySize = 1000000
 
 func main() {
-    http.HandleFunc("/jsonresponse", jsonHandler)
-    log.Println("Server listening on http://localhost:9876/jsonresponse")
+    http.HandleFunc("/GoNative", jsonHandler)
+    log.Println("Server listening on http://localhost:9876/GoNative")
     log.Fatal(http.ListenAndServe(":9876", nil))
 }
 
