@@ -29,10 +29,10 @@ Xmx_values=("64m" "128m" "256m" "512m" "1g" "2g" "4g")
 # Iterate over MaxGCPauseMillis and Xmx values
 for current_Xmx in "${Xmx_values[@]}"; do
     for current_MaxGCPauseMillis in "${MaxGCPauseMillis_values[@]}"; do
-        GC_FLAGS="-Xms$current_Xmx -Xmx$current_Xmx -XX:MaxGCPauseMillis=$current_MaxGCPauseMillis -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/PureJava/gc_log_$current_Xmx_$current_MaxGCPauseMillis"
+        GC_FLAGS="-Xms$current_Xmx -Xmx$current_Xmx -XX:MaxGCPauseMillis=$current_MaxGCPauseMillis -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/gc_log_$current_Xmx_$current_MaxGCPauseMillis"
         echo $GC_FLAGS
         # start server
-        ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; taskset -c 1 java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+        ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; taskset -c 1 java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/server_log 2>&1 &"
 
         # Warm up until server is ready to serve requests
         while :; do

@@ -44,8 +44,8 @@ class ServerLoadTest(HttpUser):
             print("JsonServer is not running.")
 
     def start_server(self, xmx_value, max_gc_pause_millis):
-        GC_FLAGS = f"-Xmx{xmx_value} -XX:MaxGCPauseMillis={max_gc_pause_millis} -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/PureJava/gc_log_{xmx_value}_{max_gc_pause_millis}"
-        start_command = f"cd /users/am_CU/openwhisk-devtools/docker-compose/PureJava/; taskset -c 1 java -cp .:gson-2.10.1.jar {GC_FLAGS} JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+        GC_FLAGS = f"-Xmx{xmx_value} -XX:MaxGCPauseMillis={max_gc_pause_millis} -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/gc_log_{xmx_value}_{max_gc_pause_millis}"
+        start_command = f"cd /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/; taskset -c 1 java -cp .:gson-2.10.1.jar {GC_FLAGS} JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/server_log 2>&1 &"
         self.ssh_execute(start_command)
 
     def warm_up(self):

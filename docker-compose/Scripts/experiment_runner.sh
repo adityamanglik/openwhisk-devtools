@@ -5,8 +5,8 @@ JAVA_API="http://128.110.96.62:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hel
 JAVASCRIPT_API="http://128.110.96.62:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
 GO_API="http://128.110.96.62:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloGo/world"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
-GC_FLAGS="-Xmx64m -XX:MaxGCPauseMillis=50 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/PureJava/gc_log"
-NO_GC_FLAGS="-Xmx4g -XX:MaxGCPauseMillis=500 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/PureJava/no_gc_log"
+GC_FLAGS="-Xmx64m -XX:MaxGCPauseMillis=50 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/gc_log"
+NO_GC_FLAGS="-Xmx4g -XX:MaxGCPauseMillis=500 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/no_gc_log"
 ITERATIONS=5000
 
 ssh $OW_SERVER_NODE "export OW_DIRECTORY='/users/am_CU/openwhisk-devtools/docker-compose';"
@@ -53,11 +53,11 @@ function runNativeJavaExperiment() {
 
     # Update the Java code with the new array size
     local size=$1
-    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/PureJava/Hello.java"
+    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java"
 
     # compile code and start server
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
-    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; taskset -c 1 java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; taskset -c 1 java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/server_log 2>&1 &"
 
     # Warm up until server is read to serve requests
     while :; do
@@ -120,11 +120,11 @@ function runNativeJavaNoGCExperiment() {
 
     # Update the Java code with the new array size
     local size=$1
-    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/PureJava/Hello.java"
+    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java"
 
     # compile code and start server
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
-    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/PureJava/; taskset -c 1 java -cp .:gson-2.10.1.jar $NO_GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/PureJava/server_log 2>&1 &"
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; taskset -c 1 java -cp .:gson-2.10.1.jar $NO_GC_FLAGS JsonServer > /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/server_log 2>&1 &"
 
     # Warm up until server is read to serve requests
     while :; do
