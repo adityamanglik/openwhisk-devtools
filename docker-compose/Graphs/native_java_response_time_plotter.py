@@ -56,6 +56,7 @@ def plot_histogram(input_size, data):
 
     plt.title('Distribution of Response Time Over {} Iterations'.format(len(data)))
     plt.xlabel('Response Time (s)')
+    plt.xlim([0, 0.17])
     plt.ylabel('Number of Activations')
     plt.yscale('symlog')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
