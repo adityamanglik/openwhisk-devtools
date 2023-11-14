@@ -13,8 +13,8 @@ const arraySize = 1000000
 
 func main() {
     http.HandleFunc("/GoNative", jsonHandler)
-    log.Println("Server listening on http://localhost:9876/GoNative")
-    log.Fatal(http.ListenAndServe(":9876", nil))
+    log.Println("Server listening on http://localhost:9875/GoNative")
+    log.Fatal(http.ListenAndServe(":9875", nil))
 }
 
 func jsonHandler(w http.ResponseWriter, r *http.Request) {

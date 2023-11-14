@@ -1,25 +1,31 @@
-from locust import HttpUser, task, between
-# import numpy as np
+from locust import HttpUser, task, between, events
 import random
 import locust.stats
+import sys
 
 locust.stats.CSV_STATS_FLUSH_INTERVAL_SEC = 1
+
 class ServerLoadTest(HttpUser):
-    # Specify a wait time between tasks
     # wait_time = between(0.1, 1)
-    
-    # Server URLs
-    API = ":9876/jsonresponse?seed="
-    
+
+    def on_start(self):
+        # Read API from the first tag if available
+        if self.environment.tags:
+            self.API = self.environment.tags[0]
+            print("Running load test on API: " + self.API)
+        else:
+            print("No API URL provided. Exiting.")
+            sys.exit(1)
+
     @task
-    def send_native_java_request(self):
-        # Generate a random number and append to the NATIVE_JAVA_API string
-        random_seed = random.randint(0, 1000)
-        request_url = self.API + str(random_seed)
+    def send_request(self):
+        random_seed = random.randint(0, 10000)
+        request_url = self.API + "?seed=" + str(random_seed)
 
         with self.client.get(request_url, catch_response=True) as response:
             if response.status_code == 404:
-                response.failure("Got wrong response")
+                response.failure("404 error code")
+
             # TODO: Use time to isolate cold starts
             # elif response.elapsed.total_seconds() > 1.0:
             #     response.failure("Request took too long")
