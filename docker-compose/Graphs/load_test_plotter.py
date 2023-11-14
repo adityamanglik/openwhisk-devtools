@@ -29,7 +29,7 @@ def plot_values(latency_values, title, filename, ylabel="Latency"):
         plt.plot(MaxGCPauseMillis_values, latency_values[idx], color=colors[idx], label=f"Xmx {xmx}")
     plt.xticks(MaxGCPauseMillis_values)
     # plt.yticks([480, 510])
-    plt.yscale('symlog')
+    # plt.yscale('symlog')
     plt.xlabel("MaxGCPauseMillis")
     plt.ylabel(ylabel)
     plt.title(title)
