@@ -15,7 +15,7 @@ import (
     "time"
 )
 
-const arraySize = 1000000
+const arraySize = 0
 const serverPort = ":9875"
 
 func main() {

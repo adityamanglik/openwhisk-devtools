@@ -81,8 +81,6 @@ taskset -c 3 locust --config=./master.conf
 sleep 1
 # Move file for postprocessing
 mv locust_stats_history.csv ../Graphs/LoadTesting/Java/LoadLatencyCurve.csv
-# TODO: From this file, determine the median, p99, p999 request latency 
-# TODO: From this file, determine peak throughput supported by the server
 # Kill server after execution
 kill_java_server
 
@@ -99,6 +97,8 @@ sleep 1
 mv locust_stats_history.csv ../Graphs/LoadTesting/Go/LoadLatencyCurve.csv
 kill_go_server
 
+# CSV Post processing to determine load latency peaks
+python ../Graphs/load_latency_test.py
 
 # Start experiments
 # bash ParallelExperiment.sh $JAVA_API NativeJava $ITERATIONS $RATE
