@@ -8,9 +8,10 @@ JAVA_API="http://128.110.96.176:9876/jsonresponse"
 GO_API="http://128.110.96.176:9875/GoNative"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
 ITERATIONS=100000
-MaxGCPauseMillis_values=50
-Xmx_values=("256m")
-GC_FLAGS="-Xms$current_Xmx -Xmx$current_Xmx -XX:MaxGCPauseMillis=$current_MaxGCPauseMillis -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/gc_log_$current_Xmx_$current_MaxGCPauseMillis"
+MaxGCPauseMillis=50
+Xmx="256m"
+GC_FLAGS="-Xms$Xmx -Xmx$Xmx -XX:MaxGCPauseMillis=$MaxGCPauseMillis -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/gc_log"
+echo $GC_FLAGS
 
 start_java_server() {
 # compile the server
@@ -25,7 +26,7 @@ kill_java_server() {
     if [ -z "$PID" ]; then
         echo "JavaServer is not running."
     else
-        ssh $OW_SERVER_NODE "kill $PID"
+        ssh $OW_SERVER_NODE "kill -9 $PID"
         echo "Killed JsonServer with PID $PID."
     fi
 }
@@ -41,7 +42,7 @@ kill_go_server() {
     if [ -z "$PID" ]; then
         echo "Go server is not running."
     else
-        ssh $OW_SERVER_NODE "kill $PID"
+        ssh $OW_SERVER_NODE "kill -9 $PID"
         echo "Killed Go server with PID $PID."
     fi
 }
@@ -50,7 +51,7 @@ kill_go_server() {
 warm_up_server() {
     local API_URL=$1
     local RETRY_COUNT=0
-    local MAX_RETRIES=50
+    local MAX_RETRIES=5
 
     while [ "$RETRY_COUNT" -lt "$MAX_RETRIES" ]; do
         HTTP_STATUS=$(curl -o /dev/null -s -w '%{http_code}' "$API_URL")
@@ -74,11 +75,14 @@ start_java_server
 # Warm up servers
 warm_up_server "$JAVA_API"
 # Java Load Processing
-taskset -c 3 locust --config=./master.conf --tags "$JAVA_API"
+export API_URL=$JAVA_API
+taskset -c 3 locust --config=./master.conf
 # Enable file flush
 sleep 1
 # Move file for postprocessing
 mv locust_stats_history.csv ../Graphs/LoadTesting/Java/LoadLatencyCurve.csv
+# TODO: From this file, determine the median, p99, p999 request latency 
+# TODO: From this file, determine peak throughput supported by the server
 # Kill server after execution
 kill_java_server
 
@@ -87,7 +91,8 @@ kill_go_server
 start_go_server
 warm_up_server "$GO_API"
 # Go Load Processing
-taskset -c 3 locust --config=./master.conf --tags "$Go_API"
+export API_URL=$GO_API
+taskset -c 3 locust --config=./master.conf
 # Enable file flush
 sleep 1
 # Move file for postprocessing
