@@ -1,5 +1,7 @@
 import com.google.gson.JsonObject;
 import java.util.Random;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
@@ -9,11 +11,21 @@ public class Hello {
 
     private static final int ARRAY_SIZE = 0;
 
+    private static synchronized void saveExecutionTimeToFile(long executionTime) {
+        try (FileWriter writer = new FileWriter(FILE_NAME, true)) { // true for append mode
+            writer.write(executionTime + " ms\n");
+        } catch (IOException e) {
+            System.err.println("Error writing execution time to file: " + e.getMessage());
+        }
+    }
+
     public static JsonObject main(JsonObject args) {
         int seed = 42; // default seed value
         if (args.has("seed")) {
             seed = args.getAsJsonPrimitive("seed").getAsInt();
         }
+        // Start time tracking
+        long startTime = System.currentTimeMillis();
 
         Random rand = new Random(seed);
         Integer[] arr = new Integer[ARRAY_SIZE];
@@ -26,6 +38,9 @@ public class Hello {
         for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
         }
+        long endTime = System.currentTimeMillis();
+        executionTimes.add(endTime - startTime);
+        saveExecutionTimeToFile(executionTime);
 
         JsonObject response = new JsonObject();
         response.addProperty("sum", sum);

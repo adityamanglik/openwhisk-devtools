@@ -15,6 +15,14 @@ import (
     "time"
 )
 
+import "sync"
+import "io/ioutil"
+
+var (
+    executionTimes []time.Duration
+    timesMutex     sync.Mutex
+)
+
 const arraySize = 0
 const serverPort = ":9875"
 
@@ -43,11 +51,22 @@ func main() {
     gracefulShutdown(server)
 }
 
+func saveExecutionTimesToFile(filename string) {
+    var data string
+    for _, t := range executionTimes {
+        data += t.String() + "\n"
+    }
+
+    if err := ioutil.WriteFile(filename, []byte(data), 0644); err != nil {
+        log.Fatalf("Failed to write execution times to file: %v", err)
+    }
+}
+
 func gracefulShutdown(server *http.Server) {
     stop := make(chan os.Signal, 1)
     signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
-    <-stop // Wait for signal
+    <-stop
 
     ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
     defer cancel()
@@ -57,6 +76,8 @@ func gracefulShutdown(server *http.Server) {
     if err := server.Shutdown(ctx); err != nil {
         log.Fatalf("Server forced to shutdown: %v", err)
     }
+
+    saveExecutionTimesToFile("execution_times.txt")
 }
 
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
@@ -73,7 +94,14 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
         }
     }
 
+    start := time.Now()
     jsonResponse, err := mainLogic(seed)
+    elapsed := time.Since(start)
+
+    timesMutex.Lock()
+    executionTimes = append(executionTimes, elapsed)
+    timesMutex.Unlock()
+
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return

@@ -76,7 +76,7 @@ start_java_server
 warm_up_server "$JAVA_API"
 # Java Load Processing
 export API_URL=$JAVA_API
-taskset -c 3 locust --config=./master.conf
+locust --config=./master.conf
 # Enable file flush
 sleep 1
 # Move file for postprocessing
@@ -90,7 +90,7 @@ start_go_server
 warm_up_server "$GO_API"
 # Go Load Processing
 export API_URL=$GO_API
-taskset -c 3 locust --config=./master.conf
+locust --config=./master.conf
 # Enable file flush
 sleep 1
 # Move file for postprocessing
