@@ -27,3 +27,30 @@ docker rm my-java-server
 Ensure your Go and Java server images are built and available.
 Run this load balancer Go program.
 Send requests to http://localhost:8080/java?seed=654 or http://localhost:8080/go?seed=654.
+
+
+
+# Constants and Variables
+OW_SERVER_NODE="am_CU@node0"
+JAVA_API="http://128.110.96.176:8080/java"
+GO_API="http://128.110.96.176:8080/go"
+OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
+
+# Build docker images
+build_docker_images() {
+# compile the server
+ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java"
+# Build Java docker image
+ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t my-java-server ."
+
+# Build Go docker image
+ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t my-go-server ."
+}
+
+# Client code
+build_docker_images
+export API_URL=$GO_API
+locust --config=./master.conf
+
+export API_URL=$JAVA_API
+locust --config=./master.conf
