@@ -43,7 +43,7 @@ public class Hello {
         for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
         }
-        long executionTime = endTime - startTime;
+        long executionTime = System.currentTimeMillis() - startTime;
         saveExecutionTimeToFile(executionTime); // Save each execution time
 
         JsonObject response = new JsonObject();
