@@ -7,7 +7,7 @@ import java.lang.management.GarbageCollectorMXBean;
 
 public class Hello {
 
-    private static final int ARRAY_SIZE = 0;
+    private static final int ARRAY_SIZE = 1000000;
 
     public static JsonObject main(JsonObject args) {
         int seed = 42; // default seed value

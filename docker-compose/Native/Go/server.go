@@ -15,7 +15,7 @@ import (
     "runtime"
 )
 
-const arraySize = 0
+const arraySize = 1000000
 const serverPort = ":9875"
 
 func main() {
