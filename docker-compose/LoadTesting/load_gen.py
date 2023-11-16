@@ -14,7 +14,7 @@ class ServerLoadTest(HttpUser):
         if not self.API:
             print("No API URL provided in environment. Skipping requests.")
             return  # Stop executing if no API URL is set
-        self.execution_times_file = open(self.API + "execution_times.txt", "a")  # File to save execution times
+        self.execution_times_file = open("execution_times.txt", "a")  # File to save execution times
     
     def on_stop(self):
         self.execution_times_file.close()  # Close the file when the test stops

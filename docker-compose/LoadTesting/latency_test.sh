@@ -33,7 +33,7 @@ kill_java_server() {
 
 # start Go server
 start_go_server() {
-ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; taskset -c 2 go run server.go &"
+ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; taskset -c 2 go run server.go"
 }
 
 # Function to kill Go server
@@ -83,6 +83,7 @@ locust --config=./master.conf
 sleep 1
 # Move file for postprocessing
 mv locust_stats_history.csv ../Graphs/LoadTesting/Java/LoadLatencyCurve.csv
+mv execution_times.txt ../Graphs/LoadTesting/Java/FunctionTime.txt
 # Kill server after execution
 kill_java_server
 
@@ -97,6 +98,7 @@ locust --config=./master.conf
 sleep 1
 # Move file for postprocessing
 mv locust_stats_history.csv ../Graphs/LoadTesting/Go/LoadLatencyCurve.csv
+mv execution_times.txt ../Graphs/LoadTesting/Go/FunctionTime.txt
 kill_go_server
 
 # CSV Post processing to determine load latency peaks

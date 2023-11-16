@@ -12,6 +12,7 @@ import (
     "strconv"
     "syscall"
     "time"
+    "runtime"
 )
 
 const arraySize = 0
