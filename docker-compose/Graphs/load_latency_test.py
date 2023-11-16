@@ -57,7 +57,7 @@ print(f"P99 Response Time: {p99} ns")
 # Go data extraction
 file_name = f"/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadTesting/Go/LoadLatencyCurve.csv"
 peak_requests_per_sec, p90, p99, median, aver = extract_values_from_csv(file_name)
-print("Go -->")
+print("\nGo -->")
 print(f"Peak Requests/Sec: {peak_requests_per_sec}\n"
       f"Average Response Time: {aver} ms\n"
       f"Median Response Time: {median} ms\n"

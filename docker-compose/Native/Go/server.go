@@ -51,7 +51,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
         }
     }
 
-    jsonResponse, executionTime, err := mainLogic(seed)
+    jsonResponse, err := mainLogic(seed)
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -61,10 +61,10 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
     w.WriteHeader(http.StatusOK)
     w.Write(jsonResponse)
 
-    log.Printf("Request processed in %v\n", executionTime)
+    // log.Printf("Request processed in %v\n", executionTime)
 }
 
-func mainLogic(seed int) ([]byte, time.Duration, error) {
+func mainLogic(seed int) ([]byte, error) {
     start := time.Now().UnixNano()
     
     rand.Seed(int64(seed))
@@ -90,7 +90,7 @@ func mainLogic(seed int) ([]byte, time.Duration, error) {
     response["heapIdle"] = m.HeapIdle
     response["heapInuse"] = m.HeapInuse
     jsonResponse, err := json.Marshal(response)
-    return jsonResponse, executionTime, err
+    return jsonResponse, err
 }
 
 func gracefulShutdown(server *http.Server) {

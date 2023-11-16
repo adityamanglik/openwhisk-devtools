@@ -51,7 +51,7 @@ kill_go_server() {
 warm_up_server() {
     local API_URL=$1
     local RETRY_COUNT=0
-    local MAX_RETRIES=5
+    local MAX_RETRIES=50
 
     while [ "$RETRY_COUNT" -lt "$MAX_RETRIES" ]; do
         HTTP_STATUS=$(curl -o /dev/null -s -w '%{http_code}' "$API_URL")
@@ -72,20 +72,20 @@ warm_up_server() {
 }
 
 # Kill any previous running instances of server
-kill_java_server
-start_java_server
-# Warm up servers
-warm_up_server "$JAVA_API"
-# Java Load Processing
-export API_URL=$JAVA_API
-locust --config=./master.conf
-# Enable file flush
-sleep 1
-# Move file for postprocessing
-mv locust_stats_history.csv ../Graphs/LoadTesting/Java/LoadLatencyCurve.csv
-mv execution_times.txt ../Graphs/LoadTesting/Java/FunctionTime.txt
-# Kill server after execution
-kill_java_server
+# kill_java_server
+# start_java_server
+# # Warm up servers
+# warm_up_server "$JAVA_API"
+# # Java Load Processing
+# export API_URL=$JAVA_API
+# locust --config=./master.conf
+# # Enable file flush
+# sleep 1
+# # Move file for postprocessing
+# mv locust_stats_history.csv ../Graphs/LoadTesting/Java/LoadLatencyCurve.csv
+# mv execution_times.txt ../Graphs/LoadTesting/Java/FunctionTime.txt
+# # Kill server after execution
+# kill_java_server
 
 # Go Processing
 kill_go_server
