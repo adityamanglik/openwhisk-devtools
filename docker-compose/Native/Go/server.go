@@ -65,7 +65,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func mainLogic(seed int) ([]byte, time.Duration, error) {
-    start := time.Now()
+    start := time.Now().UnixNano()
     
     rand.Seed(int64(seed))
 
@@ -77,20 +77,18 @@ func mainLogic(seed int) ([]byte, time.Duration, error) {
         sum += int64(arr[i])
     }
 
+    executionTime := time.Now().UnixNano() - start
+
     response := map[string]interface{}{
         "sum": sum,
+        "executionTime": executionTime, // Include raw execution time in nanoseconds
     }
-
     var m runtime.MemStats
     runtime.ReadMemStats(&m)
     response["heapAlloc"] = m.HeapAlloc
     response["heapSys"] = m.HeapSys
     response["heapIdle"] = m.HeapIdle
     response["heapInuse"] = m.HeapInuse
-
-    executionTime := time.Since(start)
-    response["executionTime"] = executionTime.String()
-
     jsonResponse, err := json.Marshal(response)
     return jsonResponse, executionTime, err
 }
