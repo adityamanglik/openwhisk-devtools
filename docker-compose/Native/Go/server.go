@@ -74,6 +74,9 @@ func mainLogic(seed int) ([]byte, error) {
 
     for i := range arr {
         arr[i] = rand.Intn(100000)
+    }
+
+    for i := range arr {
         sum += int64(arr[i])
     }
 

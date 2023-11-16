@@ -38,12 +38,11 @@ ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; taskset -c 2 go run server.
 
 # Function to kill Go server
 kill_go_server() {
-    local PID=$(ssh $OW_SERVER_NODE "pgrep -f server.go")  # Replace 'server.go' with the Go server's process name if different
-    if [ -z "$PID" ]; then
-        echo "Go server is not running."
+    if ssh $OW_SERVER_NODE "pgrep -f 'server.go'" > /dev/null; then
+        ssh $OW_SERVER_NODE "pkill -f 'server.go'"
+        echo "Killed Go server."
     else
-        ssh $OW_SERVER_NODE "kill $PID"
-        echo "Killed Go server with PID $PID."
+        echo "Go server is not running."
     fi
 }
 
@@ -72,20 +71,20 @@ warm_up_server() {
 }
 
 # Kill any previous running instances of server
-# kill_java_server
-# start_java_server
-# # Warm up servers
-# warm_up_server "$JAVA_API"
-# # Java Load Processing
-# export API_URL=$JAVA_API
-# locust --config=./master.conf
-# # Enable file flush
-# sleep 1
-# # Move file for postprocessing
-# mv locust_stats_history.csv ../Graphs/LoadTesting/Java/LoadLatencyCurve.csv
-# mv execution_times.txt ../Graphs/LoadTesting/Java/FunctionTime.txt
-# # Kill server after execution
-# kill_java_server
+kill_java_server
+start_java_server
+# Warm up servers
+warm_up_server "$JAVA_API"
+# Java Load Processing
+export API_URL=$JAVA_API
+locust --config=./master.conf
+# Enable file flush
+sleep 1
+# Move file for postprocessing
+mv locust_stats_history.csv ../Graphs/LoadTesting/Java/LoadLatencyCurve.csv
+mv execution_times.txt ../Graphs/LoadTesting/Java/FunctionTime.txt
+# Kill server after execution
+kill_java_server
 
 # Go Processing
 kill_go_server
