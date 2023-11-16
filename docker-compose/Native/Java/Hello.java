@@ -12,7 +12,7 @@ import java.lang.management.GarbageCollectorMXBean;
 public class Hello {
 
     private static final int ARRAY_SIZE = 0;
-    private static final String FILE_NAME = "execution_times.txt";
+    private static final String FILE_NAME = "Java_execution_times.txt";
     private static final List<Long> executionTimes = new ArrayList<>();
 
     static {
@@ -30,7 +30,7 @@ public class Hello {
             seed = args.getAsJsonPrimitive("seed").getAsInt();
         }
         // Start time tracking
-        long startTime = System.currentTimeMillis();
+        long startTime = System.nanoTime();
 
         Random rand = new Random(seed);
         Integer[] arr = new Integer[ARRAY_SIZE];
@@ -43,7 +43,7 @@ public class Hello {
         for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
         }
-        long executionTime = System.currentTimeMillis() - startTime;
+        long executionTime = System.nanoTime() - startTime;
         saveExecutionTimeToFile(executionTime); // Save each execution time
 
         JsonObject response = new JsonObject();

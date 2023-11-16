@@ -77,7 +77,7 @@ func gracefulShutdown(server *http.Server) {
         log.Fatalf("Server forced to shutdown: %v", err)
     }
 
-    saveExecutionTimesToFile("Go_execution_times.txt")
+    saveExecutionTimesToFile("./Go_execution_times.txt")
 }
 
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
