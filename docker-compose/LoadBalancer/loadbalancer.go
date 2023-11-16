@@ -93,33 +93,58 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func startContainer(containerName string) {
-    fmt.Println("Starting container: ", containerName)
+    fmt.Println("Starting container:", containerName)
+
+    // Check if the container is already running
     cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
-    output, _ := cmd.Output()
+    output, err := cmd.Output()
+    if err != nil {
+        fmt.Println("Error checking running container:", err)
+        return
+    }
     if string(output) != "" {
-        fmt.Println("Container already running: ", containerName)
+        fmt.Println("Container already running:", containerName)
         return // Container is already running
     }
-    fmt.Println("Launching container: ", containerName)
 
-    var portMapping string
-    var imageName string
-    switch containerName {
-    case javaContainerName:
-        portMapping = javaServerPort + ":9876"
-        imageName = "java-server"
-    case goContainerName:
-        portMapping = goServerPort + ":9875"
-        imageName = "go-server"
+    // Check if a stopped container with the name exists
+    cmd = exec.Command("docker", "ps", "-a", "-q", "-f", "name="+containerName)
+    output, err = cmd.Output()
+    if err != nil {
+        fmt.Println("Error checking stopped container:", err)
+        return
+    }
+    if string(output) != "" {
+        // Remove the existing container
+        fmt.Println("Removing existing container:", containerName)
+        cmd = exec.Command("docker", "rm", containerName)
+        if err := cmd.Run(); err != nil {
+            fmt.Println("Error removing container:", err)
+            return
+        }
     }
 
+    // Define the port mapping and image name
+    var portMapping, imageName string
+    switch containerName {
+    case javaContainerName:
+        portMapping = "9876:9876"
+        imageName = "my-java-server"
+    case goContainerName:
+        portMapping = "9875:9875"
+        imageName = "my-go-server"
+    }
+
+    // Start the container
     cmd = exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
-    cmd.Start()
-	if err := cmd.Start(); err != nil {
-		fmt.Println("Error starting container:", containerName, err)
-		// Handle the error appropriately
-	}
+    if err := cmd.Start(); err != nil {
+        fmt.Println("Error starting container:", containerName, err)
+    } else {
+        fmt.Println("Container started:", containerName)
+    }
 }
+
+
 
 
 func waitForServerReady(url string) bool {
