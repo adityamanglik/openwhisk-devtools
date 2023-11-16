@@ -44,20 +44,20 @@ func main() {
 	// Block until a signal is received.
 	<-stopChan
 
-	// Stop the Docker containers
-	stopContainer(javaContainerName)
-	stopContainer(goContainerName)
+	// Stop all running Docker containers
+	stopAllRunningContainers()
 
 	fmt.Println("Shutting down load balancer server...")
 }
 
-func stopContainer(containerName string) {
-	fmt.Println("Stopping container:", containerName)
-	cmd := exec.Command("docker", "stop", containerName)
+// Stop all running Docker containers
+func stopAllRunningContainers() {
+	fmt.Println("Stopping all running Docker containers...")
+	cmd := exec.Command("docker", "stop", "$(docker", "ps", "-q)")
 	if err := cmd.Run(); err != nil {
-		fmt.Println("Error stopping container:", containerName, err)
+		fmt.Println("Error stopping all containers:", err)
 	} else {
-		fmt.Println("Container stopped:", containerName)
+		fmt.Println("All containers stopped successfully")
 	}
 }
 
@@ -131,11 +131,11 @@ func isContainerRunning(containerName string) bool {
     output, err := cmd.Output()
     if err != nil {
         fmt.Println("Error checking running container:", err)
-        return
+        return false
     }
     if string(output) != "" {
         fmt.Println("Container already running:", containerName)
-        return // Container is already running
+        return true// Container is already running
     }
 
     // Check if a stopped container with the name exists
@@ -143,7 +143,7 @@ func isContainerRunning(containerName string) bool {
     output, err = cmd.Output()
     if err != nil {
         fmt.Println("Error checking stopped container:", err)
-        return
+        return false
     }
     if string(output) != "" {
         // Remove the existing container
@@ -151,9 +151,10 @@ func isContainerRunning(containerName string) bool {
         cmd = exec.Command("docker", "rm", containerName)
         if err := cmd.Run(); err != nil {
             fmt.Println("Error removing container:", err)
-            return
+            return false
         }
     }
+	return false
 }
 
 // Start a new container
@@ -169,14 +170,16 @@ func startNewContainer(containerName string) {
         imageName = "my-go-server"
     } else {
         fmt.Println("Unknown container name:", containerName)
-        return
+        return false
     }
 
     cmd := exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
     if err := cmd.Run(); err != nil {
         fmt.Println("Error starting container:", containerName, err)
+		return false
     } else {
         fmt.Println("Container started:", containerName)
+		return true
     }
 }
 
