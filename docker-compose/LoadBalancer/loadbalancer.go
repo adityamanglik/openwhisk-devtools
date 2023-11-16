@@ -20,6 +20,11 @@ const (
 	waitTimeout       = 10 * time.Second
 )
 
+var javaRoundRobinIndex int = 0
+var goRoundRobinIndex int = 0
+const numberOfJavaContainers int = 4
+const numberOfGoContainers int = 4
+
 func main() {
 	http.HandleFunc("/", handleRequest)
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
@@ -62,13 +67,11 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	switch r.URL.Path {
 	case "/java":
-		fmt.Println("Java request received", r.URL.Path)
+		containerName = scheduleJavaContainer()
 		targetURL = "http://localhost:" + javaServerPort + "/jsonresponse"
-		containerName = javaContainerName
 	case "/go":
-		fmt.Println("Go request received", r.URL.Path)
+		containerName = scheduleGoContainer()
 		targetURL = "http://localhost:" + goServerPort + "/GoNative"
-		containerName = goContainerName
 	default:
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
@@ -81,7 +84,23 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Forward the request to the container
+	forwardRequest(w, r, targetURL)
+}
+
+func scheduleJavaContainer() string {
+	index := javaRoundRobinIndex % numberOfJavaContainers
+	javaRoundRobinIndex++
+	return javaContainerName + fmt.Sprintf("-%d", index)
+}
+
+func scheduleGoContainer() string {
+	index := goRoundRobinIndex % numberOfGoContainers
+	goRoundRobinIndex++
+	return goContainerName + fmt.Sprintf("-%d", index)
+}
+
+
+func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	resp, err := http.Get(targetURL + "?" + r.URL.RawQuery)
 	if err != nil {
 		http.Error(w, "Error forwarding request: "+err.Error(), http.StatusInternalServerError)
@@ -95,6 +114,18 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 func startContainer(containerName string) {
     fmt.Println("Starting container:", containerName)
 
+    // Check if the container is already running
+    if isContainerRunning(containerName) {
+        fmt.Println("Container already running:", containerName)
+        return // Container is already running
+    }
+
+    // Start the container
+    startNewContainer(containerName)
+}
+
+// Check if a container is already running
+func isContainerRunning(containerName string) bool {
     // Check if the container is already running
     cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
     output, err := cmd.Output()
@@ -123,21 +154,26 @@ func startContainer(containerName string) {
             return
         }
     }
+}
 
-    // Define the port mapping and image name
+// Start a new container
+func startNewContainer(containerName string) {
     var portMapping, imageName string
-    switch containerName {
-    case javaContainerName:
+
+    // Define the port mapping and image name based on container prefix
+    if strings.HasPrefix(containerName, javaContainerName) {
         portMapping = "9876:9876"
         imageName = "my-java-server"
-    case goContainerName:
+    } else if strings.HasPrefix(containerName, goContainerName) {
         portMapping = "9875:9875"
         imageName = "my-go-server"
+    } else {
+        fmt.Println("Unknown container name:", containerName)
+        return
     }
 
-    // Start the container
-    cmd = exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
-    if err := cmd.Start(); err != nil {
+    cmd := exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
+    if err := cmd.Run(); err != nil {
         fmt.Println("Error starting container:", containerName, err)
     } else {
         fmt.Println("Container started:", containerName)
@@ -145,7 +181,28 @@ func startContainer(containerName string) {
 }
 
 
+// func startContainer(containerName string) {
+//     fmt.Println("Starting container:", containerName)
 
+//     // Define the port mapping and image name
+//     var portMapping, imageName string
+//     switch containerName {
+//     case javaContainerName:
+//         portMapping = "9876:9876"
+//         imageName = "my-java-server"
+//     case goContainerName:
+//         portMapping = "9875:9875"
+//         imageName = "my-go-server"
+//     }
+
+//     // Start the container
+//     cmd = exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
+//     if err := cmd.Start(); err != nil {
+//         fmt.Println("Error starting container:", containerName, err)
+//     } else {
+//         fmt.Println("Container started:", containerName)
+//     }
+// }
 
 func waitForServerReady(url string) bool {
 	deadline := time.Now().Add(waitTimeout)
