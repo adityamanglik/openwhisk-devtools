@@ -57,6 +57,8 @@ warm_up_server() {
         HTTP_STATUS=$(curl -o /dev/null -s -w '%{http_code}' "$API_URL")
         if [ "$HTTP_STATUS" -eq 200 ]; then
             echo "Received valid response (HTTP Status 200) from $API_URL"
+            result=$(curl "$API_URL")
+            echo $result
             return 0
         else
             echo "Invalid response from $API_URL, retrying... (Attempt $((RETRY_COUNT+1)) of $MAX_RETRIES)"

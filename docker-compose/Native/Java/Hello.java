@@ -12,28 +12,16 @@ import java.lang.management.GarbageCollectorMXBean;
 public class Hello {
 
     private static final int ARRAY_SIZE = 0;
-    private static final String FILE_NAME = "Java_execution_times.txt";
+    private static final String FILE_NAME = "execution_times.txt";
     private static final List<Long> executionTimes = new ArrayList<>();
 
     static {
         // Add shutdown hook
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            saveExecutionTimesToFile();
-        }));
+        Runtime.getRuntime().addShutdownHook(new Thread(Hello::saveExecutionTimesToFile));
     }
 
     private static synchronized void saveExecutionTimeToFile(long executionTime) {
         executionTimes.add(executionTime); // Add execution time to the list
-    }
-
-    private static void saveExecutionTimesToFile() {
-        try (FileWriter writer = new FileWriter(FILE_NAME, true)) { // true for append mode
-            for (Long time : executionTimes) {
-                writer.write(time + "\n");
-            }
-        } catch (IOException e) {
-            System.err.println("Error writing execution times to file: " + e.getMessage());
-        }
     }
 
     public static JsonObject main(JsonObject args) {
@@ -89,5 +77,15 @@ public class Hello {
         response.addProperty("heapMaxMemory: ", maxMemory);
         
         return response;
+    }
+
+    private static synchronized void saveExecutionTimesToFile() {
+        try (FileWriter writer = new FileWriter(FILE_NAME, true)) { // true for append mode
+            for (Long time : executionTimes) {
+                writer.write(time + " ms\n");
+            }
+        } catch (IOException e) {
+            System.err.println("Error writing execution times to file: " + e.getMessage());
+        }
     }
 }
