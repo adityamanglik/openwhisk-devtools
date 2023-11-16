@@ -26,7 +26,7 @@ kill_java_server() {
     if [ -z "$PID" ]; then
         echo "JavaServer is not running."
     else
-        ssh $OW_SERVER_NODE "kill -9 $PID"
+        ssh $OW_SERVER_NODE "kill $PID"
         echo "Killed JsonServer with PID $PID."
     fi
 }
@@ -42,7 +42,7 @@ kill_go_server() {
     if [ -z "$PID" ]; then
         echo "Go server is not running."
     else
-        ssh $OW_SERVER_NODE "kill -9 $PID"
+        ssh $OW_SERVER_NODE "kill $PID"
         echo "Killed Go server with PID $PID."
     fi
 }

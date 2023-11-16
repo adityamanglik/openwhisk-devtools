@@ -1,4 +1,6 @@
 import com.google.gson.JsonObject;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -10,12 +12,27 @@ import java.lang.management.GarbageCollectorMXBean;
 public class Hello {
 
     private static final int ARRAY_SIZE = 0;
+    private static final String FILE_NAME = "Java_execution_times.txt";
+    private static final List<Long> executionTimes = new ArrayList<>();
+
+    static {
+        // Add shutdown hook
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            saveExecutionTimesToFile();
+        }));
+    }
 
     private static synchronized void saveExecutionTimeToFile(long executionTime) {
+        executionTimes.add(executionTime); // Add execution time to the list
+    }
+
+    private static void saveExecutionTimesToFile() {
         try (FileWriter writer = new FileWriter(FILE_NAME, true)) { // true for append mode
-            writer.write(executionTime + " ms\n");
+            for (Long time : executionTimes) {
+                writer.write(time + "\n");
+            }
         } catch (IOException e) {
-            System.err.println("Error writing execution time to file: " + e.getMessage());
+            System.err.println("Error writing execution times to file: " + e.getMessage());
         }
     }
 
@@ -38,9 +55,8 @@ public class Hello {
         for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
         }
-        long endTime = System.currentTimeMillis();
-        executionTimes.add(endTime - startTime);
-        saveExecutionTimeToFile(executionTime);
+        long executionTime = endTime - startTime;
+        saveExecutionTimeToFile(executionTime); // Save each execution time
 
         JsonObject response = new JsonObject();
         response.addProperty("sum", sum);
