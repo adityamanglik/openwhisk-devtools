@@ -14,6 +14,10 @@ class ServerLoadTest(HttpUser):
         if not self.API:
             print("No API URL provided in environment. Skipping requests.")
             return  # Stop executing if no API URL is set
+        self.execution_times_file = open(self.API + "execution_times.txt", "a")  # File to save execution times
+    
+    def on_stop(self):
+        self.execution_times_file.close()  # Close the file when the test stops
 
     @task
     def send_request(self):
@@ -25,8 +29,12 @@ class ServerLoadTest(HttpUser):
         request_url = self.API + "?seed=" + str(random_seed)
 
         with self.client.get(request_url, catch_response=True) as response:
-            if response.status_code == 404:
-                response.failure("404 error code")
+            if response.status_code == 200:
+                data = response.json()
+                execution_time = data.get("executionTime", "NA")
+                self.execution_times_file.write(str(execution_time) + "\n")
+            else:
+                response.failure(f"Unexpected status code: {response.status_code}")
 
             # TODO: Use time to isolate cold starts
             # elif response.elapsed.total_seconds() > 1.0:

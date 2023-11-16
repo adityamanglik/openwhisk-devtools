@@ -1,9 +1,5 @@
 import com.google.gson.JsonObject;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
 import java.lang.management.MemoryUsage;
@@ -12,42 +8,32 @@ import java.lang.management.GarbageCollectorMXBean;
 public class Hello {
 
     private static final int ARRAY_SIZE = 0;
-    private static final String FILE_NAME = "Java_execution_times.txt";
-    private static final List<Long> executionTimes = new ArrayList<>();
-
-    static {
-        // Add shutdown hook
-        Runtime.getRuntime().addShutdownHook(new Thread(Hello::saveExecutionTimesToFile));
-    }
-
-    private static synchronized void saveExecutionTimeToFile(long executionTime) {
-        executionTimes.add(executionTime); // Add execution time to the list
-    }
 
     public static JsonObject main(JsonObject args) {
         int seed = 42; // default seed value
         if (args.has("seed")) {
             seed = args.getAsJsonPrimitive("seed").getAsInt();
         }
-        // Start time tracking
-        long startTime = System.nanoTime();
+
+        long startTime = System.nanoTime(); // Start time tracking
 
         Random rand = new Random(seed);
         Integer[] arr = new Integer[ARRAY_SIZE];
         long sum = 0;
 
         for (int i = 0; i < arr.length; i++) {
-            arr[i] = rand.nextInt(100000); // populate array with random integers between 0 and (100000 - 1)
+            arr[i] = rand.nextInt(100000); // populate array with random integers
         }
 
         for (int i = 0; i < arr.length; i++) {
             sum += arr[i];
         }
-        long executionTime = System.nanoTime() - startTime;
-        saveExecutionTimeToFile(executionTime); // Save each execution time
+
+        long executionTime = System.nanoTime() - startTime; // Calculate execution time
 
         JsonObject response = new JsonObject();
         response.addProperty("sum", sum);
+        response.addProperty("executionTime", executionTime); // Add execution time to response
 
         // Garbage collector information
         int gcIndex = 0;
@@ -64,7 +50,6 @@ public class Hello {
         }
 
         MemoryMXBean memoryMXBean = ManagementFactory.getMemoryMXBean();
-
         MemoryUsage heapMemoryUsage = memoryMXBean.getHeapMemoryUsage();
 
         long initMemory = heapMemoryUsage.getInit();  // Initial memory amount
@@ -79,13 +64,4 @@ public class Hello {
         return response;
     }
 
-    private static synchronized void saveExecutionTimesToFile() {
-        try (FileWriter writer = new FileWriter(FILE_NAME, true)) { // true for append mode
-            for (Long time : executionTimes) {
-                writer.write(time + "\n");
-            }
-        } catch (IOException e) {
-            System.err.println("Error writing execution times to file: " + e.getMessage());
-        }
-    }
 }

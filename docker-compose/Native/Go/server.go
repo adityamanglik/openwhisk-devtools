@@ -9,92 +9,31 @@ import (
     "net/http"
     "os"
     "os/signal"
-    "runtime"
     "strconv"
     "syscall"
     "time"
-    "path/filepath"
-)
-
-import "sync"
-import "io/ioutil"
-
-var (
-    executionTimes []time.Duration
-    timesMutex     sync.Mutex
 )
 
 const arraySize = 0
 const serverPort = ":9875"
 
 func main() {
-    // Check if the port is already in use
     ln, err := net.Listen("tcp", serverPort)
     if err != nil {
         log.Fatalf("Error starting server: %v", err)
     }
 
-    // Create an HTTP server
     server := &http.Server{Addr: serverPort, Handler: nil}
-
-    // Handle routes
     http.HandleFunc("/GoNative", jsonHandler)
-    log.Println("Server listening on http://localhost" + serverPort + "/GoNative")
+    log.Println("Server listening on http://localhost" + serverPort)
 
-    // Start server in a goroutine
     go func() {
         if err := server.Serve(ln); err != nil && err != http.ErrServerClosed {
             log.Fatalf("Error starting server: %v", err)
         }
     }()
 
-    // Graceful shutdown
     gracefulShutdown(server)
-}
-
-func saveExecutionTimesToFile(filename string) {
-    var data string
-    for _, t := range executionTimes {
-        data += t.String() + "\n"
-    }
-
-    if err := ioutil.WriteFile(filename, []byte(data), 0644); err != nil {
-        log.Fatalf("Failed to write execution times to file: %v", err)
-    }
-}
-
-func gracefulShutdown(server *http.Server) {
-    stop := make(chan os.Signal, 1)
-    signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
-
-    <-stop
-
-    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
-    defer cancel()
-
-    log.Println("Shutting down server...")
-
-    if err := server.Shutdown(ctx); err != nil {
-        log.Fatalf("Server forced to shutdown: %v", err)
-    }
-
-    // Get the executable path
-    exePath, err := os.Executable()
-    if err != nil {
-        log.Fatalf("Failed to find executable path: %v", err)
-    }
-
-    // Get the directory of the executable
-    exeDir := filepath.Dir(exePath)
-
-    // Create the full path for the file
-    fullPath := filepath.Join(exeDir, "Go_execution_times.txt")
-
-    // Log the full path for clarity
-    log.Printf("Saving execution times to file: %s\n", fullPath)
-
-    // Save the execution times
-    saveExecutionTimesToFile(fullPath)
 }
 
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
@@ -111,14 +50,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
         }
     }
 
-    start := time.Now()
-    jsonResponse, err := mainLogic(seed)
-    elapsed := time.Since(start)
-
-    timesMutex.Lock()
-    executionTimes = append(executionTimes, elapsed)
-    timesMutex.Unlock()
-
+    jsonResponse, executionTime, err := mainLogic(seed)
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -127,29 +59,52 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
     w.Header().Set("Content-Type", "application/json")
     w.WriteHeader(http.StatusOK)
     w.Write(jsonResponse)
+
+    log.Printf("Request processed in %v\n", executionTime)
 }
 
-func mainLogic(seed int) ([]byte, error) {
+func mainLogic(seed int) ([]byte, time.Duration, error) {
+    start := time.Now()
+    
     rand.Seed(int64(seed))
 
     arr := make([]int, arraySize)
     var sum int64 = 0
 
     for i := range arr {
-        arr[i] = rand.Intn(100000) // random integers between 0 and 99999
+        arr[i] = rand.Intn(100000)
         sum += int64(arr[i])
     }
 
-    response := map[string]int64{
+    response := map[string]interface{}{
         "sum": sum,
     }
 
     var m runtime.MemStats
     runtime.ReadMemStats(&m)
-    response["heapAlloc"] = int64(m.HeapAlloc)
-    response["heapSys"] = int64(m.HeapSys)
-    response["heapIdle"] = int64(m.HeapIdle)
-    response["heapInuse"] = int64(m.HeapInuse)
+    response["heapAlloc"] = m.HeapAlloc
+    response["heapSys"] = m.HeapSys
+    response["heapIdle"] = m.HeapIdle
+    response["heapInuse"] = m.HeapInuse
 
-    return json.Marshal(response)
+    executionTime := time.Since(start)
+    response["executionTime"] = executionTime.String()
+
+    jsonResponse, err := json.Marshal(response)
+    return jsonResponse, executionTime, err
+}
+
+func gracefulShutdown(server *http.Server) {
+    stop := make(chan os.Signal, 1)
+    signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
+
+    <-stop
+
+    ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+    defer cancel()
+
+    log.Println("Shutting down server...")
+    if err := server.Shutdown(ctx); err != nil {
+        log.Fatalf("Server forced to shutdown: %v", err)
+    }
 }
