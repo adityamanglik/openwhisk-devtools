@@ -4,7 +4,10 @@ import (
 	"fmt"
 	"io"
 	"net/http"
-	"os/exec"
+	"os"
+    "os/exec"
+    "os/signal"
+    "syscall"
 	"time"
 )
 
@@ -20,19 +23,50 @@ const (
 func main() {
 	http.HandleFunc("/", handleRequest)
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
-	if err := http.ListenAndServe(loadBalancerPort, nil); err != nil {
-		panic(err)
+
+	// Create a channel to listen for an interrupt or terminate signal from the OS.
+	stopChan := make(chan os.Signal, 1)
+	signal.Notify(stopChan, os.Interrupt, syscall.SIGTERM)
+
+	// Start the server in a goroutine
+	go func() {
+		if err := http.ListenAndServe(loadBalancerPort, nil); err != nil {
+			fmt.Println("Error starting server:", err)
+			stopChan <- os.Interrupt
+		}
+	}()
+
+	// Block until a signal is received.
+	<-stopChan
+
+	// Stop the Docker containers
+	stopContainer(javaContainerName)
+	stopContainer(goContainerName)
+
+	fmt.Println("Shutting down load balancer server...")
+}
+
+func stopContainer(containerName string) {
+	fmt.Println("Stopping container:", containerName)
+	cmd := exec.Command("docker", "stop", containerName)
+	if err := cmd.Run(); err != nil {
+		fmt.Println("Error stopping container:", containerName, err)
+	} else {
+		fmt.Println("Container stopped:", containerName)
 	}
 }
+
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	var targetURL, containerName string
 
 	switch r.URL.Path {
 	case "/java":
+		fmt.Println("Java request received", r.URL.Path)
 		targetURL = "http://localhost:" + javaServerPort + "/jsonresponse"
 		containerName = javaContainerName
 	case "/go":
+		fmt.Println("Go request received", r.URL.Path)
 		targetURL = "http://localhost:" + goServerPort + "/GoNative"
 		containerName = goContainerName
 	default:
@@ -59,19 +93,39 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func startContainer(containerName string) {
-	cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
-	output, _ := cmd.Output()
-	if string(output) != "" {
-		return // Container is already running
-	}
+    fmt.Println("Starting container: ", containerName)
+    cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
+    output, _ := cmd.Output()
+    if string(output) != "" {
+        fmt.Println("Container already running: ", containerName)
+        return // Container is already running
+    }
+    fmt.Println("Launching container: ", containerName)
 
-	cmd = exec.Command("docker", "run", "-d", "--rm", "--name", containerName, containerName)
-	cmd.Start()
+    var portMapping string
+    var imageName string
+    switch containerName {
+    case javaContainerName:
+        portMapping = javaServerPort + ":9876"
+        imageName = "java-server"
+    case goContainerName:
+        portMapping = goServerPort + ":9875"
+        imageName = "go-server"
+    }
+
+    cmd = exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
+    cmd.Start()
+	if err := cmd.Start(); err != nil {
+		fmt.Println("Error starting container:", containerName, err)
+		// Handle the error appropriately
+	}
 }
+
 
 func waitForServerReady(url string) bool {
 	deadline := time.Now().Add(waitTimeout)
 	for time.Now().Before(deadline) {
+		fmt.Println("Waiting for container: ", url)
 		resp, err := http.Get(url)
 		if err == nil {
 			resp.Body.Close()
@@ -83,6 +137,7 @@ func waitForServerReady(url string) bool {
 }
 
 func copyResponse(w http.ResponseWriter, resp *http.Response) {
+	fmt.Println("Copying response: ")
 	for name, values := range resp.Header {
 		for _, value := range values {
 			w.Header().Add(name, value)
