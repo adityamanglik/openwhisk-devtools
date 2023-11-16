@@ -5,6 +5,7 @@ import (
 	"io"
 	"net/http"
 	"os/exec"
+	"time"
 )
 
 const (
@@ -13,6 +14,7 @@ const (
 	loadBalancerPort  = ":8080"
 	javaContainerName = "my-java-server"
 	goContainerName   = "my-go-server"
+	waitTimeout       = 10 * time.Second
 )
 
 func main() {
@@ -24,49 +26,68 @@ func main() {
 }
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
-	var targetURL string
+	var targetURL, containerName string
 
-	// Check the endpoint and start the respective container
 	switch r.URL.Path {
 	case "/java":
 		targetURL = "http://localhost:" + javaServerPort + "/jsonresponse"
-		startContainer(javaContainerName, "java-server")
+		containerName = javaContainerName
 	case "/go":
 		targetURL = "http://localhost:" + goServerPort + "/GoNative"
-		startContainer(goContainerName, "go-server")
+		containerName = goContainerName
 	default:
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
 
+	// Start the container and wait for it to be ready
+	startContainer(containerName)
+	if !waitForServerReady(targetURL) {
+		http.Error(w, "Server is not ready", http.StatusServiceUnavailable)
+		return
+	}
+
 	// Forward the request to the container
-	resp, err := http.Get(targetURL + r.URL.RawQuery)
+	resp, err := http.Get(targetURL + "?" + r.URL.RawQuery)
 	if err != nil {
 		http.Error(w, "Error forwarding request: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer resp.Body.Close()
 
-	// Copy the response from the container to the client
-	io.Copy(w, resp.Body)
-
-	// Here you can retrieve and analyze GC stats, then make decisions for future requests
+	copyResponse(w, resp)
 }
 
-func startContainer(containerName, imageName string) {
-	// Check if the container is already running
+func startContainer(containerName string) {
 	cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
 	output, _ := cmd.Output()
 	if string(output) != "" {
 		return // Container is already running
 	}
 
-	// Start the container
-	cmd = exec.Command("docker", "run", "-d", "--rm", "--name", containerName, "-p", containerName+":9875", imageName)
-	if err := cmd.Start(); err != nil {
-		fmt.Println("Error starting container:", err)
-		return
-	}
+	cmd = exec.Command("docker", "run", "-d", "--rm", "--name", containerName, containerName)
+	cmd.Start()
+}
 
-	// Note: Add error handling and possibly a waiting mechanism for the container to be ready
+func waitForServerReady(url string) bool {
+	deadline := time.Now().Add(waitTimeout)
+	for time.Now().Before(deadline) {
+		resp, err := http.Get(url)
+		if err == nil {
+			resp.Body.Close()
+			return true
+		}
+		time.Sleep(1 * time.Second)
+	}
+	return false
+}
+
+func copyResponse(w http.ResponseWriter, resp *http.Response) {
+	for name, values := range resp.Header {
+		for _, value := range values {
+			w.Header().Add(name, value)
+		}
+	}
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
 }
