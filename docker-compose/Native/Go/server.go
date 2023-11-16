@@ -13,6 +13,7 @@ import (
     "strconv"
     "syscall"
     "time"
+    "path/filepath"
 )
 
 import "sync"
@@ -77,7 +78,23 @@ func gracefulShutdown(server *http.Server) {
         log.Fatalf("Server forced to shutdown: %v", err)
     }
 
-    saveExecutionTimesToFile("./Go_execution_times.txt")
+    // Get the executable path
+    exePath, err := os.Executable()
+    if err != nil {
+        log.Fatalf("Failed to find executable path: %v", err)
+    }
+
+    // Get the directory of the executable
+    exeDir := filepath.Dir(exePath)
+
+    // Create the full path for the file
+    fullPath := filepath.Join(exeDir, "Go_execution_times.txt")
+
+    // Log the full path for clarity
+    log.Printf("Saving execution times to file: %s\n", fullPath)
+
+    // Save the execution times
+    saveExecutionTimesToFile(fullPath)
 }
 
 func jsonHandler(w http.ResponseWriter, r *http.Request) {

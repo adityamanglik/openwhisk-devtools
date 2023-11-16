@@ -82,7 +82,7 @@ public class Hello {
     private static synchronized void saveExecutionTimesToFile() {
         try (FileWriter writer = new FileWriter(FILE_NAME, true)) { // true for append mode
             for (Long time : executionTimes) {
-                writer.write(time + " ms\n");
+                writer.write(time + "\n");
             }
         } catch (IOException e) {
             System.err.println("Error writing execution times to file: " + e.getMessage());
