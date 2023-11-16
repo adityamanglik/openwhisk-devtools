@@ -1,8 +1,14 @@
 # Use a base image with Go installed (specify the Go version you need)
-FROM golang:1.18
+FROM golang:1.16
 
 # Set the working directory inside the container
 WORKDIR /app
+
+# Copy the Go mod and sum files
+COPY go.mod ./
+
+# Download all dependencies
+RUN go mod download
 
 # Copy the Go source file(s) into the container
 COPY . .
