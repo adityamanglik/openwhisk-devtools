@@ -5,9 +5,10 @@ import (
 	"io"
 	"net/http"
 	"os"
-    "os/exec"
-    "os/signal"
-    "syscall"
+	"os/exec"
+	"os/signal"
+	"strings"
+	"syscall"
 	"time"
 )
 
@@ -22,6 +23,7 @@ const (
 
 var javaRoundRobinIndex int = 0
 var goRoundRobinIndex int = 0
+
 const numberOfJavaContainers int = 4
 const numberOfGoContainers int = 4
 
@@ -61,16 +63,17 @@ func stopAllRunningContainers() {
 	}
 }
 
-
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	var targetURL, containerName string
 
 	switch r.URL.Path {
 	case "/java":
 		containerName = scheduleJavaContainer()
+		fmt.Println("Selected container:", containerName)
 		targetURL = "http://localhost:" + javaServerPort + "/jsonresponse"
 	case "/go":
 		containerName = scheduleGoContainer()
+		fmt.Println("Selected container:", containerName)
 		targetURL = "http://localhost:" + goServerPort + "/GoNative"
 	default:
 		http.Error(w, "Not found", http.StatusNotFound)
@@ -78,7 +81,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Start the container and wait for it to be ready
-	startContainer(containerName)
+	CheckandStartContainer(containerName)
 	if !waitForServerReady(targetURL) {
 		http.Error(w, "Server is not ready", http.StatusServiceUnavailable)
 		return
@@ -99,7 +102,6 @@ func scheduleGoContainer() string {
 	return goContainerName + fmt.Sprintf("-%d", index)
 }
 
-
 func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	resp, err := http.Get(targetURL + "?" + r.URL.RawQuery)
 	if err != nil {
@@ -111,78 +113,77 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	copyResponse(w, resp)
 }
 
-func startContainer(containerName string) {
-    fmt.Println("Starting container:", containerName)
+func CheckandStartContainer(containerName string) {
+	fmt.Println("Starting container:", containerName)
 
-    // Check if the container is already running
-    if isContainerRunning(containerName) {
-        fmt.Println("Container already running:", containerName)
-        return // Container is already running
-    }
+	// Check if the container is already running
+	if isContainerRunning(containerName) {
+		fmt.Println("Container already running:", containerName)
+		return // Container is already running
+	}
 
-    // Start the container
-    startNewContainer(containerName)
+	// Start the container
+	startNewContainer(containerName)
 }
 
 // Check if a container is already running
 func isContainerRunning(containerName string) bool {
-    // Check if the container is already running
-    cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
-    output, err := cmd.Output()
-    if err != nil {
-        fmt.Println("Error checking running container:", err)
-        return false
-    }
-    if string(output) != "" {
-        fmt.Println("Container already running:", containerName)
-        return true// Container is already running
-    }
+	// Check if the container is already running
+	cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
+	output, err := cmd.Output()
+	if err != nil {
+		fmt.Println("Error checking running container:", err)
+		return false
+	}
+	if string(output) != "" {
+		fmt.Println("Container already running:", containerName)
+		return true // Container is already running
+	}
 
-    // Check if a stopped container with the name exists
-    cmd = exec.Command("docker", "ps", "-a", "-q", "-f", "name="+containerName)
-    output, err = cmd.Output()
-    if err != nil {
-        fmt.Println("Error checking stopped container:", err)
-        return false
-    }
-    if string(output) != "" {
-        // Remove the existing container
-        fmt.Println("Removing existing container:", containerName)
-        cmd = exec.Command("docker", "rm", containerName)
-        if err := cmd.Run(); err != nil {
-            fmt.Println("Error removing container:", err)
-            return false
-        }
-    }
+	// Check if a stopped container with the name exists
+	cmd = exec.Command("docker", "ps", "-a", "-q", "-f", "name="+containerName)
+	output, err = cmd.Output()
+	if err != nil {
+		fmt.Println("Error checking stopped container:", err)
+		return false
+	}
+	if string(output) != "" {
+		// Remove the existing container
+		fmt.Println("Removing existing container:", containerName)
+		cmd = exec.Command("docker", "rm", containerName)
+		if err := cmd.Run(); err != nil {
+			fmt.Println("Error removing container:", err)
+			return false
+		}
+	}
 	return false
 }
 
 // Start a new container
 func startNewContainer(containerName string) {
-    var portMapping, imageName string
+	var portMapping, imageName string
 
-    // Define the port mapping and image name based on container prefix
-    if strings.HasPrefix(containerName, javaContainerName) {
-        portMapping = "9876:9876"
-        imageName = "my-java-server"
-    } else if strings.HasPrefix(containerName, goContainerName) {
-        portMapping = "9875:9875"
-        imageName = "my-go-server"
-    } else {
-        fmt.Println("Unknown container name:", containerName)
-        return false
-    }
+	// Define the port mapping and image name based on container prefix
+	if strings.HasPrefix(containerName, javaContainerName) {
+		portMapping = "9876:9876"
+		imageName = "my-java-server"
+	} else if strings.HasPrefix(containerName, goContainerName) {
+		portMapping = "9875:9875"
+		imageName = "my-go-server"
+	} else {
+		fmt.Println("Unknown container name:", containerName)
+		return
+	}
 
-    cmd := exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
-    if err := cmd.Run(); err != nil {
-        fmt.Println("Error starting container:", containerName, err)
-		return false
-    } else {
-        fmt.Println("Container started:", containerName)
-		return true
-    }
+	cmd := exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
+	if err := cmd.Run(); err != nil {
+		fmt.Println("Error starting container:", containerName, err)
+		return
+	} else {
+		fmt.Println("Container started:", containerName)
+		return
+	}
 }
-
 
 // func startContainer(containerName string) {
 //     fmt.Println("Starting container:", containerName)
