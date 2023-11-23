@@ -1,1 +1,13 @@
 Method,Name,Error,Occurrences
+GET,/java?seed=3848,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=7327,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=8926,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=5347,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=598,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=4561,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=7694,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=5628,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=8516,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=5417,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=1656,CatchResponseError('Unexpected status code: 500'),1
+GET,/java?seed=9759,CatchResponseError('Unexpected status code: 500'),1

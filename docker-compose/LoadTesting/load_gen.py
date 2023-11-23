@@ -26,7 +26,7 @@ class ServerLoadTest(HttpUser):
             return
 
         random_seed = random.randint(0, 10000)
-        request_url = self.API + "?seed=" + str(random_seed)
+        request_url = self.API + "/java?seed=" + str(random_seed)
 
         with self.client.get(request_url, catch_response=True) as response:
             if response.status_code == 200:
