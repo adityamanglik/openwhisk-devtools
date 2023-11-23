@@ -31,6 +31,15 @@ const numberOfGoContainers int = 4
 // Track running containers
 var runningContainers = make(map[string]string)
 
+// Global http.Client with Transport settings for high-performance
+var client = &http.Client{
+	Transport: &http.Transport{
+		MaxIdleConns:        100,
+		MaxIdleConnsPerHost: 100,
+		IdleConnTimeout:     90 * time.Second,
+	},
+}
+
 func main() {
 
 	// Stop all running Docker containers
@@ -104,7 +113,13 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Start the container and wait for it to be ready
-	CheckandStartContainer(containerName)
+	fmt.Println("Checking and starting container:", containerName)
+
+	//  Check if the container is already running
+	if !isContainerRunning(containerName) {
+		startNewContainer(containerName)
+	}
+
 	forwardRequest(w, r, targetURL)
 }
 
@@ -121,26 +136,33 @@ func scheduleGoContainer() string {
 }
 
 func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
-	resp, err := http.Get(targetURL + "?" + r.URL.RawQuery)
+	req, err := http.NewRequest(r.Method, targetURL, r.Body)
+	if err != nil {
+		http.Error(w, "Error creating request: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	for name, values := range r.Header {
+		for _, value := range values {
+			req.Header.Add(name, value)
+		}
+	}
+
+	client := &http.Client{}
+	resp, err := client.Do(req)
 	if err != nil {
 		http.Error(w, "Error forwarding request: "+err.Error(), http.StatusInternalServerError)
 		return
 	}
 	defer resp.Body.Close()
 
-	copyResponse(w, resp)
-}
-
-func CheckandStartContainer(containerName string) {
-	fmt.Println("Checking and starting container:", containerName)
-
-	//  Check if the container is already running
-	if isContainerRunning(containerName) {
-		fmt.Println("Container already running:", containerName)
-		return // Container is already running
+	fmt.Println("Copying response: ")
+	for name, values := range resp.Header {
+		for _, value := range values {
+			w.Header().Add(name, value)
+		}
 	}
-	// else start the container
-	startNewContainer(containerName)
+	w.WriteHeader(resp.StatusCode)
+	io.Copy(w, resp.Body)
 }
 
 // Check if a container is already running
@@ -232,15 +254,4 @@ func waitForServerReady(url string) bool {
 		time.Sleep(1 * time.Second)
 	}
 	return false
-}
-
-func copyResponse(w http.ResponseWriter, resp *http.Response) {
-	fmt.Println("Copying response: ")
-	for name, values := range resp.Header {
-		for _, value := range values {
-			w.Header().Add(name, value)
-		}
-	}
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
 }
