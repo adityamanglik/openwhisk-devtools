@@ -32,6 +32,10 @@ const numberOfGoContainers int = 4
 var runningContainers = make(map[string]string)
 
 func main() {
+
+	// Stop all running Docker containers
+	stopAllRunningContainers()
+
 	http.HandleFunc("/", handleRequest)
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
 
@@ -59,12 +63,25 @@ func main() {
 // Stop all running Docker containers
 func stopAllRunningContainers() {
 	fmt.Println("Stopping all running Docker containers...")
-	cmd := exec.Command("docker", "rm", "-vf", "$(docker", "ps", "-aq)")
-	if err := cmd.Run(); err != nil {
-		fmt.Println("Error stopping all containers:", err)
-	} else {
-		fmt.Println("All containers stopped successfully")
+
+	// Get the list of all container IDs
+	cmd := exec.Command("docker", "ps", "-aq")
+	output, err := cmd.Output()
+	if err != nil {
+		fmt.Println("Error getting container IDs:", err)
+		return
 	}
+	containerIDs := strings.Fields(string(output))
+
+	// Remove each container
+	for _, id := range containerIDs {
+		cmd = exec.Command("docker", "rm", "-vf", id)
+		if err := cmd.Run(); err != nil {
+			fmt.Println("Error removing container:", id, err)
+		}
+	}
+
+	fmt.Println("All containers stopped successfully")
 }
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
@@ -150,22 +167,6 @@ func isContainerRunning(containerName string) bool {
 	// 	return true // Container is already running
 	// }
 
-	// // Check if a stopped container with the name exists
-	// cmd = exec.Command("docker", "ps", "-a", "-q", "-f", "name="+containerName)
-	// output, err = cmd.Output()
-	// if err != nil {
-	// 	fmt.Println("Error checking stopped container:", err)
-	// 	return false
-	// }
-	// if string(output) != "" {
-	// 	// Remove the existing container
-	// 	fmt.Println("Removing existing container:", containerName)
-	// 	cmd = exec.Command("docker", "rm", containerName)
-	// 	if err := cmd.Run(); err != nil {
-	// 		fmt.Println("Error removing container:", err)
-	// 		return false
-	// 	}
-	// }
 	// return false
 }
 
@@ -190,9 +191,23 @@ func startNewContainer(containerName string) {
 		return
 	}
 
-	cmd := exec.Command("docker", "run", "-d", "--name", containerName, "-p", portMapping, imageName)
+	cmd := exec.Command("docker", "run", "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
 	if err := cmd.Run(); err != nil {
 		fmt.Println("Error starting container:", containerName, err)
+		// Check if a stopped container with the name exists
+		cmd = exec.Command("docker", "ps", "-a", "-q", "-f", "name="+containerName)
+		output, err := cmd.Output()
+		if err != nil {
+			fmt.Println("Error checking stopped container:", err)
+		}
+		if string(output) != "" {
+			// Remove the existing container
+			fmt.Println("Removing existing container:", containerName)
+			cmd = exec.Command("docker", "rm", containerName)
+			if err := cmd.Run(); err != nil {
+				fmt.Println("Error removing container:", err)
+			}
+		}
 		return
 	} else { // container successfully started
 		if !waitForServerReady(targetURL) {
