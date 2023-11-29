@@ -19,6 +19,7 @@ const (
 	javaServerImage  = "java-server-image"
 	goServerImage    = "go-server-image"
 	waitTimeout      = 10 * time.Second
+	serverIP         = "http://128.110.96.167:"
 )
 
 // Start values for port numbers
@@ -101,12 +102,12 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		containerName = scheduleJavaContainer()
 		fmt.Println("Selected container: ", containerName)
 		port = containerName[len(javaServerImage)+1:] // "+1" to skip the hyphen
-		targetURL = "http://128.110.96.176:" + port + "/jsonresponse"
+		targetURL = serverIP + port + "/jsonresponse"
 	case "/go":
 		containerName = scheduleGoContainer()
 		fmt.Println("Selected container: ", containerName)
 		port = containerName[len(goServerImage)+1:] // "+1" to skip the hyphen
-		targetURL = "http://128.110.96.176:" + port + "/GoNative"
+		targetURL = serverIP + port + "/GoNative"
 	default:
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
@@ -202,12 +203,12 @@ func startNewContainer(containerName string) {
 		containerPort = containerName[len(javaServerImage)+1:]
 		portMapping = containerPort + ":" + javaServerPort
 		imageName = javaServerImage
-		targetURL = "http://128.110.96.176:" + containerPort + "/jsonresponse"
+		targetURL = serverIP + containerPort + "/jsonresponse"
 	} else if strings.HasPrefix(containerName, "go") {
 		containerPort = containerName[len(goServerImage)+1:]
 		portMapping = containerPort + ":" + goServerPort
 		imageName = goServerImage
-		targetURL = "http://128.110.96.176:" + containerPort + "/GoNative"
+		targetURL = serverIP + containerPort + "/GoNative"
 	} else {
 		fmt.Println("Unknown container name:", containerName)
 		return
