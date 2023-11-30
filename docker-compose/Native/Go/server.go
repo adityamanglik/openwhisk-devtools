@@ -15,7 +15,8 @@ import (
     "runtime"
 )
 
-const arraySize = 1000000
+// MARKER_FOR_SIZE_UPDATE
+const ARRAY_SIZE = 1000000
 const serverPort = ":9875"
 
 func main() {
@@ -69,7 +70,7 @@ func mainLogic(seed int) ([]byte, error) {
     
     rand.Seed(int64(seed))
 
-    arr := make([]int, arraySize)
+    arr := make([]int, ARRAY_SIZE)
     var sum int64 = 0
 
     for i := range arr {

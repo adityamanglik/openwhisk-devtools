@@ -5,7 +5,7 @@ GO_API="http://128.110.96.167:8180/go?seed=5"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
 JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
-ITERATIONS=1000
+ITERATIONS=100
 
 # Build docker images
 build_docker_images() {
@@ -52,14 +52,35 @@ send_requests() {
         echo "$execution_time_ms" >> $execution_time_file
     done
 
-    # Move all log and image files to that directory
-    mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/"
-
-    python ../Graphs/LoadBalancer/response_time_plotter.py $size
+    # Move all log and image files to their respective directories
+    # Check if the API is for Go and then move all log and image files to the Go directory
+    if [[ "$api_url" == *"/go"* ]]; then
+        mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/"
+    else
+        # If the API is not for Go, assume it's for Java and move files to the Java directory
+        mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/"
+    fi
 }
 
-send_requests $JAVA_API "java_response_times.txt" "java_execution_times_ms.txt" 1000000
-send_requests $GO_API "go_response_times.txt" "go_execution_times_ms.txt" 1000000
+# Array of sizes
+sizes=(100 10000 1000000)
+
+# Loop through each size
+for size in "${sizes[@]}"; do
+    # Commands for Java API
+    send_requests $JAVA_API "client_time.txt" "server_time.txt" $size
+    python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
+
+    # Commands for Go API
+    send_requests $GO_API "client_time.txt" "server_time.txt" $size
+    python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
+done
+
+# send_requests $JAVA_API "client_time.txt" "server_time.txt" 1000000
+# python ../Graphs/LoadBalancer/response_time_plotter.py ../Graphs/LoadBalancer/Java/1000000/client_time.txt ../Graphs/LoadBalancer/Java/1000000/server_time.txt ../Graphs/LoadBalancer/Java/1000000/graph.pdf
+
+# send_requests $GO_API "client_time.txt" "server_time.txt" 1000000
+# python ../Graphs/LoadBalancer/response_time_plotter.py ../Graphs/LoadBalancer/Go/1000000/client_time.txt ../Graphs/LoadBalancer/Java/1000000/server_time.txt ../Graphs/LoadBalancer/Java/1000000/graph.pdf
 
 # BACKUP #######################################################################
 # Locust code
