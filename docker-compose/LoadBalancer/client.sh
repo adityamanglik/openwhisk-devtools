@@ -1,7 +1,7 @@
 # Constants and Variables
 OW_SERVER_NODE="am_CU@node0"
-JAVA_API="http://128.110.96.167:8180/java?seed=5"
-GO_API="http://128.110.96.167:8180/go?seed=5"
+JAVA_API="http://128.110.96.167:8180/java"
+GO_API="http://128.110.96.167:8180/go"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
 JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
@@ -18,7 +18,7 @@ ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-i
 
 # Send request and measure request response latencies
 send_requests() {
-    local api_url=$1
+    local base_api_url=$1
     local response_time_file=$2
     local execution_time_file=$3
     local size=$4
@@ -33,6 +33,12 @@ send_requests() {
 
     for i in $(seq 1 $ITERATIONS)
     do
+        # Generate a random seed value
+        local seed=$((RANDOM))
+
+        # Append the random seed value to the API URL
+        local api_url="${base_api_url}?seed=${seed}"
+
         # Measure the response time and capture the response
         start_time=$(date +%s.%N)
         response=$(curl -s "$api_url")
