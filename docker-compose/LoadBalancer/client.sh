@@ -5,7 +5,7 @@ GO_API="http://128.110.96.167:8180/go"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
 JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
-ITERATIONS=1000
+ITERATIONS=5000
 
 # Build docker images
 build_docker_images() {
