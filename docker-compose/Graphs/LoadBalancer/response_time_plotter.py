@@ -11,8 +11,9 @@ def plot_histograms(client_file, server_file, output_image_file):
 
     # Plotting
     plt.figure(figsize=(10, 6))
-    plt.hist(client_times, bins=50, alpha=0.5, label='Client Response Times')
-    plt.hist(server_times, bins=50, alpha=0.5, label='Server Execution Times')
+    plt.hist(client_times, bins=50, label='Client Response Times')
+    plt.hist(server_times, bins=50, label='Server Execution Times')
+    plt.xscale('symlog')
     plt.xlabel('Time (milliseconds)')
     plt.ylabel('Frequency')
     plt.title('Histogram of Response Times')

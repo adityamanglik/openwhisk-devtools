@@ -68,11 +68,11 @@ sizes=(100 10000 1000000)
 # Loop through each size
 for size in "${sizes[@]}"; do
     # Commands for Java API
-    send_requests $JAVA_API "client_time.txt" "server_time.txt" $size
+    # send_requests $JAVA_API "client_time.txt" "server_time.txt" $size
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
 
     # Commands for Go API
-    send_requests $GO_API "client_time.txt" "server_time.txt" $size
+    # send_requests $GO_API "client_time.txt" "server_time.txt" $size
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
 done
 
