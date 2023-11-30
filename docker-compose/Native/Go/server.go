@@ -21,7 +21,7 @@ const ARRAY_SIZE = 1000000
 const serverPort = ":9875"
 
 func init() {
-	debug.SetGCPercent(-1) // Disable the garbage collector
+	// debug.SetGCPercent(-1) // Disable the garbage collector
 }
 
 func main() {
