@@ -16,8 +16,5 @@ COPY . .
 # Build the Go application
 RUN go build -o server
 
-# Expose the port the server listens on
-EXPOSE 9875
-
 # Command to run the application
 CMD ["./server"]
