@@ -69,7 +69,14 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(100 10000 1000000)
+sizes=(100 10000 1000000 3200000)
+
+# for size in "${sizes[@]}"; do
+#     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
+
+#     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
+# done
+
 
 # Loop through each size
 for size in "${sizes[@]}"; do
@@ -91,13 +98,15 @@ for size in "${sizes[@]}"; do
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
 done
 
+# BACKUP #######################################################################
+
 # send_requests $JAVA_API "client_time.txt" "server_time.txt" 1000000
 # python ../Graphs/LoadBalancer/response_time_plotter.py ../Graphs/LoadBalancer/Java/1000000/client_time.txt ../Graphs/LoadBalancer/Java/1000000/server_time.txt ../Graphs/LoadBalancer/Java/1000000/graph.pdf
 
 # send_requests $GO_API "client_time.txt" "server_time.txt" 1000000
 # python ../Graphs/LoadBalancer/response_time_plotter.py ../Graphs/LoadBalancer/Go/1000000/client_time.txt ../Graphs/LoadBalancer/Java/1000000/server_time.txt ../Graphs/LoadBalancer/Java/1000000/graph.pdf
 
-# BACKUP #######################################################################
+
 # Locust code
 # export API_URL=$GO_API
 # locust --config=./master.conf
