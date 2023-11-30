@@ -67,11 +67,14 @@ sizes=(100 10000 1000000)
 
 # Loop through each size
 for size in "${sizes[@]}"; do
-    # Kill the load balancer process
-    ssh $OW_SERVER_NODE "pkill -signal SIGKILL -f loadbalancer.go"
+    # Kill the load balancer process if running
+    curl http://128.110.96.167:8180/exitCall
+
+    # Restart docker for good measure
+    ssh $OW_SERVER_NODE "sudo systemctl restart docker"
 
     # Restart the load balancer
-    ssh $OW_SERVER_NODE "nohup /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go &"
+    ssh $OW_SERVER_NODE "go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go &"
 
     # Commands for Java API
     send_requests $JAVA_API "client_time.txt" "server_time.txt" $size

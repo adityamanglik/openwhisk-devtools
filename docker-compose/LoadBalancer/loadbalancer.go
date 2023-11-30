@@ -49,6 +49,9 @@ func main() {
 	http.HandleFunc("/", handleRequest)
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
 
+	// Register the new exitCall handler
+    http.HandleFunc("/exitCall", exitCallHandler)
+
 	// Create a channel to listen for an interrupt or terminate signal from the OS.
 	stopChan := make(chan os.Signal, 1)
 	signal.Notify(stopChan, os.Interrupt, syscall.SIGTERM)
@@ -69,6 +72,23 @@ func main() {
 
 	fmt.Println("Shutting down load balancer server...")
 }
+
+// exitCallHandler initiates a graceful shutdown
+func exitCallHandler(w http.ResponseWriter, r *http.Request) {
+    fmt.Println("Exit call received. Initiating shutdown...")
+    
+    // Implement the logic to gracefully shut down the server
+    go func() {
+        stopAllRunningContainers()
+
+        // Optionally, you can add more cleanup logic here
+
+        os.Exit(0)
+    }()
+
+    // fmt.Fprintf(w, "Shutdown initiated")
+}
+
 
 // Stop all running Docker containers
 func stopAllRunningContainers() {
