@@ -12,6 +12,7 @@ import (
 	"syscall"
 	"time"
 	"io/ioutil"
+	"bytes"
 )
 
 const (
@@ -201,16 +202,21 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
     }
     w.WriteHeader(resp.StatusCode)
 
-    // Copy the response body to the client
-    responseBody, err := io.Copy(w, resp.Body)
+    // Create a buffer to store the response body
+    var bodyBuffer bytes.Buffer
+
+    // Copy the response body to the buffer and then to the client
+    _, err = io.Copy(&bodyBuffer, resp.Body)
     if err != nil {
         fmt.Println("Error copying response body: ", err)
         return
     }
 
-    // To extract GC metrics, we need to read the response body again.
-    // We will use the copied responseBody for this purpose.
-    extractAndLogHeapInfo(responseBody, targetURL)
+    // Use the buffer for the client's response
+    io.Copy(w, &bodyBuffer)
+
+    // Extract and log heap info
+    extractAndLogHeapInfo(&bodyBuffer, targetURL)
 }
 
 func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
