@@ -1,6 +1,7 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
@@ -10,6 +11,7 @@ import (
 	"strings"
 	"syscall"
 	"time"
+	"io/ioutil"
 )
 
 const (
@@ -193,14 +195,21 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	defer resp.Body.Close()
 
 	// Extract GC metrics
+	// Read the response body
+    responseBody, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        http.Error(w, "Error reading response body: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
+
 	var heapInfo string
-    if strings.HasPrefix(containerName, "java") {
+    if strings.HasPrefix(targetURL, "java") {
         var javaResp JavaResponse
         if err := json.Unmarshal(responseBody, &javaResp); err == nil {
             heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
             logHeapInfo("java_heap_memory.log", heapInfo)
         }
-    } else if strings.HasPrefix(containerName, "go") {
+    } else if strings.HasPrefix(targetURL, "go") {
         var goResp GoResponse
         if err := json.Unmarshal(responseBody, &goResp); err == nil {
             heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse)
