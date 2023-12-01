@@ -198,6 +198,8 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	// Read the response body
     responseBody, err := ioutil.ReadAll(resp.Body)
     if err != nil {
+		fmt.Println("Response Status:", resp.Status)
+		fmt.Println("Response Headers:", resp.Header)
         http.Error(w, "Error reading response body: "+err.Error(), http.StatusInternalServerError)
         return
     }
