@@ -72,10 +72,11 @@ send_requests() {
     # Move files for postprocessing
     mv $OW_DIRECTORY/LoadBalancer/go_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/client_time.txt"
     mv $OW_DIRECTORY/LoadBalancer/go_server_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/server_time.txt"
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/LoadBalancer/go_heap_memory.log ../Graphs/LoadBalancer/Go/$size/memory.txt
 
     mv $OW_DIRECTORY/LoadBalancer/java_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/client_time.txt"
     mv $OW_DIRECTORY/LoadBalancer/java_server_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/server_time.txt"
-    
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/LoadBalancer/java_heap_memory.log ../Graphs/LoadBalancer/Java/$size/memory.txt
 }
 
 # Array of sizes
