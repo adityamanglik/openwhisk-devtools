@@ -252,7 +252,8 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 }
 
 func logHeapInfo(filename, info string) {
-    file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	fullPath := "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/" + filename
+    file, err := os.OpenFile(fullPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
     if err != nil {
         fmt.Println("Error opening file:", err)
         return
