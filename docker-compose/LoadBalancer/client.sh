@@ -72,15 +72,18 @@ send_requests() {
     # Move files for postprocessing
     mv $OW_DIRECTORY/LoadBalancer/go_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/client_time.txt"
     mv $OW_DIRECTORY/LoadBalancer/go_server_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/server_time.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/LoadBalancer/go_heap_memory.log ../Graphs/LoadBalancer/Go/$size/memory.txt
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/go_heap_memory.log ../Graphs/LoadBalancer/Go/$size/memory.txt
+    # Remove file after retrieving
+    # ssh $OW_SERVER_NODE "rm $OW_DIRECTORY/LoadBalancer/go_heap_memory.log"
 
     mv $OW_DIRECTORY/LoadBalancer/java_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/client_time.txt"
     mv $OW_DIRECTORY/LoadBalancer/java_server_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/server_time.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/LoadBalancer/java_heap_memory.log ../Graphs/LoadBalancer/Java/$size/memory.txt
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/java_heap_memory.log ../Graphs/LoadBalancer/Java/$size/memory.txt
 }
 
 # Array of sizes
-sizes=(100 10000 1000000 3200000)
+# sizes=(100 10000 1000000 3200000)
+sizes=(10000)
 
 # for size in "${sizes[@]}"; do
 #     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
