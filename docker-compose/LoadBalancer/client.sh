@@ -18,9 +18,9 @@ ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-i
 
 # Send request and measure request response latencies
 send_requests() {
-    local base_api_url=$1
-    local response_time_file=$2
-    local execution_time_file=$3
+    # local base_api_url=$1
+    # local response_time_file=$2
+    # local execution_time_file=$3
     local size=$4
 
     # Update the Java code with the new array size
@@ -31,41 +31,51 @@ send_requests() {
     # build_docker_images with new size
     build_docker_images
 
-    for i in $(seq 1 $ITERATIONS)
-    do
-        # Generate a random seed value
-        local seed=$((RANDOM))
+    go run request_sender.go
 
-        # Append the random seed value to the API URL
-        local api_url="${base_api_url}?seed=${seed}"
+    # for i in $(seq 1 $ITERATIONS)
+    # do
+    #     # Generate a random seed value
+    #     local seed=$((RANDOM))
 
-        # Measure the response time and capture the response
-        start_time=$(date +%s.%N)
-        response=$(curl -s "$api_url")
-        end_time=$(date +%s.%N)
-        elapsed=$(echo "scale=3; ($end_time - $start_time) * 1000" | bc)
+    #     # Append the random seed value to the API URL
+    #     local api_url="${base_api_url}?seed=${seed}"
 
-        # Parse the response to extract executionTime in milliseconds
-        execution_time=$(echo $response | jq -r '.executionTime')
+    #     # Measure the response time and capture the response
+    #     start_time=$(date +%s.%N)
+    #     response=$(curl -s "$api_url")
+    #     end_time=$(date +%s.%N)
+    #     elapsed=$(echo "scale=3; ($end_time - $start_time) * 1000" | bc)
 
-        # Convert execution time to milliseconds if needed
-        execution_time_ms=$(echo "scale=3; $execution_time / 1000000" | bc)
+    #     # Parse the response to extract executionTime in milliseconds
+    #     execution_time=$(echo $response | jq -r '.executionTime')
 
-        # Record the total elapsed time
-        echo "$elapsed" >> $response_time_file
+    #     # Convert execution time to milliseconds if needed
+    #     execution_time_ms=$(echo "scale=3; $execution_time / 1000000" | bc)
 
-        # Record the extracted executionTime in milliseconds
-        echo "$execution_time_ms" >> $execution_time_file
-    done
+    #     # Record the total elapsed time
+    #     echo "$elapsed" >> $response_time_file
+
+    #     # Record the extracted executionTime in milliseconds
+    #     echo "$execution_time_ms" >> $execution_time_file
+    # done
 
     # Move all log and image files to their respective directories
     # Check if the API is for Go and then move all log and image files to the Go directory
-    if [[ "$api_url" == *"/go"* ]]; then
-        mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/"
-    else
-        # If the API is not for Go, assume it's for Java and move files to the Java directory
-        mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/"
-    fi
+    # if [[ "$api_url" == *"/go"* ]]; then
+    #     mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/"
+    # else
+    #     # If the API is not for Go, assume it's for Java and move files to the Java directory
+    #     mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/"
+    # fi
+    
+    # Move files for postprocessing
+    mv $OW_DIRECTORY/LoadBalancer/go_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/client_time.txt"
+    mv $OW_DIRECTORY/LoadBalancer/go_server_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/server_time.txt"
+
+    mv $OW_DIRECTORY/LoadBalancer/java_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/client_time.txt"
+    mv $OW_DIRECTORY/LoadBalancer/java_server_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/server_time.txt"
+    
 }
 
 # Array of sizes
@@ -94,7 +104,7 @@ for size in "${sizes[@]}"; do
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
 
     # Commands for Go API
-    send_requests $GO_API "client_time.txt" "server_time.txt" $size
+    # send_requests $GO_API "client_time.txt" "server_time.txt" $size
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
 done
 
