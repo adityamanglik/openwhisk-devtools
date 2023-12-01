@@ -1,9 +1,11 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"net/http"
 	"os"
 	"os/exec"
@@ -11,8 +13,6 @@ import (
 	"strings"
 	"syscall"
 	"time"
-	"io/ioutil"
-	"bytes"
 )
 
 const (
@@ -45,19 +45,26 @@ var client = &http.Client{
 }
 
 type JavaResponse struct {
-    HeapUsedMemory       int64 `json:"heapUsedMemory"`
-    HeapCommittedMemory  int64 `json:"heapCommittedMemory"`
-    HeapMaxMemory        int64 `json:"heapMaxMemory"`
-    // include other fields as necessary
+	Sum                 int64 `json:"sum"`
+	ExecutionTime       int64 `json:"executionTime"`
+	Gc1CollectionCount  int   `json:"gc1CollectionCount"`
+	Gc1CollectionTime   int   `json:"gc1CollectionTime"`
+	Gc2CollectionCount  int   `json:"gc2CollectionCount"`
+	Gc2CollectionTime   int   `json:"gc2CollectionTime"`
+	HeapInitMemory      int64 `json:"heapInitMemory: "`
+	HeapUsedMemory      int64 `json:"heapUsedMemory: "`
+	HeapCommittedMemory int64 `json:"heapCommittedMemory: "`
+	HeapMaxMemory       int64 `json:"heapMaxMemory: "`
 }
 
 type GoResponse struct {
-    HeapAlloc  int64 `json:"heapAlloc"`
-    HeapIdle   int64 `json:"heapIdle"`
-    HeapInuse  int64 `json:"heapInuse"`
-    // include other fields as necessary
+	ExecutionTime int64 `json:"executionTime"`
+	HeapAlloc     int64 `json:"heapAlloc"`
+	HeapIdle      int64 `json:"heapIdle"`
+	HeapInuse     int64 `json:"heapInuse"`
+	HeapSys       int64 `json:"heapSys"`
+	Sum           int64 `json:"sum"`
 }
-
 
 func main() {
 
@@ -68,7 +75,7 @@ func main() {
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
 
 	// Register the new exitCall handler
-    http.HandleFunc("/exitCall", exitCallHandler)
+	http.HandleFunc("/exitCall", exitCallHandler)
 
 	// Create a channel to listen for an interrupt or terminate signal from the OS.
 	stopChan := make(chan os.Signal, 1)
@@ -93,20 +100,19 @@ func main() {
 
 // exitCallHandler initiates a graceful shutdown
 func exitCallHandler(w http.ResponseWriter, r *http.Request) {
-    fmt.Println("Exit call received. Initiating shutdown...")
-    
-    // Implement the logic to gracefully shut down the server
-    go func() {
-        stopAllRunningContainers()
+	fmt.Println("Exit call received. Initiating shutdown...")
 
-        // Optionally, you can add more cleanup logic here
+	// Implement the logic to gracefully shut down the server
+	go func() {
+		stopAllRunningContainers()
 
-        os.Exit(0)
-    }()
+		// Optionally, you can add more cleanup logic here
 
-    // fmt.Fprintf(w, "Shutdown initiated")
+		os.Exit(0)
+	}()
+
+	// fmt.Fprintf(w, "Shutdown initiated")
 }
-
 
 // Stop all running Docker containers
 func stopAllRunningContainers() {
@@ -136,7 +142,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	var targetURL, containerName, port string
 
 	// Extract seed value from the query parameters
-    seedValue := r.URL.Query().Get("seed")
+	seedValue := r.URL.Query().Get("seed")
 
 	switch r.URL.Path {
 	case "/java":
@@ -155,10 +161,9 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Append seed value to the targetURL if it's present
-    if seedValue != "" {
-        targetURL += "?seed=" + seedValue
-    }
-
+	if seedValue != "" {
+		targetURL += "?seed=" + seedValue
+	}
 
 	// Start the container and wait for it to be ready
 	fmt.Println("Checking and starting container:", containerName)
@@ -197,74 +202,87 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	}
 
 	resp, err := client.Do(req) // Use the global client
-    if err != nil {
-        http.Error(w, "Error forwarding request: "+err.Error(), http.StatusInternalServerError)
-        return
-    }
-    defer resp.Body.Close()
+	if err != nil {
+		http.Error(w, "Error forwarding request: "+err.Error(), http.StatusInternalServerError)
+		return
+	}
+	defer resp.Body.Close()
 
 	// Copy the response header and status code to the client
-    for name, values := range resp.Header {
-        for _, value := range values {
-            w.Header().Add(name, value)
-        }
-    }
-    w.WriteHeader(resp.StatusCode)
+	for name, values := range resp.Header {
+		for _, value := range values {
+			w.Header().Add(name, value)
+		}
+	}
+	w.WriteHeader(resp.StatusCode)
 
-    // Create a buffer to store the response body
-    var bodyBuffer bytes.Buffer
+	// Read the response body into a buffer
+	bodyBytes, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		fmt.Println("Error reading response body: ", err)
+		return
+	}
 
-    // Copy the response body to the buffer and then to the client
-    _, err = io.Copy(&bodyBuffer, resp.Body)
-    if err != nil {
-        fmt.Println("Error copying response body: ", err)
-        return
-    }
+	// Create two readers from the buffer: one for forwarding, one for logging
+	reader1 := bytes.NewReader(bodyBytes)
+	reader2 := bytes.NewReader(bodyBytes)
 
-    // Use the buffer for the client's response
-    io.Copy(w, &bodyBuffer)
+	// Forward the response to the client
+	_, err = io.Copy(w, reader1)
+	if err != nil {
+		fmt.Println("Error forwarding response body: ", err)
+		return
+	}
 
-    // Extract and log heap info
-    extractAndLogHeapInfo(&bodyBuffer, targetURL)
+	// Extract and log heap info
+	extractAndLogHeapInfo(reader2, targetURL)
 }
 
 func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
-    bodyBytes, err := ioutil.ReadAll(responseBody)
-    if err != nil {
-        fmt.Println("Error reading response body for metrics: ", err)
-        return
-    }
+	bodyBytes, err := ioutil.ReadAll(responseBody)
 
-    var heapInfo string
-    if strings.HasPrefix(containerName, "java") {
-        var javaResp JavaResponse
-        if err := json.Unmarshal(bodyBytes, &javaResp); err == nil {
-            heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
-            logHeapInfo("java_heap_memory.log", heapInfo)
-        }
-    } else if strings.HasPrefix(containerName, "go") {
-        var goResp GoResponse
-        if err := json.Unmarshal(bodyBytes, &goResp); err == nil {
-            heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse)
-            logHeapInfo("go_heap_memory.log", heapInfo)
-        }
-    }
+	if err != nil {
+		fmt.Println("Error reading response body for metrics: ", err)
+		return
+	}
+
+	var heapInfo string
+	if strings.Contains(containerName, "jsonresponse") {
+
+		var javaResp JavaResponse
+		if err := json.Unmarshal(bodyBytes, &javaResp); err != nil {
+			fmt.Println("JSON unmarshalling error:", err)
+		} else {
+
+			heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
+			// fmt.Println(heapInfo)
+			logHeapInfo("java_heap_memory.log", heapInfo)
+		}
+	} else if strings.Contains(containerName, "GoNative") {
+		var goResp GoResponse
+		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
+			fmt.Println("JSON unmarshalling error:", err)
+		} else {
+			heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse)
+			// fmt.Println(heapInfo)
+			logHeapInfo("go_heap_memory.log", heapInfo)
+		}
+	}
 }
 
 func logHeapInfo(filename, info string) {
 	fullPath := "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/" + filename
-    file, err := os.OpenFile(fullPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-    if err != nil {
-        fmt.Println("Error opening file:", err)
-        return
-    }
-    defer file.Close()
+	file, err := os.OpenFile(fullPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer file.Close()
 
-    if _, err := file.WriteString(info); err != nil {
-        fmt.Println("Error writing to file:", err)
-    }
+	if _, err := file.WriteString(info); err != nil {
+		fmt.Println("Error writing to file:", err)
+	}
 }
-
 
 // Check if a container is already running
 func isContainerRunning(containerName string) bool {
