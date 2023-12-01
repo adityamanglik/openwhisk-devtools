@@ -186,48 +186,54 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 		}
 	}
 
-	client := &http.Client{}
-	resp, err := client.Do(req)
-	if err != nil {
-		http.Error(w, "Error forwarding request: "+err.Error(), http.StatusInternalServerError)
-		return
-	}
-	defer resp.Body.Close()
-
-	// Extract GC metrics
-	// Read the response body
-    responseBody, err := ioutil.ReadAll(resp.Body)
+	resp, err := client.Do(req) // Use the global client
     if err != nil {
-		fmt.Println("Response Status:", resp.Status)
-		fmt.Println("Response Headers:", resp.Header)
-        http.Error(w, "Error reading response body: "+err.Error(), http.StatusInternalServerError)
+        http.Error(w, "Error forwarding request: "+err.Error(), http.StatusInternalServerError)
+        return
+    }
+    defer resp.Body.Close()
+
+	// Copy the response header and status code to the client
+    for name, values := range resp.Header {
+        for _, value := range values {
+            w.Header().Add(name, value)
+        }
+    }
+    w.WriteHeader(resp.StatusCode)
+
+    // Copy the response body to the client
+    responseBody, err := io.Copy(w, resp.Body)
+    if err != nil {
+        fmt.Println("Error copying response body: ", err)
         return
     }
 
-	var heapInfo string
-    if strings.HasPrefix(targetURL, "java") {
+    // To extract GC metrics, we need to read the response body again.
+    // We will use the copied responseBody for this purpose.
+    extractAndLogHeapInfo(responseBody, targetURL)
+}
+
+func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
+    bodyBytes, err := ioutil.ReadAll(responseBody)
+    if err != nil {
+        fmt.Println("Error reading response body for metrics: ", err)
+        return
+    }
+
+    var heapInfo string
+    if strings.HasPrefix(containerName, "java") {
         var javaResp JavaResponse
-        if err := json.Unmarshal(responseBody, &javaResp); err == nil {
+        if err := json.Unmarshal(bodyBytes, &javaResp); err == nil {
             heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
             logHeapInfo("java_heap_memory.log", heapInfo)
         }
-    } else if strings.HasPrefix(targetURL, "go") {
+    } else if strings.HasPrefix(containerName, "go") {
         var goResp GoResponse
-        if err := json.Unmarshal(responseBody, &goResp); err == nil {
+        if err := json.Unmarshal(bodyBytes, &goResp); err == nil {
             heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse)
             logHeapInfo("go_heap_memory.log", heapInfo)
         }
     }
-
-	// Copy and return response to client
-	fmt.Println("Copying response: ")
-	for name, values := range resp.Header {
-		for _, value := range values {
-			w.Header().Add(name, value)
-		}
-	}
-	w.WriteHeader(resp.StatusCode)
-	io.Copy(w, resp.Body)
 }
 
 func logHeapInfo(filename, info string) {
