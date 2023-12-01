@@ -135,6 +135,9 @@ func stopAllRunningContainers() {
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	var targetURL, containerName, port string
 
+	// Extract seed value from the query parameters
+    seedValue := r.URL.Query().Get("seed")
+
 	switch r.URL.Path {
 	case "/java":
 		containerName = scheduleJavaContainer()
@@ -150,6 +153,12 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Not found", http.StatusNotFound)
 		return
 	}
+
+	// Append seed value to the targetURL if it's present
+    if seedValue != "" {
+        targetURL += "?seed=" + seedValue
+    }
+
 
 	// Start the container and wait for it to be ready
 	fmt.Println("Checking and starting container:", containerName)
