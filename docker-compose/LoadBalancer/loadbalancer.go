@@ -26,8 +26,8 @@ const (
 var javaRoundRobinIndex int = 8400
 var goRoundRobinIndex int = 9500
 
-const numberOfJavaContainers int = 4
-const numberOfGoContainers int = 4
+const numberOfJavaContainers int = 2
+const numberOfGoContainers int = 2
 
 // Track running containers
 var runningContainers = make(map[string]string)
@@ -40,6 +40,21 @@ var client = &http.Client{
 		IdleConnTimeout:     90 * time.Second,
 	},
 }
+
+type JavaResponse struct {
+    HeapUsedMemory       int64 `json:"heapUsedMemory"`
+    HeapCommittedMemory  int64 `json:"heapCommittedMemory"`
+    HeapMaxMemory        int64 `json:"heapMaxMemory"`
+    // include other fields as necessary
+}
+
+type GoResponse struct {
+    HeapAlloc  int64 `json:"heapAlloc"`
+    HeapIdle   int64 `json:"heapIdle"`
+    HeapInuse  int64 `json:"heapInuse"`
+    // include other fields as necessary
+}
+
 
 func main() {
 
@@ -157,6 +172,7 @@ func scheduleGoContainer() string {
 }
 
 func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
+	// Send request to container
 	req, err := http.NewRequest(r.Method, targetURL, r.Body)
 	if err != nil {
 		http.Error(w, "Error creating request: "+err.Error(), http.StatusInternalServerError)
@@ -176,6 +192,23 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	}
 	defer resp.Body.Close()
 
+	// Extract GC metrics
+	var heapInfo string
+    if strings.HasPrefix(containerName, "java") {
+        var javaResp JavaResponse
+        if err := json.Unmarshal(responseBody, &javaResp); err == nil {
+            heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
+            logHeapInfo("java_heap_memory.log", heapInfo)
+        }
+    } else if strings.HasPrefix(containerName, "go") {
+        var goResp GoResponse
+        if err := json.Unmarshal(responseBody, &goResp); err == nil {
+            heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse)
+            logHeapInfo("go_heap_memory.log", heapInfo)
+        }
+    }
+
+	// Copy and return response to client
 	fmt.Println("Copying response: ")
 	for name, values := range resp.Header {
 		for _, value := range values {
@@ -185,6 +218,20 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	w.WriteHeader(resp.StatusCode)
 	io.Copy(w, resp.Body)
 }
+
+func logHeapInfo(filename, info string) {
+    file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+    if err != nil {
+        fmt.Println("Error opening file:", err)
+        return
+    }
+    defer file.Close()
+
+    if _, err := file.WriteString(info); err != nil {
+        fmt.Println("Error writing to file:", err)
+    }
+}
+
 
 // Check if a container is already running
 func isContainerRunning(containerName string) bool {

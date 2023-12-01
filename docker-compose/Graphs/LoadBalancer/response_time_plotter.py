@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-def remove_outliers(data, lower_percentile=0, upper_percentile=99.9):
+def remove_outliers(data, lower_percentile=0, upper_percentile=99):
     lower_bound = np.percentile(data, lower_percentile)
     upper_bound = np.percentile(data, upper_percentile)
     return [x for x in data if lower_bound <= x <= upper_bound]

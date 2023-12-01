@@ -14,7 +14,7 @@ import (
 
 // Constants for API endpoints and file names
 const (
-    iterations            = 2000
+    iterations            = 200
     javaAPI               = "http://128.110.96.167:8180/java"
     goAPI                 = "http://128.110.96.167:8180/go"
     javaResponseTimesFile = "java_response_times.txt"
@@ -66,10 +66,10 @@ func sendRequests(apiURL, responseTimeFile string, serverTimeFile string, ) {
         elapsed := endTime.Sub(startTime)
 
         // Convert elapsed time to milliseconds and log to file
-        logTime(responseTimeFile, elapsed.Milliseconds())
+        logTime(responseTimeFile, elapsed.Nanoseconds())
 
         // Log the extracted executionTime (in milliseconds)
-        logTime(serverTimeFile, apiResp.ExecutionTime/1000000) // Assuming executionTime is in nanoseconds
+        logTime(serverTimeFile, apiResp.ExecutionTime) // Assuming executionTime is in nanoseconds
     }
 
     // Logic to move log files
