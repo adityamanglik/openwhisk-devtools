@@ -1,5 +1,6 @@
 sudo apt update
 sudo apt -y dist-upgrade
+sudo apt-get install --reinstall linux-firmware
 git config --global user.name "AM"
 git config --global user.email "am5523@columbia.edu"
 sudo apt install -y openjdk-8-jdk
