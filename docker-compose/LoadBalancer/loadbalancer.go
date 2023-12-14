@@ -184,6 +184,9 @@ func scheduleJavaContainer() string {
 		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
 	case HeapSizeBased:
 		// TODO
+		javaRoundRobinIndex = (javaRoundRobinIndex % numberOfJavaContainers) + 8400 // Shift starting port number
+		javaRoundRobinIndex++
+		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
 	default:
         // Default to Round Robin if the policy is not implemented
         javaRoundRobinIndex = (javaRoundRobinIndex % numberOfJavaContainers) + 8400 // Shift starting port number
@@ -200,6 +203,9 @@ func scheduleGoContainer() string {
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 	case HeapSizeBased:
 		// TODO
+		goRoundRobinIndex = (goRoundRobinIndex % numberOfGoContainers) + 9500
+		goRoundRobinIndex++
+		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 	default:
 		goRoundRobinIndex = (goRoundRobinIndex % numberOfGoContainers) + 9500
 		goRoundRobinIndex++
