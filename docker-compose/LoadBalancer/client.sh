@@ -1,7 +1,8 @@
 # Constants and Variables
 OW_SERVER_NODE="am_CU@node0"
-JAVA_API="http://128.110.96.167:8180/java"
-GO_API="http://128.110.96.167:8180/go"
+JAVA_API="http://128.110.96.76:8180/java"
+GO_API="http://128.110.96.76:8180/go"
+KILL_SERVER_API="http://128.110.96.76:8180/exitCall"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
 JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
@@ -95,7 +96,7 @@ sizes=(10000)
 # Loop through each size
 for size in "${sizes[@]}"; do
     # Kill the load balancer process if running
-    curl http://128.110.96.167:8180/exitCall
+    curl KILL_SERVER_API
 
     # Restart docker for good measure
     ssh $OW_SERVER_NODE "sudo systemctl restart docker"
