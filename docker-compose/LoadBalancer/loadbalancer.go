@@ -25,6 +25,15 @@ const (
 	serverIP         = "http://128.110.96.76:"
 )
 
+// Add scheduling policy selection logic
+type SchedulingPolicy int
+
+const (
+    RoundRobin SchedulingPolicy = 1
+    HeapSizeBased SchedulingPolicy = 2
+)
+
+
 // Start values for port numbers
 var javaRoundRobinIndex int = 8400
 var goRoundRobinIndex int = 9500
@@ -34,6 +43,9 @@ const numberOfGoContainers int = 2
 
 // Track running containers
 var runningContainers = make(map[string]string)
+
+// Track current scheduling policy
+var currentSchedulingPolicy SchedulingPolicy = RoundRobin
 
 // Global http.Client with Transport settings for high-performance
 var client = &http.Client{
@@ -74,9 +86,6 @@ func main() {
 	http.HandleFunc("/", handleRequest)
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
 
-	// Register the new exitCall handler
-	http.HandleFunc("/exitCall", exitCallHandler)
-
 	// Create a channel to listen for an interrupt or terminate signal from the OS.
 	stopChan := make(chan os.Signal, 1)
 	signal.Notify(stopChan, os.Interrupt, syscall.SIGTERM)
@@ -96,22 +105,6 @@ func main() {
 	stopAllRunningContainers()
 
 	fmt.Println("Shutting down load balancer server...")
-}
-
-// exitCallHandler initiates a graceful shutdown
-func exitCallHandler(w http.ResponseWriter, r *http.Request) {
-	fmt.Println("Exit call received. Initiating shutdown...")
-
-	// Implement the logic to gracefully shut down the server
-	go func() {
-		stopAllRunningContainers()
-
-		// Optionally, you can add more cleanup logic here
-
-		os.Exit(0)
-	}()
-
-	// fmt.Fprintf(w, "Shutdown initiated")
 }
 
 // Stop all running Docker containers
@@ -155,8 +148,15 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		fmt.Println("Selected container: ", containerName)
 		port = containerName[len(goServerImage)+1:] // "+1" to skip the hyphen
 		targetURL = serverIP + port + "/GoNative"
+	case "/exitCall":
+		fmt.Println("Exit call received. Initiating shutdown...")
+		go func() {
+            stopAllRunningContainers()
+            os.Exit(0)
+        }()
+        return
 	default:
-		http.Error(w, "Not found", http.StatusNotFound)
+		http.Error(w, "Requested API Not found", http.StatusNotFound)
 		return
 	}
 
@@ -177,15 +177,34 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func scheduleJavaContainer() string {
-	javaRoundRobinIndex = (javaRoundRobinIndex % numberOfJavaContainers) + 8400 // Shift starting port number
-	javaRoundRobinIndex++
-	return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
+	switch currentSchedulingPolicy {
+    case RoundRobin:
+		javaRoundRobinIndex = (javaRoundRobinIndex % numberOfJavaContainers) + 8400 // Shift starting port number
+		javaRoundRobinIndex++
+		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
+	case HeapSizeBased:
+		// TODO
+	default:
+        // Default to Round Robin if the policy is not implemented
+        javaRoundRobinIndex = (javaRoundRobinIndex % numberOfJavaContainers) + 8400 // Shift starting port number
+		javaRoundRobinIndex++
+		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
+	}
 }
 
 func scheduleGoContainer() string {
-	goRoundRobinIndex = (goRoundRobinIndex % numberOfGoContainers) + 9500
-	goRoundRobinIndex++
-	return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+	switch currentSchedulingPolicy {
+    case RoundRobin:
+		goRoundRobinIndex = (goRoundRobinIndex % numberOfGoContainers) + 9500
+		goRoundRobinIndex++
+		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+	case HeapSizeBased:
+		// TODO
+	default:
+		goRoundRobinIndex = (goRoundRobinIndex % numberOfGoContainers) + 9500
+		goRoundRobinIndex++
+		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+	}
 }
 
 func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {

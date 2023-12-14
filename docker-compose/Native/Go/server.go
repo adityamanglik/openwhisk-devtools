@@ -16,7 +16,7 @@ import (
 )
 
 // MARKER_FOR_SIZE_UPDATE
-const ARRAY_SIZE = 1000000
+const ARRAY_SIZE = 10000;
 
 const serverPort = ":9875"
 
