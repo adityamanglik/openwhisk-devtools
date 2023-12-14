@@ -22,7 +22,7 @@ const (
 	javaServerImage  = "java-server-image"
 	goServerImage    = "go-server-image"
 	waitTimeout      = 10 * time.Second
-	serverIP         = "http://128.110.96.167:"
+	serverIP         = "http://128.110.96.76:"
 )
 
 // Start values for port numbers
