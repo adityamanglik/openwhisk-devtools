@@ -42,7 +42,8 @@ const numberOfJavaContainers int = 2
 const numberOfGoContainers int = 2
 
 // Track running containers
-var runningContainers = make(map[string]string)
+var aliveContainers = make(map[string]string)
+var containerHeapUsage = make(map[string]int64)
 
 // Track current scheduling policy
 var currentSchedulingPolicy SchedulingPolicy = RoundRobin
@@ -173,7 +174,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		startNewContainer(containerName)
 	}
 
-	forwardRequest(w, r, targetURL)
+	forwardRequest(w, r, targetURL, containerName)
 }
 
 func scheduleJavaContainer() string {
@@ -213,7 +214,7 @@ func scheduleGoContainer() string {
 	}
 }
 
-func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
+func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, containerName string) {
 	// Send request to container
 	req, err := http.NewRequest(r.Method, targetURL, r.Body)
 	if err != nil {
@@ -260,7 +261,7 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string) {
 	}
 
 	// Extract and log heap info
-	extractAndLogHeapInfo(reader2, targetURL)
+	extractAndLogHeapInfo(reader2, containerName)
 }
 
 func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
@@ -272,24 +273,25 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 	}
 
 	var heapInfo string
-	if strings.Contains(containerName, "jsonresponse") {
+	if strings.Contains(containerName, "java") {
 
 		var javaResp JavaResponse
 		if err := json.Unmarshal(bodyBytes, &javaResp); err != nil {
 			fmt.Println("JSON unmarshalling error:", err)
 		} else {
-
 			heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
 			// fmt.Println(heapInfo)
 			logHeapInfo("java_heap_memory.log", heapInfo)
+			containerHeapUsage[containerName] = javaResp.HeapUsedMemory
 		}
-	} else if strings.Contains(containerName, "GoNative") {
+	} else if strings.Contains(containerName, "go") {
 		var goResp GoResponse
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("JSON unmarshalling error:", err)
 		} else {
 			heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse)
 			// fmt.Println(heapInfo)
+			containerHeapUsage[containerName] = goResp.HeapInuse
 			logHeapInfo("go_heap_memory.log", heapInfo)
 		}
 	}
@@ -312,7 +314,7 @@ func logHeapInfo(filename, info string) {
 // Check if a container is already running
 func isContainerRunning(containerName string) bool {
 	// Check if the container is already running
-	if _, exists := runningContainers[containerName]; exists {
+	if _, exists := aliveContainers[containerName]; exists {
 		fmt.Println("Container already running: ", containerName)
 		return true // Container is already running
 	}
@@ -380,7 +382,8 @@ func startNewContainer(containerName string) {
 			http.Error(w, "Server is not ready", http.StatusServiceUnavailable)
 			return
 		}
-		runningContainers[containerName] = containerPort
+		aliveContainers[containerName] = containerPort
+		containerHeapUsage[containerName] = 0
 		fmt.Println("Container started:", containerName)
 		return
 	}
