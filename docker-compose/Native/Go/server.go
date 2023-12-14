@@ -13,7 +13,6 @@ import (
     "syscall"
     "time"
     "runtime"
-    "runtime/debug"
 )
 
 // MARKER_FOR_SIZE_UPDATE
