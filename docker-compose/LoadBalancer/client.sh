@@ -96,7 +96,7 @@ sizes=(10000)
 # Loop through each size
 for size in "${sizes[@]}"; do
     # Kill the load balancer process if running
-    curl KILL_SERVER_API
+    curl $KILL_SERVER_API
 
     # Restart docker for good measure
     ssh $OW_SERVER_NODE "sudo systemctl restart docker"
