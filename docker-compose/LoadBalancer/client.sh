@@ -11,8 +11,9 @@ ITERATIONS=5000
 # Build docker images
 build_docker_images() {
 # compile the docker images
-ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
-ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
+ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ." &
+ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ." &
+wait # Wait for parallel buils to finish
 }
 
 # Client code
@@ -25,50 +26,21 @@ send_requests() {
     local size=$4
 
     # Update the Java code with the new array size
-    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java"
+    ssh $OW_SERVER_NODE <<ENDSSH
+    sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java
+    awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" $size \";\";next}1' $OW_DIRECTORY/Native/Go/server.go > $OW_DIRECTORY/Native/Go/temp.go && mv $OW_DIRECTORY/Native/Go/temp.go $OW_DIRECTORY/Native/Go/server.go
+    
+    cd $OW_DIRECTORY/Native/Go/
+    docker build -t go-server-image .
+    ENDSSH
 
-    ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" $size \";\";next}1' $OW_DIRECTORY/Native/Go/server.go > $OW_DIRECTORY/Native/Go/temp.go && mv $OW_DIRECTORY/Native/Go/temp.go $OW_DIRECTORY/Native/Go/server.go"
+    # ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java"
+    # ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" $size \";\";next}1' $OW_DIRECTORY/Native/Go/server.go > $OW_DIRECTORY/Native/Go/temp.go && mv $OW_DIRECTORY/Native/Go/temp.go $OW_DIRECTORY/Native/Go/server.go"
 
     # build_docker_images with new size
     build_docker_images
 
     go run request_sender.go
-
-    # for i in $(seq 1 $ITERATIONS)
-    # do
-    #     # Generate a random seed value
-    #     local seed=$((RANDOM))
-
-    #     # Append the random seed value to the API URL
-    #     local api_url="${base_api_url}?seed=${seed}"
-
-    #     # Measure the response time and capture the response
-    #     start_time=$(date +%s.%N)
-    #     response=$(curl -s "$api_url")
-    #     end_time=$(date +%s.%N)
-    #     elapsed=$(echo "scale=3; ($end_time - $start_time) * 1000" | bc)
-
-    #     # Parse the response to extract executionTime in milliseconds
-    #     execution_time=$(echo $response | jq -r '.executionTime')
-
-    #     # Convert execution time to milliseconds if needed
-    #     execution_time_ms=$(echo "scale=3; $execution_time / 1000000" | bc)
-
-    #     # Record the total elapsed time
-    #     echo "$elapsed" >> $response_time_file
-
-    #     # Record the extracted executionTime in milliseconds
-    #     echo "$execution_time_ms" >> $execution_time_file
-    # done
-
-    # Move all log and image files to their respective directories
-    # Check if the API is for Go and then move all log and image files to the Go directory
-    # if [[ "$api_url" == *"/go"* ]]; then
-    #     mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/"
-    # else
-    #     # If the API is not for Go, assume it's for Java and move files to the Java directory
-    #     mv $OW_DIRECTORY/LoadBalancer/*.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/"
-    # fi
     
     # Move files for postprocessing
     mv $OW_DIRECTORY/LoadBalancer/go_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/client_time.txt"
