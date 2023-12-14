@@ -10,6 +10,6 @@ COPY . /app
 # Compile your Java code (adjust the command according to your needs)
 RUN javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java
 
-ENV GC_FLAGS="-Xms64m -Xmx64m"
+ENV GC_FLAGS="-Xms4g -Xmx4g"
 
 CMD java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer
