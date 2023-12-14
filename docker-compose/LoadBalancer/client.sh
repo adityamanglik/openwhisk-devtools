@@ -11,9 +11,8 @@ ITERATIONS=5000
 # Build docker images
 build_docker_images() {
 # compile the docker images
-ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ." &
-ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ." &
-wait # Wait for parallel buils to finish
+ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
+ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
 }
 
 # Client code
@@ -26,16 +25,9 @@ send_requests() {
     local size=$4
 
     # Update the Java code with the new array size
-    ssh $OW_SERVER_NODE <<ENDSSH
-    sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java
-    awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" $size \";\";next}1' $OW_DIRECTORY/Native/Go/server.go > $OW_DIRECTORY/Native/Go/temp.go && mv $OW_DIRECTORY/Native/Go/temp.go $OW_DIRECTORY/Native/Go/server.go
-    
-    cd $OW_DIRECTORY/Native/Go/
-    docker build -t go-server-image .
-    ENDSSH
+    ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java"
 
-    # ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java"
-    # ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" $size \";\";next}1' $OW_DIRECTORY/Native/Go/server.go > $OW_DIRECTORY/Native/Go/temp.go && mv $OW_DIRECTORY/Native/Go/temp.go $OW_DIRECTORY/Native/Go/server.go"
+    ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" $size \";\";next}1' $OW_DIRECTORY/Native/Go/server.go > $OW_DIRECTORY/Native/Go/temp.go && mv $OW_DIRECTORY/Native/Go/temp.go $OW_DIRECTORY/Native/Go/server.go"
 
     # build_docker_images with new size
     build_docker_images
