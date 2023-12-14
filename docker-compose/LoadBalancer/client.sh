@@ -47,8 +47,8 @@ send_requests() {
 }
 
 # Array of sizes
-# sizes=(100 10000 1000000 3200000)
-sizes=(10000)
+sizes=(100 10000 1000000 3200000)
+# sizes=(10000)
 
 # for size in "${sizes[@]}"; do
 #     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
@@ -56,6 +56,10 @@ sizes=(10000)
 #     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
 # done
 
+for size in "${sizes[@]}"; do
+    python ../Graphs/LoadBalancer/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/${size}/memory.pdf"
+    python ../Graphs/LoadBalancer/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Java/${size}/memory.pdf"
+done
 
 # Loop through each size
 for size in "${sizes[@]}"; do
@@ -71,10 +75,11 @@ for size in "${sizes[@]}"; do
     # Commands for Java API
     send_requests $JAVA_API "client_time.txt" "server_time.txt" $size
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
-
-    # Commands for Go API
-    # send_requests $GO_API "client_time.txt" "server_time.txt" $size
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
+    
+    # Plot memory patterns
+    python ../Graphs/LoadBalancer/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/${size}/memory.pdf"
+    python ../Graphs/LoadBalancer/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Java/${size}/memory.pdf"
 done
 
 # BACKUP #######################################################################

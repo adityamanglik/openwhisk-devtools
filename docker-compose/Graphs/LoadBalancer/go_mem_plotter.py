@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+import sys
 
 def read_data(file_path):
     heap_alloc = []
@@ -17,7 +18,7 @@ def read_data(file_path):
 
     return heap_alloc, heap_idle, heap_inuse
 
-def plot_data(heap_alloc, heap_idle, heap_inuse):
+def plot_data(heap_alloc, heap_idle, heap_inuse, output_path):
     plt.figure(figsize=(10, 6))
 
     plt.plot(heap_alloc, label='HeapAlloc')
@@ -29,13 +30,14 @@ def plot_data(heap_alloc, heap_idle, heap_inuse):
     plt.title('Heap Memory Usage Over Time')
     plt.legend()
     
-    plt.savefig('/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/10000/mem_gc.pdf')
+    plt.savefig(output_path)
     plt.close()
     # plt.show()
 
 # Path to your log file
-file_path = '/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/10000/memory.txt'
+file_path = sys.argv[1]
+output_path = sys.argv[2]
 
 # Read and plot data
 heap_alloc, heap_idle, heap_inuse = read_data(file_path)
-plot_data(heap_alloc, heap_idle, heap_inuse)
+plot_data(heap_alloc, heap_idle, heap_inuse, output_path)
