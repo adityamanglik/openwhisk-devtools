@@ -57,6 +57,10 @@ func sendRequests(apiURL string) ([]int64, []int64) {
         }
         defer resp.Body.Close()
 
+        if resp.StatusCode != http.StatusOK {
+            fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
+        }
+
         // Read and unmarshal the response body
         responseBody, err := ioutil.ReadAll(resp.Body)
         if err != nil {
@@ -67,6 +71,7 @@ func sendRequests(apiURL string) ([]int64, []int64) {
         var apiResp APIResponse
         if err := json.Unmarshal(responseBody, &apiResp); err != nil {
             fmt.Println("Error unmarshalling response:", err)
+            fmt.Println("Response body:", string(responseBody))
             continue
         }
 

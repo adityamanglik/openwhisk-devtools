@@ -46,8 +46,8 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(100 10000 1000000 3200000)
-# sizes=(10000)
+# sizes=(100 10000 1000000 3200000)
+sizes=(10000)
 
 # for size in "${sizes[@]}"; do
 #     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
