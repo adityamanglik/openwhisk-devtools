@@ -97,6 +97,7 @@ func checkServerAlive(apiURL string) {
         defer resp.Body.Close()
         // Check if the HTTP status code is 200 (OK)
         if resp.StatusCode == http.StatusOK {
+            fmt.Println("OK Response received.")
             // Break out of the loop if a correct response is received
             break
         }
