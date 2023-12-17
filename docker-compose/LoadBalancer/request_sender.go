@@ -29,13 +29,21 @@ type APIResponse struct {
 }
 
 func main() {
-    // Example usage
-    sendRequests(javaAPI, javaResponseTimesFile, javaServerTimesFile) // Replace 100 with the actual size
-    sendRequests(goAPI, goResponseTimesFile, goServerTimesFile)    // Replace 100 with the actual size
+    // ensure server is alive
+    checkServerAlive(javaAPI)
+    javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
+    goResponseTimes, goServerTimes := sendRequests(goAPI) 
+
+    // Write time data to files
+    writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
+    writeTimesToFile(javaServerTimesFile, javaServerTimes)
+    writeTimesToFile(goResponseTimesFile, goResponseTimes)
+    writeTimesToFile(goServerTimesFile, goServerTimes)
 }
 
-func sendRequests(apiURL, responseTimeFile string, serverTimeFile string, ) {
-    // Logic to update server code and rebuild Docker images
+func sendRequests(apiURL string) ([]int64, []int64) {
+    var responseTimes []int64
+    var serverTimes []int64
 
     for i := 0; i < iterations; i++ {
         seed := rand.Intn(10000) // Example seed generation
@@ -65,18 +73,33 @@ func sendRequests(apiURL, responseTimeFile string, serverTimeFile string, ) {
         endTime := time.Now()
         elapsed := endTime.Sub(startTime)
 
-        // Convert elapsed time to milliseconds and log to file
-        logTime(responseTimeFile, elapsed.microseconds())
-
-        // Log the extracted executionTime (in milliseconds)
-        logTime(serverTimeFile, apiResp.ExecutionTime) // Assuming executionTime is in nanoseconds
+        responseTimes = append(responseTimes, elapsed.Microseconds())
+        serverTimes = append(serverTimes, apiResp.ExecutionTime)
     }
 
-    // Logic to move log files
+    return responseTimes, serverTimes
+}
+
+func checkServerAlive(apiURL string) {
+    for i := 0; i < iterations; i++ {
+        seed := rand.Intn(10000) // Random seed generation
+        requestURL := fmt.Sprintf("%s?seed=%d", apiURL, seed)
+        resp, err := http.Get(requestURL)
+        if err != nil {
+            fmt.Println("Error sending request:", err)
+            continue
+        }
+        defer resp.Body.Close()
+        // Check if the HTTP status code is 200 (OK)
+        if resp.StatusCode == http.StatusOK {
+            // Break out of the loop if a correct response is received
+            break
+        }
+    }
 }
 
 // Function to log time values to a file
-func logTime(filename string, time int64) {
+func writeTimesToFile(filename string, times []int64) {
     file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
     if err != nil {
         fmt.Println("Error opening file:", err)
@@ -84,8 +107,10 @@ func logTime(filename string, time int64) {
     }
     defer file.Close()
 
-    _, err = file.WriteString(strconv.FormatInt(time, 10) + "\n")
-    if err != nil {
-        fmt.Println("Error writing to file:", err)
+    for _, time := range times {
+        _, err := file.WriteString(strconv.FormatInt(time, 10) + "\n")
+        if err != nil {
+            fmt.Println("Error writing to file:", err)
+        }
     }
 }

@@ -8,31 +8,30 @@ JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 ITERATIONS=5000
 
-# Build docker images
-build_docker_images() {
-# compile the docker images
-ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
-ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
-}
-
-# Client code
-
 # Send request and measure request response latencies
 send_requests() {
-    # local base_api_url=$1
-    # local response_time_file=$2
-    # local execution_time_file=$3
     local size=$4
 
     # Update the Java code with the new array size
     ssh $OW_SERVER_NODE "sed -i 's/private static final int ARRAY_SIZE = [0-9]\+;/private static final int ARRAY_SIZE = ${size};/' $OW_DIRECTORY/Native/Java/Hello.java"
-
+    # Update the Go code with the new array size
     ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" $size \";\";next}1' $OW_DIRECTORY/Native/Go/server.go > $OW_DIRECTORY/Native/Go/temp.go && mv $OW_DIRECTORY/Native/Go/temp.go $OW_DIRECTORY/Native/Go/server.go"
 
-    # build_docker_images with new size
-    build_docker_images
+    # compile the docker images
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
+    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
 
-    go run request_sender.go
+    # Kill the load balancer process if running
+    curl $KILL_SERVER_API
+
+    # # Restart docker for good measure
+    # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
+
+    # Restart the load balancer
+    ssh $OW_SERVER_NODE "taskset -c 2 nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go > /dev/null 2>&1 &"
+    
+    # Start sending requests
+    taskset -c 2 go run request_sender.go
     
     # Move files for postprocessing
     mv $OW_DIRECTORY/LoadBalancer/go_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/client_time.txt"
@@ -63,17 +62,9 @@ sizes=(100 10000 1000000 3200000)
 
 # Loop through each size
 for size in "${sizes[@]}"; do
-    # Kill the load balancer process if running
-    curl $KILL_SERVER_API
-
-    # Restart docker for good measure
-    ssh $OW_SERVER_NODE "sudo systemctl restart docker"
-
-    # Restart the load balancer
-    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go > /dev/null 2>&1 &"
-
-    # Commands for Java API
     send_requests $JAVA_API "client_time.txt" "server_time.txt" $size
+
+    # Plot time responses
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
     
