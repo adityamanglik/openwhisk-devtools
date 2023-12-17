@@ -30,7 +30,7 @@ public class Hello {
         }
 
         long executionTime = System.nanoTime() - startTime; // Calculate execution time
-
+        executionTime = executionTime/1000;
         JsonObject response = new JsonObject();
         response.addProperty("sum", sum);
         response.addProperty("executionTime", executionTime); // Add execution time to response

@@ -72,7 +72,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func mainLogic(seed int) ([]byte, error) {
-    start := time.Now().UnixNano()
+    start := time.Now().UnixMicro()
     
     rand.Seed(int64(seed))
 
@@ -87,11 +87,11 @@ func mainLogic(seed int) ([]byte, error) {
         sum += int64(arr[i])
     }
 
-    executionTime := time.Now().UnixNano() - start
+    executionTime := time.Now().UnixMicro() - start
 
     response := map[string]interface{}{
         "sum": sum,
-        "executionTime": executionTime, // Include raw execution time in nanoseconds
+        "executionTime": executionTime, // Include raw execution time in microseconds
     }
     var m runtime.MemStats
     runtime.ReadMemStats(&m)
