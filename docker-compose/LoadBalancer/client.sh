@@ -18,11 +18,8 @@ send_requests() {
     ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" $size \";\";next}1' $OW_DIRECTORY/Native/Go/server.go > $OW_DIRECTORY/Native/Go/temp.go && mv $OW_DIRECTORY/Native/Go/temp.go $OW_DIRECTORY/Native/Go/server.go"
 
     # compile the docker images
-    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
-    ssh -f $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
-
-    # Kill the load balancer process if running
-    curl $KILL_SERVER_API
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
 
     # # Restart docker for good measure
     # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
@@ -62,7 +59,11 @@ sizes=(10000)
 
 # Loop through each size
 for size in "${sizes[@]}"; do
+    # Kill the load balancer process if running
+    curl $KILL_SERVER_API
     send_requests $JAVA_API "client_time.txt" "server_time.txt" $size
+    # Kill the load balancer process if running
+    curl $KILL_SERVER_API
 
     # Plot time responses
     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"

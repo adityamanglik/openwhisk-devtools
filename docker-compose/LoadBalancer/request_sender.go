@@ -86,18 +86,20 @@ func sendRequests(apiURL string) ([]int64, []int64) {
 }
 
 func checkServerAlive(apiURL string) {
+    fmt.Println("Checking server for heartbeat.")
     for i := 0; i < iterations; i++ {
         seed := rand.Intn(10000) // Random seed generation
         requestURL := fmt.Sprintf("%s?seed=%d", apiURL, seed)
         resp, err := http.Get(requestURL)
         if err != nil {
             fmt.Println("Error sending request:", err)
+            time.Sleep(time.Second)
             continue
         }
         defer resp.Body.Close()
         // Check if the HTTP status code is 200 (OK)
         if resp.StatusCode == http.StatusOK {
-            fmt.Println("OK Response received.")
+            fmt.Println("OK Response received from server.")
             // Break out of the loop if a correct response is received
             break
         }
