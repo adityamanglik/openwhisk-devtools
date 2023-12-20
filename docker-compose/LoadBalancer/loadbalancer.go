@@ -213,6 +213,7 @@ func scheduleGoContainer() string {
 		for containerName, heapIdle := range containerHeapUsage {
 			if strings.HasPrefix(containerName, goServerImage) {
 				heapUtilization := float64(maxGoHeapSize - heapIdle) / float64(maxGoHeapSize)
+				fmt.Println("Heap Utilization: ", heapUtilization)
 				if heapUtilization < GoGCTriggerThreshold {
 					return containerName
 				} else {
@@ -318,7 +319,6 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 
 // New function to handle fake requests and GC triggering
 func handleGCForGoContainers(containerName string) {
-	fmt.Println("Sending fake requests to tip over the server")
 	requestCounter := 0
     for {
         // Fetch the current heap idle value
@@ -329,7 +329,7 @@ func handleGCForGoContainers(containerName string) {
         if heapUtilization < resumeGoRequestsThreshold {
             break // Exit the loop if the condition is met
         }
-
+		fmt.Println("Sending fake requests to tip over the server")
         // Send a fake request if heap utilization is above the trigger threshold
         if heapUtilization >= GoGCTriggerThreshold {
             seed := rand.Intn(10000)
