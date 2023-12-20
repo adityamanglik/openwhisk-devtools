@@ -4,12 +4,15 @@ import (
     "context"
     "encoding/json"
     "log"
+    "math/rand"
     "net"
     "net/http"
     "os"
     "os/signal"
+    "strconv"
     "syscall"
     "time"
+    "runtime"
 )
 
 // MARKER_FOR_SIZE_UPDATE
@@ -42,7 +45,20 @@ func main() {
 }
 
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
-    jsonResponse, err := mainLogic(0)
+    params := r.URL.Query()
+    seed := 42 // default seed value
+
+    seedStr := params.Get("seed")
+    if seedStr != "" {
+        var err error
+        seed, err = strconv.Atoi(seedStr)
+        if err != nil {
+            http.Error(w, "Invalid seed value", http.StatusBadRequest)
+            return
+        }
+    }
+
+    jsonResponse, err := mainLogic(seed)
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -56,14 +72,33 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func mainLogic(seed int) ([]byte, error) {
+    start := time.Now().UnixMicro()
+    
+    rand.Seed(int64(seed))
+
+    arr := make([]int, ARRAY_SIZE)
     var sum int64 = 0
+
+    for i := range arr {
+        arr[i] = rand.Intn(100000)
+    }
+
+    for i := range arr {
+        sum += int64(arr[i])
+    }
+
+    executionTime := time.Now().UnixMicro() - start
+
     response := map[string]interface{}{
         "sum": sum,
+        "executionTime": executionTime, // Include raw execution time in microseconds
     }
-    response["heapAlloc"] = 0
-    response["heapSys"] = 0
-    response["heapIdle"] = 0
-    response["heapInuse"] = 0
+    var m runtime.MemStats
+    runtime.ReadMemStats(&m)
+    response["heapAlloc"] = m.HeapAlloc
+    response["heapSys"] = m.HeapSys
+    response["heapIdle"] = m.HeapIdle
+    response["heapInuse"] = m.HeapInuse
     jsonResponse, err := json.Marshal(response)
     return jsonResponse, err
 }
