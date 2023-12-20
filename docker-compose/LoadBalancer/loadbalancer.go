@@ -318,6 +318,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 
 // New function to handle fake requests and GC triggering
 func handleGCForGoContainers(containerName string) {
+	fmt.Println("Sending fake requests to tip over the server")
 	requestCounter := 0
     for {
         // Fetch the current heap idle value
@@ -366,6 +367,7 @@ func handleGCForGoContainers(containerName string) {
 
         // time.Sleep(1 * time.Second) // Throttle the loop
     }
+	fmt.Println("Go container is clean and ready for use again")
 }
 
 
