@@ -213,7 +213,7 @@ func scheduleGoContainer() string {
 		for containerName, heapIdle := range containerHeapUsage {
 			if strings.HasPrefix(containerName, goServerImage) {
 				heapUtilization := float64(maxGoHeapSize - heapIdle) / float64(maxGoHeapSize)
-				fmt.Println("Heap Utilization: ", heapUtilization)
+				fmt.Println("Container: %s, Heap Utilization: %f", containerName, heapUtilization)
 				if heapUtilization < GoGCTriggerThreshold {
 					return containerName
 				} else {
