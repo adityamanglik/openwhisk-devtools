@@ -30,13 +30,13 @@ type APIResponse struct {
 
 func main() {
     // ensure server is alive
-    checkServerAlive(javaAPI)
-    javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
+    checkServerAlive(goAPI)
+    // javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
     goResponseTimes, goServerTimes := sendRequests(goAPI) 
 
     // Write time data to files
-    writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
-    writeTimesToFile(javaServerTimesFile, javaServerTimes)
+    // writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
+    // writeTimesToFile(javaServerTimesFile, javaServerTimes)
     writeTimesToFile(goResponseTimesFile, goResponseTimes)
     writeTimesToFile(goServerTimesFile, goServerTimes)
 }

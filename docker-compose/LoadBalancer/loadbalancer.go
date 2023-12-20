@@ -13,6 +13,8 @@ import (
 	"strings"
 	"syscall"
 	"time"
+	"math/rand"
+	"strconv"
 )
 
 const (
@@ -23,6 +25,10 @@ const (
 	goServerImage    = "go-server-image"
 	waitTimeout      = 10 * time.Second
 	serverIP         = "http://128.110.96.76:"
+
+	maxGoHeapSize          = 6692864 // Max size of the heap
+    GoGCTriggerThreshold   = 0.60    // GC is triggered at 55% utilization
+    resumeGoRequestsThreshold = 0.90 // Resume normal operations at 90% idle
 )
 
 // Add scheduling policy selection logic
@@ -203,7 +209,20 @@ func scheduleGoContainer() string {
 		goRoundRobinIndex++
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 	case HeapSizeBased:
-		// TODO
+		// Choose container based on current heap utilization
+		for containerName, heapIdle := range containerHeapUsage {
+			if strings.HasPrefix(containerName, goServerImage) {
+				heapUtilization := float64(maxGoHeapSize - heapIdle) / float64(maxGoHeapSize)
+				if heapUtilization < GoGCTriggerThreshold {
+					return containerName
+				} else {
+					// Take container offline and send fake requests to trigger GC
+					go handleGCForGoContainers(containerName)
+					continue
+				}
+			}
+		}
+		// If all containers are above the threshold, use Round Robin as fallback
 		goRoundRobinIndex = (goRoundRobinIndex % numberOfGoContainers) + 9500
 		goRoundRobinIndex++
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
@@ -291,11 +310,64 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 		} else {
 			heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse)
 			// fmt.Println(heapInfo)
-			containerHeapUsage[containerName] = goResp.HeapInuse
+			containerHeapUsage[containerName] = goResp.HeapIdle
 			logHeapInfo("go_heap_memory.log", heapInfo)
 		}
 	}
 }
+
+// New function to handle fake requests and GC triggering
+func handleGCForGoContainers(containerName string) {
+	requestCounter := 0
+    for {
+        // Fetch the current heap idle value
+        heapIdle := containerHeapUsage[containerName]
+        heapUtilization := float64(maxGoHeapSize - heapIdle) / float64(maxGoHeapSize)
+
+        // Check if the heap utilization is within the target range
+        if heapUtilization < resumeGoRequestsThreshold {
+            break // Exit the loop if the condition is met
+        }
+
+        // Send a fake request if heap utilization is above the trigger threshold
+        if heapUtilization >= GoGCTriggerThreshold {
+            seed := rand.Intn(10000)
+            requestURL := serverIP + containerName[len(goServerImage)+1:] + "/GoNative?seed=" + strconv.Itoa(seed)
+
+            // Process the response to get the latest heap idle value
+            resp, err := http.Get(requestURL)
+            if err != nil {
+                fmt.Println("Error sending fake request:", err)
+                continue
+            }
+
+            // Read and unmarshal the response body
+            responseBody, err := ioutil.ReadAll(resp.Body)
+            resp.Body.Close() // Ensure response body is closed
+            if err != nil {
+                fmt.Println("Error reading response body:", err)
+                continue
+            }
+
+            var goResp GoResponse
+            if err := json.Unmarshal(responseBody, &goResp); err != nil {
+                fmt.Println("Error unmarshalling response:", err)
+                continue
+            }
+
+            // Update the heap idle value
+            containerHeapUsage[containerName] = goResp.HeapIdle
+
+			requestCounter++
+			if requestCounter > 10000 {
+				break // prevent infinite loop
+			}
+        }
+
+        // time.Sleep(1 * time.Second) // Throttle the loop
+    }
+}
+
 
 func logHeapInfo(filename, info string) {
 	fullPath := "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/" + filename
