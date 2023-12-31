@@ -10,3 +10,4 @@ sudo apt install -y golang-go
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh ./get-docker.sh
 sudo apt install -y docker-compose
+sudo reboot now
