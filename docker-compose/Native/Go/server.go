@@ -44,7 +44,7 @@ func main() {
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
     params := r.URL.Query()
     seed := 42 // default seed value
-    ARRAY_SIZE = 10000; // default array size value
+    ARRAY_SIZE := 10000; // default array size value
 
     seedStr := params.Get("seed")
     if seedStr != "" {
