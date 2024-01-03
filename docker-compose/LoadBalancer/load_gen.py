@@ -10,7 +10,8 @@ class ServerLoadTest(HttpUser):
 
     def on_start(self):
         # Read API from the environment variable
-        self.API = os.getenv("API_URL")
+        # self.API = os.getenv("API_URL")
+        self.API = "http://128.110.96.59:8180"
         if not self.API:
             print("No API URL provided in environment. Skipping requests.")
             return  # Stop executing if no API URL is set

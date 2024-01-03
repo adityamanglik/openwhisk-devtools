@@ -3,1059 +3,704 @@ All containers stopped successfully
 Load Balancer is running on port :8180
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-Waiting for container:  http://128.110.96.76:9501/GoNative
-2024/01/03 03:14:04 http: panic serving 128.110.96.64:60476: runtime error: invalid memory address or nil pointer dereference
-goroutine 11 [running]:
-net/http.(*conn).serve.func1()
-	/usr/lib/go-1.18/src/net/http/server.go:1825 +0xbf
-panic({0x691240, 0x8da2e0})
-	/usr/lib/go-1.18/src/runtime/panic.go:844 +0x258
-net/http.Error({0x0, 0x0}, {0x6d8a0a, 0x13}, 0x14?)
-	/usr/lib/go-1.18/src/net/http/server.go:2094 +0x3d
-main.startNewContainer({0xc0000181e0, 0x14})
-	/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go:456 +0x7d8
-main.handleRequest({0x754c10, 0xc0000ea0e0}, 0xc000104000)
-	/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go:180 +0x373
-net/http.HandlerFunc.ServeHTTP(0x7f4730113598?, {0x754c10?, 0xc0000ea0e0?}, 0x40e5a5?)
-	/usr/lib/go-1.18/src/net/http/server.go:2084 +0x2f
-net/http.(*ServeMux).ServeHTTP(0xc00001c128?, {0x754c10, 0xc0000ea0e0}, 0xc000104000)
-	/usr/lib/go-1.18/src/net/http/server.go:2462 +0x149
-net/http.serverHandler.ServeHTTP({0xc0000750b0?}, {0x754c10, 0xc0000ea0e0}, 0xc000104000)
-	/usr/lib/go-1.18/src/net/http/server.go:2916 +0x43b
-net/http.(*conn).serve(0xc000086a00, {0x754e08, 0xc000074fc0})
-	/usr/lib/go-1.18/src/net/http/server.go:1966 +0x5d7
-created by net/http.(*Server).Serve
-	/usr/lib/go-1.18/src/net/http/server.go:3071 +0x4db
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-Waiting for container:  http://128.110.96.76:9502/GoNative
-2024/01/03 03:14:16 http: panic serving 128.110.96.64:45582: runtime error: invalid memory address or nil pointer dereference
-goroutine 34 [running]:
-net/http.(*conn).serve.func1()
-	/usr/lib/go-1.18/src/net/http/server.go:1825 +0xbf
-panic({0x691240, 0x8da2e0})
-	/usr/lib/go-1.18/src/runtime/panic.go:844 +0x258
-net/http.Error({0x0, 0x0}, {0x6d8a0a, 0x13}, 0x14?)
-	/usr/lib/go-1.18/src/net/http/server.go:2094 +0x3d
-main.startNewContainer({0xc0000183d8, 0x14})
-	/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go:456 +0x7d8
-main.handleRequest({0x754c10, 0xc0000ea1c0}, 0xc000104b00)
-	/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go:180 +0x373
-net/http.HandlerFunc.ServeHTTP(0x7f4730113598?, {0x754c10?, 0xc0000ea1c0?}, 0x40e5a5?)
-	/usr/lib/go-1.18/src/net/http/server.go:2084 +0x2f
-net/http.(*ServeMux).ServeHTTP(0xc00001c3e8?, {0x754c10, 0xc0000ea1c0}, 0xc000104b00)
-	/usr/lib/go-1.18/src/net/http/server.go:2462 +0x149
-net/http.serverHandler.ServeHTTP({0xc000108180?}, {0x754c10, 0xc0000ea1c0}, 0xc000104b00)
-	/usr/lib/go-1.18/src/net/http/server.go:2916 +0x43b
-net/http.(*conn).serve(0xc000086aa0, {0x754e08, 0xc000074fc0})
-	/usr/lib/go-1.18/src/net/http/server.go:1966 +0x5d7
-created by net/http.(*Server).Serve
-	/usr/lib/go-1.18/src/net/http/server.go:3071 +0x4db
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Waiting for container:  http://128.110.96.59:9501/GoNative
+Container started: go-server-image-9501
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Go container is clean and ready for use again
+Waiting for container:  http://128.110.96.59:9502/GoNative
+Container started: go-server-image-9502
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6340269277845777
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6083231334149327
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6352509179926561
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.609547123623011
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6352509179926561
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.609547123623011
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6352509179926561
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.609547123623011
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6352509179926561
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6364749082007344
+Container: %s, Heap Utilization: %f go-server-image-9501 0.609547123623011
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6364749082007344
+Container: %s, Heap Utilization: %f go-server-image-9501 0.609547123623011
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.609547123623011
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6364749082007344
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6364749082007344
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6364749082007344
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6364749082007344
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6364749082007344
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6364749082007344
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6107711138310894
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6156670746634026
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6156670746634026
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.616891064871481
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.616891064871481
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6413708690330477
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.642594859241126
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.642594859241126
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6438188494492044
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6438188494492044
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6438188494492044
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6438188494492044
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6438188494492044
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6438188494492044
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6181150550795593
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6438188494492044
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6438188494492044
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6193390452876377
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6450428396572827
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6462668298653611
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6462668298653611
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6462668298653611
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6462668298653611
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6462668298653611
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6462668298653611
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6217870257037944
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6254589963280294
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6254589963280294
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6254589963280294
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6254589963280294
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6474908200734394
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6487148102815178
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6487148102815178
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6487148102815178
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6487148102815178
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6487148102815178
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6487148102815178
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6499388004895961
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6499388004895961
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6511627906976745
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6511627906976745
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6511627906976745
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6511627906976745
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6511627906976745
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6511627906976745
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6511627906976745
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6511627906976745
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9502
+Go container is clean and ready for use again
+Go container is clean and ready for use again
+Container: %s, Heap Utilization: %f go-server-image-9501 0.6266829865361077
+Container: %s, Heap Utilization: %f go-server-image-9502 0.6523867809057528
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Error starting container: go-server-image-9501 exit status 125
-Removing existing container: go-server-image-9501
-Error removing container: exit status 1
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Error starting container: go-server-image-9502 exit status 125
-Removing existing container: go-server-image-9502
-Error removing container: exit status 1
+Container already running:  go-server-image-9501
+Go container is clean and ready for use again
+Go container is clean and ready for use again

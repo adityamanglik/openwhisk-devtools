@@ -15,14 +15,11 @@ import (
     "runtime"
 )
 
-// MARKER_FOR_SIZE_UPDATE
-const ARRAY_SIZE = 10000;
-
 const serverPort = ":9875"
 
 func init() {
 	// debug.SetGCPercent(-1) // Disable the garbage collector
-    os.Setenv("GOGC", "500")
+    // os.Setenv("GOGC", "500")
 }
 
 func main() {
@@ -47,6 +44,7 @@ func main() {
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
     params := r.URL.Query()
     seed := 42 // default seed value
+    ARRAY_SIZE = 10000; // default array size value
 
     seedStr := params.Get("seed")
     if seedStr != "" {
@@ -58,7 +56,17 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
         }
     }
 
-    jsonResponse, err := mainLogic(seed)
+    arrayStr := params.Get("arraysize")
+    if arrayStr != "" {
+        var err error
+        ARRAY_SIZE, err = strconv.Atoi(arrayStr)
+        if err != nil {
+            http.Error(w, "Invalid array size value", http.StatusBadRequest)
+            return
+        }
+    }
+
+    jsonResponse, err := mainLogic(seed, ARRAY_SIZE)
     if err != nil {
         http.Error(w, err.Error(), http.StatusInternalServerError)
         return
@@ -71,7 +79,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
     // log.Printf("Request processed in %v\n", executionTime)
 }
 
-func mainLogic(seed int) ([]byte, error) {
+func mainLogic(seed int, ARRAY_SIZE int) ([]byte, error) {
     start := time.Now().UnixMicro()
     
     rand.Seed(int64(seed))
@@ -91,6 +99,7 @@ func mainLogic(seed int) ([]byte, error) {
 
     response := map[string]interface{}{
         "sum": sum,
+        "array_size": ARRAY_SIZE,
         "executionTime": executionTime, // Include raw execution time in microseconds
     }
     var m runtime.MemStats
