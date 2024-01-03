@@ -99,7 +99,6 @@ func mainLogic(seed int, ARRAY_SIZE int) ([]byte, error) {
 
     response := map[string]interface{}{
         "sum": sum,
-        "array_size": ARRAY_SIZE,
         "executionTime": executionTime, // Include raw execution time in microseconds
     }
     var m runtime.MemStats

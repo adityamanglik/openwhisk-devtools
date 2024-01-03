@@ -7,12 +7,15 @@ import java.lang.management.GarbageCollectorMXBean;
 
 public class Hello {
 
-    private static final int ARRAY_SIZE = 10000;
-
     public static JsonObject main(JsonObject args) {
         int seed = 42; // default seed value
+        int ARRAY_SIZE = 10000; // default arraysize value
         if (args.has("seed")) {
             seed = args.getAsJsonPrimitive("seed").getAsInt();
+        }
+
+        if (args.has("arraysize")) {
+            ARRAY_SIZE = args.getAsJsonPrimitive("arraysize").getAsInt();
         }
 
         long startTime = System.nanoTime(); // Start time tracking

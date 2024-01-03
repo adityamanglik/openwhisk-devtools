@@ -27,6 +27,10 @@ public class JsonServer {
             args.addProperty("seed", Integer.parseInt(params.get("seed")));
         }
 
+        if (params.containsKey("arraysize")) {
+            args.addProperty("arraysize", Integer.parseInt(params.get("arraysize")));
+        }
+
         JsonObject response = Hello.main(args);
         String jsonResponse = response.toString();
 
