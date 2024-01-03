@@ -24,7 +24,7 @@ const (
 	javaServerImage  = "java-server-image"
 	goServerImage    = "go-server-image"
 	waitTimeout      = 10 * time.Second
-	serverIP         = "http://128.110.96.76:"
+	serverIP         = "http://128.110.96.59:"
 
 	maxGoHeapSize          = 6692864 // Max size of the heap
     GoGCTriggerThreshold   = 0.60    // GC is triggered at 55% utilization
