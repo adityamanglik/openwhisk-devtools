@@ -144,6 +144,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	// Extract seed value from the query parameters
 	seedValue := r.URL.Query().Get("seed")
+	arraysizeValue := r.URL.Query().Get("arraysize")
 
 	switch r.URL.Path {
 	case "/java":
@@ -172,6 +173,12 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	if seedValue != "" {
 		targetURL += "?seed=" + seedValue
 	}
+
+	if arraysizeValue != "" {
+		targetURL += "&arraysize=" + arraysizeValue
+	}
+
+	fmt.Println("TargetURL: ", targetURL)
 
 	// Start the container and wait for it to be ready
 	fmt.Println("Checking and starting container:", containerName)

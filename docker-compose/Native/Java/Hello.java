@@ -36,6 +36,8 @@ public class Hello {
         executionTime = executionTime/1000;
         JsonObject response = new JsonObject();
         response.addProperty("sum", sum);
+        response.addProperty("seed", seed);
+        response.addProperty("arraysize", ARRAY_SIZE);
         response.addProperty("executionTime", executionTime); // Add execution time to response
 
         // Garbage collector information

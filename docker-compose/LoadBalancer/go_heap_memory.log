@@ -1,0 +1,9 @@
+HeapAlloc: 627968, HeapIdle: 2473984, HeapInuse: 1294336
+HeapAlloc: 701312, HeapIdle: 2441216, HeapInuse: 1327104
+HeapAlloc: 1437536, HeapIdle: 1671168, HeapInuse: 2097152
+HeapAlloc: 1508904, HeapIdle: 1638400, HeapInuse: 2129920
+HeapAlloc: 2245128, HeapIdle: 5062656, HeapInuse: 2899968
+HeapAlloc: 3052168, HeapIdle: 4259840, HeapInuse: 3702784
+HeapAlloc: 3859208, HeapIdle: 3457024, HeapInuse: 4505600
+HeapAlloc: 3871624, HeapIdle: 3448832, HeapInuse: 4513792
+HeapAlloc: 3886568, HeapIdle: 3440640, HeapInuse: 4521984
