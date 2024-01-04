@@ -25,17 +25,17 @@ send_requests() {
     taskset -c 2 go run request_sender.go
     
     # Move files for postprocessing
-    mv $OW_DIRECTORY/LoadBalancer/go_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/client_time.txt"
-    mv $OW_DIRECTORY/LoadBalancer/go_server_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Go/$size/server_time.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/go_heap_memory.log ../Graphs/LoadBalancer/Go/$size/memory.txt
+    mv $OW_DIRECTORY/GCScheduler/go_response_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Go/$size/client_time.txt"
+    mv $OW_DIRECTORY/GCScheduler/go_server_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Go/$size/server_time.txt"
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/go_heap_memory.log ../Graphs/GCScheduler/Go/$size/memory.txt
     
-    mv $OW_DIRECTORY/LoadBalancer/java_response_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/client_time.txt"
-    mv $OW_DIRECTORY/LoadBalancer/java_server_times.txt "$OW_DIRECTORY/Graphs/LoadBalancer/Java/$size/server_time.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/java_heap_memory.log ../Graphs/LoadBalancer/Java/$size/memory.txt
+    mv $OW_DIRECTORY/GCScheduler/java_response_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Java/$size/client_time.txt"
+    mv $OW_DIRECTORY/GCScheduler/java_server_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Java/$size/server_time.txt"
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/java_heap_memory.log ../Graphs/GCScheduler/Java/$size/memory.txt
     # SCP the server.log file along with other files
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/server.log "../Graphs/LoadBalancer/Go/$size/server.log"
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/server.log "../Graphs/GCScheduler/Go/$size/server.log"
     # Remove file after retrieving
-    ssh $OW_SERVER_NODE "rm $OW_DIRECTORY/LoadBalancer/*.log"
+    ssh $OW_SERVER_NODE "rm $OW_DIRECTORY/GCScheduler/*.log"
 }
 
 # Array of sizes
@@ -43,14 +43,14 @@ send_requests() {
 sizes=(100)
 
 # for size in "${sizes[@]}"; do
-#     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
+#     python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
 
-#     python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
+#     python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Go/${size}/client_time.txt" "../Graphs/GCScheduler/Go/${size}/server_time.txt" "../Graphs/GCScheduler/Go/${size}/graph.pdf"
 # done
 
 # for size in "${sizes[@]}"; do
-#     python ../Graphs/LoadBalancer/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/${size}/memory.pdf"
-#     python ../Graphs/LoadBalancer/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Java/${size}/memory.pdf"
+#     python ../Graphs/GCScheduler/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.pdf"
+#     python ../Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
 # done
 
 # Loop through each size
@@ -62,21 +62,21 @@ for size in "${sizes[@]}"; do
     curl $KILL_SERVER_API
 
     # Plot time responses
-    python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Java/${size}/client_time.txt" "../Graphs/LoadBalancer/Java/${size}/server_time.txt" "../Graphs/LoadBalancer/Java/${size}/graph.pdf"
-    python ../Graphs/LoadBalancer/response_time_plotter.py "../Graphs/LoadBalancer/Go/${size}/client_time.txt" "../Graphs/LoadBalancer/Go/${size}/server_time.txt" "../Graphs/LoadBalancer/Go/${size}/graph.pdf"
+    python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
+    python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Go/${size}/client_time.txt" "../Graphs/GCScheduler/Go/${size}/server_time.txt" "../Graphs/GCScheduler/Go/${size}/graph.pdf"
     
     # Plot memory patterns
-    python ../Graphs/LoadBalancer/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Go/${size}/memory.pdf"
-    python ../Graphs/LoadBalancer/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/LoadBalancer/Java/${size}/memory.pdf"
+    python ../Graphs/GCScheduler/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.pdf"
+    python ../Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
 done
 
 # BACKUP #######################################################################
 
 # send_requests $JAVA_API "client_time.txt" "server_time.txt" 1000000
-# python ../Graphs/LoadBalancer/response_time_plotter.py ../Graphs/LoadBalancer/Java/1000000/client_time.txt ../Graphs/LoadBalancer/Java/1000000/server_time.txt ../Graphs/LoadBalancer/Java/1000000/graph.pdf
+# python ../Graphs/GCScheduler/response_time_plotter.py ../Graphs/GCScheduler/Java/1000000/client_time.txt ../Graphs/GCScheduler/Java/1000000/server_time.txt ../Graphs/GCScheduler/Java/1000000/graph.pdf
 
 # send_requests $GO_API "client_time.txt" "server_time.txt" 1000000
-# python ../Graphs/LoadBalancer/response_time_plotter.py ../Graphs/LoadBalancer/Go/1000000/client_time.txt ../Graphs/LoadBalancer/Java/1000000/server_time.txt ../Graphs/LoadBalancer/Java/1000000/graph.pdf
+# python ../Graphs/GCScheduler/response_time_plotter.py ../Graphs/GCScheduler/Go/1000000/client_time.txt ../Graphs/GCScheduler/Java/1000000/server_time.txt ../Graphs/GCScheduler/Java/1000000/graph.pdf
 
 
 # Locust code
