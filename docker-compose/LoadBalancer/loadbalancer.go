@@ -58,8 +58,8 @@ var currentSchedulingPolicy SchedulingPolicy = HeapSizeBased
 var client = &http.Client{
 	Timeout: 5 * time.Second, // Set the timeout to 5 seconds
 	Transport: &http.Transport{
-		MaxIdleConns:        100,
-		MaxIdleConnsPerHost: 100,
+		MaxIdleConns:        99999,
+		MaxIdleConnsPerHost: 99999,
 		IdleConnTimeout:     90 * time.Second,
 	},
 }
