@@ -178,7 +178,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		targetURL += "&arraysize=" + arraysizeValue
 	}
 
-	fmt.Println("TargetURL: ", targetURL)
+	// fmt.Println("TargetURL: ", targetURL)
 
 	// Start the container and wait for it to be ready
 	fmt.Println("Checking and starting container:", containerName)
