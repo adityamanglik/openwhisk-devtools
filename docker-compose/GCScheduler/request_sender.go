@@ -29,25 +29,43 @@ type APIResponse struct {
 }
 
 func main() {
+    // Set a default value for arraysize
+    defaultArraySize := 10000
+    arraysize := defaultArraySize    
+
+    // Check if a command line argument is provided
+    if len(os.Args) > 1 {
+        arraysizeStr := os.Args[1]
+        if convertedSize, err := strconv.Atoi(arraysizeStr); err == nil {
+            arraysize = convertedSize // Update only if conversion is successful
+        } else {
+            fmt.Printf("Invalid array size provided, using default value %d\n", defaultArraySize)
+        }
+    }
+
     // ensure server is alive
     checkServerAlive(goAPI)
     // javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
-    goResponseTimes, goServerTimes := sendRequests(goAPI) 
-
-    // Write time data to files
-    // writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
-    // writeTimesToFile(javaServerTimesFile, javaServerTimes)
+    goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize) 
     writeTimesToFile(goResponseTimesFile, goResponseTimes)
     writeTimesToFile(goServerTimesFile, goServerTimes)
+
+    // ensure server is alive
+    checkServerAlive(javaAPI)
+    // javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
+    javaResponseTimes, javaServerTimes := sendRequests(javaAPI, arraysize) 
+    
+    // Write time data to files
+    writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
+    writeTimesToFile(javaServerTimesFile, javaServerTimes)
 }
 
-func sendRequests(apiURL string) ([]int64, []int64) {
+func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
     var responseTimes []int64
     var serverTimes []int64
 
     for i := 0; i < iterations; i++ {
         seed := rand.Intn(10000) // Example seed generation
-        arraysize := 10000 // set default value
         requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
         requestURL := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
 
