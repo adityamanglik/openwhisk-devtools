@@ -7,305 +7,399 @@ Waiting for container:  http://128.110.96.59:9501/GoNative
 Container started: go-server-image-9501
 Selected container:  go-server-image-9502
 Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Error starting container: go-server-image-9502 exit status 125
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9502
+Checking and starting container: go-server-image-9502
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Error starting container: go-server-image-9502 exit status 125
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Error starting container: go-server-image-9502 exit status 125
+Error starting container: go-server-image-9502 exit status 125
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
 Waiting for container:  http://128.110.96.59:9502/GoNative
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Error starting container: go-server-image-9502 exit status 125
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Error removing container: exit status 1
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Error removing container: exit status 1
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Removing existing container: go-server-image-9502
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Removing existing container: go-server-image-9502
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Removing existing container: go-server-image-9502
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Removing existing container: go-server-image-9502
+Error removing container: exit status 1
 Container started: go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Selected container:  go-server-image-9502
-Checking and starting container: go-server-image-9502
-Container already running:  go-server-image-9502
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
 Selected container:  java-server-image-8401
 Checking and starting container: java-server-image-8401
 Waiting for container:  http://128.110.96.59:8401/jsonresponse
@@ -313,303 +407,400 @@ Waiting for container:  http://128.110.96.59:8401/jsonresponse
 Container started: java-server-image-8401
 Selected container:  java-server-image-8402
 Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Selected container:  java-server-image-8402
+Checking and starting container: java-server-image-8402
+Selected container:  java-server-image-8401
+Checking and starting container: java-server-image-8401
+Container already running:  java-server-image-8401
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Error starting container: java-server-image-8402 exit status 125
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
 Waiting for container:  http://128.110.96.59:8402/jsonresponse
-Waiting for container:  http://128.110.96.59:8402/jsonresponse
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Error removing container: exit status 1
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Error removing container: exit status 1
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Error removing container: exit status 1
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Removing existing container: java-server-image-8402
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Removing existing container: java-server-image-8402
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Removing existing container: java-server-image-8402
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
+Error removing container: exit status 1
 Container started: java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
-Selected container:  java-server-image-8402
-Checking and starting container: java-server-image-8402
-Container already running:  java-server-image-8402
-Selected container:  java-server-image-8401
-Checking and starting container: java-server-image-8401
-Container already running:  java-server-image-8401
