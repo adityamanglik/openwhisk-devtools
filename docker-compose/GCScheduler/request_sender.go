@@ -109,7 +109,8 @@ func checkServerAlive(apiURL string) {
     fmt.Println("Checking server for heartbeat.")
     for i := 0; i < iterations; i++ {
         seed := rand.Intn(10000) // Random seed generation
-        requestURL := fmt.Sprintf("%s?seed=%d", apiURL, seed)
+        arraysize := rand.Intn(10000) // Random seed generation
+        requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
         resp, err := http.Get(requestURL)
         if err != nil {
             fmt.Println("Error sending request:", err)
