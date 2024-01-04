@@ -47,7 +47,9 @@ func sendRequests(apiURL string) ([]int64, []int64) {
 
     for i := 0; i < iterations; i++ {
         seed := rand.Intn(10000) // Example seed generation
-        requestURL := fmt.Sprintf("%s?seed=%d", apiURL, seed)
+        arraysize := 10000 // set default value
+        requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
+        requestURL := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
 
         startTime := time.Now()
         resp, err := http.Get(requestURL)
