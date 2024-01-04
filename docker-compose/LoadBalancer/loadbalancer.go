@@ -52,7 +52,7 @@ var aliveContainers = make(map[string]string)
 var containerHeapUsage = make(map[string]int64)
 
 // Track current scheduling policy
-var currentSchedulingPolicy SchedulingPolicy = HeapSizeBased
+var currentSchedulingPolicy SchedulingPolicy = RoundRobin
 
 // Global http.Client with Transport settings for high-performance
 var client = &http.Client{
