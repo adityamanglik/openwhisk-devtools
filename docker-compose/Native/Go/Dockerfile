@@ -13,6 +13,8 @@ RUN go mod download
 # Copy the Go source file(s) into the container
 COPY . .
 
+ENV GOMAXPROCS=1
+
 # Build the Go application
 RUN go build -o server
 

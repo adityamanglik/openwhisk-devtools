@@ -59,21 +59,21 @@ func main() {
         fmt.Println("Error writing to CSV:", err)
     }
 
-    // ensure server is alive
-    checkServerAlive(javaAPI)
-    // javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
-    javaResponseTimes, javaServerTimes := sendRequests(javaAPI, arraysize) 
+    // // ensure server is alive
+    // checkServerAlive(javaAPI)
+    // // javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
+    // javaResponseTimes, javaServerTimes := sendRequests(javaAPI, arraysize) 
     
-    // Write time data to files
-    writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
-    writeTimesToFile(javaServerTimesFile, javaServerTimes)
-    // calculateAndPrintStats(javaResponseTimes, "Java Response Times")
-    // calculateAndPrintStats(javaServerTimes, "Java Server Times")
-    filePath = fmt.Sprintf("../Graphs/GCScheduler/Java/%d/latencies.csv", arraysize)
-    err = writeToCSV(filePath, arraysize, javaResponseTimes, javaServerTimes)
-    if err != nil {
-        fmt.Println("Error writing to CSV:", err)
-    }
+    // // Write time data to files
+    // writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
+    // writeTimesToFile(javaServerTimesFile, javaServerTimes)
+    // // calculateAndPrintStats(javaResponseTimes, "Java Response Times")
+    // // calculateAndPrintStats(javaServerTimes, "Java Server Times")
+    // filePath = fmt.Sprintf("../Graphs/GCScheduler/Java/%d/latencies.csv", arraysize)
+    // err = writeToCSV(filePath, arraysize, javaResponseTimes, javaServerTimes)
+    // if err != nil {
+    //     fmt.Println("Error writing to CSV:", err)
+    // }
 }
 
 func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {

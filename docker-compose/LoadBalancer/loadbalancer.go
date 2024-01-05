@@ -51,6 +51,9 @@ const numberOfGoContainers int = 2
 var aliveContainers = make(map[string]string)
 var containerHeapUsage = make(map[string]int64)
 
+// Allocate dedicated CPU for container
+var currentCPUIndex int = 11
+
 // Track current scheduling policy
 var currentSchedulingPolicy SchedulingPolicy = RoundRobin
 
@@ -441,7 +444,16 @@ func startNewContainer(containerName string) {
 		return
 	}
 
-	cmd := exec.Command("docker", "run", "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
+	// Assign a specific CPU to the container and increment the CPU index
+    cpuSet := strconv.Itoa(currentCPUIndex)
+    currentCPUIndex++
+
+    // Ensure currentCPUIndex doesn't exceed your system's CPU count
+    if currentCPUIndex >= 31 { // assuming you have 32 CPUs
+        currentCPUIndex = 11 // reset to 11 or handle as needed
+    }
+
+	cmd := exec.Command("docker", "run", "--cpuset-cpus", cpuSet, "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
 	if err := cmd.Run(); err != nil {
 		fmt.Println("Error starting container:", containerName, err)
 		// Check if a stopped container with the name exists
