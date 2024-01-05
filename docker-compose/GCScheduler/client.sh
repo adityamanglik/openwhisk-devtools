@@ -12,7 +12,6 @@ send_requests() {
     local size=$1
 
     # compile the docker images
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
 
     # # Restart docker for good measure
@@ -28,14 +27,16 @@ send_requests() {
     mv $OW_DIRECTORY/GCScheduler/go_response_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Go/$size/client_time.txt"
     mv $OW_DIRECTORY/GCScheduler/go_server_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Go/$size/server_time.txt"
     scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/go_heap_memory.log ../Graphs/GCScheduler/Go/$size/memory.txt
-    
-    mv $OW_DIRECTORY/GCScheduler/java_response_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Java/$size/client_time.txt"
-    mv $OW_DIRECTORY/GCScheduler/java_server_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Java/$size/server_time.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/java_heap_memory.log ../Graphs/GCScheduler/Java/$size/memory.txt
     # SCP the server.log file along with other files
     scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/server.log "../Graphs/GCScheduler/Go/$size/server.log"
     # Remove file after retrieving
     ssh $OW_SERVER_NODE "rm $OW_DIRECTORY/LoadBalancer/*.log"
+
+    # Comment out Java part for now
+    # ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
+    # mv $OW_DIRECTORY/GCScheduler/java_response_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Java/$size/client_time.txt"
+    # mv $OW_DIRECTORY/GCScheduler/java_server_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Java/$size/server_time.txt"
+    # scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/java_heap_memory.log ../Graphs/GCScheduler/Java/$size/memory.txt
 }
 
 # Array of sizes
@@ -69,7 +70,6 @@ for size in "${sizes[@]}"; do
     python ../Graphs/GCScheduler/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.pdf"
     python ../Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
 done
-
 # CSV post processing
 # Initialize an empty array to hold file paths
 filepaths=()
