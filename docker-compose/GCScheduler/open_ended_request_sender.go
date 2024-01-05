@@ -11,11 +11,12 @@ import (
     "strconv"
     "time"
     "sort"
+    "encoding/csv"
 )
 
 // Constants for API endpoints and file names
 const (
-    iterations            = 100
+    iterations            = 10000
     javaAPI               = "http://128.110.96.59:8180/java"
     goAPI                 = "http://128.110.96.59:8180/go"
     javaResponseTimesFile = "java_response_times.txt"
@@ -50,8 +51,14 @@ func main() {
     goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize) 
     writeTimesToFile(goResponseTimesFile, goResponseTimes)
     writeTimesToFile(goServerTimesFile, goServerTimes)
-    calculateAndPrintStats(goResponseTimes, "Go Response Times")
-    calculateAndPrintStats(goServerTimes, "Go Server Times")
+    // calculateAndPrintStats(goResponseTimes, "Go Response Times")
+    // calculateAndPrintStats(goServerTimes, "Go Server Times")
+    filePath := fmt.Sprintf("../Graphs/GCScheduler/Go/%d/open_ended_latencies.csv", arraysize)
+    err := writeToCSV(filePath, arraysize, goResponseTimes, goServerTimes)
+    if err != nil {
+        fmt.Println("Error writing to CSV:", err)
+    }
+    
 
     // ensure server is alive
     checkServerAlive(javaAPI)
@@ -61,8 +68,13 @@ func main() {
     // Write time data to files
     writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
     writeTimesToFile(javaServerTimesFile, javaServerTimes)
-    calculateAndPrintStats(javaResponseTimes, "Java Response Times")
-    calculateAndPrintStats(javaServerTimes, "Java Server Times")
+    // calculateAndPrintStats(javaResponseTimes, "Java Response Times")
+    // calculateAndPrintStats(javaServerTimes, "Java Server Times")
+    filePath = fmt.Sprintf("../Graphs/GCScheduler/Java/%d/open_ended_latencies.csv", arraysize)
+    err = writeToCSV(filePath, arraysize, javaResponseTimes, javaServerTimes)
+    if err != nil {
+        fmt.Println("Error writing to CSV:", err)
+    }
 }
 
 func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
@@ -200,4 +212,55 @@ func calculateAndPrintStats(times []int64, label string) {
     fmt.Printf("P99: %d\n", percentile(0.99))
     fmt.Printf("P99.9: %d\n", percentile(0.999))
     fmt.Printf("P99.99: %d\n", percentile(0.9999))
+}
+
+func writeToCSV(fileName string, arraySize int, responseTimes, serverTimes []int64) error {
+    file, err := os.OpenFile(fileName, os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0644)
+    if err != nil {
+        return fmt.Errorf("error opening file: %v", err)
+    }
+    defer file.Close()
+
+    writer := csv.NewWriter(file)
+    defer writer.Flush()
+
+    // Helper function to calculate percentiles
+    percentile := func(times []int64, p float64) int64 {
+        if len(times) == 0 {
+            return 0
+        }
+        sort.Slice(times, func(i, j int) bool { return times[i] < times[j] })
+        index := int(float64(len(times)-1) * p)
+        return times[index]
+    }
+
+    // Calculate statistics
+    responseP50 := percentile(responseTimes, 0.50)
+    responseP99 := percentile(responseTimes, 0.99)
+    responseP999 := percentile(responseTimes, 0.999)
+    responseP9999 := percentile(responseTimes, 0.9999)
+
+    serverP50 := percentile(serverTimes, 0.50)
+    serverP99 := percentile(serverTimes, 0.99)
+    serverP999 := percentile(serverTimes, 0.999)
+    serverP9999 := percentile(serverTimes, 0.9999)
+
+    // Write the data to CSV
+    record := []string{
+        strconv.Itoa(arraySize),
+        strconv.FormatInt(responseP50, 10),
+        strconv.FormatInt(responseP99, 10),
+        strconv.FormatInt(responseP999, 10),
+        strconv.FormatInt(responseP9999, 10),
+        strconv.FormatInt(serverP50, 10),
+        strconv.FormatInt(serverP99, 10),
+        strconv.FormatInt(serverP999, 10),
+        strconv.FormatInt(serverP9999, 10),
+    }
+
+    if err := writer.Write(record); err != nil {
+        return fmt.Errorf("error writing record to csv: %v", err)
+    }
+
+    return nil
 }
