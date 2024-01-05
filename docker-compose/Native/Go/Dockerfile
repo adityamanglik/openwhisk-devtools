@@ -14,6 +14,8 @@ RUN go mod download
 COPY . .
 
 ENV GOMAXPROCS=1
+# Set GOGC environment variable
+ENV GOGC=500
 
 # Build the Go application
 RUN go build -o server

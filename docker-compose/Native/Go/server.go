@@ -102,12 +102,16 @@ func mainLogic(seed int, ARRAY_SIZE int) ([]byte, error) {
         "sum": sum,
         "executionTime": executionTime, // Include raw execution time in microseconds
     }
+
+    gogcValue := os.Getenv("GOGC")
     var m runtime.MemStats
     runtime.ReadMemStats(&m)
+    
     response["heapAlloc"] = m.HeapAlloc
     response["heapSys"] = m.HeapSys
     response["heapIdle"] = m.HeapIdle
     response["heapInuse"] = m.HeapInuse
+    response["GOGC"] = gogcValue
     jsonResponse, err := json.Marshal(response)
     return jsonResponse, err
 }
