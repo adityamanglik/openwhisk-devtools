@@ -16,7 +16,7 @@ import (
 
 // Constants for API endpoints and file names
 const (
-    iterations            = 10000
+    iterations            = 100
     javaAPI               = "http://128.110.96.59:8180/java"
     goAPI                 = "http://128.110.96.59:8180/go"
     javaResponseTimesFile = "java_response_times.txt"
@@ -223,6 +223,12 @@ func writeToCSV(fileName string, arraySize int, responseTimes, serverTimes []int
     serverP99 := percentile(serverTimes, 0.99)
     serverP999 := percentile(serverTimes, 0.999)
     serverP9999 := percentile(serverTimes, 0.9999)
+
+    // Writing headers
+    headers := []string{"ArraySize", "ResponseP50", "ResponseP99", "ResponseP999", "ResponseP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
+    if err := writer.Write(headers); err != nil {
+        return fmt.Errorf("error writing headers to csv: %v", err)
+    }
 
     // Write the data to CSV
     record := []string{

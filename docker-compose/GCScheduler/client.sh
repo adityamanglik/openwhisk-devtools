@@ -70,6 +70,29 @@ for size in "${sizes[@]}"; do
     python ../Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
 done
 
+# CSV post processing
+    # Initialize an empty array to hold file paths
+    filepaths=()
+
+    # Loop through each size and add its file path to the array
+    for size in "${sizes[@]}"; do
+        filepaths+=("../Graphs/GCScheduler/Java/$size/latencies.csv")
+    done
+
+    # Combine the CSV files
+    (head -n 1 "${filepaths[0]}" && tail -n +2 -q "${filepaths[@]}") > "../Graphs/GCScheduler/Java/latencies.csv"
+
+        # Initialize an empty array to hold file paths
+    filepaths=()
+
+    # Loop through each size and add its file path to the array
+    for size in "${sizes[@]}"; do
+        filepaths+=("../Graphs/GCScheduler/Go/$size/latencies.csv")
+    done
+
+    # Combine the CSV files
+    (head -n 1 "${filepaths[0]}" && tail -n +2 -q "${filepaths[@]}") > "../Graphs/GCScheduler/Go/latencies.csv"
+
 # BACKUP #######################################################################
 
 # send_requests $JAVA_API "client_time.txt" "server_time.txt" 1000000
