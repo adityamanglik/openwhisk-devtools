@@ -44,15 +44,15 @@ const (
 var javaRoundRobinIndex int = 8400
 var goRoundRobinIndex int = 9500
 
-const numberOfJavaContainers int = 2
-const numberOfGoContainers int = 2
+const numberOfJavaContainers int = 1
+const numberOfGoContainers int = 1
+
+// Allocate dedicated CPU for container
+var currentCPUIndex int = 11
 
 // Track running containers
 var aliveContainers = make(map[string]string)
 var containerHeapUsage = make(map[string]int64)
-
-// Allocate dedicated CPU for container
-var currentCPUIndex int = 11
 
 // Track current scheduling policy
 var currentSchedulingPolicy SchedulingPolicy = RoundRobin
