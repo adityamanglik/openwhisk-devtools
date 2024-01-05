@@ -1,3 +1,4 @@
 ArraySize,ResponseP50,ResponseP99,ResponseP999,ResponseP9999,ServerP50,ServerP99,ServerP999,ServerP9999
-100,1561,1788,3237,4357,37,63,92,190
+100,1577,1727,3118,4244,37,64,79,82
+
 

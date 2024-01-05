@@ -53,7 +53,7 @@ func main() {
     writeTimesToFile(goServerTimesFile, goServerTimes)
     // calculateAndPrintStats(goResponseTimes, "Go Response Times")
     // calculateAndPrintStats(goServerTimes, "Go Server Times")
-    filePath := fmt.Sprintf("../Graphs/GCScheduler/Go/%d/latencies.csv", arraysize)
+    filePath := fmt.Sprintf("../Graphs/Experiments/GOGCSweep/Data/%d_latencies.csv", arraysize)
     err := writeToCSV(filePath, arraysize, goResponseTimes, goServerTimes)
     if err != nil {
         fmt.Println("Error writing to CSV:", err)
