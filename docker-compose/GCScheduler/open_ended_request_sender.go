@@ -10,6 +10,7 @@ import (
     "os"
     "strconv"
     "time"
+    "sort"
 )
 
 // Constants for API endpoints and file names
@@ -42,13 +43,15 @@ func main() {
             fmt.Printf("Invalid array size provided, using default value %d\n", defaultArraySize)
         }
     }
-
+    fmt.Printf("Arraysize: %d\n", arraysize)
     // ensure server is alive
     checkServerAlive(goAPI)
     // javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
     goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize) 
     writeTimesToFile(goResponseTimesFile, goResponseTimes)
     writeTimesToFile(goServerTimesFile, goServerTimes)
+    calculateAndPrintStats(goResponseTimes, "Go Response Times")
+    calculateAndPrintStats(goServerTimes, "Go Server Times")
 
     // ensure server is alive
     checkServerAlive(javaAPI)
@@ -58,6 +61,8 @@ func main() {
     // Write time data to files
     writeTimesToFile(javaResponseTimesFile, javaResponseTimes)
     writeTimesToFile(javaServerTimesFile, javaServerTimes)
+    calculateAndPrintStats(javaResponseTimes, "Java Response Times")
+    calculateAndPrintStats(javaServerTimes, "Java Server Times")
 }
 
 func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
@@ -162,4 +167,37 @@ func writeTimesToFile(filename string, times []int64) {
             fmt.Println("Error writing to file:", err)
         }
     }
+}
+
+func calculateAndPrintStats(times []int64, label string) {
+    if len(times) == 0 {
+        fmt.Println("No data to calculate statistics for", label)
+        return
+    }
+
+    // Sort the slice for percentile calculation
+    sort.Slice(times, func(i, j int) bool { return times[i] < times[j] })
+
+    // Calculate the average
+    var sum int64
+    for _, t := range times {
+        sum += t
+    }
+    avg := sum / int64(len(times))
+
+    // Helper function to calculate percentiles
+    percentile := func(p float64) int64 {
+        if len(times) == 0 {
+            return 0
+        }
+        index := int(float64(len(times)-1) * p)
+        return times[index]
+    }
+
+    fmt.Printf("Statistics for %s:\n", label)
+    fmt.Printf("Average: %d\n", avg)
+    fmt.Printf("P50 (Median): %d\n", percentile(0.50))
+    fmt.Printf("P99: %d\n", percentile(0.99))
+    fmt.Printf("P99.9: %d\n", percentile(0.999))
+    fmt.Printf("P99.99: %d\n", percentile(0.9999))
 }
