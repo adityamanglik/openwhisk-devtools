@@ -9,7 +9,7 @@ directory = './Data'
 sizes = [100, 1000, 10000, 50000]
 GOGC = [1, 10, 50, 100, 200, 400, 800, -1]
 GOGC_plot = [1, 10, 50, 100, 200, 400, 800, 1000]
-column_list = ["ArraySize", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"]
+column_list = ["ArraySize", "ClientAvg", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerAvg", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"]
 
 # Function to read data from all CSV files for a given size
 def read_data(size):

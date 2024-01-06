@@ -245,19 +245,33 @@ func writeToCSV(fileName string, arraySize int, responseTimes, serverTimes []int
 		return times[index]
 	}
 
+	// Function to calculate the average
+	average := func(times []int64) int64 {
+		if len(times) == 0 {
+			return 0
+		}
+		var sum int64
+		for _, t := range times {
+			sum += t
+		}
+		return sum / int64(len(times))
+	}
+
 	// Calculate statistics
+	responseAvg := average(responseTimes)
 	responseP50 := percentile(responseTimes, 0.50)
 	responseP99 := percentile(responseTimes, 0.99)
 	responseP999 := percentile(responseTimes, 0.999)
 	responseP9999 := percentile(responseTimes, 0.9999)
 
+	serverAvg := average(serverTimes)
 	serverP50 := percentile(serverTimes, 0.50)
 	serverP99 := percentile(serverTimes, 0.99)
 	serverP999 := percentile(serverTimes, 0.999)
 	serverP9999 := percentile(serverTimes, 0.9999)
 
 	// Writing headers
-	headers := []string{"ArraySize", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
+	headers := []string{"ArraySize", "ClientAvg", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerAvg", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
 	if err := writer.Write(headers); err != nil {
 		return fmt.Errorf("error writing headers to csv: %v", err)
 	}
@@ -265,10 +279,12 @@ func writeToCSV(fileName string, arraySize int, responseTimes, serverTimes []int
 	// Write the data to CSV
 	record := []string{
 		strconv.Itoa(arraySize),
+		strconv.FormatInt(responseAvg, 10),
 		strconv.FormatInt(responseP50, 10),
 		strconv.FormatInt(responseP99, 10),
 		strconv.FormatInt(responseP999, 10),
 		strconv.FormatInt(responseP9999, 10),
+		strconv.FormatInt(serverAvg, 10),
 		strconv.FormatInt(serverP50, 10),
 		strconv.FormatInt(serverP99, 10),
 		strconv.FormatInt(serverP999, 10),
