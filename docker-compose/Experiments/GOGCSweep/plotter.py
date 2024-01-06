@@ -7,8 +7,8 @@ directory = './Data'
 
 # Array of sizes and GOGC values
 sizes = [100, 1000, 10000, 50000]
-GOGC = [-1, 1, 10, 50, 100, 200, 400, 800]
-GOGC_plot = [0, 1, 10, 50, 100, 200, 400, 800]
+GOGC = [1, 10, 50, 100, 200, 400, 800, -1]
+GOGC_plot = [1, 10, 50, 100, 200, 400, 800, 1000]
 column_list = ["ArraySize", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"]
 
 # Function to read data from all CSV files for a given size
@@ -32,7 +32,7 @@ def plot_data(data, response_type):
     
     plt.figure()
     for val in data:
-        plt.plot(GOGC, val, marker='o')
+        plt.plot(GOGC_plot, val, marker='o')
     plt.title(f"{response_type}")
     plt.xlabel('GOGC')
     plt.ylabel('Latency (microsec)')

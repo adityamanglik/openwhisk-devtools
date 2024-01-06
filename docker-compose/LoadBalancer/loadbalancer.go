@@ -6,15 +6,15 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"math/rand"
 	"net/http"
 	"os"
 	"os/exec"
 	"os/signal"
+	"strconv"
 	"strings"
 	"syscall"
 	"time"
-	"math/rand"
-	"strconv"
 )
 
 const (
@@ -26,19 +26,18 @@ const (
 	waitTimeout      = 10 * time.Second
 	serverIP         = "http://128.110.96.59:"
 
-	maxGoHeapSize          = 6692864 // Max size of the heap
-    GoGCTriggerThreshold   = 0.60    // GC is triggered at 55% utilization
-    resumeGoRequestsThreshold = 0.90 // Resume normal operations at 90% idle
+	maxGoHeapSize             = 6692864 // Max size of the heap
+	GoGCTriggerThreshold      = 0.60    // GC is triggered at 55% utilization
+	resumeGoRequestsThreshold = 0.90    // Resume normal operations at 90% idle
 )
 
 // Add scheduling policy selection logic
 type SchedulingPolicy int
 
 const (
-    RoundRobin SchedulingPolicy = 1
-    HeapSizeBased SchedulingPolicy = 2
+	RoundRobin    SchedulingPolicy = 1
+	HeapSizeBased SchedulingPolicy = 2
 )
-
 
 // Start values for port numbers
 var javaRoundRobinIndex int = 8400
@@ -48,7 +47,7 @@ const numberOfJavaContainers int = 1
 const numberOfGoContainers int = 1
 
 // Allocate dedicated CPU for container
-var currentCPUIndex int = 11
+var currentCPUIndex int = 10 + rand.Intn(10)
 
 // Track running containers
 var aliveContainers = make(map[string]string)
@@ -163,10 +162,10 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	case "/exitCall":
 		fmt.Println("Exit call received. Initiating shutdown...")
 		go func() {
-            stopAllRunningContainers()
-            os.Exit(0)
-        }()
-        return
+			stopAllRunningContainers()
+			os.Exit(0)
+		}()
+		return
 	default:
 		http.Error(w, "Requested API Not found", http.StatusNotFound)
 		return
@@ -196,7 +195,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 func scheduleJavaContainer() string {
 	switch currentSchedulingPolicy {
-    case RoundRobin:
+	case RoundRobin:
 		javaRoundRobinIndex = (javaRoundRobinIndex % numberOfJavaContainers) + 8400 // Shift starting port number
 		javaRoundRobinIndex++
 		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
@@ -206,8 +205,8 @@ func scheduleJavaContainer() string {
 		javaRoundRobinIndex++
 		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
 	default:
-        // Default to Round Robin if the policy is not implemented
-        javaRoundRobinIndex = (javaRoundRobinIndex % numberOfJavaContainers) + 8400 // Shift starting port number
+		// Default to Round Robin if the policy is not implemented
+		javaRoundRobinIndex = (javaRoundRobinIndex % numberOfJavaContainers) + 8400 // Shift starting port number
 		javaRoundRobinIndex++
 		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
 	}
@@ -215,7 +214,7 @@ func scheduleJavaContainer() string {
 
 func scheduleGoContainer() string {
 	switch currentSchedulingPolicy {
-    case RoundRobin:
+	case RoundRobin:
 		goRoundRobinIndex = (goRoundRobinIndex % numberOfGoContainers) + 9500
 		goRoundRobinIndex++
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
@@ -223,7 +222,7 @@ func scheduleGoContainer() string {
 		// Choose container based on current heap utilization
 		for containerName, heapIdle := range containerHeapUsage {
 			if strings.HasPrefix(containerName, goServerImage) {
-				heapUtilization := float64(maxGoHeapSize - heapIdle) / float64(maxGoHeapSize)
+				heapUtilization := float64(maxGoHeapSize-heapIdle) / float64(maxGoHeapSize)
 				fmt.Println("Container: %s, Heap Utilization: %f", containerName, heapUtilization)
 				if heapUtilization < GoGCTriggerThreshold {
 					return containerName
@@ -331,56 +330,55 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 // New function to handle fake requests and GC triggering
 func handleGCForGoContainers(containerName string) {
 	requestCounter := 0
-    for {
-        // Fetch the current heap idle value
-        heapIdle := containerHeapUsage[containerName]
-        heapUtilization := float64(maxGoHeapSize - heapIdle) / float64(maxGoHeapSize)
+	for {
+		// Fetch the current heap idle value
+		heapIdle := containerHeapUsage[containerName]
+		heapUtilization := float64(maxGoHeapSize-heapIdle) / float64(maxGoHeapSize)
 
-        // Check if the heap utilization is within the target range
-        if heapUtilization < resumeGoRequestsThreshold {
-            break // Exit the loop if the condition is met
-        }
+		// Check if the heap utilization is within the target range
+		if heapUtilization < resumeGoRequestsThreshold {
+			break // Exit the loop if the condition is met
+		}
 		fmt.Println("Sending fake requests to tip over the server")
-        // Send a fake request if heap utilization is above the trigger threshold
-        if heapUtilization >= GoGCTriggerThreshold {
-            seed := rand.Intn(10000)
-            requestURL := serverIP + containerName[len(goServerImage)+1:] + "/GoNative?seed=" + strconv.Itoa(seed)
+		// Send a fake request if heap utilization is above the trigger threshold
+		if heapUtilization >= GoGCTriggerThreshold {
+			seed := rand.Intn(10000)
+			requestURL := serverIP + containerName[len(goServerImage)+1:] + "/GoNative?seed=" + strconv.Itoa(seed)
 
-            // Process the response to get the latest heap idle value
-            resp, err := http.Get(requestURL)
-            if err != nil {
-                fmt.Println("Error sending fake request:", err)
-                continue
-            }
+			// Process the response to get the latest heap idle value
+			resp, err := http.Get(requestURL)
+			if err != nil {
+				fmt.Println("Error sending fake request:", err)
+				continue
+			}
 
-            // Read and unmarshal the response body
-            responseBody, err := ioutil.ReadAll(resp.Body)
-            resp.Body.Close() // Ensure response body is closed
-            if err != nil {
-                fmt.Println("Error reading response body:", err)
-                continue
-            }
+			// Read and unmarshal the response body
+			responseBody, err := ioutil.ReadAll(resp.Body)
+			resp.Body.Close() // Ensure response body is closed
+			if err != nil {
+				fmt.Println("Error reading response body:", err)
+				continue
+			}
 
-            var goResp GoResponse
-            if err := json.Unmarshal(responseBody, &goResp); err != nil {
-                fmt.Println("Error unmarshalling response:", err)
-                continue
-            }
+			var goResp GoResponse
+			if err := json.Unmarshal(responseBody, &goResp); err != nil {
+				fmt.Println("Error unmarshalling response:", err)
+				continue
+			}
 
-            // Update the heap idle value
-            containerHeapUsage[containerName] = goResp.HeapIdle
+			// Update the heap idle value
+			containerHeapUsage[containerName] = goResp.HeapIdle
 
 			requestCounter++
 			if requestCounter > 10000 {
 				break // prevent infinite loop
 			}
-        }
+		}
 
-        // time.Sleep(1 * time.Second) // Throttle the loop
-    }
+		// time.Sleep(1 * time.Second) // Throttle the loop
+	}
 	fmt.Println("Go container is clean and ready for use again")
 }
-
 
 func logHeapInfo(filename, info string) {
 	fullPath := "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/" + filename
@@ -445,13 +443,13 @@ func startNewContainer(containerName string) {
 	}
 
 	// Assign a specific CPU to the container and increment the CPU index
-    cpuSet := strconv.Itoa(currentCPUIndex)
-    currentCPUIndex++
+	cpuSet := strconv.Itoa(currentCPUIndex)
+	currentCPUIndex++
 
-    // Ensure currentCPUIndex doesn't exceed your system's CPU count
-    if currentCPUIndex >= 31 { // assuming you have 32 CPUs
-        currentCPUIndex = 11 // reset to 11 or handle as needed
-    }
+	// Ensure currentCPUIndex doesn't exceed your system's CPU count
+	if currentCPUIndex >= 31 { // assuming you have 32 CPUs
+		currentCPUIndex = 10 + rand.Intn(10) // reset to 11 or handle as needed
+	}
 
 	cmd := exec.Command("docker", "run", "--cpuset-cpus", cpuSet, "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
 	if err := cmd.Run(); err != nil {

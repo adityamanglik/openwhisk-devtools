@@ -17,7 +17,7 @@ import (
 
 // Constants for API endpoints and file names
 const (
-	iterations            = 10000
+	iterations            = 50000
 	javaAPI               = "http://128.110.96.59:8180/java"
 	goAPI                 = "http://128.110.96.59:8180/go"
 	KILL_SERVER_API       = "http://128.110.96.59:8180/exitCall"
