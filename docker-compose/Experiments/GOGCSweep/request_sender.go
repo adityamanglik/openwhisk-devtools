@@ -9,6 +9,7 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
+	"os/exec"
 	"sort"
 	"strconv"
 	"time"
@@ -19,6 +20,7 @@ const (
 	iterations            = 10000
 	javaAPI               = "http://128.110.96.59:8180/java"
 	goAPI                 = "http://128.110.96.59:8180/go"
+	KILL_SERVER_API       = "http://128.110.96.59:8180/exitCall"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -108,6 +110,23 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 
 		if resp.StatusCode != http.StatusOK {
 			fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
+			// Reboot load balancer
+
+			// Sending a request to kill the server
+			_, err := http.Get(KILL_SERVER_API)
+			if err != nil {
+				fmt.Println("Error sending kill command:", err)
+			} else {
+				fmt.Println("Server kill command sent successfully")
+			}
+
+			// Restarting the load balancer
+			cmd := exec.Command("ssh", "am_CU@node0", "taskset", "-c", "2", "nohup", "go", "run", "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go", ">", "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log", "2>&1", "&")
+			if err := cmd.Run(); err != nil {
+				fmt.Println("Error restarting load balancer:", err)
+			} else {
+				fmt.Println("Load balancer restarted successfully")
+			}
 		}
 
 		// Read and unmarshal the response body
