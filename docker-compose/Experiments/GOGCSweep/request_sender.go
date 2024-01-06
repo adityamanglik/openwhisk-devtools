@@ -16,7 +16,7 @@ import (
 
 // Constants for API endpoints and file names
 const (
-	iterations            = 100
+	iterations            = 10000
 	javaAPI               = "http://128.110.96.59:8180/java"
 	goAPI                 = "http://128.110.96.59:8180/go"
 	javaResponseTimesFile = "java_response_times.txt"
@@ -52,6 +52,7 @@ func main() {
 		}
 	}
 	fmt.Printf("Arraysize: %d\n", arraysize)
+	fmt.Printf("GOGC: %d\n", gogc)
 	// ensure server is alive
 	checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
