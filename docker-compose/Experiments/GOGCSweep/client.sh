@@ -55,3 +55,5 @@ for size in "${sizes[@]}"; do
     send_requests $size
 
 done
+
+python plotter.py

@@ -238,7 +238,7 @@ func writeToCSV(fileName string, arraySize int, responseTimes, serverTimes []int
 	serverP9999 := percentile(serverTimes, 0.9999)
 
 	// Writing headers
-	headers := []string{"ArraySize", "ResponseP50", "ResponseP99", "ResponseP999", "ResponseP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
+	headers := []string{"ArraySize", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
 	if err := writer.Write(headers); err != nil {
 		return fmt.Errorf("error writing headers to csv: %v", err)
 	}
