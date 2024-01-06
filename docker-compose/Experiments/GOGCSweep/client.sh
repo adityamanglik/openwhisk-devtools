@@ -30,7 +30,9 @@ send_requests() {
         ssh $OW_SERVER_NODE "taskset -c 2 nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
     
         # Start sending requests
-        taskset -c 2 go run request_sender.go $size
+        taskset -c 2 go run request_sender.go $size $gc
+        # Remove files to prevent data mix
+        rm ./*.txt
         
         # Move files for postprocessing
         # mv $OW_DIRECTORY/Experiments/GOGCSweep/go_response_times.txt "$OW_DIRECTORY/Experiments/GOGCSweep/Data/$size_client_time.txt"
@@ -53,12 +55,3 @@ for size in "${sizes[@]}"; do
     send_requests $size
 
 done
-
-# CSV post processing
-filepaths=()
-# Loop through each size and add its file path to the array
-for size in "${sizes[@]}"; do
-    filepaths+=("../Graphs/GCScheduler/Go/$size/latencies.csv")
-done
-# Combine the CSV files
-(head -n 1 "${filepaths[0]}" && tail -n +2 -q "${filepaths[@]}") > "../Graphs/GCScheduler/Go/latencies.csv"
