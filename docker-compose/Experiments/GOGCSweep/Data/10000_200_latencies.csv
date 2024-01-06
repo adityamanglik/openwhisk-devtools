@@ -1,2 +1,2 @@
-ArraySize,ResponseP50,ResponseP99,ResponseP999,ResponseP9999,ServerP50,ServerP99,ServerP999,ServerP9999
-10000,2596,2930,4602,8311,799,884,977,1257
+ArraySize,ClientP50,ClientP99,ClientP999,ClientP9999,ServerP50,ServerP99,ServerP999,ServerP9999
+10000,2347,2629,3777,8596,798,876,936,1313
