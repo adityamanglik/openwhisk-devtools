@@ -6,20 +6,21 @@ OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 
 # Array of sizes
-sizes=(100 1000 10000 50000)
+sizes=(10000 50000 99999)
 # Array of GOGC values
-GOGC=(-1 1 10 50 100 200 400 800)
+GOGC=(-1 1 100 500 999)
 
 # Send request and measure request response latencies
 send_requests() {
     local size=$1
     # # Restart docker for good measure
-    # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
-
+    ssh $OW_SERVER_NODE "sudo systemctl restart docker"
+    sleep 10
     # Loop through each GOGC value
     for gc in "${GOGC[@]}"; do
         # Kill the load balancer process if running
         curl $KILL_SERVER_API
+
         # Change GOGC value in Dockerfile
         ssh am_CU@node0 "sed -i 's/ENV GOGC=.*/ENV GOGC=$gc/' /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/Dockerfile"
 
@@ -31,8 +32,10 @@ send_requests() {
     
         # Start sending requests
         taskset -c 2 go run request_sender.go $size $gc
+
         # Remove files to prevent data mix
         rm ./*.txt
+        rm ./*.log
         
         # Move files for postprocessing
         # mv $OW_DIRECTORY/Experiments/GOGCSweep/go_response_times.txt "$OW_DIRECTORY/Experiments/GOGCSweep/Data/$size_client_time.txt"

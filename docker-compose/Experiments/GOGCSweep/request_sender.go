@@ -9,7 +9,6 @@ import (
 	"math/rand"
 	"net/http"
 	"os"
-	"os/exec"
 	"sort"
 	"strconv"
 	"time"
@@ -34,8 +33,7 @@ type APIResponse struct {
 
 func main() {
 	// Set a default value for arraysize
-	defaultArraySize := 10000
-	arraysize := defaultArraySize
+	arraysize := 10000
 	gogc := 1
 
 	// Check if a command line argument is provided
@@ -45,12 +43,12 @@ func main() {
 		if convertedSize, err := strconv.Atoi(arraysizeStr); err == nil {
 			arraysize = convertedSize // Update only if conversion is successful
 		} else {
-			fmt.Printf("Invalid array size provided, using default value %d\n", defaultArraySize)
+			fmt.Printf("Invalid array size provided, using default value %d\n", arraysize)
 		}
 		if convertedgogc, err := strconv.Atoi(GOGCStr); err == nil {
 			gogc = convertedgogc // Update only if conversion is successful
 		} else {
-			fmt.Printf("Invalid array size provided, using default value %d\n", defaultArraySize)
+			fmt.Printf("Invalid GOGC provided, using default value %d\n", gogc)
 		}
 	}
 	fmt.Printf("Arraysize: %d\n", arraysize)
@@ -59,6 +57,9 @@ func main() {
 	checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
 	goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
+	if len(goResponseTimes) == 0 || len(goServerTimes) == 0 {
+		return
+	}
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
@@ -96,9 +97,8 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 	var serverTimes []int64
 
 	for i := 0; i < iterations; i++ {
-		seed := rand.Intn(10000) // Example seed generation
-		requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
-		requestURL := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
+		seed := rand.Intn(100) // Example seed generation
+		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
 
 		startTime := time.Now()
 		resp, err := http.Get(requestURL)
@@ -110,23 +110,26 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 
 		if resp.StatusCode != http.StatusOK {
 			fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
+			// At this point, it is better to kill the experiment rather than poison the observations
+			return responseTimes, serverTimes
 			// Reboot load balancer
+			// // Sending a request to kill the server
+			// _, err := http.Get(KILL_SERVER_API)
+			// if err != nil {
+			// 	fmt.Println("Error sending kill command:", err)
+			// } else {
+			// 	fmt.Println("Server kill command sent successfully")
+			// }
 
-			// Sending a request to kill the server
-			_, err := http.Get(KILL_SERVER_API)
-			if err != nil {
-				fmt.Println("Error sending kill command:", err)
-			} else {
-				fmt.Println("Server kill command sent successfully")
-			}
-
-			// Restarting the load balancer
-			cmd := exec.Command("ssh", "am_CU@node0", "taskset", "-c", "2", "nohup", "go", "run", "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go", ">", "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log", "2>&1", "&")
-			if err := cmd.Run(); err != nil {
-				fmt.Println("Error restarting load balancer:", err)
-			} else {
-				fmt.Println("Load balancer restarted successfully")
-			}
+			// // Restarting the load balancer
+			// cmd := exec.Command("ssh", "am_CU@node0", "taskset", "-c", "2", "nohup", "go", "run", "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go", ">", "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log", "2>&1", "&")
+			// if err := cmd.Run(); err != nil {
+			// 	fmt.Println("Error restarting load balancer:", err)
+			// } else {
+			// 	fmt.Println("Load balancer restarted successfully")
+			// }
+			// // Sleep to enable full reboot
+			// time.Sleep(5 * time.Second)
 		}
 
 		// Read and unmarshal the response body
