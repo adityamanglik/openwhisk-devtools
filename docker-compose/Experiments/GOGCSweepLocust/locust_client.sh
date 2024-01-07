@@ -33,8 +33,6 @@ send_requests() {
         # Start sending requests
         taskset -c 2 locust --config=./master.conf
 
-        # Extract required data from file
-
         # Remove files to prevent data mix
         rm ./*.txt
         rm ./*.log
@@ -61,4 +59,4 @@ for size in "${sizes[@]}"; do
 
 done
 
-python plotter.py
+# python plotter.py
