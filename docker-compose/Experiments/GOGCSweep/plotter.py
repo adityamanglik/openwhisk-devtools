@@ -11,7 +11,7 @@ GOGC = [1, 100, 500, 999, -1]
 GOGC_plot = [1, 100, 500, 999, 1000]
 column_list = ["ArraySize", "totalExecutionTime", "ClientAvg", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerAvg", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"]
 
-# Function to read data from all CSV files for a given size
+# Function to read data from all CSV files for a given array size
 def read_data(size):
     gogc_array = []
     for gogc in GOGC:

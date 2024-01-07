@@ -31,7 +31,7 @@ type APIResponse struct {
 	ExecutionTime int64 `json:"executionTime"`
 }
 
-var totalExecutionTime int
+var totalExecutionTime int64
 
 func main() {
 	// Set a default value for arraysize
@@ -154,7 +154,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 		responseTimes = append(responseTimes, elapsed.Microseconds())
 		serverTimes = append(serverTimes, apiResp.ExecutionTime)
 	}
-	totalExecutionTime = int(time.Now().Sub(executionStart).Seconds())
+	totalExecutionTime = int64(time.Now().Sub(executionStart).Microseconds())
 	return responseTimes, serverTimes
 }
 
@@ -291,7 +291,7 @@ func writeToCSV(fileName string, arraySize int, responseTimes, serverTimes []int
 	// Write the data to CSV
 	record := []string{
 		strconv.Itoa(arraySize),
-		strconv.FormatInt(int64(totalExecutionTime), 10),
+		strconv.FormatInt(totalExecutionTime, 10),
 		strconv.FormatInt(responseAvg, 10),
 		strconv.FormatInt(responseP50, 10),
 		strconv.FormatInt(responseP99, 10),
