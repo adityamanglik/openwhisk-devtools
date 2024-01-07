@@ -31,6 +31,8 @@ type APIResponse struct {
 	ExecutionTime int64 `json:"executionTime"`
 }
 
+var totalExecutionTime int
+
 func main() {
 	// Set a default value for arraysize
 	arraysize := 10000
@@ -95,7 +97,7 @@ func main() {
 func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 	var responseTimes []int64
 	var serverTimes []int64
-
+	var executionStart = time.Now()
 	for i := 0; i < iterations; i++ {
 		seed := rand.Intn(100) // Example seed generation
 		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
@@ -152,7 +154,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 		responseTimes = append(responseTimes, elapsed.Microseconds())
 		serverTimes = append(serverTimes, apiResp.ExecutionTime)
 	}
-
+	totalExecutionTime = int(time.Now().Sub(executionStart).Seconds())
 	return responseTimes, serverTimes
 }
 
@@ -281,7 +283,7 @@ func writeToCSV(fileName string, arraySize int, responseTimes, serverTimes []int
 	serverP9999 := percentile(serverTimes, 0.9999)
 
 	// Writing headers
-	headers := []string{"ArraySize", "ClientAvg", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerAvg", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
+	headers := []string{"ArraySize", "totalExecutionTime", "ClientAvg", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerAvg", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
 	if err := writer.Write(headers); err != nil {
 		return fmt.Errorf("error writing headers to csv: %v", err)
 	}
@@ -289,6 +291,7 @@ func writeToCSV(fileName string, arraySize int, responseTimes, serverTimes []int
 	// Write the data to CSV
 	record := []string{
 		strconv.Itoa(arraySize),
+		strconv.FormatInt(int64(totalExecutionTime), 10),
 		strconv.FormatInt(responseAvg, 10),
 		strconv.FormatInt(responseP50, 10),
 		strconv.FormatInt(responseP99, 10),
