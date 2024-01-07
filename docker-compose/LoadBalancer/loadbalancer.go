@@ -451,7 +451,7 @@ func startNewContainer(containerName string) {
 		currentCPUIndex = 10 + rand.Intn(10) // reset to 11 or handle as needed
 	}
 
-	cmd := exec.Command("docker", "run", "--cpuset-cpus", cpuSet, "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
+	cmd := exec.Command("docker", "run", "--cpuset-cpus", cpuSet, "--memory=128m", "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
 	if err := cmd.Run(); err != nil {
 		fmt.Println("Error starting container:", containerName, err)
 		// Check if a stopped container with the name exists
