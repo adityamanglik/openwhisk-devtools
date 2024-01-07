@@ -16,13 +16,14 @@ send_requests() {
     # # Restart docker for good measure
     ssh $OW_SERVER_NODE "sudo systemctl restart docker"
     sleep 10
+
     # Loop through each GOGC value
     for gc in "${GOGC[@]}"; do
         # Kill the load balancer process if running
         curl $KILL_SERVER_API
 
         # Change GOGC value in Dockerfile
-        ssh am_CU@node0 "sed -i 's/ENV GOGC=.*/ENV GOGC=$gc/' /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/Dockerfile"
+        ssh $OW_SERVER_NODE "sed -i 's/ENV GOGC=.*/ENV GOGC=$gc/' /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/Dockerfile"
 
         # compile the docker images
         ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
@@ -32,10 +33,12 @@ send_requests() {
     
         # Start sending requests
         taskset -c 2 locust --config=./master.conf
-
+        tail -n 1 locust_stats_history.csv > "${size}_${gc}_latencies.csv"
+        mv "${size}_${gc}_latencies.csv" ./Data/
         # Remove files to prevent data mix
         rm ./*.txt
         rm ./*.log
+        rm ./*.csv
         
         # Move files for postprocessing
         # mv $OW_DIRECTORY/Experiments/GOGCSweep/go_response_times.txt "$OW_DIRECTORY/Experiments/GOGCSweep/Data/$size_client_time.txt"
@@ -53,7 +56,7 @@ send_requests() {
 
 # Loop through each size
 for size in "${sizes[@]}"; do
-    
+    sed -i "s/self.arraysize = [0-9]*/self.arraysize = $size/" locust_client.py
     # Execute experiment
     send_requests $size
 

@@ -1,4 +1,4 @@
-from locust import HttpUser, task, between, events
+from locust import HttpUser, task, between
 import random
 import locust.stats
 import os
@@ -6,11 +6,11 @@ import os
 locust.stats.CSV_STATS_FLUSH_INTERVAL_SEC = 1
 
 class ServerLoadTest(HttpUser):
-    # wait_time = between(0.1, 1)
+    wait_time =  between(0.001, 0.001) # 1000 requests per second
 
     def on_start(self):
         # Marker for arraysize change
-        self.arraysize = 50000
+        self.arraysize = 99999
         # Read API from the environment variable
         # self.API = os.getenv("API_URL")
         self.API = "http://128.110.96.59:8180"
@@ -28,21 +28,16 @@ class ServerLoadTest(HttpUser):
             print("API URL not set. Skipping task.")
             return
 
-        random_seed = random.randint(0, 10000)
+        random_seed = random.randint(0, 100)
         request_url = self.API + "/go?seed=" + str(random_seed) + "&arraysize=" + str(self.arraysize)
 
         with self.client.get(request_url, catch_response=True) as response:
-            if response.status_code == 200:
-                data = response.json()
-                execution_time = data.get("executionTime", "NA")
-                self.execution_times_file.write(str(execution_time) + "\n")
-            else:
+            if response.status_code != 200:
                 response.failure(f"Unexpected status code: {response.status_code}")
-
-            # TODO: Use time to isolate cold starts
-            # elif response.elapsed.total_seconds() > 1.0:
-            #     response.failure("Request took too long")
-
+                # data = response.json()
+                # execution_time = data.get("executionTime", "NA")
+                # self.execution_times_file.write(str(execution_time) + "\n")
+                
         # response = self.client.get()
         # print(response.json())
         # if self.is_generic_response_correct(response.json()):
