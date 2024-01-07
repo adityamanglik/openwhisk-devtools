@@ -1,5 +1,5 @@
 # Use a base image with Go installed (specify the Go version you need)
-FROM golang:1.18
+FROM golang:1.19
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -16,6 +16,7 @@ COPY . .
 ENV GOMAXPROCS=1
 # Set GOGC environment variable
 ENV GOGC=500
+ENV GOMEMLIMIT 128MiB
 
 # Build the Go application
 RUN go build -o server
