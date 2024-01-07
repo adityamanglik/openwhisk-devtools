@@ -1,0 +1,2 @@
+ArraySize,ClientAvg,ClientP50,ClientP99,ClientP999,ClientP9999,ServerAvg,ServerP50,ServerP99,ServerP999,ServerP9999
+10000,2355,2358,2544,3804,11367,810,807,893,940,1985
