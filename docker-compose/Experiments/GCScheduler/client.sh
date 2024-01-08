@@ -40,7 +40,7 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(100 10000 1000000)
+sizes=(100 10000)
 # sizes=(10000)
 
 # for size in "${sizes[@]}"; do
@@ -81,7 +81,7 @@ for size in "${sizes[@]}"; do
 done
 
 # Combine the CSV files
-(head -n 1 "${filepaths[0]}" && tail -n +2 -q "${filepaths[@]}") > "../Graphs/GCScheduler/Go/latencies.csv"
+(head -n 1 "${filepaths[0]}" && tail -n +2 -q "${filepaths[@]}") > "./Graphs/GCScheduler/Go/latencies.csv"
 
 # BACKUP #######################################################################
 
