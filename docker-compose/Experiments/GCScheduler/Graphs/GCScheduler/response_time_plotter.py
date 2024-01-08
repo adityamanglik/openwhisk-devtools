@@ -2,10 +2,14 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-def remove_outliers(data, lower_percentile=0, upper_percentile=99):
+def remove_outliers(data, lower_percentile=0, upper_percentile=99.99):
     lower_bound = np.percentile(data, lower_percentile)
     upper_bound = np.percentile(data, upper_percentile)
-    return [x for x in data if lower_bound <= x <= upper_bound]
+    answer = [x for x in data if lower_bound <= x <= upper_bound]
+    outliers = [x for x in data if lower_bound >= x or x >= upper_bound]
+    for x in outliers:
+        print("Removed outlier value from plotting: ", x)
+    return answer
 
 def calculate_statistics(file_path):
     with open(file_path, 'r') as file:

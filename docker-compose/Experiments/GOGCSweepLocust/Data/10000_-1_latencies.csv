@@ -1,1 +1,2 @@
-1704608998,1,,Aggregated,147.100000,0.000000,5,5,5,5,5,5,6,6,31,41,1300,36470,5,5,5.436602742335434,1.5397160004795296,1265.40653200027,153.3610913079243
+Timestamp  ,User Count ,Type ,Name       ,Requests/s ,Failures/s ,50% ,66% ,75% ,80% ,90% ,95% ,98% ,99% ,99.9% ,99.99% ,100% ,Total Request Count ,Total Failure Count ,Total Median Response Time ,Total Average Response Time ,Total Min Response Time ,Total Max Response Time ,Total Average Content Size
+1704608998 ,         1 ,     ,Aggregated ,147.100000 ,  0.000000 ,  5 ,  5 ,  5 ,  5 ,  5 ,  5 ,  6 ,  6 ,   31 ,    41 ,1300 ,              36470 ,                  5 ,                         5 ,          5.436602742335434 ,     1.5397160004795296 ,       1265.40653200027 ,         153.3610913079243

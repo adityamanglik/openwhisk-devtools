@@ -3,7 +3,7 @@ OW_SERVER_NODE="am_CU@node0"
 JAVA_API="http://128.110.96.59:8180/java"
 GO_API="http://128.110.96.59:8180/go"
 KILL_SERVER_API="http://128.110.96.59:8180/exitCall"
-OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
+OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose/Experiments"
 JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 
@@ -24,13 +24,13 @@ send_requests() {
     taskset -c 2 go run request_sender.go $size
     
     # Move files for postprocessing
-    mv $OW_DIRECTORY/GCScheduler/go_response_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Go/$size/client_time.txt"
-    mv $OW_DIRECTORY/GCScheduler/go_server_times.txt "$OW_DIRECTORY/Graphs/GCScheduler/Go/$size/server_time.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/go_heap_memory.log ../Graphs/GCScheduler/Go/$size/memory.txt
+    mv $OW_DIRECTORY/GCScheduler/go_response_times.txt "$OW_DIRECTORY/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt"
+    mv $OW_DIRECTORY/GCScheduler/go_server_times.txt "$OW_DIRECTORY/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt"
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/../LoadBalancer/go_heap_memory.log "./Graphs/GCScheduler/Go/$size/memory.txt"
     # SCP the server.log file along with other files
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/server.log "../Graphs/GCScheduler/Go/$size/server.log"
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/../LoadBalancer/server.log "./Graphs/GCScheduler/Go/$size/server.log"
     # Remove file after retrieving
-    ssh $OW_SERVER_NODE "rm $OW_DIRECTORY/LoadBalancer/*.log"
+    ssh $OW_SERVER_NODE "rm $OW_DIRECTORY/../LoadBalancer/*.log"
 
     # Comment out Java part for now
     # ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Java/; docker build -t java-server-image ."
@@ -40,7 +40,7 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(100 10000 1000000)
+sizes=(100 10000 50000)
 # sizes=(10000)
 
 # for size in "${sizes[@]}"; do
@@ -63,31 +63,21 @@ for size in "${sizes[@]}"; do
     curl $KILL_SERVER_API
 
     # Plot time responses
-    python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
-    python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Go/${size}/client_time.txt" "../Graphs/GCScheduler/Go/${size}/server_time.txt" "../Graphs/GCScheduler/Go/${size}/graph.pdf"
+    # python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Java/${size}/client_time.txt" "./Graphs/GCScheduler/Java/${size}/server_time.txt" "./Graphs/GCScheduler/Java/${size}/graph.pdf"
+    python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Go/${size}/client_time.txt" "./Graphs/GCScheduler/Go/${size}/server_time.txt" "./Graphs/GCScheduler/Go/${size}/graph.pdf"
     
     # Plot memory patterns
-    python ../Graphs/GCScheduler/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.pdf"
-    python ../Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
+    python ./Graphs/GCScheduler/go_mem_plotter.py "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/memory.pdf"
+    # python ./Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
 done
 # CSV post processing
+
 # Initialize an empty array to hold file paths
 filepaths=()
 
 # Loop through each size and add its file path to the array
 for size in "${sizes[@]}"; do
-    filepaths+=("../Graphs/GCScheduler/Java/$size/latencies.csv")
-done
-
-# Combine the CSV files
-(head -n 1 "${filepaths[0]}" && tail -n +2 -q "${filepaths[@]}") > "../Graphs/GCScheduler/Java/latencies.csv"
-
-    # Initialize an empty array to hold file paths
-filepaths=()
-
-# Loop through each size and add its file path to the array
-for size in "${sizes[@]}"; do
-    filepaths+=("../Graphs/GCScheduler/Go/$size/latencies.csv")
+    filepaths+=("./Graphs/GCScheduler/Go/$size/latencies.csv")
 done
 
 # Combine the CSV files
