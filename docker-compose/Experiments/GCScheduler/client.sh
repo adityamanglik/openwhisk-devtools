@@ -12,7 +12,7 @@ send_requests() {
     local size=$1
 
     # compile the docker images
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/../Native/Go/; docker build -t go-server-image ."
 
     # # Restart docker for good measure
     # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
@@ -40,7 +40,7 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(100 10000 50000)
+sizes=(100 10000 1000000)
 # sizes=(10000)
 
 # for size in "${sizes[@]}"; do
