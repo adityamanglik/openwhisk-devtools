@@ -81,7 +81,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 	var serverTimes []int64
 
 	for i := 0; i < iterations; i++ {
-		seed := rand.Intn(10) // Example seed generation
+		seed := rand.Intn(10000) // Example seed generation
 		requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
 		requestURL := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
 
