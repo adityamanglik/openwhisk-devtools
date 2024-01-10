@@ -42,7 +42,7 @@ const (
 )
 
 // Track current scheduling policy
-var currentSchedulingPolicy SchedulingPolicy = RoundRobin
+var currentSchedulingPolicy SchedulingPolicy = GCMitigation
 
 type GoGCStructure struct {
 	currentIdleHeapSize   int64
