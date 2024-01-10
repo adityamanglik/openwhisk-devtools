@@ -31,9 +31,8 @@ def plot_histograms(client_file, server_file, output_image_file):
 
     with open(server_file, 'r') as f:
         server_times = [float(line.strip()) for line in f.readlines()]
-    print("Removing outliers from client: ")
+    
     client_stats = calculate_statistics(client_file)
-    print("Removing outliers from server: ")
     server_stats = calculate_statistics(server_file)
     
     # Add text box for client statistics
@@ -44,7 +43,9 @@ def plot_histograms(client_file, server_file, output_image_file):
     print(stats_text)
     
     # Remove outliers
+    print("Removing outliers from client: ")
     client_times = remove_outliers(client_times)
+    print("Removing outliers from server: ")
     server_times = remove_outliers(server_times)
 
     # Plotting
