@@ -21,8 +21,9 @@ def calculate_statistics(file_path):
     p90 = np.percentile(times, 90)
     p99 = np.percentile(times, 99)
     summed = np.sum(times)
+    stdd = np.std(times)
  
-    return average, median, p90, p99, summed
+    return average, median, p90, p99, summed, stdd
 
 def plot_histograms(client_file, server_file, output_image_file):
     # Read data from files
@@ -36,10 +37,10 @@ def plot_histograms(client_file, server_file, output_image_file):
     server_stats = calculate_statistics(server_file)
     
     # Add text box for client statistics
-    stats_text = f'Client Times\nAverage: {client_stats[0]:.2f}\nMedian: {client_stats[1]:.2f}\nP90: {client_stats[2]:.2f}\nP99: {client_stats[3]:.2f}\n Summed: {client_stats[4]:.2f}'
+    stats_text = f'Client Times\nAverage: {client_stats[0]:.2f}\nMedian: {client_stats[1]:.2f}\n STD: {client_stats[5]:.2f}\nP90: {client_stats[2]:.2f}\nP99: {client_stats[3]:.2f}\n Summed: {client_stats[4]:.2f}'
     print(stats_text)
     # Add text box for server statistics
-    stats_text = f'Server Times\nAverage: {server_stats[0]:.2f}\nMedian: {server_stats[1]:.2f}\nP90: {server_stats[2]:.2f}\nP99: {server_stats[3]:.2f}\n Summed: {server_stats[4]:.2f}'
+    stats_text = f'Server Times\nAverage: {server_stats[0]:.2f}\nMedian: {server_stats[1]:.2f}\n STD: {client_stats[5]:.2f}\nP90: {server_stats[2]:.2f}\nP99: {server_stats[3]:.2f}\n Summed: {server_stats[4]:.2f}'
     print(stats_text)
     
     # Remove outliers

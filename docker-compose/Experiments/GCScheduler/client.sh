@@ -69,6 +69,9 @@ for size in "${sizes[@]}"; do
     # Plot memory patterns
     python ./Graphs/GCScheduler/go_mem_plotter.py "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/memory.pdf"
     # python ./Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
+
+    # Calculate impact of GC
+    python ./Graphs/GCScheduler/analyzer.py
 done
 # CSV post processing
 

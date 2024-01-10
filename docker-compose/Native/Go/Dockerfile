@@ -13,7 +13,7 @@ RUN go mod download
 # Copy the Go source file(s) into the container
 COPY . .
 
-ENV GOMAXPROCS=2
+ENV GOMAXPROCS=1
 # Set GOGC environment variable
 ENV GOGC=1000
 ENV GOMEMLIMIT 128MiB
