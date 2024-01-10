@@ -20,7 +20,7 @@ const serverPort = ":9875"
 func init() {
 	// debug.SetGCPercent(-1) // Disable the garbage collector
 	// os.Setenv("GOGC", "500")
-	// runtime.GOMAXPROCS(2)
+	runtime.GOMAXPROCS(1)
 }
 
 func main() {
