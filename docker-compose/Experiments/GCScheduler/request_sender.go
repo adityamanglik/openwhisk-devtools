@@ -16,7 +16,7 @@ import (
 
 // Constants for API endpoints and file names
 const (
-	iterations            = 10000
+	iterations            = 1000
 	javaAPI               = "http://128.110.96.59:8180/java"
 	goAPI                 = "http://128.110.96.59:8180/go"
 	javaResponseTimesFile = "java_response_times.txt"
@@ -137,6 +137,9 @@ func checkServerAlive(apiURL string) {
 		// Check if the HTTP status code is 200 (OK)
 		if resp.StatusCode == http.StatusOK {
 			fmt.Println("OK Response received from server.")
+			// Read and unmarshal the response body
+			responseBody, _ := ioutil.ReadAll(resp.Body)
+			fmt.Println("Response: ", responseBody)
 			// Break out of the loop if a correct response is received
 			break
 		}
