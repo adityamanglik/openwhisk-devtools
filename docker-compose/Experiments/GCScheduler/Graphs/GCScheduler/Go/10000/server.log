@@ -80,7 +80,7 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1810432 2023424
+ 1802240 2031616
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -110,12 +110,12 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1294336 2539520
+ 1286144 2547712
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1212416 2621440
+ 1204224 2629632
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -190,72 +190,72 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4112384 3915776
+ 4104192 3923968
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4030464 3997696
+ 4014080 4014080
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3940352 4087808
+ 3932160 4096000
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3858432 4169728
+ 3850240 4177920
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3776512 4251648
+ 3768320 4259840
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3694592 4333568
+ 3686400 4341760
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3612672 4415488
+ 3604480 4423680
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3522560 4505600
+ 3514368 4513792
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3440640 4587520
+ 3432448 4595712
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3358720 4669440
+ 3350528 4677632
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3276800 4751360
+ 3268608 4759552
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3186688 4841472
+ 3178496 4849664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3104768 4923392
+ 3088384 4939776
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3014656 5013504
+ 2998272 5029888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -265,252 +265,252 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2826240 5201920
+ 2818048 5210112
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2744320 5283840
+ 2736128 5292032
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2646016 5382144
+ 2637824 5390336
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2564096 5464064
+ 2555904 5472256
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2473984 5554176
+ 2465792 5562368
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2392064 5636096
+ 2383872 5644288
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2301952 5726208
+ 2293760 5734400
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2220032 5808128
+ 2211840 5816320
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2138112 5890048
+ 2129920 5898240
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2056192 5971968
+ 2039808 5988352
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1957888 6070272
+ 1949696 6078464
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1875968 6152192
+ 1867776 6160384
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1785856 6242304
+ 1777664 6250496
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1703936 6324224
+ 1695744 6332416
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1622016 6406144
+ 1613824 6414336
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1531904 6496256
+ 1523712 6504448
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1449984 6578176
+ 1441792 6586368
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1368064 6660096
+ 1359872 6668288
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1286144 6742016
+ 1277952 6750208
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1187840 6840320
+ 1179648 6848512
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1105920 6922240
+ 1097728 6930432
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1015808 7012352
+ 1007616 7020544
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 933888 7094272
+ 925696 7102464
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 843776 7184384
+ 835584 7192576
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 761856 7266304
+ 753664 7274496
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 679936 7348224
+ 663552 7364608
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 598016 7430144
+ 581632 7446528
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 499712 7528448
+ 491520 7536640
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 409600 7618560
+ 401408 7626752
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 327680 7700480
+ 319488 7708672
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 237568 7790592
+ 229376 7798784
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 155648 7872512
+ 147456 7880704
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 73728 7954432
+ 57344 7970816
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4177920 8044544
+ 4169728 8052736
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4096000 8126464
+ 4087808 8134656
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4014080 8208384
+ 4005888 8216576
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3932160 8290304
+ 3923968 8298496
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3850240 8372224
+ 3842048 8380416
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3760128 8462336
+ 3751936 8470528
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3678208 8544256
+ 3670016 8552448
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3596288 8626176
+ 3588096 8634368
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3514368 8708096
+ 3506176 8716288
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3416064 8806400
+ 3407872 8814592
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3334144 8888320
+ 3325952 8896512
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3235840 8986624
+ 3227648 8994816
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3145728 9076736
+ 3137536 9084928
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3063808 9158656
+ 3055616 9166848
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2981888 9240576
+ 2973696 9248768
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2899968 9322496
+ 2891776 9330688
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2818048 9404416
+ 2809856 9412608
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -520,507 +520,507 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2637824 9584640
+ 2629632 9592832
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2555904 9666560
+ 2547712 9674752
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2473984 9748480
+ 2457600 9764864
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2383872 9838592
+ 2367488 9854976
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2285568 9936896
+ 2269184 9953280
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2187264 10035200
+ 2179072 10043392
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2105344 10117120
+ 2097152 10125312
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2023424 10199040
+ 2015232 10207232
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1941504 10280960
+ 1933312 10289152
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1843200 10379264
+ 1835008 10387456
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1753088 10469376
+ 1744896 10477568
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1671168 10551296
+ 1662976 10559488
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1589248 10633216
+ 1581056 10641408
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1507328 10715136
+ 1499136 10723328
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1425408 10797056
+ 1417216 10805248
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1327104 10895360
+ 1318912 10903552
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1236992 10985472
+ 1228800 10993664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1155072 11067392
+ 1146880 11075584
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1073152 11149312
+ 1064960 11157504
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 991232 11231232
+ 983040 11239424
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 909312 11313152
+ 901120 11321344
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 827392 11395072
+ 819200 11403264
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 737280 11485184
+ 729088 11493376
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 647168 11575296
+ 638976 11583488
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 565248 11657216
+ 557056 11665408
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 475136 11747328
+ 466944 11755520
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 393216 11829248
+ 385024 11837440
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 311296 11911168
+ 294912 11927552
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 212992 12009472
+ 204800 12017664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 131072 12091392
+ 122880 12099584
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 49152 12173312
+ 32768 12189696
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4161536 12255232
+ 4145152 12271616
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4071424 12345344
+ 4063232 12353536
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3981312 12435456
+ 3973120 12443648
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3899392 12517376
+ 3891200 12525568
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3817472 12599296
+ 3809280 12607488
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3727360 12689408
+ 3719168 12697600
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3645440 12771328
+ 3637248 12779520
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3563520 12853248
+ 3555328 12861440
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3473408 12943360
+ 3465216 12951552
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3383296 13033472
+ 3375104 13041664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3284992 13131776
+ 3276800 13139968
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3203072 13213696
+ 3194880 13221888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3121152 13295616
+ 3112960 13303808
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3039232 13377536
+ 3031040 13385728
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2949120 13467648
+ 2940928 13475840
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2867200 13549568
+ 2859008 13557760
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2785280 13631488
+ 2777088 13639680
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2703360 13713408
+ 2695168 13721600
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2621440 13795328
+ 2613248 13803520
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2531328 13885440
+ 2523136 13893632
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2441216 13975552
+ 2433024 13983744
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2351104 14065664
+ 2342912 14073856
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2269184 14147584
+ 2260992 14155776
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2179072 14237696
+ 2170880 14245888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2088960 14327808
+ 2080768 14336000
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1998848 14417920
+ 1990656 14426112
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1908736 14508032
+ 1900544 14516224
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1818624 14598144
+ 1802240 14614528
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1736704 14680064
+ 1720320 14696448
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1646592 14770176
+ 1638400 14778368
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1548288 14868480
+ 1540096 14876672
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1458176 14958592
+ 1449984 14966784
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1376256 15040512
+ 1368064 15048704
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1294336 15122432
+ 1286144 15130624
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1212416 15204352
+ 1204224 15212544
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1130496 15286272
+ 1122304 15294464
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1048576 15368192
+ 1040384 15376384
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 958464 15458304
+ 950272 15466496
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 876544 15540224
+ 868352 15548416
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 794624 15622144
+ 786432 15630336
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 712704 15704064
+ 704512 15712256
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 630784 15785984
+ 622592 15794176
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 540672 15876096
+ 524288 15892480
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 450560 15966208
+ 442368 15974400
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 368640 16048128
+ 360448 16056320
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 270336 16146432
+ 262144 16154624
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 188416 16228352
+ 180224 16236544
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 106496 16310272
+ 98304 16318464
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 0 16416768
+ 4186112 16424960
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4112384 16498688
+ 4104192 16506880
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4030464 16580608
+ 4022272 16588800
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3948544 16662528
+ 3940352 16670720
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3866624 16744448
+ 3858432 16752640
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3784704 16826368
+ 3776512 16834560
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3694592 16916480
+ 3686400 16924672
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3612672 16998400
+ 3596288 17014784
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3522560 17088512
+ 3506176 17104896
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3432448 17178624
+ 3424256 17186816
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3342336 17268736
+ 3334144 17276928
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3260416 17350656
+ 3252224 17358848
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3170304 17440768
+ 3162112 17448960
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3088384 17522688
+ 3080192 17530880
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2998272 17612800
+ 2990080 17620992
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2916352 17694720
+ 2908160 17702912
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2834432 17776640
+ 2826240 17784832
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2752512 17858560
+ 2736128 17874944
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2662400 17948672
+ 2654208 17956864
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2580480 18030592
+ 2572288 18038784
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2498560 18112512
+ 2490368 18120704
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2408448 18202624
+ 2400256 18210816
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -1030,252 +1030,252 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2220032 18391040
+ 2211840 18399232
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2138112 18472960
+ 2129920 18481152
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2056192 18554880
+ 2048000 18563072
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1966080 18644992
+ 1957888 18653184
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1884160 18726912
+ 1875968 18735104
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1802240 18808832
+ 1794048 18817024
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1712128 18898944
+ 1703936 18907136
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1630208 18980864
+ 1622016 18989056
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1548288 19062784
+ 1540096 19070976
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1466368 19144704
+ 1458176 19152896
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1376256 19234816
+ 1368064 19243008
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1294336 19316736
+ 1286144 19324928
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1196032 19415040
+ 1179648 19431424
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1114112 19496960
+ 1097728 19513344
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1024000 19587072
+ 1015808 19595264
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 933888 19677184
+ 925696 19685376
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 851968 19759104
+ 843776 19767296
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 761856 19849216
+ 745472 19865600
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 671744 19939328
+ 663552 19947520
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 581632 20029440
+ 573440 20037632
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 491520 20119552
+ 483328 20127744
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 409600 20201472
+ 401408 20209664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 327680 20283392
+ 319488 20291584
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 229376 20381696
+ 221184 20389888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 147456 20463616
+ 139264 20471808
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 65536 20545536
+ 57344 20553728
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4177920 20627456
+ 4169728 20635648
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4096000 20709376
+ 4087808 20717568
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4014080 20791296
+ 4005888 20799488
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3923968 20881408
+ 3915776 20889600
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3842048 20963328
+ 3833856 20971520
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3760128 21045248
+ 3751936 21053440
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3678208 21127168
+ 3670016 21135360
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3596288 21209088
+ 3588096 21217280
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3514368 21291008
+ 3506176 21299200
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3407872 21397504
+ 3399680 21405696
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3325952 21479424
+ 3317760 21487616
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3244032 21561344
+ 3235840 21569536
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3162112 21643264
+ 3153920 21651456
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3080192 21725184
+ 3072000 21733376
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2998272 21807104
+ 2973696 21831680
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2891776 21913600
+ 2875392 21929984
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2801664 22003712
+ 2793472 22011904
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2719744 22085632
+ 2711552 22093824
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2637824 22167552
+ 2629632 22175744
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2555904 22249472
+ 2547712 22257664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2457600 22347776
+ 2449408 22355968
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2367488 22437888
+ 2359296 22446080
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2285568 22519808
+ 2277376 22528000
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2195456 22609920
+ 2187264 22618112
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -1285,252 +1285,252 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2015232 22790144
+ 2007040 22798336
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1925120 22880256
+ 1916928 22888448
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1843200 22962176
+ 1835008 22970368
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1761280 23044096
+ 1753088 23052288
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1679360 23126016
+ 1671168 23134208
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1597440 23207936
+ 1589248 23216128
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1515520 23289856
+ 1507328 23298048
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1425408 23379968
+ 1417216 23388160
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1343488 23461888
+ 1335296 23470080
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1261568 23543808
+ 1253376 23552000
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1179648 23625728
+ 1171456 23633920
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1089536 23715840
+ 1081344 23724032
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1007616 23797760
+ 991232 23814144
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 917504 23887872
+ 909312 23896064
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 835584 23969792
+ 827392 23977984
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 753664 24051712
+ 745472 24059904
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 663552 24141824
+ 655360 24150016
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 581632 24223744
+ 565248 24240128
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 491520 24313856
+ 475136 24330240
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 401408 24403968
+ 393216 24412160
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 303104 24502272
+ 294912 24510464
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 221184 24584192
+ 212992 24592384
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 139264 24666112
+ 131072 24674304
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 57344 24748032
+ 49152 24756224
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4161536 24838144
+ 4153344 24846336
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4079616 24920064
+ 4071424 24928256
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3997696 25001984
+ 3989504 25010176
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3915776 25083904
+ 3907584 25092096
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3833856 25165824
+ 3825664 25174016
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3751936 25247744
+ 3743744 25255936
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3653632 25346048
+ 3645440 25354240
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3563520 25436160
+ 3555328 25444352
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3473408 25526272
+ 3465216 25534464
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3383296 25616384
+ 3375104 25624576
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3293184 25706496
+ 3284992 25714688
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3211264 25788416
+ 3194880 25804800
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3121152 25878528
+ 3112960 25886720
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3039232 25960448
+ 3031040 25968640
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2957312 26042368
+ 2949120 26050560
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2875392 26124288
+ 2867200 26132480
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2793472 26206208
+ 2785280 26214400
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2703360 26296320
+ 2695168 26304512
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2613248 26386432
+ 2605056 26394624
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2531328 26468352
+ 2523136 26476544
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2449408 26550272
+ 2441216 26558464
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2359296 26640384
+ 2342912 26656768
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2277376 26722304
+ 2260992 26738688
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2179072 26820608
+ 2170880 26828800
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2088960 26910720
+ 2080768 26918912
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2007040 26992640
+ 1998848 27000832
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -1540,507 +1540,507 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1835008 27164672
+ 1826816 27172864
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1753088 27246592
+ 1744896 27254784
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1662976 27336704
+ 1654784 27344896
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1564672 27435008
+ 1556480 27443200
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1482752 27516928
+ 1474560 27525120
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1400832 27598848
+ 1392640 27607040
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1318912 27680768
+ 1310720 27688960
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1236992 27762688
+ 1220608 27779072
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1146880 27852800
+ 1138688 27860992
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1064960 27934720
+ 1056768 27942912
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 983040 28016640
+ 974848 28024832
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 884736 28114944
+ 876544 28123136
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 802816 28196864
+ 794624 28205056
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 704512 28295168
+ 696320 28303360
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 622592 28377088
+ 614400 28385280
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 540672 28459008
+ 532480 28467200
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 450560 28549120
+ 442368 28557312
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 368640 28631040
+ 360448 28639232
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 278528 28721152
+ 270336 28729344
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 188416 28811264
+ 180224 28819456
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 98304 28901376
+ 90112 28909568
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 16384 28983296
+ 8192 28991488
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4128768 29065216
+ 4112384 29081600
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4046848 29147136
+ 4030464 29163520
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3948544 29245440
+ 3940352 29253632
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3850240 29343744
+ 3842048 29351936
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3768320 29425664
+ 3760128 29433856
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3678208 29515776
+ 3670016 29523968
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3596288 29597696
+ 3588096 29605888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3506176 29687808
+ 3497984 29696000
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3424256 29769728
+ 3407872 29786112
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3334144 29859840
+ 3325952 29868032
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3252224 29941760
+ 3244032 29949952
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3170304 30023680
+ 3162112 30031872
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3088384 30105600
+ 3080192 30113792
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3006464 30187520
+ 2998272 30195712
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2916352 30277632
+ 2908160 30285824
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2834432 30359552
+ 2826240 30367744
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2752512 30441472
+ 2744320 30449664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2670592 30523392
+ 2662400 30531584
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2588672 30605312
+ 2580480 30613504
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2506752 30687232
+ 2498560 30695424
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2408448 30785536
+ 2400256 30793728
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2318336 30875648
+ 2310144 30883840
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2236416 30957568
+ 2228224 30965760
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2146304 31047680
+ 2138112 31055872
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2056192 31137792
+ 2048000 31145984
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1974272 31219712
+ 1966080 31227904
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1884160 31309824
+ 1875968 31318016
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1802240 31391744
+ 1794048 31399936
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1712128 31481856
+ 1703936 31490048
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1630208 31563776
+ 1613824 31580160
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1531904 31662080
+ 1523712 31670272
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1449984 31744000
+ 1433600 31760384
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1359872 31834112
+ 1351680 31842304
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1277952 31916032
+ 1269760 31924224
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1187840 32006144
+ 1179648 32014336
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1105920 32088064
+ 1097728 32096256
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1024000 32169984
+ 1015808 32178176
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 933888 32260096
+ 925696 32268288
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 851968 32342016
+ 843776 32350208
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 753664 32440320
+ 745472 32448512
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 671744 32522240
+ 663552 32530432
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 589824 32604160
+ 581632 32612352
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 507904 32686080
+ 499712 32694272
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 417792 32776192
+ 409600 32784384
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 335872 32858112
+ 327680 32866304
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 229376 32964608
+ 221184 32972800
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 147456 33046528
+ 139264 33054720
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 65536 33128448
+ 57344 33136640
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4177920 33210368
+ 4169728 33218560
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4087808 33300480
+ 4079616 33308672
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4005888 33382400
+ 3997696 33390592
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3923968 33464320
+ 3915776 33472512
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3842048 33546240
+ 3833856 33554432
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3751936 33636352
+ 3743744 33644544
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3670016 33718272
+ 3653632 33734656
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3571712 33816576
+ 3563520 33824768
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3489792 33898496
+ 3473408 33914880
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3407872 33980416
+ 3391488 33996800
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3317760 34070528
+ 3309568 34078720
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3227648 34160640
+ 3219456 34168832
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3137536 34250752
+ 3129344 34258944
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3055616 34332672
+ 3047424 34340864
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2973696 34414592
+ 2965504 34422784
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2891776 34496512
+ 2883584 34504704
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2809856 34578432
+ 2801664 34586624
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2727936 34660352
+ 2719744 34668544
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2621440 34766848
+ 2613248 34775040
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2539520 34848768
+ 2531328 34856960
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2457600 34930688
+ 2449408 34938880
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2367488 35020800
+ 2359296 35028992
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2285568 35102720
+ 2277376 35110912
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2187264 35201024
+ 2179072 35209216
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2097152 35291136
+ 2088960 35299328
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2015232 35373056
+ 2007040 35381248
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1933312 35454976
+ 1925120 35463168
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1851392 35536896
+ 1843200 35545088
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1769472 35618816
+ 1761280 35627008
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1687552 35700736
+ 1671168 35717120
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1597440 35790848
+ 1589248 35799040
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -2050,252 +2050,252 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1425408 35962880
+ 1417216 35971072
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1343488 36044800
+ 1335296 36052992
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1261568 36126720
+ 1253376 36134912
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1171456 36216832
+ 1163264 36225024
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1089536 36298752
+ 1073152 36315136
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 999424 36388864
+ 983040 36405248
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 909312 36478976
+ 901120 36487168
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 819200 36569088
+ 811008 36577280
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 729088 36659200
+ 720896 36667392
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 638976 36749312
+ 630784 36757504
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 557056 36831232
+ 548864 36839424
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 475136 36913152
+ 466944 36921344
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 393216 36995072
+ 385024 37003264
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 303104 37085184
+ 294912 37093376
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 221184 37167104
+ 212992 37175296
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 131072 37257216
+ 122880 37265408
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 49152 37339136
+ 40960 37347328
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4161536 37421056
+ 4153344 37429248
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 4079616 37502976
+ 4071424 37511168
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3997696 37584896
+ 3989504 37593088
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3915776 37666816
+ 3899392 37683200
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3825664 37756928
+ 3817472 37765120
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3735552 37847040
+ 3727360 37855232
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3645440 37937152
+ 3637248 37945344
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3563520 38019072
+ 3555328 38027264
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3481600 38100992
+ 3473408 38109184
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3391488 38191104
+ 3383296 38199296
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3301376 38281216
+ 3293184 38289408
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3219456 38363136
+ 3211264 38371328
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3121152 38461440
+ 3112960 38469632
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 3039232 38543360
+ 3031040 38551552
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2957312 38625280
+ 2949120 38633472
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2867200 38715392
+ 2850816 38731776
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2785280 38797312
+ 2768896 38813696
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2695168 38887424
+ 2686976 38895616
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2605056 38977536
+ 2596864 38985728
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2523136 39059456
+ 2514944 39067648
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2424832 39157760
+ 2416640 39165952
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2334720 39247872
+ 2326528 39256064
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2244608 39337984
+ 2236416 39346176
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2162688 39419904
+ 2154496 39428096
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 2080768 39501824
+ 2072576 39510016
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1998848 39583744
+ 1990656 39591936
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1916928 39665664
+ 1900544 39682048
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1826816 39755776
+ 1818624 39763968
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1744896 39837696
+ 1736704 39845888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1662976 39919616
+ 1654784 39927808
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1581056 40001536
+ 1572864 40009728
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 1466368 40083456
+ 1458176 40091648
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39124992 2392064
+ 38846464 2670592
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
@@ -4590,419 +4590,419 @@ Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40861696 720896
+ 40869888 712704
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40779776 802816
+ 40787968 794624
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40697856 884736
+ 40706048 876544
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40615936 966656
+ 40624128 958464
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40534016 1048576
+ 40542208 1040384
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40443904 1138688
+ 40452096 1130496
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40361984 1220608
+ 40370176 1212416
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40280064 1302528
+ 40288256 1294336
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40198144 1384448
+ 40206336 1376256
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40116224 1466368
+ 40124416 1458176
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 40034304 1548288
+ 40042496 1540096
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39944192 1638400
+ 39952384 1630208
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39862272 1720320
+ 39870464 1712128
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39780352 1802240
+ 39788544 1794048
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39698432 1884160
+ 39706624 1875968
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39616512 1966080
+ 39624704 1957888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39526400 2056192
+ 39534592 2048000
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39436288 2146304
+ 39444480 2138112
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39354368 2228224
+ 39362560 2220032
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39272448 2310144
+ 39280640 2301952
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39190528 2392064
+ 39198720 2383872
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39108608 2473984
+ 39116800 2465792
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 39018496 2564096
+ 39026688 2555904
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38936576 2646016
+ 38944768 2637824
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38854656 2727936
+ 38862848 2719744
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38772736 2809856
+ 38780928 2801664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38690816 2891776
+ 38699008 2883584
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38608896 2973696
+ 38617088 2965504
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38518784 3063808
+ 38526976 3055616
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38436864 3145728
+ 38445056 3137536
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38354944 3227648
+ 38363136 3219456
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38264832 3317760
+ 38273024 3309568
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38174720 3407872
+ 38182912 3399680
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 38084608 3497984
+ 38092800 3489792
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37994496 3588096
+ 38002688 3579904
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37896192 3686400
+ 37904384 3678208
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37814272 3768320
+ 37822464 3760128
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37732352 3850240
+ 37740544 3842048
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37650432 3932160
+ 37658624 3923968
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37568512 4014080
+ 37576704 4005888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37478400 4104192
+ 37486592 4096000
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37396480 4186112
+ 37404672 4177920
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37314560 4268032
+ 37322752 4259840
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37232640 4349952
+ 37240832 4341760
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37150720 4431872
+ 37158912 4423680
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 37060608 4521984
+ 37068800 4513792
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36978688 4603904
+ 36986880 4595712
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36896768 4685824
+ 36904960 4677632
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36806656 4775936
+ 36814848 4767744
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36724736 4857856
+ 36732928 4849664
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36642816 4939776
+ 36651008 4931584
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36544512 5038080
+ 36552704 5029888
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36454400 5128192
+ 36462592 5120000
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36372480 5210112
+ 36380672 5201920
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36290560 5292032
+ 36298752 5283840
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36200448 5382144
+ 36208640 5373952
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36118528 5464064
+ 36126720 5455872
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 36028416 5554176
+ 36036608 5545984
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35946496 5636096
+ 35954688 5627904
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35864576 5718016
+ 35872768 5709824
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35774464 5808128
+ 35782656 5799936
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35692544 5890048
+ 35700736 5881856
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35610624 5971968
+ 35618816 5963776
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35512320 6070272
+ 35520512 6062080
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35422208 6160384
+ 35430400 6152192
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35340288 6242304
+ 35348480 6234112
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35258368 6324224
+ 35266560 6316032
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35176448 6406144
+ 35184640 6397952
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35086336 6496256
+ 35094528 6488064
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 35004416 6578176
+ 35012608 6569984
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34922496 6660096
+ 34930688 6651904
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34832384 6750208
+ 34840576 6742016
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34742272 6840320
+ 34750464 6832128
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34660352 6922240
+ 34668544 6914048
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34570240 7012352
+ 34578432 7004160
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34488320 7094272
+ 34496512 7086080
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34398208 7184384
+ 34406400 7176192
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34316288 7266304
+ 34324480 7258112
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34234368 7348224
+ 34242560 7340032
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34152448 7430144
+ 34160640 7421952
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 34045952 7536640
+ 34054144 7528448
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 33964032 7618560
+ 33972224 7610368
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 33882112 7700480
+ 33890304 7692288
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 HeapIdle: %d, HeapInuse: %d
- 33800192 7782400
+ 33808384 7774208

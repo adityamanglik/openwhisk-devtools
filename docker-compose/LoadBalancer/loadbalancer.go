@@ -125,7 +125,7 @@ var currentCPUIndex int = 10 + rand.Intn(10)
 func main() {
 
 	// Inform go runtime that we are constrained to a single CPU
-	runtime.GOMAXPROCS(2)
+	runtime.GOMAXPROCS(1)
 
 	// Stop all running Docker containers
 	stopAllRunningContainers()
