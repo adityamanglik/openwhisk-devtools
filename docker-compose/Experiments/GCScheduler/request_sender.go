@@ -133,15 +133,17 @@ func checkServerAlive(apiURL string) {
 			time.Sleep(time.Second)
 			continue
 		}
-		defer resp.Body.Close()
 		// Check if the HTTP status code is 200 (OK)
 		if resp.StatusCode == http.StatusOK {
 			fmt.Println("OK Response received from server.")
 			// Read and unmarshal the response body
 			responseBody, _ := ioutil.ReadAll(resp.Body)
-			fmt.Println("Response: ", responseBody)
+			resp.Body.Close()
+			fmt.Println("Response: ", string(responseBody))
 			// Break out of the loop if a correct response is received
 			break
+		} else {
+			resp.Body.Close()
 		}
 	}
 }
