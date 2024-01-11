@@ -459,17 +459,18 @@ func scheduleGoContainer() string {
 		}
 		// if target container is likely to undergo GC, schedule to alternate and force GC on target
 		if GoContainerHeapTracker[targetContainer].currentHeapIdle < 100000 {
-			fmt.Printf("GoContainerHeapTracker[targetContainer].currentHeapIdle < 100000, %d", GoContainerHeapTracker[targetContainer].currentHeapIdle)
+			fmt.Printf("HeapIdle < 100000, %d", GoContainerHeapTracker[targetContainer].currentHeapIdle)
 			// Make sure to signal in process
 			handlingGCForGoContainers = true
 			go func() {
+				fmt.Println("Launching fake request generator")
 				handleGCForGoContainers(targetContainer)
 			}()
 			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 			return targetContainer
 		}
 		if GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold {
-			fmt.Printf("GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold %d", GoContainerHeapTracker[targetContainer].GCThreshold)
+			fmt.Printf("GCThreshold >= GoGCTriggerThreshold %d", GoContainerHeapTracker[targetContainer].GCThreshold)
 			// Make sure to signal in process
 			handlingGCForGoContainers = true
 			go func() {
@@ -494,6 +495,7 @@ func handleGCForGoContainers(containerName string) {
 	for ; requestCounter <= 100; requestCounter++ {
 		// break condition
 		if GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold && GoContainerHeapTracker[containerName].currentHeapIdle > 100000 {
+			fmt.Println("Exit req gen")
 			handlingGCForGoContainers = false
 			return
 		}
@@ -509,7 +511,6 @@ func handleGCForGoContainers(containerName string) {
 		defer resp.Body.Close() // Ensure response body is closed
 		if err != nil {
 			fmt.Println("Error sending fake request:", err)
-			continue
 		}
 
 		// Read and unmarshal the response body
@@ -517,7 +518,6 @@ func handleGCForGoContainers(containerName string) {
 
 		if err != nil {
 			fmt.Println("Error reading response body:", err)
-			continue
 		}
 		reader1 := bytes.NewReader(responseBody)
 		// Extract and log heap info for each request
