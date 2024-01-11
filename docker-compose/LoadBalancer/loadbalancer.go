@@ -498,7 +498,7 @@ func handleGCForGoContainers(containerName string) {
 			return
 		}
 
-		fmt.Println("Sending fake request %d to tip over the container", requestCounter)
+		fmt.Printf("Sending fake request %d to tip over the container", requestCounter)
 		// Generate fake request
 		seed := rand.Intn(10000)
 		arraysize := 10000
