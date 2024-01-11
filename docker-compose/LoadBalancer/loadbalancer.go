@@ -45,9 +45,10 @@ const (
 var currentSchedulingPolicy SchedulingPolicy = GCMitigation
 
 type GoGCStructure struct {
-	currentIdleHeapSize   int64
-	currentHeapInUseSize  int64
-	ThresholdIdleHeapSize int64
+	currentHeapIdle    int64
+	currentHeapAlloc   int64
+	HeapAllocThreshold int64
+	GCThreshold        int64
 }
 
 // Track heap across active go containers
@@ -134,6 +135,14 @@ func main() {
 
 	http.HandleFunc("/", handleRequest)
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
+
+	// If GCMitigation Policy, start and warm the containers
+	if currentSchedulingPolicy == GCMitigation {
+		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		startNewContainer(container1)
+		startNewContainer(container2)
+	}
 
 	// Create a channel to listen for an interrupt or terminate signal from the OS.
 	stopChan := make(chan os.Signal, 1)
@@ -224,7 +233,6 @@ func startNewContainer(containerName string) {
 		targetURL = serverIP + containerPort + "/GoNative"
 		// add container to heap tracker
 		heapTrack := GoGCStructure{}
-		heapTrack.ThresholdIdleHeapSize = 0
 		GoContainerHeapTracker[containerName] = heapTrack
 	} else {
 		fmt.Println("Unknown container name:", containerName)
@@ -414,25 +422,11 @@ func scheduleGoContainer() string {
 		goRoundRobinIndex++
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 	case GCMitigation:
-		// // Choose container based on current heap utilization
-		// for containerName, heapIdle := range containerHeapUsage {
-		// 	if strings.HasPrefix(containerName, goServerImage) {
-		// 		heapUtilization := float64(maxGoHeapSize-heapIdle) / float64(maxGoHeapSize)
-		// 		fmt.Println("Container: %s, Heap Utilization: %f", containerName, heapUtilization)
-		// 		if heapUtilization < GoGCTriggerThreshold {
-		// 			return containerName
-		// 		} else {
-		// 			// Take container offline and send fake requests to trigger GC
-		// 			go handleGCForGoContainers(containerName)
-		// 			continue
-		// 		}
-		// 	}
-		// }
-		// If all containers are above the threshold, use Round Robin as fallback
-		// goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
-		// goRoundRobinIndex++
-		// Base case with only a single container
-		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+		fmt.Println("In GCMITIGATION Sched policy")
+		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+		// if target container is likely to undergo GC, schedule to alternate and force GC on target
+
+		return targetContainer
 	default:
 		// use Round Robin as default
 		goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
@@ -522,8 +516,9 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 			logHeapInfo("go_heap_memory.log", heapInfo)
 			// track heap stats in struct
 			heapTrack := GoContainerHeapTracker[containerName]
-			heapTrack.currentHeapInUseSize = goResp.HeapInuse
-			heapTrack.currentIdleHeapSize = goResp.HeapIdle
+			heapTrack.currentHeapAlloc = goResp.HeapInuse
+			heapTrack.currentHeapIdle = goResp.HeapIdle
+			heapTrack.HeapAllocThreshold = goResp.NextGC
 			// print the tracked stats
 			// fmt.Println("HeapIdle: %d, HeapInuse: %d\n", heapTrack.currentIdleHeapSize, heapTrack.currentHeapInUseSize)
 		}

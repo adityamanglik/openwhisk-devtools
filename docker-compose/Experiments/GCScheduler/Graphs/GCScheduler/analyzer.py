@@ -36,7 +36,7 @@ def analyze_file(memory_file, server_file, client_file):
             # The sum is the GC impact metric
             for val in server_times:
                 if (val > med + stdd):
-                    gc_server_impact += val - med + stdd
+                    gc_server_impact += val - (med + stdd)
             client_times = client_log[index - num_entries : index + num_entries]
             # Calculate median and STD for the 10 entries
             med = statistics.mean(client_times)
@@ -45,7 +45,7 @@ def analyze_file(memory_file, server_file, client_file):
             # The sum is the GC impact metric
             for val in client_times:
                 if (val > med + stdd):
-                    gc_client_impact += val - med + stdd
+                    gc_client_impact += val - (med + stdd)
         index += 1
     return (gc_server_impact, gc_client_impact, cycle_count)
 
