@@ -466,7 +466,8 @@ func scheduleGoContainer() string {
 			return targetContainer
 		}
 		// if target container is likely to undergo GC, schedule to alternate and force GC on target
-		if GoContainerHeapTracker[targetContainer].currentHeapIdle < 100000 {
+		if GoContainerHeapTracker[targetContainer].currentHeapIdle < int64(100000) {
+			fmt.Printf("targetContainer: %s", targetContainer)
 			fmt.Printf("HeapIdle < 100000 = %d\n", GoContainerHeapTracker[targetContainer].currentHeapIdle)
 			// Make sure to signal in process
 			mutexHandlingGCForGoContainers.Lock()
@@ -510,8 +511,8 @@ func handleGCForGoContainers(containerName string) {
 		fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[containerName].currentHeapIdle, GoContainerHeapTracker[containerName].currentHeapAlloc, GoContainerHeapTracker[containerName].GCThreshold)
 		// break condition
 		if GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold && GoContainerHeapTracker[containerName].currentHeapIdle > 100000 {
-			fmt.Printf("Exit req gen")
-			fmt.Printf("Condition 1 : %t Condition 2 : %t", GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold, GoContainerHeapTracker[containerName].currentHeapIdle > 100000)
+			fmt.Printf("Exit req gen\n")
+			fmt.Printf("Condition 1 : %t Condition 2 : %t\n", GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold, GoContainerHeapTracker[containerName].currentHeapIdle > 100000)
 			mutexHandlingGCForGoContainers.Lock()
 			handlingGCForGoContainers = false
 			mutexHandlingGCForGoContainers.Unlock()
