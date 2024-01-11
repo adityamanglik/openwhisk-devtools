@@ -467,7 +467,8 @@ func handleGCForGoContainers(containerName string) {
 	for {
 		// break condition
 		if GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold && GoContainerHeapTracker[containerName].currentHeapIdle > 100000 {
-			break
+			handlingGCForGoContainers = false
+			return
 		}
 
 		fmt.Println("Sending fake requests to tip over the container")
