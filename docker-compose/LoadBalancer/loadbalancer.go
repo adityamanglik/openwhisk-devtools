@@ -166,6 +166,9 @@ func main() {
 		reader1 := bytes.NewReader(responseBody)
 		// Extract and log heap info for each request
 		extractAndLogHeapInfo(reader1, container1)
+		fmt.Println("Sent request to initialize GC data structure")
+		heapTrack := GoContainerHeapTracker[container1]
+		fmt.Printf(fmt.Sprint(heapTrack.currentHeapAlloc), fmt.Sprint(heapTrack.currentHeapIdle), fmt.Sprint(heapTrack.HeapAllocThreshold), fmt.Sprint(heapTrack.GCThreshold))
 	}
 
 	// Create a channel to listen for an interrupt or terminate signal from the OS.
