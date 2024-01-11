@@ -25,7 +25,7 @@ send_requests() {
         ssh am_CU@node0 "sed -i 's/ENV GOGC=.*/ENV GOGC=$gc/' /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/Dockerfile"
 
         # compile the docker images
-        ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Native/Go/; docker build -t go-server-image ."
+        ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/../Native/Go/; docker build -t go-server-image ."
 
         # Restart the load balancer
         ssh $OW_SERVER_NODE "taskset -c 2 nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
@@ -54,7 +54,7 @@ send_requests() {
         curl $KILL_SERVER_API
 
         # Calculate impact of GC
-        python /users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/analyzer.py >> stableGC.txt
+        python /users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/analyzer.py $size >> stableGC.txt
 
         # Remove files to prevent data mix
         rm ./*.txt

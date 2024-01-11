@@ -54,4 +54,4 @@ def analyze_file(memory_file, server_file, client_file):
 
 # Replace 'data.txt' with the path to your file
 ans = analyze_file('/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/memory.txt', '/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/server_time.txt', '/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/client_time.txt')
-print("GC impact on latencies--> Server: ", ans[0], " Client: ", ans[1], " Cycle Count: ", ans[2])
+print("Server: ", ans[0], " Client: ", ans[1], " Cycle Count: ", ans[2])
