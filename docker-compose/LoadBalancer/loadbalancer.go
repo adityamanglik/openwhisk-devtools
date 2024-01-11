@@ -509,7 +509,7 @@ func handleGCForGoContainers(containerName string) {
 	// Send a fake request if heap utilization is above the trigger threshold
 	requestCounter := 0
 	for ; requestCounter <= 100; requestCounter++ {
-		fmt.Println("Printing tracker in handleGCforGoContainer")
+		fmt.Printf("Printing tracker in handleGCforGoContainer, target: %s \n", containerName)
 		fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[containerName].currentHeapIdle, GoContainerHeapTracker[containerName].currentHeapAlloc, GoContainerHeapTracker[containerName].GCThreshold)
 		// break condition
 		if GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold && GoContainerHeapTracker[containerName].currentHeapIdle > 100000 {
