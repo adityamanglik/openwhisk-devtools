@@ -7,7 +7,7 @@ def parse_line(line):
     return parts.split(": ")[1]
 
 def analyze_file(memory_file, server_file, client_file):
-    num_entries = 10
+    num_entries = 5
     gc_client_impact = 0
     gc_server_impact = 0
     cycle_count = 0
@@ -48,9 +48,6 @@ def analyze_file(memory_file, server_file, client_file):
                     gc_client_impact += val - med + stdd
         index += 1
     return (gc_server_impact, gc_client_impact, cycle_count)
-
-# TODO: Average or median of 10 values
-# TODO: 10 or 20 entries
 
 # Replace 'data.txt' with the path to your file
 ans = analyze_file('/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/memory.txt', '/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/server_time.txt', '/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/client_time.txt')
