@@ -570,7 +570,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 			heapTrack.HeapAllocThreshold = goResp.NextGC
 			heapTrack.GCThreshold = float32(goResp.HeapAlloc) / float32(goResp.NextGC)
 			// print the tracked stats
-			// fmt.Println("HeapIdle: %d, HeapInuse: %d\n", heapTrack.currentIdleHeapSize, heapTrack.currentHeapInUseSize)
+			fmt.Println("HeapIdle: %d, HeapAlloc: %d GCThresh\n", heapTrack.currentHeapIdle, heapTrack.currentHeapAlloc, heapTrack.GCThreshold)
 		}
 	}
 }
