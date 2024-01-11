@@ -145,6 +145,27 @@ func main() {
 		startNewContainer(container2)
 		handlingGCForGoContainers = false
 		GoGCTriggerThreshold = 0.85
+		// Send one request to initialize GCTracker values
+		// Generate fake request
+		seed := rand.Intn(10000)
+		arraysize := 10000
+		requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
+
+		// Process the response to get the latest heap idle value
+		resp, err := http.Get(requestURL)
+		if err != nil {
+			fmt.Println("Error sending fake request:", err)
+		}
+
+		// Read and unmarshal the response body
+		responseBody, err := ioutil.ReadAll(resp.Body)
+		resp.Body.Close() // Ensure response body is closed
+		if err != nil {
+			fmt.Println("Error reading response body:", err)
+		}
+		reader1 := bytes.NewReader(responseBody)
+		// Extract and log heap info for each request
+		extractAndLogHeapInfo(reader1, container1)
 	}
 
 	// Create a channel to listen for an interrupt or terminate signal from the OS.
