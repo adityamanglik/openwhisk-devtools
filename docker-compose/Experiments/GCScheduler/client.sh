@@ -40,7 +40,7 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(10000)
+sizes=(10000 10000 10000 10000 10000)
 # sizes=(10000)
 
 # for size in "${sizes[@]}"; do

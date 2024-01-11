@@ -30,7 +30,7 @@ def analyze_file(memory_file, server_file, client_file):
             # For the corresponding index, extract +-10 entries in the server_time
             server_times = server_log[index - num_entries : index + num_entries]
             # Calculate median and STD for the 10 entries
-            med = statistics.median(server_times)
+            med = statistics.mean(server_times)
             # Sum up all values that exceed median + STD
             stdd = statistics.stdev(server_times)
             # The sum is the GC impact metric
@@ -39,7 +39,7 @@ def analyze_file(memory_file, server_file, client_file):
                     gc_server_impact += val - med + stdd
             client_times = client_log[index - num_entries : index + num_entries]
             # Calculate median and STD for the 10 entries
-            med = statistics.median(client_times)
+            med = statistics.mean(client_times)
             # Sum up all values that exceed median + STD
             stdd = statistics.stdev(client_times)
             # The sum is the GC impact metric
