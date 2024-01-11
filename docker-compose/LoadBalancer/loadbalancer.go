@@ -489,16 +489,16 @@ func scheduleGoContainer() string {
 
 // Send fake requests to targetContainer to trigger GC
 func handleGCForGoContainers(containerName string) {
-	requestCounter := 0
 	// Send a fake request if heap utilization is above the trigger threshold
-	for {
+	requestCounter := 0
+	for ; requestCounter <= 100; requestCounter++ {
 		// break condition
 		if GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold && GoContainerHeapTracker[containerName].currentHeapIdle > 100000 {
 			handlingGCForGoContainers = false
 			return
 		}
 
-		fmt.Println("Sending fake requests to tip over the container")
+		fmt.Println("Sending fake request %d to tip over the container", requestCounter)
 		// Generate fake request
 		seed := rand.Intn(10000)
 		arraysize := 10000
@@ -506,6 +506,7 @@ func handleGCForGoContainers(containerName string) {
 
 		// Process the response to get the latest heap idle value
 		resp, err := http.Get(requestURL)
+		defer resp.Body.Close() // Ensure response body is closed
 		if err != nil {
 			fmt.Println("Error sending fake request:", err)
 			continue
@@ -513,7 +514,7 @@ func handleGCForGoContainers(containerName string) {
 
 		// Read and unmarshal the response body
 		responseBody, err := ioutil.ReadAll(resp.Body)
-		resp.Body.Close() // Ensure response body is closed
+
 		if err != nil {
 			fmt.Println("Error reading response body:", err)
 			continue
@@ -522,9 +523,8 @@ func handleGCForGoContainers(containerName string) {
 		// Extract and log heap info for each request
 		extractAndLogHeapInfo(reader1, containerName)
 
-		requestCounter++
-		if requestCounter > 100 {
-			fmt.Println("Sent 100 fake requests, PROBLEM")
+		if requestCounter > 50 {
+			fmt.Println("Sent 50 fake requests, PROBLEM")
 			// Fail fast
 			panic(1)
 			break // prevent infinite loop
