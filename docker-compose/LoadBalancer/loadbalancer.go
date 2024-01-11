@@ -435,7 +435,7 @@ func scheduleGoContainer() string {
 		}
 		// if target container is likely to undergo GC, schedule to alternate and force GC on target
 		if GoContainerHeapTracker[targetContainer].currentHeapIdle < 100000 {
-			fmt.Println("GoContainerHeapTracker[targetContainer].currentHeapIdle < 100000")
+			fmt.Printf("GoContainerHeapTracker[targetContainer].currentHeapIdle < 100000, %d", GoContainerHeapTracker[targetContainer].currentHeapIdle)
 			// Make sure to signal in process
 			handlingGCForGoContainers = true
 			go func() {
@@ -445,7 +445,7 @@ func scheduleGoContainer() string {
 			return targetContainer
 		}
 		if GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold {
-			fmt.Println("GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold")
+			fmt.Printf("GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold %d", GoContainerHeapTracker[targetContainer].GCThreshold)
 			// Make sure to signal in process
 			handlingGCForGoContainers = true
 			go func() {
