@@ -112,6 +112,8 @@ func mainLogic(seed int, ARRAY_SIZE int) ([]byte, error) {
 	response["heapSys"] = m.HeapSys
 	response["heapIdle"] = m.HeapIdle
 	response["heapInuse"] = m.HeapInuse
+	response["NextGC"] = m.NextGC
+	response["NumGC"] = m.NumGC
 	response["GOGC"] = gogcValue
 	response["GOMEMLIMIT"] = gomemlimitValue
 	jsonResponse, err := json.Marshal(response)

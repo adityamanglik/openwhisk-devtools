@@ -92,6 +92,8 @@ type GoResponse struct {
 	HeapIdle      int64 `json:"heapIdle"`
 	HeapInuse     int64 `json:"heapInuse"`
 	HeapSys       int64 `json:"heapSys"`
+	NextGC        int64 `json:"NextGC"`
+	NumGC         int64 `json:"NumGC"`
 	Sum           int64 `json:"sum"`
 }
 
@@ -515,7 +517,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
-			heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse)
+			heapInfo = fmt.Sprintf("HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d NextGC: %d NumGC: %d\n", goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
 			// fmt.Println(heapInfo)
 			logHeapInfo("go_heap_memory.log", heapInfo)
 			// track heap stats in struct
@@ -523,7 +525,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 			heapTrack.currentHeapInUseSize = goResp.HeapInuse
 			heapTrack.currentIdleHeapSize = goResp.HeapIdle
 			// print the tracked stats
-			fmt.Println("HeapIdle: %d, HeapInuse: %d\n", heapTrack.currentIdleHeapSize, heapTrack.currentHeapInUseSize)
+			// fmt.Println("HeapIdle: %d, HeapInuse: %d\n", heapTrack.currentIdleHeapSize, heapTrack.currentHeapInUseSize)
 		}
 	}
 }
