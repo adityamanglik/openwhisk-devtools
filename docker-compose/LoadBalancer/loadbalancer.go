@@ -460,11 +460,13 @@ func scheduleGoContainer() string {
 		fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
 		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		// if we are performing cleanup, send requests to other containers
+		mutexHandlingGCForGoContainers.Lock()
 		if handlingGCForGoContainers == true {
 			fmt.Println("handlingGCForGoContainers is True")
 			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 			return targetContainer
 		}
+		mutexHandlingGCForGoContainers.Unlock()
 		// if target container is likely to undergo GC, schedule to alternate and force GC on target
 		if GoContainerHeapTracker[targetContainer].currentHeapIdle < int64(100000) {
 			fmt.Printf("targetContainer: %s", targetContainer)
