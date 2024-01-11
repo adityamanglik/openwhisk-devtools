@@ -429,11 +429,13 @@ func scheduleGoContainer() string {
 		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		// if we are performing cleanup, send requests to other containers
 		if handlingGCForGoContainers == true {
+			fmt.Println("handlingGCForGoContainers is True")
 			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 			return targetContainer
 		}
 		// if target container is likely to undergo GC, schedule to alternate and force GC on target
 		if GoContainerHeapTracker[targetContainer].currentHeapIdle < 100000 {
+			fmt.Println("GoContainerHeapTracker[targetContainer].currentHeapIdle < 100000")
 			// Make sure to signal in process
 			handlingGCForGoContainers = true
 			go func() {
@@ -443,6 +445,7 @@ func scheduleGoContainer() string {
 			return targetContainer
 		}
 		if GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold {
+			fmt.Println("GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold")
 			// Make sure to signal in process
 			handlingGCForGoContainers = true
 			go func() {

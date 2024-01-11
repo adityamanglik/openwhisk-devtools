@@ -6,50 +6,9 @@ Waiting for container:  http://128.110.96.59:9501/GoNative
 Container started: go-server-image-9501
 In GCMITIGATION Sched policy
 Selected container:  go-server-image-9501
+Sending fake requests to tip over the container
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-Sending fake requests to tip over the container
 In GCMITIGATION Sched policy
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
@@ -116,11 +75,6 @@ Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
 Sending fake requests to tip over the container
 In GCMITIGATION Sched policy
-Sending fake requests to tip over the container
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-In GCMITIGATION Sched policy
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
@@ -129,20 +83,6 @@ In GCMITIGATION Sched policy
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-Sending fake requests to tip over the container
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
-Sending fake requests to tip over the container
-In GCMITIGATION Sched policy
-Selected container:  go-server-image-9501
-Checking and starting container: go-server-image-9501
-Container already running:  go-server-image-9501
-Sending fake requests to tip over the container
 Sending fake requests to tip over the container
 In GCMITIGATION Sched policy
 Selected container:  go-server-image-9501
@@ -154,6 +94,15 @@ Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
 Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
 Sending fake requests to tip over the container
 In GCMITIGATION Sched policy
 Selected container:  go-server-image-9501
@@ -177,6 +126,28 @@ Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
 Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Sending fake requests to tip over the container
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Sending fake requests to tip over the container
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Sending fake requests to tip over the container
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
 Sending fake requests to tip over the container
 In GCMITIGATION Sched policy
 Selected container:  go-server-image-9501
@@ -201,6 +172,35 @@ Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
 Sending fake requests to tip over the container
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Sending fake requests to tip over the container
+Container already running:  go-server-image-9501
+Sending fake requests to tip over the container
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Sending fake requests to tip over the container
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
+Sending fake requests to tip over the container
+Sending fake requests to tip over the container
+In GCMITIGATION Sched policy
+Selected container:  go-server-image-9501
+Checking and starting container: go-server-image-9501
+Container already running:  go-server-image-9501
 Sending fake requests to tip over the container
 In GCMITIGATION Sched policy
 Selected container:  go-server-image-9501
@@ -365,8 +365,8 @@ Sent 100 fake requests, PROBLEM
 panic: 1
 
 goroutine 38 [running]:
-main.handleGCForGoContainers({0xc000286090, 0x14})
-	/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go:501 +0x527
+main.handleGCForGoContainers({0xc0002d0060, 0x14})
+	/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go:502 +0x4c5
 main.scheduleGoContainer.func1()
 	/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go:440 +0x25
 created by main.scheduleGoContainer
