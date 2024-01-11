@@ -19,13 +19,14 @@ import (
 
 // SCHEDULING POLICY DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
-// likely not needed
-// func newGoServer(IdleHeapSize int64, HeapInUseSize int64, ThresholdIdleHeap int64) *GoGCStructure {
-// 	GoGC := GoGCStructure{currentIdleHeapSize: IdleHeapSize}
-// 	GoGC.currentHeapInUseSize = HeapInUseSize
-// 	GoGC.ThresholdIdleHeapSize = ThresholdIdleHeap
-// 	return &GoGC
-// }
+func newGoGCStructure() *GoGCStructure {
+	GoGC := GoGCStructure{}
+	GoGC.currentHeapIdle = 0
+	GoGC.currentHeapAlloc = 0
+	GoGC.HeapAllocThreshold = 0
+	GoGC.GCThreshold = 0.0
+	return &GoGC
+}
 
 // 	maxGoHeapSize             = 6692864 // Max size of the heap
 // 	GoGCTriggerThreshold      = 0.60    // GC is triggered at 55% utilization
@@ -53,7 +54,7 @@ type GoGCStructure struct {
 }
 
 // Track heap across active go containers
-var GoContainerHeapTracker = make(map[string]GoGCStructure)
+var GoContainerHeapTracker = make(map[string]*GoGCStructure)
 
 // NETWORK CONNECTION DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
@@ -259,8 +260,7 @@ func startNewContainer(containerName string) {
 		imageName = goServerImage
 		targetURL = serverIP + containerPort + "/GoNative"
 		// add container to heap tracker
-		heapTrack := GoGCStructure{}
-		GoContainerHeapTracker[containerName] = heapTrack
+		GoContainerHeapTracker[containerName] = newGoGCStructure()
 	} else {
 		fmt.Println("Unknown container name:", containerName)
 		// Die fast
