@@ -424,6 +424,7 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, co
 	}
 
 	// Extract and log heap info for each request
+	// Off the critical path
 	extractAndLogHeapInfo(reader2, containerName)
 }
 
@@ -463,13 +464,13 @@ func scheduleGoContainer() string {
 		mutexHandlingGCForGoContainers.Lock()
 		if handlingGCForGoContainers == true {
 			fmt.Println("handlingGCForGoContainers is True")
-			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-			return targetContainer
+			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			return targetContainer2
 		}
 		mutexHandlingGCForGoContainers.Unlock()
 		// if target container is likely to undergo GC, schedule to alternate and force GC on target
 		if GoContainerHeapTracker[targetContainer].currentHeapIdle < int64(100000) {
-			fmt.Printf("targetContainer: %s", targetContainer)
+			fmt.Printf("targetContainer: %s\n", targetContainer)
 			fmt.Printf("HeapIdle < 100000 = %d\n", GoContainerHeapTracker[targetContainer].currentHeapIdle)
 			// Make sure to signal in process
 			mutexHandlingGCForGoContainers.Lock()
@@ -479,8 +480,8 @@ func scheduleGoContainer() string {
 				fmt.Println("Launching fake request generator")
 				handleGCForGoContainers(targetContainer)
 			}()
-			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-			return targetContainer
+			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			return targetContainer2
 		}
 		if GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold {
 			fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f", GoContainerHeapTracker[targetContainer].GCThreshold)
@@ -491,8 +492,8 @@ func scheduleGoContainer() string {
 			go func() {
 				handleGCForGoContainers(targetContainer)
 			}()
-			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-			return targetContainer
+			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			return targetContainer2
 		}
 		return targetContainer
 
