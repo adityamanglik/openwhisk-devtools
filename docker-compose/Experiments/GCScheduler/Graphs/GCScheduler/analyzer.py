@@ -6,8 +6,8 @@ def parse_line(filread):
     for line in filread:
         l2 = line.strip()
         parts = l2.split(", ")
-        if('9501' in parts[0]):
-            continue
+        # if('9501' in parts[0]):
+            # continue
         if('FAKE' in parts[0]):
             continue
         parts = parts[2]

@@ -57,7 +57,8 @@ type GoGCStructure struct {
 // Track heap across active go containers
 var GoContainerHeapTracker = make(map[string]*GoGCStructure)
 var mutexHandlingGCForGoContainers sync.Mutex
-var mutexGoContainerHeapTracker sync.Mutex
+
+// var mutexGoContainerHeapTracker sync.Mutex
 
 // NETWORK CONNECTION DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
@@ -119,6 +120,9 @@ const (
 const maxNumberOfJavaContainers int = 2
 const maxNumberOfGoContainers int = 2
 
+// Global request identifier
+var globalRequestCounter int64
+
 // Since there are only two containers, we do not need to worry about assigning both to same CPU
 // There is plenty of space among 22 CPUs
 
@@ -129,17 +133,9 @@ var aliveContainers = make(map[string]string)
 var currentCPUIndex int = 10 + rand.Intn(10)
 
 // MAIN   //////////////////////////////////////////////////////////////////////
-
-func main() {
-
-	// Inform go runtime that we are constrained to a single CPU
-	// runtime.GOMAXPROCS(1)
-
-	// Stop all running Docker containers
-	stopAllRunningContainers()
-
-	http.HandleFunc("/", handleRequest)
-	fmt.Println("Load Balancer is running on port", loadBalancerPort)
+func init() {
+	// Initialize the request counter variable
+	globalRequestCounter = 0
 
 	// If GCMitigation Policy, start and warm the containers
 	if currentSchedulingPolicy == GCMitigation {
@@ -175,6 +171,17 @@ func main() {
 		fmt.Println("Sent request to initialize GC data structure")
 		fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[container1].currentHeapIdle, GoContainerHeapTracker[container1].currentHeapAlloc, GoContainerHeapTracker[container1].GCThreshold)
 	}
+}
+
+func main() {
+	// Inform go runtime that we are constrained to a single CPU
+	// runtime.GOMAXPROCS(1)
+
+	// Stop all running Docker containers
+	stopAllRunningContainers()
+
+	http.HandleFunc("/", handleRequest)
+	fmt.Println("Load Balancer is running on port", loadBalancerPort)
 
 	// Create a channel to listen for an interrupt or terminate signal from the OS.
 	stopChan := make(chan os.Signal, 1)
@@ -264,9 +271,9 @@ func startNewContainer(containerName string) {
 		imageName = goServerImage
 		targetURL = serverIP + containerPort + "/GoNative"
 		// add container to heap tracker
-		mutexGoContainerHeapTracker.Lock()
+		// mutexGoContainerHeapTracker.Lock()
 		GoContainerHeapTracker[containerName] = newGoGCStructure()
-		mutexGoContainerHeapTracker.Unlock()
+		// mutexGoContainerHeapTracker.Unlock()
 	} else {
 		fmt.Println("Unknown container name:", containerName)
 		// Die fast
@@ -351,6 +358,9 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, "Requested API Not found", http.StatusNotFound)
 		return
 	}
+
+	// Increment counter for every valid request
+	globalRequestCounter += 1
 
 	// Extract seed value from the query parameters
 	seedValue := r.URL.Query().Get("seed")
@@ -467,36 +477,7 @@ func scheduleGoContainer() string {
 		mutexHandlingGCForGoContainers.Unlock()
 		if localReadValue == true {
 			fmt.Println("handlingGCForGoContainers is True")
-			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-			return targetContainer2
-		}
-
-		// if target container is likely to undergo GC, schedule to alternate and force GC on target
-		if GoContainerHeapTracker[targetContainer].currentHeapIdle < int64(100000) {
-			fmt.Printf("targetContainer: %s\n", targetContainer)
-			fmt.Printf("HeapIdle < 100000 = %d\n", GoContainerHeapTracker[targetContainer].currentHeapIdle)
-			// Make sure to signal in process
-			mutexHandlingGCForGoContainers.Lock()
-			handlingGCForGoContainers = true
-			mutexHandlingGCForGoContainers.Unlock()
-			go func() {
-				fmt.Println("Launching fake request generator")
-				handleGCForGoContainers(targetContainer)
-			}()
-			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-			return targetContainer2
-		}
-		if GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold {
-			fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f", GoContainerHeapTracker[targetContainer].GCThreshold)
-			// Make sure to signal in process
-			mutexHandlingGCForGoContainers.Lock()
-			handlingGCForGoContainers = true
-			mutexHandlingGCForGoContainers.Unlock()
-			go func() {
-				handleGCForGoContainers(targetContainer)
-			}()
-			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-			return targetContainer2
+			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 		}
 		return targetContainer
 
@@ -508,30 +489,17 @@ func scheduleGoContainer() string {
 	}
 }
 
-// Send fake requests to targetContainer to trigger GC
-func handleGCForGoContainers(containerName string) {
+// Send a single fake requests to targetContainer to trigger GC
+func SendFakeRequest(containerName string) {
 	// Send a fake request if heap utilization is above the trigger threshold
-	requestCounter := 0
-	for ; requestCounter <= 100; requestCounter++ {
-		fmt.Printf("Printing tracker in handleGCforGoContainer, target: %s \n", containerName)
-		fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[containerName].currentHeapIdle, GoContainerHeapTracker[containerName].currentHeapAlloc, GoContainerHeapTracker[containerName].GCThreshold)
-		// break condition
-		if GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold && GoContainerHeapTracker[containerName].currentHeapIdle > 100000 {
-			fmt.Printf("Exit req gen\n")
-			fmt.Printf("Condition 1 : %t Condition 2 : %t\n", GoContainerHeapTracker[containerName].GCThreshold < GoGCTriggerThreshold, GoContainerHeapTracker[containerName].currentHeapIdle > 100000)
-			mutexHandlingGCForGoContainers.Lock()
-			handlingGCForGoContainers = false
-			mutexHandlingGCForGoContainers.Unlock()
-			return
-		}
-
-		fmt.Printf("Sending fake request %d to tip over the container\n", requestCounter)
-		// Generate fake request
-		seed := rand.Intn(10000)
-		arraysize := 10000
+	fmt.Printf("Sending fake request to tip over the container %s\n", containerName)
+	// Generate fake request
+	seed := rand.Intn(10000)
+	arraysize := 10000
+	if strings.Contains(containerName, "go") {
 		requestURL := serverIP + aliveContainers[containerName] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
 
-		// Process the response to get the latest heap idle value
+		// Send fake request
 		resp, err := http.Get(requestURL)
 		if err != nil {
 			fmt.Println("Error sending fake request:", err)
@@ -545,36 +513,20 @@ func handleGCForGoContainers(containerName string) {
 			fmt.Println("Error reading response body:", err)
 		}
 		reader1 := bytes.NewReader(responseBody)
-		// Extract and log heap info for each FAKE request
+		// Extract and log heap info for each FAKE request to trigger again if still no GC
 		extractAndLogHeapInfo(reader1, "FAKE_"+containerName)
-
-		if requestCounter > 50 {
-			fmt.Println("Sent 50 fake requests, PROBLEM")
-			// Fail fast
-			panic(1)
-			break // prevent infinite loop
-		}
-
-		// time.Sleep(1 * time.Second) // Throttle the loop
 	}
-	// Make sure to signal cleanup completion
-	mutexHandlingGCForGoContainers.Lock()
-	handlingGCForGoContainers = false
-	mutexHandlingGCForGoContainers.Unlock()
-	fmt.Printf("Sent %d fake requests, Go container is clean and ready for use again", requestCounter)
 }
 
+// This function is OFF the critical path for every request, legit or fake
 func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 	bodyBytes, err := ioutil.ReadAll(responseBody)
-
 	if err != nil {
 		fmt.Println("Error reading response body for metrics: ", err)
 		return
 	}
-
 	var heapInfo string
 	if strings.Contains(containerName, "java") {
-
 		var javaResp JavaResponse
 		if err := json.Unmarshal(bodyBytes, &javaResp); err != nil {
 			fmt.Println("Java JSON unmarshalling error:", err)
@@ -583,12 +535,11 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 			logHeapInfo("java_heap_memory.log", heapInfo)
 		}
 	} else if strings.Contains(containerName, "go") {
-
 		var goResp GoResponse
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
-			heapInfo = fmt.Sprintf("Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
+			heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", globalRequestCounter, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
 			// fmt.Println(heapInfo)
 			logHeapInfo("go_heap_memory.log", heapInfo)
 			// Remove FAKE identifier before updating data structure
@@ -596,14 +547,44 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 				containerName = containerName[5:]
 			}
 			// track heap stats in struct
-			mutexGoContainerHeapTracker.Lock()
+
 			GoContainerHeapTracker[containerName].currentHeapAlloc = goResp.HeapAlloc
 			GoContainerHeapTracker[containerName].currentHeapIdle = goResp.HeapIdle
-			GoContainerHeapTracker[containerName].GCThreshold = float32(goResp.HeapAlloc) / float32(goResp.NextGC)
-			mutexGoContainerHeapTracker.Unlock()
+			GCThresh := float32(goResp.HeapAlloc) / float32(goResp.NextGC)
+			GoContainerHeapTracker[containerName].GCThreshold = GCThresh
+
 			// print the tracked stats
-			fmt.Printf("Updated tracker from extractAndLogHeapInfo for %s \n", containerName)
-			fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[containerName].currentHeapIdle, GoContainerHeapTracker[containerName].currentHeapAlloc, GoContainerHeapTracker[containerName].GCThreshold)
+			// fmt.Printf("Updated tracker from extractAndLogHeapInfo for %s \n", containerName)
+			// fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", goResp.HeapIdle, goResp.HeapAlloc, float32(goResp.HeapAlloc)/float32(goResp.NextGC))
+
+			// if target container is likely to undergo GC, schedule to alternate and force GC on target
+			if goResp.HeapIdle < int64(100000) {
+				fmt.Printf("targetContainer: %s\n", containerName)
+				fmt.Printf("HeapIdle < 100000 = %d\n", goResp.HeapIdle)
+				// Make sure to signal in process
+				mutexHandlingGCForGoContainers.Lock()
+				handlingGCForGoContainers = true
+				mutexHandlingGCForGoContainers.Unlock()
+				go func() {
+					SendFakeRequest(containerName)
+				}()
+				return
+			}
+			if GCThresh >= GoGCTriggerThreshold {
+				fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f", GCThresh)
+				// Make sure to signal in process
+				mutexHandlingGCForGoContainers.Lock()
+				handlingGCForGoContainers = true
+				mutexHandlingGCForGoContainers.Unlock()
+				go func() {
+					SendFakeRequest(containerName)
+				}()
+				return
+			}
+			// If both conditions are false, set lever to 9500
+			mutexHandlingGCForGoContainers.Lock()
+			handlingGCForGoContainers = false
+			mutexHandlingGCForGoContainers.Unlock()
 		}
 	}
 }
