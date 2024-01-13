@@ -8,6 +8,8 @@ def parse_line(filread):
         parts = l2.split(", ")
         if('9501' in parts[0]):
             continue
+        if('FAKE' in parts[0]):
+            continue
         parts = parts[2]
         ret_val.append(int(parts.split(": ")[1]))
     # print(parts)
@@ -21,13 +23,13 @@ def analyze_file(memory_file, server_file, client_file):
     
     with open(memory_file, 'r') as file:
         memory_log = parse_line(file)
-    print(memory_log[:10], len(memory_log))
+    # print(memory_log[:10], len(memory_log))
     with open(server_file, 'r') as file:
         server_log = [int(line.strip()) for line in file]
-    print(server_log[:10], len(server_log))
+    # print(server_log[:10], len(server_log))
     with open(client_file, 'r') as file:
         client_log = [int(line.strip()) for line in file]
-    print(client_log[:10], len(client_log))
+    # print(client_log[:10], len(client_log))
     
     # Check when HeapIdle increases == GC cycle
     index = 1
@@ -36,7 +38,7 @@ def analyze_file(memory_file, server_file, client_file):
             cycle_count += 1
             # For the corresponding index, extract +-10 entries in the server_time
             server_times = server_log[index - num_entries : index + num_entries]
-            print(server_times)
+            # print(server_times)
             # Calculate median and STD for the 10 entries
             med = statistics.mean(server_times)
             # Sum up all values that exceed median + STD
