@@ -2,7 +2,7 @@ import statistics
 
 def parse_line(line):
     parts = line.split(", ")
-    parts = parts[1]
+    parts = parts[2]
     # print(parts)
     return parts.split(": ")[1]
 
@@ -29,6 +29,7 @@ def analyze_file(memory_file, server_file, client_file):
             cycle_count += 1
             # For the corresponding index, extract +-10 entries in the server_time
             server_times = server_log[index - num_entries : index + num_entries]
+            print(server_times)
             # Calculate median and STD for the 10 entries
             med = statistics.mean(server_times)
             # Sum up all values that exceed median + STD
