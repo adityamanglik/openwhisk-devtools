@@ -379,6 +379,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	// Append request number to targetURL
 	targetURL += "&requestnumber=" + strconv.FormatInt(int64(requestNumber), 10)
+	print(targetURL)
 
 	// Start the container and wait for it to be ready
 	fmt.Println("Checking and starting container:", containerName)
@@ -541,6 +542,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 		}
 	} else if strings.Contains(containerName, "go") {
 		var goResp GoResponse
+		print(bodyBytes)
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
