@@ -134,6 +134,9 @@ var currentCPUIndex int = 10 + rand.Intn(10)
 
 // MAIN   //////////////////////////////////////////////////////////////////////
 func init() {
+	// Stop all running Docker containers
+	stopAllRunningContainers()
+
 	// Initialize the request counter variable
 	globalRequestCounter = 0
 
@@ -176,9 +179,6 @@ func init() {
 func main() {
 	// Inform go runtime that we are constrained to a single CPU
 	// runtime.GOMAXPROCS(1)
-
-	// Stop all running Docker containers
-	stopAllRunningContainers()
 
 	http.HandleFunc("/", handleRequest)
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
