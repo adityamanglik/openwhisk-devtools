@@ -46,6 +46,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 	params := r.URL.Query()
 	seed := 42          // default seed value
 	ARRAY_SIZE := 10000 // default array size value
+	REQ_NUM := -1       // default request number
 
 	seedStr := params.Get("seed")
 	if seedStr != "" {
@@ -67,7 +68,17 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 		}
 	}
 
-	jsonResponse, err := mainLogic(seed, ARRAY_SIZE)
+	reqNumStr := params.Get("requestnumber")
+	if reqNumStr != "" {
+		var err error
+		REQ_NUM, err = strconv.Atoi(reqNumStr)
+		if err != nil {
+			http.Error(w, "Invalid request number value", http.StatusBadRequest)
+			return
+		}
+	}
+
+	jsonResponse, err := mainLogic(seed, ARRAY_SIZE, REQ_NUM)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -80,7 +91,7 @@ func jsonHandler(w http.ResponseWriter, r *http.Request) {
 	// log.Printf("Request processed in %v\n", executionTime)
 }
 
-func mainLogic(seed int, ARRAY_SIZE int) ([]byte, error) {
+func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 	start := time.Now().UnixMicro()
 
 	rand.Seed(int64(seed))
@@ -101,6 +112,7 @@ func mainLogic(seed int, ARRAY_SIZE int) ([]byte, error) {
 	response := map[string]interface{}{
 		"sum":           sum,
 		"executionTime": executionTime, // Include raw execution time in microseconds
+		"reqnum":        REQ_NUM,
 	}
 
 	gogcValue := os.Getenv("GOGC")

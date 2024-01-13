@@ -187,7 +187,7 @@ func main() {
 	stopChan := make(chan os.Signal, 1)
 	signal.Notify(stopChan, os.Interrupt, syscall.SIGTERM)
 
-	// Start the server in a goroutine to provide concurrency needed to listen for the signal below
+	// Start the listener in a goroutine to provide concurrency needed to listen for the signal below
 	go func() {
 		if err := http.ListenAndServe(loadBalancerPort, nil); err != nil {
 			fmt.Println("Error starting server:", err)
@@ -361,7 +361,8 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	// Increment counter for every valid request
 	globalRequestCounter += 1
-
+	// Extract request number for passing to local functions
+	requestNumber := globalRequestCounter
 	// Extract seed value from the query parameters
 	seedValue := r.URL.Query().Get("seed")
 	arraysizeValue := r.URL.Query().Get("arraysize")
@@ -375,6 +376,9 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		targetURL += "&arraysize=" + arraysizeValue
 	}
 
+	// Append request number to targetURL
+	targetURL += "&requestnumber=" + strconv.FormatInt(int64(requestNumber), 10)
+
 	// Start the container and wait for it to be ready
 	fmt.Println("Checking and starting container:", containerName)
 
@@ -383,10 +387,10 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		startNewContainer(containerName)
 	}
 
-	forwardRequest(w, r, targetURL, containerName)
+	forwardRequest(w, r, targetURL, containerName, requestNumber)
 }
 
-func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, containerName string) {
+func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, containerName string, requestNumber int64) {
 	// Send request to container
 	req, err := http.NewRequest(r.Method, targetURL, r.Body)
 	if err != nil {
@@ -436,7 +440,7 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, co
 
 	// Extract and log heap info for each request
 	// Off the critical path
-	extractAndLogHeapInfo(reader2, containerName)
+	extractAndLogHeapInfo(reader2, containerName, requestNumber)
 }
 
 // SCHEDULING POLICY //////////////////////////////////////////////////////////////////////
@@ -514,12 +518,12 @@ func SendFakeRequest(containerName string) {
 		}
 		reader1 := bytes.NewReader(responseBody)
 		// Extract and log heap info for each FAKE request to trigger again if still no GC
-		extractAndLogHeapInfo(reader1, "FAKE_"+containerName)
+		extractAndLogHeapInfo(reader1, "FAKE_"+containerName, -1)
 	}
 }
 
 // This function is OFF the critical path for every request, legit or fake
-func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
+func extractAndLogHeapInfo(responseBody io.Reader, containerName string, requestNumber int64) {
 	bodyBytes, err := ioutil.ReadAll(responseBody)
 	if err != nil {
 		fmt.Println("Error reading response body for metrics: ", err)
@@ -539,7 +543,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
-			heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", globalRequestCounter, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
+			heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", requestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
 			// fmt.Println(heapInfo)
 			logHeapInfo("go_heap_memory.log", heapInfo)
 			// Remove FAKE identifier before updating data structure
@@ -571,7 +575,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 				return
 			}
 			if GCThresh >= GoGCTriggerThreshold {
-				fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f", GCThresh)
+				fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f\n", GCThresh)
 				// Make sure to signal in process
 				mutexHandlingGCForGoContainers.Lock()
 				handlingGCForGoContainers = true

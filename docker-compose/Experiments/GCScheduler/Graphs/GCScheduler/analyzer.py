@@ -1,6 +1,8 @@
 import statistics
 
 def parse_line(filread):
+    # Skip first request from initialization
+    filread = filread[1:]
     # [int(parse_line(line.strip())) for line in file]
     ret_val = []
     for line in filread:
@@ -8,9 +10,9 @@ def parse_line(filread):
         parts = l2.split(", ")
         # if('9501' in parts[0]):
             # continue
-        if('FAKE' in parts[0]):
+        if('FAKE' in parts[1]):
             continue
-        parts = parts[2]
+        parts = parts[3]
         ret_val.append(int(parts.split(": ")[1]))
     # print(parts)
     return ret_val
