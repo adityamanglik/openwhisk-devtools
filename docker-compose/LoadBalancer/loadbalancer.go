@@ -102,6 +102,7 @@ type GoResponse struct {
 	NextGC        int64 `json:"NextGC"`
 	NumGC         int64 `json:"NumGC"`
 	Sum           int64 `json:"sum"`
+	RequestNumber int64 `json:"reqnum"`
 }
 
 const (
@@ -543,7 +544,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
-			heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", requestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
+			heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
 			// fmt.Println(heapInfo)
 			logHeapInfo("go_heap_memory.log", heapInfo)
 			// Remove FAKE identifier before updating data structure
