@@ -462,42 +462,42 @@ func scheduleGoContainer() string {
 		fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
 		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		// if we are performing cleanup, send requests to other containers
-		// mutexHandlingGCForGoContainers.Lock()
-		// localReadValue := handlingGCForGoContainers
-		// mutexHandlingGCForGoContainers.Unlock()
-		// if localReadValue == true {
-		// 	fmt.Println("handlingGCForGoContainers is True")
-		// 	targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		// 	return targetContainer2
-		// }
+		mutexHandlingGCForGoContainers.Lock()
+		localReadValue := handlingGCForGoContainers
+		mutexHandlingGCForGoContainers.Unlock()
+		if localReadValue == true {
+			fmt.Println("handlingGCForGoContainers is True")
+			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			return targetContainer2
+		}
 
-		// // if target container is likely to undergo GC, schedule to alternate and force GC on target
-		// if GoContainerHeapTracker[targetContainer].currentHeapIdle < int64(100000) {
-		// 	fmt.Printf("targetContainer: %s\n", targetContainer)
-		// 	fmt.Printf("HeapIdle < 100000 = %d\n", GoContainerHeapTracker[targetContainer].currentHeapIdle)
-		// 	// Make sure to signal in process
-		// 	mutexHandlingGCForGoContainers.Lock()
-		// 	handlingGCForGoContainers = true
-		// 	mutexHandlingGCForGoContainers.Unlock()
-		// 	go func() {
-		// 		fmt.Println("Launching fake request generator")
-		// 		handleGCForGoContainers(targetContainer)
-		// 	}()
-		// 	targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		// 	return targetContainer2
-		// }
-		// if GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold {
-		// 	fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f", GoContainerHeapTracker[targetContainer].GCThreshold)
-		// 	// Make sure to signal in process
-		// 	mutexHandlingGCForGoContainers.Lock()
-		// 	handlingGCForGoContainers = true
-		// 	mutexHandlingGCForGoContainers.Unlock()
-		// 	go func() {
-		// 		handleGCForGoContainers(targetContainer)
-		// 	}()
-		// 	targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		// 	return targetContainer2
-		// }
+		// if target container is likely to undergo GC, schedule to alternate and force GC on target
+		if GoContainerHeapTracker[targetContainer].currentHeapIdle < int64(100000) {
+			fmt.Printf("targetContainer: %s\n", targetContainer)
+			fmt.Printf("HeapIdle < 100000 = %d\n", GoContainerHeapTracker[targetContainer].currentHeapIdle)
+			// Make sure to signal in process
+			mutexHandlingGCForGoContainers.Lock()
+			handlingGCForGoContainers = true
+			mutexHandlingGCForGoContainers.Unlock()
+			go func() {
+				fmt.Println("Launching fake request generator")
+				handleGCForGoContainers(targetContainer)
+			}()
+			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			return targetContainer2
+		}
+		if GoContainerHeapTracker[targetContainer].GCThreshold >= GoGCTriggerThreshold {
+			fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f", GoContainerHeapTracker[targetContainer].GCThreshold)
+			// Make sure to signal in process
+			mutexHandlingGCForGoContainers.Lock()
+			handlingGCForGoContainers = true
+			mutexHandlingGCForGoContainers.Unlock()
+			go func() {
+				handleGCForGoContainers(targetContainer)
+			}()
+			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			return targetContainer2
+		}
 		return targetContainer
 
 	default:
