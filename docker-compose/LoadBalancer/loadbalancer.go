@@ -170,7 +170,7 @@ func init() {
 		}
 		reader1 := bytes.NewReader(responseBody)
 		// Extract and log heap info for each request
-		extractAndLogHeapInfo(reader1, container1)
+		extractAndLogHeapInfo(reader1, container1, -1)
 		fmt.Println("Sent request to initialize GC data structure")
 		fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[container1].currentHeapIdle, GoContainerHeapTracker[container1].currentHeapAlloc, GoContainerHeapTracker[container1].GCThreshold)
 	}
