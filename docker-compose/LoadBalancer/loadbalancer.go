@@ -545,8 +545,8 @@ func handleGCForGoContainers(containerName string) {
 			fmt.Println("Error reading response body:", err)
 		}
 		reader1 := bytes.NewReader(responseBody)
-		// Extract and log heap info for each request
-		extractAndLogHeapInfo(reader1, containerName)
+		// Extract and log heap info for each FAKE request
+		extractAndLogHeapInfo(reader1, "FAKE_"+containerName)
 
 		if requestCounter > 50 {
 			fmt.Println("Sent 50 fake requests, PROBLEM")
@@ -583,6 +583,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 			logHeapInfo("java_heap_memory.log", heapInfo)
 		}
 	} else if strings.Contains(containerName, "go") {
+
 		var goResp GoResponse
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
@@ -590,6 +591,10 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 			heapInfo = fmt.Sprintf("Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
 			// fmt.Println(heapInfo)
 			logHeapInfo("go_heap_memory.log", heapInfo)
+			// Remove FAKE identifier before updating data structure
+			if strings.Contains(containerName, "FAKE_") {
+				containerName = containerName[5:]
+			}
 			// track heap stats in struct
 			mutexGoContainerHeapTracker.Lock()
 			GoContainerHeapTracker[containerName].currentHeapAlloc = goResp.HeapAlloc

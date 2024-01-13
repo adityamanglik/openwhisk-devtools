@@ -1,10 +1,17 @@
 import statistics
 
-def parse_line(line):
-    parts = line.split(", ")
-    parts = parts[2]
+def parse_line(filread):
+    # [int(parse_line(line.strip())) for line in file]
+    ret_val = []
+    for line in filread:
+        l2 = line.strip()
+        parts = l2.split(", ")
+        if('9501' in parts[0]):
+            continue
+        parts = parts[2]
+        ret_val.append(int(parts.split(": ")[1]))
     # print(parts)
-    return parts.split(": ")[1]
+    return ret_val
 
 def analyze_file(memory_file, server_file, client_file):
     num_entries = 5
@@ -13,14 +20,14 @@ def analyze_file(memory_file, server_file, client_file):
     cycle_count = 0
     
     with open(memory_file, 'r') as file:
-        memory_log = [int(parse_line(line.strip())) for line in file]
-    # print(memory_log[:10])
+        memory_log = parse_line(file)
+    print(memory_log[:10], len(memory_log))
     with open(server_file, 'r') as file:
         server_log = [int(line.strip()) for line in file]
-    # print(server_log[:10])
+    print(server_log[:10], len(server_log))
     with open(client_file, 'r') as file:
         client_log = [int(line.strip()) for line in file]
-    # print(client_log[:10])
+    print(client_log[:10], len(client_log))
     
     # Check when HeapIdle increases == GC cycle
     index = 1
