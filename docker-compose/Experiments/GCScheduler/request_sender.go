@@ -16,7 +16,7 @@ import (
 
 // Constants for API endpoints and file names
 const (
-	iterations            = 100
+	iterations            = 5000
 	javaAPI               = "http://128.110.96.59:8180/java"
 	goAPI                 = "http://128.110.96.59:8180/go"
 	javaResponseTimesFile = "java_response_times.txt"
@@ -81,7 +81,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 	var serverTimes []int64
 
 	for i := 0; i < iterations; i++ {
-		fmt.Printf("Sent request: %d\n", i)
+		// fmt.Printf("Sent request: %d\n", i)
 		seed := rand.Intn(10000) // Example seed generation
 		requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
 		requestURL := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
