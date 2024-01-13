@@ -300,6 +300,7 @@ func startNewContainer(containerName string) {
 			}
 		}
 		// Die fast
+		fmt.Println("Error running container:", containerName)
 		panic(1)
 	} else { // container successfully started
 		if !waitForServerReady(targetURL) {
@@ -462,12 +463,14 @@ func scheduleGoContainer() string {
 		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		// if we are performing cleanup, send requests to other containers
 		mutexHandlingGCForGoContainers.Lock()
-		if handlingGCForGoContainers == true {
+		localReadValue := handlingGCForGoContainers
+		mutexHandlingGCForGoContainers.Unlock()
+		if localReadValue == true {
 			fmt.Println("handlingGCForGoContainers is True")
 			targetContainer2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 			return targetContainer2
 		}
-		mutexHandlingGCForGoContainers.Unlock()
+
 		// if target container is likely to undergo GC, schedule to alternate and force GC on target
 		if GoContainerHeapTracker[targetContainer].currentHeapIdle < int64(100000) {
 			fmt.Printf("targetContainer: %s\n", targetContainer)
@@ -594,7 +597,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string) {
 			GoContainerHeapTracker[containerName].GCThreshold = float32(goResp.HeapAlloc) / float32(goResp.NextGC)
 			mutexGoContainerHeapTracker.Unlock()
 			// print the tracked stats
-			fmt.Println("Updated tracker from extractAndLogHeapInfo")
+			fmt.Printf("Updated tracker from extractAndLogHeapInfo for %s \n", containerName)
 			fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[containerName].currentHeapIdle, GoContainerHeapTracker[containerName].currentHeapAlloc, GoContainerHeapTracker[containerName].GCThreshold)
 		}
 	}

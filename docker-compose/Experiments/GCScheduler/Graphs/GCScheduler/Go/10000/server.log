@@ -5,302 +5,302 @@ Container started: go-server-image-9500
 Waiting for container:  http://128.110.96.59:9501/GoNative
 Container started: go-server-image-9501
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 3039232, HeapAlloc: 364552 GCThresh 0.086916 
+HeapIdle: 3039232, HeapAlloc: 364680 GCThresh 0.086946 
 Sent request to initialize GC data structure
-HeapIdle: 3039232, HeapAlloc: 364552 GCThresh 0.086916 
+HeapIdle: 3039232, HeapAlloc: 364680 GCThresh 0.086946 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2916352, HeapAlloc: 407008 GCThresh 0.097038 
+HeapIdle: 2957312, HeapAlloc: 400352 GCThresh 0.095451 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2834432, HeapAlloc: 493928 GCThresh 0.117762 
+HeapIdle: 2875392, HeapAlloc: 487272 GCThresh 0.116175 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2752512, HeapAlloc: 580848 GCThresh 0.138485 
+HeapIdle: 2793472, HeapAlloc: 574192 GCThresh 0.136898 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2662400, HeapAlloc: 667768 GCThresh 0.159208 
+HeapIdle: 2703360, HeapAlloc: 661112 GCThresh 0.157621 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2580480, HeapAlloc: 754688 GCThresh 0.179932 
+HeapIdle: 2621440, HeapAlloc: 748032 GCThresh 0.178345 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2498560, HeapAlloc: 841608 GCThresh 0.200655 
+HeapIdle: 2539520, HeapAlloc: 834952 GCThresh 0.199068 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2416640, HeapAlloc: 928528 GCThresh 0.221378 
+HeapIdle: 2457600, HeapAlloc: 921872 GCThresh 0.219791 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2318336, HeapAlloc: 1015448 GCThresh 0.242102 
+HeapIdle: 2359296, HeapAlloc: 1008792 GCThresh 0.240515 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2220032, HeapAlloc: 1102384 GCThresh 0.262829 
+HeapIdle: 2260992, HeapAlloc: 1095728 GCThresh 0.261242 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2129920, HeapAlloc: 1189320 GCThresh 0.283556 
+HeapIdle: 2170880, HeapAlloc: 1182648 GCThresh 0.281965 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2048000, HeapAlloc: 1276256 GCThresh 0.304283 
+HeapIdle: 2088960, HeapAlloc: 1269568 GCThresh 0.302689 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1957888, HeapAlloc: 1363192 GCThresh 0.325010 
+HeapIdle: 1998848, HeapAlloc: 1356504 GCThresh 0.323416 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1875968, HeapAlloc: 1450128 GCThresh 0.345737 
+HeapIdle: 1916928, HeapAlloc: 1443440 GCThresh 0.344143 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1794048, HeapAlloc: 1537064 GCThresh 0.366465 
+HeapIdle: 1835008, HeapAlloc: 1530360 GCThresh 0.364866 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1712128, HeapAlloc: 1623984 GCThresh 0.387188 
+HeapIdle: 1753088, HeapAlloc: 1617296 GCThresh 0.385593 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1622016, HeapAlloc: 1710904 GCThresh 0.407911 
+HeapIdle: 1662976, HeapAlloc: 1704232 GCThresh 0.406321 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1540096, HeapAlloc: 1797824 GCThresh 0.428635 
+HeapIdle: 1581056, HeapAlloc: 1791152 GCThresh 0.427044 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1458176, HeapAlloc: 1884744 GCThresh 0.449358 
+HeapIdle: 1499136, HeapAlloc: 1878088 GCThresh 0.447771 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1376256, HeapAlloc: 1971680 GCThresh 0.470085 
+HeapIdle: 1417216, HeapAlloc: 1965024 GCThresh 0.468498 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1277952, HeapAlloc: 2058616 GCThresh 0.490812 
+HeapIdle: 1327104, HeapAlloc: 2051960 GCThresh 0.489225 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1196032, HeapAlloc: 2145552 GCThresh 0.511539 
+HeapIdle: 1236992, HeapAlloc: 2138896 GCThresh 0.509953 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1105920, HeapAlloc: 2232488 GCThresh 0.532267 
+HeapIdle: 1146880, HeapAlloc: 2225832 GCThresh 0.530680 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 1024000, HeapAlloc: 2319424 GCThresh 0.552994 
+HeapIdle: 1064960, HeapAlloc: 2312752 GCThresh 0.551403 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 942080, HeapAlloc: 2406360 GCThresh 0.573721 
+HeapIdle: 983040, HeapAlloc: 2399688 GCThresh 0.572130 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 860160, HeapAlloc: 2493280 GCThresh 0.594444 
+HeapIdle: 901120, HeapAlloc: 2486608 GCThresh 0.592854 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 770048, HeapAlloc: 2580200 GCThresh 0.615168 
+HeapIdle: 811008, HeapAlloc: 2573528 GCThresh 0.613577 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 679936, HeapAlloc: 2667120 GCThresh 0.635891 
+HeapIdle: 720896, HeapAlloc: 2660448 GCThresh 0.634300 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 589824, HeapAlloc: 2754040 GCThresh 0.656614 
+HeapIdle: 630784, HeapAlloc: 2747368 GCThresh 0.655024 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 499712, HeapAlloc: 2840960 GCThresh 0.677338 
+HeapIdle: 540672, HeapAlloc: 2834288 GCThresh 0.675747 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 417792, HeapAlloc: 2927880 GCThresh 0.698061 
+HeapIdle: 458752, HeapAlloc: 2921208 GCThresh 0.696470 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 335872, HeapAlloc: 3015088 GCThresh 0.718853 
+HeapIdle: 376832, HeapAlloc: 3008128 GCThresh 0.717194 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 245760, HeapAlloc: 3102008 GCThresh 0.739576 
+HeapIdle: 286720, HeapAlloc: 3095048 GCThresh 0.737917 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 147456, HeapAlloc: 3188928 GCThresh 0.760300 
+HeapIdle: 188416, HeapAlloc: 3181968 GCThresh 0.758640 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 65536, HeapAlloc: 3275848 GCThresh 0.781023 
+HeapIdle: 106496, HeapAlloc: 3268888 GCThresh 0.779364 
+In GCMITIGATION Sched policy
+goRoundRobinIndex: 9500
+Selected container:  go-server-image-9500
+Checking and starting container: go-server-image-9500
+Container already running:  go-server-image-9500
+Updated tracker from extractAndLogHeapInfo
+HeapIdle: 16384, HeapAlloc: 3355808 GCThresh 0.800087 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 targetContainer: go-server-image-9500
-HeapIdle < 100000 = 65536
+HeapIdle < 100000 = 16384
 Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
 Launching fake request generator
 Printing tracker in handleGCforGoContainer, target: go-server-image-9500 
-HeapIdle: 65536, HeapAlloc: 3275848 GCThresh 0.781023 
+HeapIdle: 16384, HeapAlloc: 3355808 GCThresh 0.800087 
 Sending fake request 0 to tip over the container
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 4169728, HeapAlloc: 3362768 GCThresh 0.801746 
+HeapIdle: 4128768, HeapAlloc: 3442728 GCThresh 0.820810 
 Printing tracker in handleGCforGoContainer, target: go-server-image-9500 
-HeapIdle: 4169728, HeapAlloc: 3362768 GCThresh 0.801746 
+HeapIdle: 4128768, HeapAlloc: 3442728 GCThresh 0.820810 
 Exit req gen
 Condition 1 : true Condition 2 : true
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 3039232, HeapAlloc: 363240 GCThresh 0.086603 
+HeapIdle: 3039232, HeapAlloc: 364136 GCThresh 0.086817 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 4087808, HeapAlloc: 3449704 GCThresh 0.822474 
+HeapIdle: 4046848, HeapAlloc: 3529648 GCThresh 0.841534 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Selected container:  go-server-image-9500
 Checking and starting container: go-server-image-9500
 Container already running:  go-server-image-9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 4005888, HeapAlloc: 3536640 GCThresh 0.843201 
+HeapIdle: 3964928, HeapAlloc: 3616568 GCThresh 0.862257 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
-Selected container:  go-server-image-9500
-Checking and starting container: go-server-image-9500
-Container already running:  go-server-image-9500
-Updated tracker from extractAndLogHeapInfo
-HeapIdle: 3923968, HeapAlloc: 3623576 GCThresh 0.863928 
-In GCMITIGATION Sched policy
-goRoundRobinIndex: 9500
-GCThreshold >= GoGCTriggerThreshold 0.863928Selected container:  go-server-image-9501
+GCThreshold >= GoGCTriggerThreshold 0.862257Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
 Printing tracker in handleGCforGoContainer, target: go-server-image-9500 
-HeapIdle: 3923968, HeapAlloc: 3623576 GCThresh 0.863928 
+HeapIdle: 3964928, HeapAlloc: 3616568 GCThresh 0.862257 
 Sending fake request 0 to tip over the container
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 3833856, HeapAlloc: 3710496 GCThresh 0.884651 
-Printing tracker in handleGCforGoContainer, target: go-server-image-9500 
-HeapIdle: 3833856, HeapAlloc: 3710496 GCThresh 0.884651 
-Sending fake request 1 to tip over the container
+HeapIdle: 2957312, HeapAlloc: 451056 GCThresh 0.107540 
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2957312, HeapAlloc: 450160 GCThresh 0.107327 
+HeapIdle: 3874816, HeapAlloc: 3703488 GCThresh 0.882980 
+Printing tracker in handleGCforGoContainer, target: go-server-image-9500 
+HeapIdle: 3874816, HeapAlloc: 3703488 GCThresh 0.882980 
+Sending fake request 1 to tip over the container
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 handlingGCForGoContainers is True
@@ -308,22 +308,24 @@ Selected container:  go-server-image-9501
 Checking and starting container: go-server-image-9501
 Container already running:  go-server-image-9501
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 3743744, HeapAlloc: 3797416 GCThresh 0.905375 
+HeapIdle: 3784704, HeapAlloc: 3790424 GCThresh 0.903708 
 Printing tracker in handleGCforGoContainer, target: go-server-image-9500 
-HeapIdle: 3743744, HeapAlloc: 3797416 GCThresh 0.905375 
+HeapIdle: 3784704, HeapAlloc: 3790424 GCThresh 0.903708 
 Sending fake request 2 to tip over the container
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 2875392, HeapAlloc: 537080 GCThresh 0.128050 
+HeapIdle: 2875392, HeapAlloc: 537976 GCThresh 0.128263 
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 3629056, HeapAlloc: 3884784 GCThresh 0.926205 
+HeapIdle: 3670016, HeapAlloc: 3877808 GCThresh 0.924541 
 Printing tracker in handleGCforGoContainer, target: go-server-image-9500 
-HeapIdle: 3629056, HeapAlloc: 3884784 GCThresh 0.926205 
+HeapIdle: 3670016, HeapAlloc: 3877808 GCThresh 0.924541 
 Sending fake request 3 to tip over the container
 Updated tracker from extractAndLogHeapInfo
-HeapIdle: 6709248, HeapAlloc: 830216 GCThresh 0.197939 
+HeapIdle: 6791168, HeapAlloc: 749064 GCThresh 0.178591 
 Printing tracker in handleGCforGoContainer, target: go-server-image-9500 
-HeapIdle: 6709248, HeapAlloc: 830216 GCThresh 0.197939 
+HeapIdle: 6791168, HeapAlloc: 749064 GCThresh 0.178591 
 Exit req gen
 Condition 1 : true Condition 2 : true
+In GCMITIGATION Sched policy
+goRoundRobinIndex: 9500
