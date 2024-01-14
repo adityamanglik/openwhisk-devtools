@@ -155,28 +155,10 @@ func init() {
 		mutexHandlingGCForGoContainers.Unlock()
 
 		// Send one request to initialize GCTracker values
-		// Generate fake request WITHOUT reqNum
-		seed := rand.Intn(10000)
-		arraysize := 10000
-		requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-
-		// Process the response to get the latest heap idle value
-		resp, err := http.Get(requestURL)
-		if err != nil {
-			fmt.Println("Error sending fake request:", err)
-		}
-
-		// Read and unmarshal the response body
-		responseBody, err := ioutil.ReadAll(resp.Body)
-		resp.Body.Close() // Ensure response body is closed
-		if err != nil {
-			fmt.Println("Error reading response body:", err)
-		}
-		reader1 := bytes.NewReader(responseBody)
-		// Extract and log heap info for each request
-		extractAndLogHeapInfo(reader1, container1, strconv.Itoa(math.MaxInt32))
-		fmt.Println("Sent request to initialize GC data structure")
-		fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[container1].currentHeapIdle, GoContainerHeapTracker[container1].currentHeapAlloc, GoContainerHeapTracker[container1].GCThreshold)
+		SendFakeRequest(container1)
+		SendFakeRequest(container2)
+		// fmt.Println("Sent request to initialize GC data structure")
+		// fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[container1].currentHeapIdle, GoContainerHeapTracker[container1].currentHeapAlloc, GoContainerHeapTracker[container1].GCThreshold)
 	}
 }
 
@@ -365,7 +347,6 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	
 	// Extract request number for passing to local functions
 
 	// Extract seed value from the query parameters
@@ -507,7 +488,7 @@ func SendFakeRequest(containerName string) {
 	fmt.Printf("Sending fake request to tip over the container %s\n", containerName)
 	// Generate fake request
 	seed := rand.Intn(10000)
-	arraysize := 10000
+	arraysize := 1000000
 	if strings.Contains(containerName, "go") {
 		requestURL := serverIP + aliveContainers[containerName] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
 

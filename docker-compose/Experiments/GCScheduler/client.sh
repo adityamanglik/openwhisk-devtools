@@ -40,8 +40,8 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(10000)
-# sizes=(10000)
+# sizes=(10000 10000 10000 10000 10000 10000 10000 10000 10000 10000)
+sizes=(1000000)
 
 # for size in "${sizes[@]}"; do
 #     python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
@@ -72,7 +72,10 @@ for size in "${sizes[@]}"; do
 
     # Calculate impact of GC
     python ./Graphs/GCScheduler/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt" >> analyzer2.log
+    tail -n 1 "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/latencies.csv" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
 done
+echo "" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
+echo "" >> analyzer2.log
 # CSV post processing
 
 # Initialize an empty array to hold file paths

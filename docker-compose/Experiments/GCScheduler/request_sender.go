@@ -18,7 +18,7 @@ import (
 
 // Constants for API endpoints and file names
 const (
-	iterations            = 5000
+	iterations            = 1000
 	javaAPI               = "http://128.110.96.59:8180/java"
 	goAPI                 = "http://128.110.96.59:8180/go"
 	javaResponseTimesFile = "java_response_times.txt"
