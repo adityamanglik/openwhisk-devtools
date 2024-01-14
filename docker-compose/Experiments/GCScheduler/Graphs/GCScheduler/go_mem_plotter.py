@@ -9,9 +9,9 @@ def read_data(file_path):
     with open(file_path, 'r') as file:
         for line in file:
             parts = line.strip().split(", ")
-            if len(parts) != 3:
-                continue
-            alloc, idle, inuse = [int(part.split(": ")[1]) for part in parts]
+            alloc = int(parts[2].split(": ")[1])
+            idle = int(parts[3].split(": ")[1])
+            inuse = int(parts[4].split(": ")[1])
             heap_alloc.append(alloc)
             heap_idle.append(idle)
             heap_inuse.append(inuse)
@@ -23,9 +23,9 @@ def plot_data(heap_alloc, heap_idle, heap_inuse, output_path):
 
     plt.plot(heap_alloc, label='HeapAlloc')
     plt.plot(heap_idle, label='HeapIdle')
-    plt.plot(heap_inuse, label='HeapInuse')
+    # plt.plot(heap_inuse, label='HeapInuse')
 
-    plt.xlabel('Sample Number')
+    plt.xlabel('Request Number')
     plt.ylabel('Memory (bytes)')
     plt.title('Heap Memory Usage Over Time')
     plt.legend()
