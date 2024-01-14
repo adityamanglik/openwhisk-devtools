@@ -365,11 +365,11 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	// Increment counter for every valid request
 	globalRequestCounter += 1
 	// Extract request number for passing to local functions
-	requestNumber := globalRequestCounter
+
 	// Extract seed value from the query parameters
 	seedValue := r.URL.Query().Get("seed")
 	arraysizeValue := r.URL.Query().Get("arraysize")
-
+	requestNumber := r.URL.Query().Get("requestnumber")
 	// Append seed value to the targetURL if it's present
 	if seedValue != "" {
 		targetURL += "?seed=" + seedValue
@@ -378,9 +378,11 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	if arraysizeValue != "" {
 		targetURL += "&arraysize=" + arraysizeValue
 	}
-
 	// Append request number to targetURL
-	targetURL += "&requestnumber=" + strconv.FormatInt(int64(requestNumber), 10)
+	if requestNumber != "" {
+		targetURL += "&requestnumber=" + requestNumber
+	}
+
 	print(targetURL)
 
 	// Start the container and wait for it to be ready
@@ -394,7 +396,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 	forwardRequest(w, r, targetURL, containerName, requestNumber)
 }
 
-func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, containerName string, requestNumber int64) {
+func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, containerName string, requestNumber string) {
 	// Send request to container
 	req, err := http.NewRequest(r.Method, targetURL, r.Body)
 	if err != nil {
@@ -527,7 +529,7 @@ func SendFakeRequest(containerName string) {
 }
 
 // This function is OFF the critical path for every request, legit or fake
-func extractAndLogHeapInfo(responseBody io.Reader, containerName string, requestNumber int64) {
+func extractAndLogHeapInfo(responseBody io.Reader, containerName string, requestNumber string) {
 	bodyBytes, err := ioutil.ReadAll(responseBody)
 	if err != nil {
 		fmt.Println("Error reading response body for metrics: ", err)
