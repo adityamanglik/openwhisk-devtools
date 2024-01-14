@@ -384,10 +384,10 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		targetURL += "&requestnumber=" + requestNumber
 	}
 
-	print(targetURL)
+	// print(targetURL)
 
 	// Start the container and wait for it to be ready
-	fmt.Println("Checking and starting container:", containerName)
+	// fmt.Println("Checking and starting container:", containerName)
 
 	//  Check if the container is already running
 	if !isContainerRunning(containerName) {
@@ -525,7 +525,7 @@ func SendFakeRequest(containerName string) {
 		}
 		reader1 := bytes.NewReader(responseBody)
 		// Extract and log heap info for each FAKE request to trigger again if still no GC
-		extractAndLogHeapInfo(reader1, "FAKE_"+containerName, strconv.Itoa(math.MaxInt32))
+		extractAndLogHeapInfo(reader1, containerName, strconv.Itoa(math.MaxInt32))
 	}
 }
 
@@ -555,10 +555,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 				heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
 				// fmt.Println(heapInfo)
 				logHeapInfo("go_heap_memory.log", heapInfo)
-			}
-			// Remove FAKE identifier before updating data structure
-			if strings.Contains(containerName, "FAKE_") {
-				containerName = containerName[5:]
+				fmt.Printf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.NextGC, goResp.NumGC)
 			}
 			// track heap stats in struct
 
