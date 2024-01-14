@@ -163,7 +163,7 @@ func writeTimesToFile(filename string, times []int64) {
 	defer file.Close()
 
 	for index, time := range times {
-		_, err := file.WriteString(strconv.Itoa(index+1) + ", " + strconv.FormatInt(time, 10) + "\n")
+		_, err := file.WriteString(strconv.Itoa(index) + ", " + strconv.FormatInt(time, 10) + "\n")
 		if err != nil {
 			fmt.Println("Error writing to file:", err)
 		}

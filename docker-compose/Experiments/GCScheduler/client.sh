@@ -76,15 +76,15 @@ done
 # CSV post processing
 
 # Initialize an empty array to hold file paths
-filepaths=()
+# filepaths=()
 
-# Loop through each size and add its file path to the array
-for size in "${sizes[@]}"; do
-    filepaths+=("./Graphs/GCScheduler/Go/$size/latencies.csv")
-done
+# # Loop through each size and add its file path to the array
+# for size in "${sizes[@]}"; do
+#     filepaths+=("./Graphs/GCScheduler/Go/$size/latencies.csv")
+# done
 
-# Combine the CSV files
-(head -n 1 "${filepaths[0]}" && tail -n +2 -q "${filepaths[@]}") > "./Graphs/GCScheduler/Go/latencies.csv"
+# # Combine the CSV files
+# (head -n 1 "${filepaths[0]}" && tail -n +2 -q "${filepaths[@]}") > "./Graphs/GCScheduler/Go/latencies.csv"
 
 # BACKUP #######################################################################
 
