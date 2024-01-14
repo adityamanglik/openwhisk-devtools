@@ -102,7 +102,7 @@ type GoResponse struct {
 	NextGC        int64 `json:"NextGC"`
 	NumGC         int64 `json:"NumGC"`
 	Sum           int64 `json:"sum"`
-	RequestNumber int64 `json:"reqnum"`
+	RequestNumber int64 `json:"requestNumber"`
 }
 
 const (
@@ -140,6 +140,8 @@ func init() {
 
 	// Initialize the request counter variable
 	globalRequestCounter = 0
+	// Initialize GC threshold
+	GoGCTriggerThreshold = 0.85
 
 	// If GCMitigation Policy, start and warm the containers
 	if currentSchedulingPolicy == GCMitigation {
@@ -150,9 +152,9 @@ func init() {
 		mutexHandlingGCForGoContainers.Lock()
 		handlingGCForGoContainers = false
 		mutexHandlingGCForGoContainers.Unlock()
-		GoGCTriggerThreshold = 0.85
+
 		// Send one request to initialize GCTracker values
-		// Generate fake request
+		// Generate fake request WITHOUT reqNum
 		seed := rand.Intn(10000)
 		arraysize := 10000
 		requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)

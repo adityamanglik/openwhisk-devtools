@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"log"
+	"math"
 	"math/rand"
 	"net"
 	"net/http"
@@ -44,9 +45,9 @@ func main() {
 
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
 	params := r.URL.Query()
-	seed := 42          // default seed value
-	ARRAY_SIZE := 10000 // default array size value
-	REQ_NUM := -1       // default request number
+	seed := 42               // default seed value
+	ARRAY_SIZE := 10000      // default array size value
+	REQ_NUM := math.MaxInt32 // default request number
 
 	seedStr := params.Get("seed")
 	if seedStr != "" {
