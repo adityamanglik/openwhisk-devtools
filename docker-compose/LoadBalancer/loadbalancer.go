@@ -483,13 +483,13 @@ func scheduleGoContainer() string {
 		fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
 		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		// if we are performing cleanup, send requests to other containers
-		mutexHandlingGCForGoContainers.Lock()
-		localReadValue := handlingGCForGoContainers
-		mutexHandlingGCForGoContainers.Unlock()
-		if localReadValue == true {
-			fmt.Println("handlingGCForGoContainers is True")
-			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		}
+		// mutexHandlingGCForGoContainers.Lock()
+		// localReadValue := handlingGCForGoContainers
+		// mutexHandlingGCForGoContainers.Unlock()
+		// if localReadValue == true {
+		// 	fmt.Println("handlingGCForGoContainers is True")
+		// 	targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		// }
 		return targetContainer
 
 	default:
