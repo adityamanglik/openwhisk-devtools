@@ -24,8 +24,8 @@ def calculate_gc_impact(memory_log, server_log, client_log):
         if (memory_log[index] < memory_log[index - 1]):
             cycle_count += 1
             # For the corresponding index, extract +-10 entries in the server_time
-            server_times = server_log[index - num_entries : index + num_entries]
-            # print(server_times)
+            server_times = server_log[max(0, index - num_entries) : index + num_entries]
+            # print(index, server_times)
             # Calculate median and STD for the 10 entries
             med = statistics.mean(server_times)
             # Sum up all values that exceed median + STD
@@ -34,7 +34,7 @@ def calculate_gc_impact(memory_log, server_log, client_log):
             for val in server_times:
                 if (val > med + stdd):
                     gc_server_impact.append(val - (med + stdd))
-            client_times = client_log[index - num_entries : index + num_entries]
+            client_times = client_log[max(0, index - num_entries) : index + num_entries]
             # Calculate median and STD for the 10 entries
             med = statistics.mean(client_times)
             # Sum up all values that exceed median + STD

@@ -488,7 +488,7 @@ func SendFakeRequest(containerName string) {
 	fmt.Printf("Sending fake request to tip over the container %s\n", containerName)
 	// Generate fake request
 	seed := rand.Intn(10000)
-	arraysize := 1000000
+	arraysize := 10000
 	if strings.Contains(containerName, "go") {
 		requestURL := serverIP + aliveContainers[containerName] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
 
