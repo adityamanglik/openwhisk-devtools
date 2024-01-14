@@ -7,7 +7,7 @@ def parse_memory_log(memory_file):
     for line in memory_file:
         l2 = line.strip()
         parts = l2.split(", ")
-        parts = parts[2]
+        parts = parts[3]
         ret_val.append(int(parts.split(": ")[1]))
     # print(parts)
     return ret_val
@@ -21,7 +21,7 @@ def calculate_gc_impact(memory_log, server_log, client_log):
     # Check when HeapAlloc decreases == GC cycle
     index = 1
     while(index < len(memory_log)):
-        if (memory_log[index] < memory_log[index - 1]):
+        if (memory_log[index] > memory_log[index - 1]):
             cycle_count += 1
             # For the corresponding index, extract +-10 entries in the server_time
             server_times = server_log[max(0, index - num_entries) : index + num_entries]
@@ -35,6 +35,7 @@ def calculate_gc_impact(memory_log, server_log, client_log):
                 if (val > med + stdd):
                     gc_server_impact.append(val - (med + stdd))
             client_times = client_log[max(0, index - num_entries) : index + num_entries]
+            # print(index, client_times)
             # Calculate median and STD for the 10 entries
             med = statistics.mean(client_times)
             # Sum up all values that exceed median + STD
@@ -44,6 +45,7 @@ def calculate_gc_impact(memory_log, server_log, client_log):
                 if (val > med + stdd):
                     gc_client_impact.append(val - (med + stdd))
         index += 1
+    
     # Take average of values
     ans = []
     ans.append(sum(gc_server_impact)/len(gc_server_impact))

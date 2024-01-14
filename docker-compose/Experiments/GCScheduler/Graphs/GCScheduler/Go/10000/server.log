@@ -4,185 +4,185 @@ Container started: go-server-image-9500
 Waiting for container:  http://128.110.96.59:9501/GoNative
 Container started: go-server-image-9501
 Sending fake request to tip over the container go-server-image-9500
-Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 364064, HeapIdle: 3031040, NextGC: 41943040, NumGC: 0 RN:2147483647
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 363808, HeapIdle: 3031040, NextGC: 41943040, NumGC: 0 RN:2147483647
 Sending fake request to tip over the container go-server-image-9501
-Request: 2147483647, Container: go-server-image-9501, HeapAlloc: 364512, HeapIdle: 3031040, NextGC: 41943040, NumGC: 0 RN:2147483647
+Request: 2147483647, Container: go-server-image-9501, HeapAlloc: 364832, HeapIdle: 3031040, NextGC: 41943040, NumGC: 0 RN:2147483647
 Load Balancer is running on port :8180
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 1, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 399880, HeapIdle: 2949120, NextGC: 41943040, NumGC: 0 RN:2147483647
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 399624, HeapIdle: 2949120, NextGC: 41943040, NumGC: 0 RN:2147483647
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 2, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 0, Container: go-server-image-9500, HeapAlloc: 487248, HeapIdle: 2867200, NextGC: 41943040, NumGC: 0 RN:0
+Request: 0, Container: go-server-image-9500, HeapAlloc: 486704, HeapIdle: 2867200, NextGC: 41943040, NumGC: 0 RN:0
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 3, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 1, Container: go-server-image-9500, HeapAlloc: 574328, HeapIdle: 2785280, NextGC: 41943040, NumGC: 0 RN:1
+Request: 1, Container: go-server-image-9500, HeapAlloc: 573784, HeapIdle: 2785280, NextGC: 41943040, NumGC: 0 RN:1
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 4, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 2, Container: go-server-image-9500, HeapAlloc: 661408, HeapIdle: 2695168, NextGC: 41943040, NumGC: 0 RN:2
+Request: 2, Container: go-server-image-9500, HeapAlloc: 660864, HeapIdle: 2703360, NextGC: 41943040, NumGC: 0 RN:2
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 5, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 3, Container: go-server-image-9500, HeapAlloc: 748488, HeapIdle: 2613248, NextGC: 41943040, NumGC: 0 RN:3
+Request: 3, Container: go-server-image-9500, HeapAlloc: 748232, HeapIdle: 2613248, NextGC: 41943040, NumGC: 0 RN:3
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 6, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 4, Container: go-server-image-9500, HeapAlloc: 835568, HeapIdle: 2531328, NextGC: 41943040, NumGC: 0 RN:4
+Request: 4, Container: go-server-image-9500, HeapAlloc: 835312, HeapIdle: 2531328, NextGC: 41943040, NumGC: 0 RN:4
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 7, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 5, Container: go-server-image-9500, HeapAlloc: 922664, HeapIdle: 2449408, NextGC: 41943040, NumGC: 0 RN:5
+Request: 5, Container: go-server-image-9500, HeapAlloc: 922408, HeapIdle: 2449408, NextGC: 41943040, NumGC: 0 RN:5
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 8, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 6, Container: go-server-image-9500, HeapAlloc: 1009744, HeapIdle: 2342912, NextGC: 41943040, NumGC: 0 RN:6
+Request: 6, Container: go-server-image-9500, HeapAlloc: 1009488, HeapIdle: 2342912, NextGC: 41943040, NumGC: 0 RN:6
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 9, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 7, Container: go-server-image-9500, HeapAlloc: 1096824, HeapIdle: 2260992, NextGC: 41943040, NumGC: 0 RN:7
+Request: 7, Container: go-server-image-9500, HeapAlloc: 1096568, HeapIdle: 2260992, NextGC: 41943040, NumGC: 0 RN:7
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 10, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 8, Container: go-server-image-9500, HeapAlloc: 1183904, HeapIdle: 2170880, NextGC: 41943040, NumGC: 0 RN:8
+Request: 8, Container: go-server-image-9500, HeapAlloc: 1183648, HeapIdle: 2179072, NextGC: 41943040, NumGC: 0 RN:8
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 11, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 9, Container: go-server-image-9500, HeapAlloc: 1270984, HeapIdle: 2088960, NextGC: 41943040, NumGC: 0 RN:9
+Request: 9, Container: go-server-image-9500, HeapAlloc: 1270728, HeapIdle: 2088960, NextGC: 41943040, NumGC: 0 RN:9
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 12, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 10, Container: go-server-image-9500, HeapAlloc: 1358080, HeapIdle: 1998848, NextGC: 41943040, NumGC: 0 RN:10
+Request: 10, Container: go-server-image-9500, HeapAlloc: 1357824, HeapIdle: 1998848, NextGC: 41943040, NumGC: 0 RN:10
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 13, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 11, Container: go-server-image-9500, HeapAlloc: 1445176, HeapIdle: 1916928, NextGC: 41943040, NumGC: 0 RN:11
+Request: 11, Container: go-server-image-9500, HeapAlloc: 1444920, HeapIdle: 1916928, NextGC: 41943040, NumGC: 0 RN:11
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 14, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 12, Container: go-server-image-9500, HeapAlloc: 1532256, HeapIdle: 1835008, NextGC: 41943040, NumGC: 0 RN:12
+Request: 12, Container: go-server-image-9500, HeapAlloc: 1532000, HeapIdle: 1835008, NextGC: 41943040, NumGC: 0 RN:12
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 15, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 13, Container: go-server-image-9500, HeapAlloc: 1619352, HeapIdle: 1753088, NextGC: 41943040, NumGC: 0 RN:13
+Request: 13, Container: go-server-image-9500, HeapAlloc: 1619096, HeapIdle: 1753088, NextGC: 41943040, NumGC: 0 RN:13
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 16, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 14, Container: go-server-image-9500, HeapAlloc: 1706736, HeapIdle: 1662976, NextGC: 41943040, NumGC: 0 RN:14
+Request: 14, Container: go-server-image-9500, HeapAlloc: 1706192, HeapIdle: 1662976, NextGC: 41943040, NumGC: 0 RN:14
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 17, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 15, Container: go-server-image-9500, HeapAlloc: 1793832, HeapIdle: 1581056, NextGC: 41943040, NumGC: 0 RN:15
+Request: 15, Container: go-server-image-9500, HeapAlloc: 1793288, HeapIdle: 1581056, NextGC: 41943040, NumGC: 0 RN:15
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 18, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 16, Container: go-server-image-9500, HeapAlloc: 1880928, HeapIdle: 1499136, NextGC: 41943040, NumGC: 0 RN:16
+Request: 16, Container: go-server-image-9500, HeapAlloc: 1880384, HeapIdle: 1499136, NextGC: 41943040, NumGC: 0 RN:16
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 19, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 17, Container: go-server-image-9500, HeapAlloc: 1968024, HeapIdle: 1409024, NextGC: 41943040, NumGC: 0 RN:17
+Request: 17, Container: go-server-image-9500, HeapAlloc: 1967480, HeapIdle: 1409024, NextGC: 41943040, NumGC: 0 RN:17
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 20, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 18, Container: go-server-image-9500, HeapAlloc: 2055120, HeapIdle: 1318912, NextGC: 41943040, NumGC: 0 RN:18
+Request: 18, Container: go-server-image-9500, HeapAlloc: 2054576, HeapIdle: 1318912, NextGC: 41943040, NumGC: 0 RN:18
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 21, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 19, Container: go-server-image-9500, HeapAlloc: 2142216, HeapIdle: 1236992, NextGC: 41943040, NumGC: 0 RN:19
+Request: 19, Container: go-server-image-9500, HeapAlloc: 2141672, HeapIdle: 1236992, NextGC: 41943040, NumGC: 0 RN:19
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 22, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 20, Container: go-server-image-9500, HeapAlloc: 2229312, HeapIdle: 1146880, NextGC: 41943040, NumGC: 0 RN:20
+Request: 20, Container: go-server-image-9500, HeapAlloc: 2228768, HeapIdle: 1146880, NextGC: 41943040, NumGC: 0 RN:20
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 23, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 21, Container: go-server-image-9500, HeapAlloc: 2316408, HeapIdle: 1064960, NextGC: 41943040, NumGC: 0 RN:21
+Request: 21, Container: go-server-image-9500, HeapAlloc: 2315864, HeapIdle: 1064960, NextGC: 41943040, NumGC: 0 RN:21
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 24, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 22, Container: go-server-image-9500, HeapAlloc: 2403504, HeapIdle: 983040, NextGC: 41943040, NumGC: 0 RN:22
+Request: 22, Container: go-server-image-9500, HeapAlloc: 2403248, HeapIdle: 983040, NextGC: 41943040, NumGC: 0 RN:22
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 25, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 23, Container: go-server-image-9500, HeapAlloc: 2490584, HeapIdle: 892928, NextGC: 41943040, NumGC: 0 RN:23
+Request: 23, Container: go-server-image-9500, HeapAlloc: 2490616, HeapIdle: 892928, NextGC: 41943040, NumGC: 0 RN:23
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 26, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 24, Container: go-server-image-9500, HeapAlloc: 2577680, HeapIdle: 802816, NextGC: 41943040, NumGC: 0 RN:24
+Request: 24, Container: go-server-image-9500, HeapAlloc: 2577712, HeapIdle: 802816, NextGC: 41943040, NumGC: 0 RN:24
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 27, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 25, Container: go-server-image-9500, HeapAlloc: 2664776, HeapIdle: 712704, NextGC: 41943040, NumGC: 0 RN:25
+Request: 25, Container: go-server-image-9500, HeapAlloc: 2664808, HeapIdle: 720896, NextGC: 41943040, NumGC: 0 RN:25
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 28, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 26, Container: go-server-image-9500, HeapAlloc: 2751872, HeapIdle: 630784, NextGC: 41943040, NumGC: 0 RN:26
+Request: 26, Container: go-server-image-9500, HeapAlloc: 2751904, HeapIdle: 630784, NextGC: 41943040, NumGC: 0 RN:26
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 29, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 27, Container: go-server-image-9500, HeapAlloc: 2838968, HeapIdle: 540672, NextGC: 41943040, NumGC: 0 RN:27
+Request: 27, Container: go-server-image-9500, HeapAlloc: 2839000, HeapIdle: 540672, NextGC: 41943040, NumGC: 0 RN:27
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 30, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 28, Container: go-server-image-9500, HeapAlloc: 2926064, HeapIdle: 450560, NextGC: 41943040, NumGC: 0 RN:28
+Request: 28, Container: go-server-image-9500, HeapAlloc: 2926096, HeapIdle: 450560, NextGC: 41943040, NumGC: 0 RN:28
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 31, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 29, Container: go-server-image-9500, HeapAlloc: 3013144, HeapIdle: 368640, NextGC: 41943040, NumGC: 0 RN:29
+Request: 29, Container: go-server-image-9500, HeapAlloc: 3013176, HeapIdle: 368640, NextGC: 41943040, NumGC: 0 RN:29
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 32, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 30, Container: go-server-image-9500, HeapAlloc: 3100240, HeapIdle: 286720, NextGC: 41943040, NumGC: 0 RN:30
+Request: 30, Container: go-server-image-9500, HeapAlloc: 3100272, HeapIdle: 286720, NextGC: 41943040, NumGC: 0 RN:30
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 33, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 31, Container: go-server-image-9500, HeapAlloc: 3187336, HeapIdle: 188416, NextGC: 41943040, NumGC: 0 RN:31
+Request: 31, Container: go-server-image-9500, HeapAlloc: 3187368, HeapIdle: 196608, NextGC: 41943040, NumGC: 0 RN:31
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 34, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 32, Container: go-server-image-9500, HeapAlloc: 3274432, HeapIdle: 106496, NextGC: 41943040, NumGC: 0 RN:32
+Request: 32, Container: go-server-image-9500, HeapAlloc: 3274464, HeapIdle: 106496, NextGC: 41943040, NumGC: 0 RN:32
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 35, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 33, Container: go-server-image-9500, HeapAlloc: 3361528, HeapIdle: 16384, NextGC: 41943040, NumGC: 0 RN:33
+Request: 33, Container: go-server-image-9500, HeapAlloc: 3361560, HeapIdle: 16384, NextGC: 41943040, NumGC: 0 RN:33
 targetContainer: go-server-image-9500	HeapIdle < 100000 = 16384
 Sending fake request to tip over the container go-server-image-9500
 In GCMITIGATION Sched policy
@@ -190,238 +190,238 @@ goRoundRobinIndex: 9500
 handlingGCForGoContainers is True
 GRequest: 36, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 3448592, HeapIdle: 4128768, NextGC: 41943040, NumGC: 0 RN:2147483647
-Request: 34, Container: go-server-image-9500, HeapAlloc: 3535944, HeapIdle: 4046848, NextGC: 41943040, NumGC: 0 RN:34
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 3448624, HeapIdle: 4128768, NextGC: 41943040, NumGC: 0 RN:2147483647
+Request: 34, Container: go-server-image-9500, HeapAlloc: 3535720, HeapIdle: 4046848, NextGC: 41943040, NumGC: 0 RN:34
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 37, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 35, Container: go-server-image-9500, HeapAlloc: 3623360, HeapIdle: 3964928, NextGC: 41943040, NumGC: 0 RN:35
+Request: 35, Container: go-server-image-9500, HeapAlloc: 3622800, HeapIdle: 3964928, NextGC: 41943040, NumGC: 0 RN:35
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 38, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 36, Container: go-server-image-9500, HeapAlloc: 3710456, HeapIdle: 3866624, NextGC: 41943040, NumGC: 0 RN:36
+Request: 36, Container: go-server-image-9500, HeapAlloc: 3709896, HeapIdle: 3866624, NextGC: 41943040, NumGC: 0 RN:36
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 39, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 37, Container: go-server-image-9500, HeapAlloc: 3797552, HeapIdle: 3776512, NextGC: 41943040, NumGC: 0 RN:37
+Request: 37, Container: go-server-image-9500, HeapAlloc: 3796992, HeapIdle: 3776512, NextGC: 41943040, NumGC: 0 RN:37
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 40, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 38, Container: go-server-image-9500, HeapAlloc: 3884648, HeapIdle: 3678208, NextGC: 41943040, NumGC: 0 RN:38
+Request: 38, Container: go-server-image-9500, HeapAlloc: 3884088, HeapIdle: 3678208, NextGC: 41943040, NumGC: 0 RN:38
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 41, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 39, Container: go-server-image-9500, HeapAlloc: 3971744, HeapIdle: 3596288, NextGC: 41943040, NumGC: 0 RN:39
+Request: 39, Container: go-server-image-9500, HeapAlloc: 3971184, HeapIdle: 3596288, NextGC: 41943040, NumGC: 0 RN:39
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 42, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 40, Container: go-server-image-9500, HeapAlloc: 4058840, HeapIdle: 3514368, NextGC: 41943040, NumGC: 0 RN:40
+Request: 40, Container: go-server-image-9500, HeapAlloc: 4058280, HeapIdle: 3514368, NextGC: 41943040, NumGC: 0 RN:40
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 43, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 41, Container: go-server-image-9500, HeapAlloc: 4145936, HeapIdle: 3432448, NextGC: 41943040, NumGC: 0 RN:41
+Request: 41, Container: go-server-image-9500, HeapAlloc: 4145376, HeapIdle: 3432448, NextGC: 41943040, NumGC: 0 RN:41
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 44, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 42, Container: go-server-image-9500, HeapAlloc: 4233032, HeapIdle: 3342336, NextGC: 41943040, NumGC: 0 RN:42
+Request: 42, Container: go-server-image-9500, HeapAlloc: 4232472, HeapIdle: 3342336, NextGC: 41943040, NumGC: 0 RN:42
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 45, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 43, Container: go-server-image-9500, HeapAlloc: 4320128, HeapIdle: 3260416, NextGC: 41943040, NumGC: 0 RN:43
+Request: 43, Container: go-server-image-9500, HeapAlloc: 4319568, HeapIdle: 3252224, NextGC: 41943040, NumGC: 0 RN:43
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 46, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 44, Container: go-server-image-9500, HeapAlloc: 4407224, HeapIdle: 3178496, NextGC: 41943040, NumGC: 0 RN:44
+Request: 44, Container: go-server-image-9500, HeapAlloc: 4406664, HeapIdle: 3170304, NextGC: 41943040, NumGC: 0 RN:44
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 47, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 45, Container: go-server-image-9500, HeapAlloc: 4494320, HeapIdle: 3088384, NextGC: 41943040, NumGC: 0 RN:45
+Request: 45, Container: go-server-image-9500, HeapAlloc: 4493760, HeapIdle: 3088384, NextGC: 41943040, NumGC: 0 RN:45
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 48, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 46, Container: go-server-image-9500, HeapAlloc: 4581416, HeapIdle: 3006464, NextGC: 41943040, NumGC: 0 RN:46
+Request: 46, Container: go-server-image-9500, HeapAlloc: 4581144, HeapIdle: 3006464, NextGC: 41943040, NumGC: 0 RN:46
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 49, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 47, Container: go-server-image-9500, HeapAlloc: 4668512, HeapIdle: 2916352, NextGC: 41943040, NumGC: 0 RN:47
+Request: 47, Container: go-server-image-9500, HeapAlloc: 4668240, HeapIdle: 2924544, NextGC: 41943040, NumGC: 0 RN:47
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 50, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 48, Container: go-server-image-9500, HeapAlloc: 4755608, HeapIdle: 2826240, NextGC: 41943040, NumGC: 0 RN:48
+Request: 48, Container: go-server-image-9500, HeapAlloc: 4755336, HeapIdle: 2826240, NextGC: 41943040, NumGC: 0 RN:48
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 51, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 49, Container: go-server-image-9500, HeapAlloc: 4842704, HeapIdle: 2736128, NextGC: 41943040, NumGC: 0 RN:49
+Request: 49, Container: go-server-image-9500, HeapAlloc: 4842432, HeapIdle: 2736128, NextGC: 41943040, NumGC: 0 RN:49
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 52, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 50, Container: go-server-image-9500, HeapAlloc: 4929800, HeapIdle: 2646016, NextGC: 41943040, NumGC: 0 RN:50
+Request: 50, Container: go-server-image-9500, HeapAlloc: 4929528, HeapIdle: 2646016, NextGC: 41943040, NumGC: 0 RN:50
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 53, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 51, Container: go-server-image-9500, HeapAlloc: 5016896, HeapIdle: 2555904, NextGC: 41943040, NumGC: 0 RN:51
+Request: 51, Container: go-server-image-9500, HeapAlloc: 5016624, HeapIdle: 2555904, NextGC: 41943040, NumGC: 0 RN:51
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 54, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 52, Container: go-server-image-9500, HeapAlloc: 5104280, HeapIdle: 2473984, NextGC: 41943040, NumGC: 0 RN:52
+Request: 52, Container: go-server-image-9500, HeapAlloc: 5103720, HeapIdle: 2473984, NextGC: 41943040, NumGC: 0 RN:52
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 55, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 53, Container: go-server-image-9500, HeapAlloc: 5191376, HeapIdle: 2383872, NextGC: 41943040, NumGC: 0 RN:53
+Request: 53, Container: go-server-image-9500, HeapAlloc: 5190816, HeapIdle: 2392064, NextGC: 41943040, NumGC: 0 RN:53
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 56, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 54, Container: go-server-image-9500, HeapAlloc: 5278472, HeapIdle: 2293760, NextGC: 41943040, NumGC: 0 RN:54
+Request: 54, Container: go-server-image-9500, HeapAlloc: 5278200, HeapIdle: 2293760, NextGC: 41943040, NumGC: 0 RN:54
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 57, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 55, Container: go-server-image-9500, HeapAlloc: 5365552, HeapIdle: 2203648, NextGC: 41943040, NumGC: 0 RN:55
+Request: 55, Container: go-server-image-9500, HeapAlloc: 5365280, HeapIdle: 2203648, NextGC: 41943040, NumGC: 0 RN:55
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 58, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 56, Container: go-server-image-9500, HeapAlloc: 5452648, HeapIdle: 2121728, NextGC: 41943040, NumGC: 0 RN:56
+Request: 56, Container: go-server-image-9500, HeapAlloc: 5452376, HeapIdle: 2121728, NextGC: 41943040, NumGC: 0 RN:56
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 59, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 57, Container: go-server-image-9500, HeapAlloc: 5539744, HeapIdle: 2039808, NextGC: 41943040, NumGC: 0 RN:57
+Request: 57, Container: go-server-image-9500, HeapAlloc: 5539472, HeapIdle: 2039808, NextGC: 41943040, NumGC: 0 RN:57
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 60, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 58, Container: go-server-image-9500, HeapAlloc: 5626840, HeapIdle: 1949696, NextGC: 41943040, NumGC: 0 RN:58
+Request: 58, Container: go-server-image-9500, HeapAlloc: 5626568, HeapIdle: 1949696, NextGC: 41943040, NumGC: 0 RN:58
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 61, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 59, Container: go-server-image-9500, HeapAlloc: 5714224, HeapIdle: 1859584, NextGC: 41943040, NumGC: 0 RN:59
+Request: 59, Container: go-server-image-9500, HeapAlloc: 5713664, HeapIdle: 1859584, NextGC: 41943040, NumGC: 0 RN:59
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 62, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 60, Container: go-server-image-9500, HeapAlloc: 5801320, HeapIdle: 1769472, NextGC: 41943040, NumGC: 0 RN:60
+Request: 60, Container: go-server-image-9500, HeapAlloc: 5800760, HeapIdle: 1769472, NextGC: 41943040, NumGC: 0 RN:60
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 63, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 61, Container: go-server-image-9500, HeapAlloc: 5888416, HeapIdle: 1687552, NextGC: 41943040, NumGC: 0 RN:61
+Request: 61, Container: go-server-image-9500, HeapAlloc: 5887856, HeapIdle: 1687552, NextGC: 41943040, NumGC: 0 RN:61
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 64, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 62, Container: go-server-image-9500, HeapAlloc: 5975512, HeapIdle: 1605632, NextGC: 41943040, NumGC: 0 RN:62
+Request: 62, Container: go-server-image-9500, HeapAlloc: 5974952, HeapIdle: 1605632, NextGC: 41943040, NumGC: 0 RN:62
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 65, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 63, Container: go-server-image-9500, HeapAlloc: 6062608, HeapIdle: 1523712, NextGC: 41943040, NumGC: 0 RN:63
+Request: 63, Container: go-server-image-9500, HeapAlloc: 6062048, HeapIdle: 1523712, NextGC: 41943040, NumGC: 0 RN:63
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 66, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 64, Container: go-server-image-9500, HeapAlloc: 6149704, HeapIdle: 1441792, NextGC: 41943040, NumGC: 0 RN:64
+Request: 64, Container: go-server-image-9500, HeapAlloc: 6149144, HeapIdle: 1441792, NextGC: 41943040, NumGC: 0 RN:64
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 67, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 65, Container: go-server-image-9500, HeapAlloc: 6236800, HeapIdle: 1343488, NextGC: 41943040, NumGC: 0 RN:65
+Request: 65, Container: go-server-image-9500, HeapAlloc: 6236240, HeapIdle: 1343488, NextGC: 41943040, NumGC: 0 RN:65
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 68, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 66, Container: go-server-image-9500, HeapAlloc: 6323896, HeapIdle: 1261568, NextGC: 41943040, NumGC: 0 RN:66
+Request: 66, Container: go-server-image-9500, HeapAlloc: 6323336, HeapIdle: 1261568, NextGC: 41943040, NumGC: 0 RN:66
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 69, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 67, Container: go-server-image-9500, HeapAlloc: 6410992, HeapIdle: 1179648, NextGC: 41943040, NumGC: 0 RN:67
+Request: 67, Container: go-server-image-9500, HeapAlloc: 6410432, HeapIdle: 1179648, NextGC: 41943040, NumGC: 0 RN:67
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 70, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 68, Container: go-server-image-9500, HeapAlloc: 6498088, HeapIdle: 1081344, NextGC: 41943040, NumGC: 0 RN:68
+Request: 68, Container: go-server-image-9500, HeapAlloc: 6497528, HeapIdle: 1081344, NextGC: 41943040, NumGC: 0 RN:68
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 71, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 69, Container: go-server-image-9500, HeapAlloc: 6585184, HeapIdle: 999424, NextGC: 41943040, NumGC: 0 RN:69
+Request: 69, Container: go-server-image-9500, HeapAlloc: 6584624, HeapIdle: 991232, NextGC: 41943040, NumGC: 0 RN:69
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 72, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 70, Container: go-server-image-9500, HeapAlloc: 6672280, HeapIdle: 909312, NextGC: 41943040, NumGC: 0 RN:70
+Request: 70, Container: go-server-image-9500, HeapAlloc: 6671720, HeapIdle: 909312, NextGC: 41943040, NumGC: 0 RN:70
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 73, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 71, Container: go-server-image-9500, HeapAlloc: 6759376, HeapIdle: 811008, NextGC: 41943040, NumGC: 0 RN:71
+Request: 71, Container: go-server-image-9500, HeapAlloc: 6758816, HeapIdle: 811008, NextGC: 41943040, NumGC: 0 RN:71
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 74, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 72, Container: go-server-image-9500, HeapAlloc: 6846472, HeapIdle: 720896, NextGC: 41943040, NumGC: 0 RN:72
+Request: 72, Container: go-server-image-9500, HeapAlloc: 6845912, HeapIdle: 720896, NextGC: 41943040, NumGC: 0 RN:72
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 75, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 73, Container: go-server-image-9500, HeapAlloc: 6933552, HeapIdle: 638976, NextGC: 41943040, NumGC: 0 RN:73
+Request: 73, Container: go-server-image-9500, HeapAlloc: 6932992, HeapIdle: 638976, NextGC: 41943040, NumGC: 0 RN:73
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 76, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 74, Container: go-server-image-9500, HeapAlloc: 7020648, HeapIdle: 557056, NextGC: 41943040, NumGC: 0 RN:74
+Request: 74, Container: go-server-image-9500, HeapAlloc: 7020088, HeapIdle: 557056, NextGC: 41943040, NumGC: 0 RN:74
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 77, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 75, Container: go-server-image-9500, HeapAlloc: 7107744, HeapIdle: 466944, NextGC: 41943040, NumGC: 0 RN:75
+Request: 75, Container: go-server-image-9500, HeapAlloc: 7107184, HeapIdle: 466944, NextGC: 41943040, NumGC: 0 RN:75
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 78, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 76, Container: go-server-image-9500, HeapAlloc: 7194840, HeapIdle: 376832, NextGC: 41943040, NumGC: 0 RN:76
+Request: 76, Container: go-server-image-9500, HeapAlloc: 7194280, HeapIdle: 385024, NextGC: 41943040, NumGC: 0 RN:76
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 79, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 77, Container: go-server-image-9500, HeapAlloc: 7281920, HeapIdle: 294912, NextGC: 41943040, NumGC: 0 RN:77
+Request: 77, Container: go-server-image-9500, HeapAlloc: 7281360, HeapIdle: 294912, NextGC: 41943040, NumGC: 0 RN:77
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 80, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 78, Container: go-server-image-9500, HeapAlloc: 7369016, HeapIdle: 204800, NextGC: 41943040, NumGC: 0 RN:78
+Request: 78, Container: go-server-image-9500, HeapAlloc: 7368456, HeapIdle: 204800, NextGC: 41943040, NumGC: 0 RN:78
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 81, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 79, Container: go-server-image-9500, HeapAlloc: 7456112, HeapIdle: 114688, NextGC: 41943040, NumGC: 0 RN:79
+Request: 79, Container: go-server-image-9500, HeapAlloc: 7455840, HeapIdle: 114688, NextGC: 41943040, NumGC: 0 RN:79
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 82, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 80, Container: go-server-image-9500, HeapAlloc: 7543208, HeapIdle: 32768, NextGC: 41943040, NumGC: 0 RN:80
+Request: 80, Container: go-server-image-9500, HeapAlloc: 7542936, HeapIdle: 32768, NextGC: 41943040, NumGC: 0 RN:80
 targetContainer: go-server-image-9500	HeapIdle < 100000 = 32768
 Sending fake request to tip over the container go-server-image-9500
 In GCMITIGATION Sched policy
@@ -429,95 +429,95 @@ goRoundRobinIndex: 9500
 handlingGCForGoContainers is True
 GRequest: 83, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 7630272, HeapIdle: 4145152, NextGC: 41943040, NumGC: 0 RN:2147483647
-Request: 81, Container: go-server-image-9500, HeapAlloc: 7717368, HeapIdle: 4046848, NextGC: 41943040, NumGC: 0 RN:81
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 7630288, HeapIdle: 4145152, NextGC: 41943040, NumGC: 0 RN:2147483647
+Request: 81, Container: go-server-image-9500, HeapAlloc: 7717384, HeapIdle: 4046848, NextGC: 41943040, NumGC: 0 RN:81
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 84, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 82, Container: go-server-image-9500, HeapAlloc: 7804464, HeapIdle: 3964928, NextGC: 41943040, NumGC: 0 RN:82
+Request: 82, Container: go-server-image-9500, HeapAlloc: 7804480, HeapIdle: 3964928, NextGC: 41943040, NumGC: 0 RN:82
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 85, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 83, Container: go-server-image-9500, HeapAlloc: 7891560, HeapIdle: 3883008, NextGC: 41943040, NumGC: 0 RN:83
+Request: 83, Container: go-server-image-9500, HeapAlloc: 7891576, HeapIdle: 3883008, NextGC: 41943040, NumGC: 0 RN:83
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 86, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 84, Container: go-server-image-9500, HeapAlloc: 7978656, HeapIdle: 3801088, NextGC: 41943040, NumGC: 0 RN:84
+Request: 84, Container: go-server-image-9500, HeapAlloc: 7978960, HeapIdle: 3801088, NextGC: 41943040, NumGC: 0 RN:84
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 87, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 85, Container: go-server-image-9500, HeapAlloc: 8065752, HeapIdle: 3719168, NextGC: 41943040, NumGC: 0 RN:85
+Request: 85, Container: go-server-image-9500, HeapAlloc: 8066056, HeapIdle: 3719168, NextGC: 41943040, NumGC: 0 RN:85
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 88, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 86, Container: go-server-image-9500, HeapAlloc: 8152848, HeapIdle: 3637248, NextGC: 41943040, NumGC: 0 RN:86
+Request: 86, Container: go-server-image-9500, HeapAlloc: 8153152, HeapIdle: 3637248, NextGC: 41943040, NumGC: 0 RN:86
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 89, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 87, Container: go-server-image-9500, HeapAlloc: 8239944, HeapIdle: 3538944, NextGC: 41943040, NumGC: 0 RN:87
+Request: 87, Container: go-server-image-9500, HeapAlloc: 8240248, HeapIdle: 3538944, NextGC: 41943040, NumGC: 0 RN:87
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 90, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 88, Container: go-server-image-9500, HeapAlloc: 8327024, HeapIdle: 3457024, NextGC: 41943040, NumGC: 0 RN:88
+Request: 88, Container: go-server-image-9500, HeapAlloc: 8327328, HeapIdle: 3457024, NextGC: 41943040, NumGC: 0 RN:88
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 91, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 89, Container: go-server-image-9500, HeapAlloc: 8414120, HeapIdle: 3366912, NextGC: 41943040, NumGC: 0 RN:89
+Request: 89, Container: go-server-image-9500, HeapAlloc: 8414424, HeapIdle: 3366912, NextGC: 41943040, NumGC: 0 RN:89
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 92, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 90, Container: go-server-image-9500, HeapAlloc: 8501216, HeapIdle: 3276800, NextGC: 41943040, NumGC: 0 RN:90
+Request: 90, Container: go-server-image-9500, HeapAlloc: 8501520, HeapIdle: 3276800, NextGC: 41943040, NumGC: 0 RN:90
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 93, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 91, Container: go-server-image-9500, HeapAlloc: 8588312, HeapIdle: 3194880, NextGC: 41943040, NumGC: 0 RN:91
+Request: 91, Container: go-server-image-9500, HeapAlloc: 8588616, HeapIdle: 3194880, NextGC: 41943040, NumGC: 0 RN:91
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 94, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 92, Container: go-server-image-9500, HeapAlloc: 8675408, HeapIdle: 3088384, NextGC: 41943040, NumGC: 0 RN:92
+Request: 92, Container: go-server-image-9500, HeapAlloc: 8675712, HeapIdle: 3096576, NextGC: 41943040, NumGC: 0 RN:92
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 95, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 93, Container: go-server-image-9500, HeapAlloc: 8762504, HeapIdle: 3006464, NextGC: 41943040, NumGC: 0 RN:93
+Request: 93, Container: go-server-image-9500, HeapAlloc: 8762808, HeapIdle: 2998272, NextGC: 41943040, NumGC: 0 RN:93
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 96, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 94, Container: go-server-image-9500, HeapAlloc: 8849600, HeapIdle: 2924544, NextGC: 41943040, NumGC: 0 RN:94
+Request: 94, Container: go-server-image-9500, HeapAlloc: 8849904, HeapIdle: 2916352, NextGC: 41943040, NumGC: 0 RN:94
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 97, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 95, Container: go-server-image-9500, HeapAlloc: 8936696, HeapIdle: 2842624, NextGC: 41943040, NumGC: 0 RN:95
+Request: 95, Container: go-server-image-9500, HeapAlloc: 8937000, HeapIdle: 2834432, NextGC: 41943040, NumGC: 0 RN:95
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 98, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 96, Container: go-server-image-9500, HeapAlloc: 9023792, HeapIdle: 2760704, NextGC: 41943040, NumGC: 0 RN:96
+Request: 96, Container: go-server-image-9500, HeapAlloc: 9024096, HeapIdle: 2752512, NextGC: 41943040, NumGC: 0 RN:96
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 99, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 97, Container: go-server-image-9500, HeapAlloc: 9110888, HeapIdle: 2678784, NextGC: 41943040, NumGC: 0 RN:97
+Request: 97, Container: go-server-image-9500, HeapAlloc: 9111192, HeapIdle: 2670592, NextGC: 41943040, NumGC: 0 RN:97
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 100, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 98, Container: go-server-image-9500, HeapAlloc: 9197984, HeapIdle: 2580480, NextGC: 41943040, NumGC: 0 RN:98
+Request: 98, Container: go-server-image-9500, HeapAlloc: 9198288, HeapIdle: 2588672, NextGC: 41943040, NumGC: 0 RN:98
 In GCMITIGATION Sched policy
 goRoundRobinIndex: 9500
 GRequest: 101, Selected container: go-server-image-9500
 Container already running:  go-server-image-9500
-Request: 99, Container: go-server-image-9500, HeapAlloc: 9285080, HeapIdle: 2498560, NextGC: 41943040, NumGC: 0 RN:99
+Request: 99, Container: go-server-image-9500, HeapAlloc: 9285672, HeapIdle: 2498560, NextGC: 41943040, NumGC: 0 RN:99
