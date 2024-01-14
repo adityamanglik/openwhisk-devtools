@@ -142,7 +142,7 @@ func init() {
 	// Initialize the request counter variable
 	globalRequestCounter = 0
 	// Initialize GC threshold
-	GoGCTriggerThreshold = 0.85
+	GoGCTriggerThreshold = 0.935
 
 	// If GCMitigation Policy, start and warm the containers
 	if currentSchedulingPolicy == GCMitigation {
@@ -342,16 +342,18 @@ func waitForServerReady(url string) bool {
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
 	var targetURL, containerName, port string
+	// Increment counter for every valid request
+	globalRequestCounter += 1
 
 	switch r.URL.Path {
 	case "/java":
 		containerName = scheduleJavaContainer()
-		fmt.Println("Selected container: ", containerName)
+		fmt.Printf("GRequest: %d, Selected container: %s\n", globalRequestCounter, containerName)
 		port = containerName[len(javaServerImage)+1:] // "+1" to skip the hyphen
 		targetURL = serverIP + port + "/jsonresponse"
 	case "/go":
 		containerName = scheduleGoContainer()
-		fmt.Println("Selected container: ", containerName)
+		fmt.Printf("GRequest: %d, Selected container: %s\n", globalRequestCounter, containerName)
 		port = containerName[len(goServerImage)+1:] // "+1" to skip the hyphen
 		targetURL = serverIP + port + "/GoNative"
 	case "/exitCall":
@@ -363,8 +365,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Increment counter for every valid request
-	globalRequestCounter += 1
+	
 	// Extract request number for passing to local functions
 
 	// Extract seed value from the query parameters
@@ -483,13 +484,13 @@ func scheduleGoContainer() string {
 		fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
 		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		// if we are performing cleanup, send requests to other containers
-		// mutexHandlingGCForGoContainers.Lock()
-		// localReadValue := handlingGCForGoContainers
-		// mutexHandlingGCForGoContainers.Unlock()
-		// if localReadValue == true {
-		// 	fmt.Println("handlingGCForGoContainers is True")
-		// 	targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		// }
+		mutexHandlingGCForGoContainers.Lock()
+		localReadValue := handlingGCForGoContainers
+		mutexHandlingGCForGoContainers.Unlock()
+		if localReadValue == true {
+			fmt.Println("handlingGCForGoContainers is True")
+			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		}
 		return targetContainer
 
 	default:
@@ -550,12 +551,12 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
+			fmt.Printf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, NextGC: %d, NumGC: %d RN:%d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.NextGC, goResp.NumGC, goResp.RequestNumber)
 			// Fake requests have invalid request number
 			if goResp.RequestNumber != math.MaxInt32 {
 				heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
 				// fmt.Println(heapInfo)
 				logHeapInfo("go_heap_memory.log", heapInfo)
-				fmt.Printf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.NextGC, goResp.NumGC)
 			}
 			// track heap stats in struct
 
@@ -570,7 +571,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 
 			// if target container is likely to undergo GC, schedule to alternate and force GC on target
 			if goResp.HeapIdle < int64(100000) {
-				fmt.Printf("targetContainer: %s\n", containerName)
+				fmt.Printf("targetContainer: %s\t", containerName)
 				fmt.Printf("HeapIdle < 100000 = %d\n", goResp.HeapIdle)
 				// Make sure to signal in process
 				mutexHandlingGCForGoContainers.Lock()
