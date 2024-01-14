@@ -112,7 +112,7 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 	response := map[string]interface{}{
 		"sum":           sum,
 		"executionTime": executionTime, // Include raw execution time in microseconds
-		"reqnum":        REQ_NUM,
+		"requestNumber": REQ_NUM,
 	}
 
 	gogcValue := os.Getenv("GOGC")
