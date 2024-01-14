@@ -547,7 +547,6 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 		}
 	} else if strings.Contains(containerName, "go") {
 		var goResp GoResponse
-		print(bodyBytes)
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
