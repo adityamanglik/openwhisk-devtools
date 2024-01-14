@@ -18,7 +18,7 @@ import (
 
 // Constants for API endpoints and file names
 const (
-	iterations            = 10
+	iterations            = 1000
 	javaAPI               = "http://128.110.96.59:8180/java"
 	goAPI                 = "http://128.110.96.59:8180/go"
 	javaResponseTimesFile = "java_response_times.txt"
@@ -51,7 +51,7 @@ func main() {
 	checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
 	goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
-	print(goServerTimes, goResponseTimes)
+
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
@@ -162,8 +162,8 @@ func writeTimesToFile(filename string, times []int64) {
 	}
 	defer file.Close()
 
-	for _, time := range times {
-		_, err := file.WriteString(strconv.FormatInt(time, 10) + "\n")
+	for index, time := range times {
+		_, err := file.WriteString(strconv.Itoa(index+1) + ", " + strconv.FormatInt(time, 10) + "\n")
 		if err != nil {
 			fmt.Println("Error writing to file:", err)
 		}
