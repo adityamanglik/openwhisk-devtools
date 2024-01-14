@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"io/ioutil"
+	"math"
 	"math/rand"
 	"net/http"
 	"os"
@@ -173,7 +174,7 @@ func init() {
 		}
 		reader1 := bytes.NewReader(responseBody)
 		// Extract and log heap info for each request
-		extractAndLogHeapInfo(reader1, container1, -1)
+		extractAndLogHeapInfo(reader1, container1, strconv.Itoa(math.MaxInt32))
 		fmt.Println("Sent request to initialize GC data structure")
 		fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[container1].currentHeapIdle, GoContainerHeapTracker[container1].currentHeapAlloc, GoContainerHeapTracker[container1].GCThreshold)
 	}
@@ -524,7 +525,7 @@ func SendFakeRequest(containerName string) {
 		}
 		reader1 := bytes.NewReader(responseBody)
 		// Extract and log heap info for each FAKE request to trigger again if still no GC
-		extractAndLogHeapInfo(reader1, "FAKE_"+containerName, -1)
+		extractAndLogHeapInfo(reader1, "FAKE_"+containerName, strconv.Itoa(math.MaxInt32))
 	}
 }
 
@@ -550,9 +551,12 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
-			heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
-			// fmt.Println(heapInfo)
-			logHeapInfo("go_heap_memory.log", heapInfo)
+			// Fake requests have invalid request number
+			if goResp.RequestNumber != math.MaxInt32 {
+				heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
+				// fmt.Println(heapInfo)
+				logHeapInfo("go_heap_memory.log", heapInfo)
+			}
 			// Remove FAKE identifier before updating data structure
 			if strings.Contains(containerName, "FAKE_") {
 				containerName = containerName[5:]
