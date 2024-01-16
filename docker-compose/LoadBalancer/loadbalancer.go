@@ -155,7 +155,7 @@ func init() {
 		mutexHandlingGCForGoContainers.Unlock()
 
 		// Send 10000 request to warm up containers
-		for j := 0; j <= 10000; j++ {
+		for j := 0; j <= 2000; j++ {
 			seed := rand.Intn(10000)
 			arraysize := 10000
 			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
