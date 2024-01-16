@@ -163,8 +163,10 @@ func init() {
 			resp, err := http.Get(requestURL)
 			if err != nil {
 				fmt.Println("Error sending fake request:", err)
+				continue
+			} else {
+				resp.Body.Close() // Ensure response body is closed
 			}
-			defer resp.Body.Close() // Ensure response body is closed
 
 			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
 			// Send fake request
@@ -172,8 +174,10 @@ func init() {
 			resp, err = http.Get(requestURL)
 			if err != nil {
 				fmt.Println("Error sending fake request:", err)
+				continue
+			} else {
+				resp.Body.Close() // Ensure response body is closed
 			}
-			defer resp.Body.Close() // Ensure response body is closed
 		}
 		// initialize GCTracker values
 		SendFakeRequest(container1)
