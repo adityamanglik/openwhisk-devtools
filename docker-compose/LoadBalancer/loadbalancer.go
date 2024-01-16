@@ -160,17 +160,20 @@ func init() {
 			arraysize := 10000
 			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
 			// Send fake request
-			_, err := http.Get(requestURL)
+			resp, err := http.Get(requestURL)
 			if err != nil {
 				fmt.Println("Error sending fake request:", err)
 			}
+			defer resp.Body.Close() // Ensure response body is closed
 
 			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
 			// Send fake request
-			_, err = http.Get(requestURL)
+			// Send fake request
+			resp, err = http.Get(requestURL)
 			if err != nil {
 				fmt.Println("Error sending fake request:", err)
 			}
+			defer resp.Body.Close() // Ensure response body is closed
 		}
 		// initialize GCTracker values
 		SendFakeRequest(container1)
