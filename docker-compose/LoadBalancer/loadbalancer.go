@@ -60,7 +60,7 @@ var GoContainerHeapTracker = make(map[string]*GoGCStructure)
 var mutexHandlingGCForGoContainers sync.Mutex
 
 // Fake request array size
-var fakeRequestArraySize int32
+var fakeRequestArraySize int
 
 // var mutexGoContainerHeapTracker sync.Mutex
 
@@ -147,7 +147,7 @@ func init() {
 	// Initialize GC threshold
 	GoGCTriggerThreshold = 0.935
 
-	fakeRequestArraySize = 9999
+	fakeRequestArraySize = 100
 
 	// If GCMitigation Policy, start and warm the containers
 	if currentSchedulingPolicy == GCMitigation {
