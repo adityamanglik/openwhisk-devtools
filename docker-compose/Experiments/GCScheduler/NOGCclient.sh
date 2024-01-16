@@ -17,6 +17,10 @@ send_requests() {
     # # Restart docker for good measure
     # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
 
+    # Change fakerequestarraysize
+    ssh am_CU@node0 "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go"
+
+
     # Restart the load balancer
     ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
     sleep 5
@@ -40,7 +44,8 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(10000 10000 10000 10000 10000)
+sizes=(100 100 100 1000 1000 1000 10000 10000 10000 50000 50000 50000 100000 100000 100000 1000000 1000000 1000000)
+# sizes=(10000 10000 10000 10000 10000)
 # sizes=(10000)
 
 # for size in "${sizes[@]}"; do
@@ -71,8 +76,9 @@ for size in "${sizes[@]}"; do
     # python ./Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
 
     # Calculate impact of GC
-    python ./Graphs/GCScheduler/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt" >> analyzer2.log
-    tail -n 1 "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/latencies.csv" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
+    python ./Graphs/GCScheduler/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt" >> analyzer3.log
+    tail -n 1 "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/latencies.csv" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
+    echo "$size" >> analyzer3.log
 done
 
 # CSV post processing
