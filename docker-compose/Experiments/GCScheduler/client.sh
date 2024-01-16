@@ -14,6 +14,9 @@ send_requests() {
     # compile the docker images
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/../Native/Go/; docker build -t go-server-image ."
 
+    # Change fakerequestarraysize
+    ssh am_CU@node0 "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go"
+
     # # Restart docker for good measure
     # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
 
@@ -73,9 +76,10 @@ for size in "${sizes[@]}"; do
 
     # Calculate impact of GC
     python ./Graphs/GCScheduler/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt" >> analyzer3.log
-    tail -n 1 "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/10000/latencies.csv" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
+    tail -n 1 "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/latencies.csv" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
+    echo "$size" >> analyzer3.log
 done
-echo "" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
+echo "" >> "/users/am_CU/openwhis-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
 echo "" >> analyzer3.log
 # CSV post processing
 

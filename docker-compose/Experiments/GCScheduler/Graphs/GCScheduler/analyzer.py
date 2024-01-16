@@ -48,6 +48,9 @@ def calculate_gc_impact(memory_log, server_log, client_log):
     
     # Take average of values
     ans = []
+    if gc_client_impact == [] and gc_server_impact == []:
+        print("No GC cycles found")
+        return
     ans.append(sum(gc_server_impact)/len(gc_server_impact))
     ans.append(sum(gc_client_impact)/len(gc_client_impact))
     ans.append(cycle_count)
