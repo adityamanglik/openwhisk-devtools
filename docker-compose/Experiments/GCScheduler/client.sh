@@ -40,7 +40,8 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(10000 10000 10000 10000 10000 10000 10000 10000 10000 10000)
+# sizes=(10000 10000 10000 10000 10000 10000 10000 10000 10000 10000)
+sizes=(10000)
 # sizes=(1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000)
 
 # for size in "${sizes[@]}"; do
@@ -64,7 +65,7 @@ for size in "${sizes[@]}"; do
 
     # Plot time responses
     # python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Java/${size}/client_time.txt" "./Graphs/GCScheduler/Java/${size}/server_time.txt" "./Graphs/GCScheduler/Java/${size}/graph.pdf"
-    python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Go/${size}/client_time.txt" "./Graphs/GCScheduler/Go/${size}/server_time.txt" "./Graphs/GCScheduler/Go/${size}/latency.pdf"
+    python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Go/${size}/client_time.txt" "./Graphs/GCScheduler/Go/${size}/server_time.txt" "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/distribution.pdf" "./Graphs/GCScheduler/Go/${size}/latency.pdf"
     
     # Plot memory patterns
     python ./Graphs/GCScheduler/go_mem_plotter.py "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/memory.pdf"

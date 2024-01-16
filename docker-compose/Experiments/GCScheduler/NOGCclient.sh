@@ -40,8 +40,8 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(10000 10000 10000 10000 10000 10000 10000 10000 10000 10000)
-# sizes=(10000)
+# sizes=(10000 10000 10000 10000 10000 10000 10000 10000 10000 10000)
+sizes=(10000)
 
 # for size in "${sizes[@]}"; do
 #     python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
@@ -64,10 +64,10 @@ for size in "${sizes[@]}"; do
 
     # Plot time responses
     # python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Java/${size}/client_time.txt" "./Graphs/GCScheduler/Java/${size}/server_time.txt" "./Graphs/GCScheduler/Java/${size}/graph.pdf"
-    python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Go/${size}/client_time.txt" "./Graphs/GCScheduler/Go/${size}/server_time.txt" "./Graphs/GCScheduler/Go/${size}/latency.pdf"
+    python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Go/${size}/client_time.txt" "./Graphs/GCScheduler/Go/${size}/server_time.txt" "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/NOGCdistribution.pdf" "./Graphs/GCScheduler/Go/${size}/NOGClatency.pdf"
     
     # Plot memory patterns
-    python ./Graphs/GCScheduler/go_mem_plotter.py "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/memory.pdf"
+    python ./Graphs/GCScheduler/go_mem_plotter.py "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/NOGCmemory.pdf"
     # python ./Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
 
     # Calculate impact of GC
