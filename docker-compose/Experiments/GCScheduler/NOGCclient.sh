@@ -19,7 +19,7 @@ send_requests() {
 
     # Restart the load balancer
     ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
-    sleep 120
+    sleep 5
     # Start sending requests
     taskset -c 2 go run request_sender.go $size
     
@@ -40,8 +40,8 @@ send_requests() {
 }
 
 # Array of sizes
-# sizes=(10000 10000 10000 10000 10000 10000 10000 10000 10000 10000)
-sizes=(10000)
+sizes=(10000 10000 10000 10000 10000)
+# sizes=(10000)
 
 # for size in "${sizes[@]}"; do
 #     python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
