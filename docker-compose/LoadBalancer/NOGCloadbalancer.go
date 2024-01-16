@@ -147,7 +147,7 @@ func init() {
 	// Initialize GC threshold
 	GoGCTriggerThreshold = 0.935
 
-	fakeRequestArraySize = 9999
+	fakeRequestArraySize = 10000
 
 	// If GCMitigation Policy, start and warm the containers
 	if currentSchedulingPolicy == GCMitigation {
@@ -501,7 +501,7 @@ func scheduleGoContainer() string {
 		mutexHandlingGCForGoContainers.Unlock()
 		if localReadValue == true {
 			fmt.Println("handlingGCForGoContainers is True")
-			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		}
 		return targetContainer
 
