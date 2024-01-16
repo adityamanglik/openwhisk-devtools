@@ -155,23 +155,23 @@ func init() {
 		mutexHandlingGCForGoContainers.Unlock()
 
 		// Send 10000 request to warm up containers
-		for j := 0; j <= 2000; j++ {
-			seed := rand.Intn(10000)
-			arraysize := 10000
-			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			_, err := http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-			}
+		// for j := 0; j <= 2000; j++ {
+		// 	seed := rand.Intn(10000)
+		// 	arraysize := 10000
+		// 	requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
+		// 	// Send fake request
+		// 	_, err := http.Get(requestURL)
+		// 	if err != nil {
+		// 		fmt.Println("Error sending fake request:", err)
+		// 	}
 
-			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			_, err = http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-			}
-		}
+		// 	requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
+		// 	// Send fake request
+		// 	_, err = http.Get(requestURL)
+		// 	if err != nil {
+		// 		fmt.Println("Error sending fake request:", err)
+		// 	}
+		// }
 		// initialize GCTracker values
 		SendFakeRequest(container1)
 		SendFakeRequest(container2)
