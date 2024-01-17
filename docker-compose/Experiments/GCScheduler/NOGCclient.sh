@@ -44,17 +44,17 @@ send_requests() {
 }
 
 # Array of sizes
-sizes=(100 100 100 1000 1000 1000 10000 10000 10000 50000 50000 50000 100000 100000 100000 1000000 1000000 1000000)
+# sizes=(100 100 100 1000 1000 1000 10000 10000 10000 50000 50000 50000 100000 100000 100000 1000000 1000000 1000000)
 # sizes=(10000 10000 10000 10000 10000)
-# sizes=(10000)
+sizes=(100000)
 
-for size in "${sizes[@]}"; do
-    # python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
+# for size in "${sizes[@]}"; do
+#     # python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
 
-    python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Go/${size}/client_time.txt" "./Graphs/GCScheduler/Go/${size}/server_time.txt" "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/NOGCdistribution.pdf" "./Graphs/GCScheduler/Go/${size}/NOGClatency.pdf"
-done
-echo "Graphs done"
-sleep 60
+#     python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Go/${size}/client_time.txt" "./Graphs/GCScheduler/Go/${size}/server_time.txt" "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/NOGCdistribution.pdf" "./Graphs/GCScheduler/Go/${size}/NOGClatency.pdf"
+# done
+# echo "Graphs done"
+
 # for size in "${sizes[@]}"; do
 #     python ../Graphs/GCScheduler/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.pdf"
 #     python ../Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
@@ -77,9 +77,10 @@ for size in "${sizes[@]}"; do
     # python ./Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
 
     # Calculate impact of GC
-    python ./Graphs/GCScheduler/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt" >> analyzer3.log
-    tail -n 1 "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/latencies.csv" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
-    echo "$size" >> analyzer3.log
+    # python ./Graphs/GCScheduler/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt" >> analyzer3.log
+    python ./Graphs/GCScheduler/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt"
+    # tail -n 1 "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/latencies.csv" >> "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
+    # echo "$size" >> analyzer3.log
 done
 
 # CSV post processing
