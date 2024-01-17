@@ -48,12 +48,13 @@ sizes=(100 100 100 1000 1000 1000 10000 10000 10000 50000 50000 50000 100000 100
 # sizes=(10000 10000 10000 10000 10000)
 # sizes=(10000)
 
-# for size in "${sizes[@]}"; do
-#     python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
+for size in "${sizes[@]}"; do
+    # python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Java/${size}/client_time.txt" "../Graphs/GCScheduler/Java/${size}/server_time.txt" "../Graphs/GCScheduler/Java/${size}/graph.pdf"
 
-#     python ../Graphs/GCScheduler/response_time_plotter.py "../Graphs/GCScheduler/Go/${size}/client_time.txt" "../Graphs/GCScheduler/Go/${size}/server_time.txt" "../Graphs/GCScheduler/Go/${size}/graph.pdf"
-# done
-
+    python ./Graphs/GCScheduler/response_time_plotter.py "./Graphs/GCScheduler/Go/${size}/client_time.txt" "./Graphs/GCScheduler/Go/${size}/server_time.txt" "./Graphs/GCScheduler/Go/${size}/memory.txt" "./Graphs/GCScheduler/Go/${size}/NOGCdistribution.pdf" "./Graphs/GCScheduler/Go/${size}/NOGClatency.pdf"
+done
+echo "Graphs done"
+sleep 60
 # for size in "${sizes[@]}"; do
 #     python ../Graphs/GCScheduler/go_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Go/${size}/memory.pdf"
 #     python ../Graphs/GCScheduler/java_mem_plotter.py "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Graphs/GCScheduler/Java/${size}/memory.pdf"
