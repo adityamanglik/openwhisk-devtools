@@ -34,13 +34,9 @@ send_requests() {
         taskset -c 2 go run request_sender.go $size $gc
 
         # Extract required data from file
-
-        # Remove files to prevent data mix
-        rm ./*.txt
-        rm ./*.log
         
         # Move files for postprocessing
-        scp $OW_SERVER_NODE:$OW_DIRECTORY/../../LoadBalancer/go_heap_memory.log "$OW_DIRECTORY/Data/$size_$gc_memory.txt"
+        scp $OW_SERVER_NODE:/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/go_heap_memory.log "$OW_DIRECTORY/Data/$size_$gc_memory.txt"
         # mv $OW_DIRECTORY/Experiments/GOGCSweep/go_response_times.txt "$OW_DIRECTORY/Experiments/GOGCSweep/Data/$size_client_time.txt"
         # mv $OW_DIRECTORY/Experiments/GOGCSweep/go_server_times.txt "$OW_DIRECTORY/Experiments/GOGCSweep/Data/$size_server_time.txt"
         # scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/go_heap_memory.log ../Graphs/GCScheduler/Go/$size/memory.txt
@@ -48,6 +44,9 @@ send_requests() {
         # scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/server.log "../Graphs/GCScheduler/Go/$size/server.log"
         # Remove file after retrieving
         ssh $OW_SERVER_NODE "rm $OW_DIRECTORY/../../LoadBalancer/*.log"
+        # Remove files to prevent data mix
+        rm ./*.txt
+        rm ./*.log
 
         # Kill the load balancer process if running
         curl $KILL_SERVER_API
