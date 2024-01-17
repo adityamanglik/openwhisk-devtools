@@ -60,7 +60,7 @@ var GoContainerHeapTracker = make(map[string]*GoGCStructure)
 var mutexHandlingGCForGoContainers sync.Mutex
 
 // Fake request array size
-var fakeRequestArraySize int32
+var fakeRequestArraySize int
 
 // var mutexGoContainerHeapTracker sync.Mutex
 
