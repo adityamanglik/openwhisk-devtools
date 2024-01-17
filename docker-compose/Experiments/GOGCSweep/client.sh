@@ -15,6 +15,9 @@ send_requests() {
     local size=$1
     # # Restart docker for good measure
     # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
+    # Change fakerequestarraysize
+    ssh am_CU@node0 "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go"
+
     # sleep 10
     # Loop through each GOGC value
     for gc in "${GOGC[@]}"; do
