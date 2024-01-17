@@ -97,10 +97,13 @@ func main() {
 func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 	var responseTimes []int64
 	var serverTimes []int64
-	var executionStart = time.Now()
+
 	for i := 0; i < iterations; i++ {
-		seed := rand.Intn(100) // Example seed generation
-		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
+		// fmt.Printf("Sent request: %d\n", i)
+		seed := rand.Intn(10000) // Example seed generation
+		requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
+		requestURL2 := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
+		requestURL := fmt.Sprintf("%s&requestnumber=%d", requestURL2, i)
 
 		startTime := time.Now()
 		resp, err := http.Get(requestURL)
@@ -112,26 +115,6 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 
 		if resp.StatusCode != http.StatusOK {
 			fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
-			// At this point, it is better to kill the experiment rather than poison the observations
-			return responseTimes, serverTimes
-			// Reboot load balancer
-			// // Sending a request to kill the server
-			// _, err := http.Get(KILL_SERVER_API)
-			// if err != nil {
-			// 	fmt.Println("Error sending kill command:", err)
-			// } else {
-			// 	fmt.Println("Server kill command sent successfully")
-			// }
-
-			// // Restarting the load balancer
-			// cmd := exec.Command("ssh", "am_CU@node0", "taskset", "-c", "2", "nohup", "go", "run", "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go", ">", "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log", "2>&1", "&")
-			// if err := cmd.Run(); err != nil {
-			// 	fmt.Println("Error restarting load balancer:", err)
-			// } else {
-			// 	fmt.Println("Load balancer restarted successfully")
-			// }
-			// // Sleep to enable full reboot
-			// time.Sleep(5 * time.Second)
 		}
 
 		// Read and unmarshal the response body
@@ -154,7 +137,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 		responseTimes = append(responseTimes, elapsed.Microseconds())
 		serverTimes = append(serverTimes, apiResp.ExecutionTime)
 	}
-	totalExecutionTime = int64(time.Now().Sub(executionStart).Microseconds())
+
 	return responseTimes, serverTimes
 }
 

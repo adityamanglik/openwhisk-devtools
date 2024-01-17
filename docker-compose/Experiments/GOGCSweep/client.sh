@@ -36,7 +36,7 @@ send_requests() {
         # Extract required data from file
         
         # Move files for postprocessing
-        scp $OW_SERVER_NODE:/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/go_heap_memory.log "$OW_DIRECTORY/Data/$size_$gc_memory.txt"
+        scp "$OW_SERVER_NODE:/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/go_heap_memory.log" "$OW_DIRECTORY/Data/${size}_${gc}_memory.txt"
         # mv $OW_DIRECTORY/Experiments/GOGCSweep/go_response_times.txt "$OW_DIRECTORY/Experiments/GOGCSweep/Data/$size_client_time.txt"
         # mv $OW_DIRECTORY/Experiments/GOGCSweep/go_server_times.txt "$OW_DIRECTORY/Experiments/GOGCSweep/Data/$size_server_time.txt"
         # scp $OW_SERVER_NODE:$OW_DIRECTORY/LoadBalancer/go_heap_memory.log ../Graphs/GCScheduler/Go/$size/memory.txt
