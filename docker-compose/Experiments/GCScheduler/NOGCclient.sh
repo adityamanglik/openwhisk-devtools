@@ -18,7 +18,7 @@ send_requests() {
     # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
 
     # Change fakerequestarraysize
-    ssh am_CU@node0 "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go"
+    ssh am_CU@node0 "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go"
 
 
     # Restart the load balancer
