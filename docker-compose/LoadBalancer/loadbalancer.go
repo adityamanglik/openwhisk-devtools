@@ -698,7 +698,7 @@ func logHeapInfo(filename, info string) {
 	var builder strings.Builder
 	builder.WriteString("/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/")
 	builder.WriteString(filename)
-	builder.WriteString(": ")
+	builder.WriteString("+ ")
 	builder.WriteString(info)
 
 	// Send the constructed log entry to the channel
@@ -708,7 +708,7 @@ func logHeapInfo(filename, info string) {
 // writeLogToFile writes the log entry to the specified file.
 func writeLogToFile(logEntry string) {
 	// Extract filename and info from logEntry
-	parts := strings.SplitN(logEntry, ": ", 2)
+	parts := strings.SplitN(logEntry, "+ ", 2)
 	if len(parts) != 2 {
 		fmt.Println("Invalid log entry format")
 		return
