@@ -140,9 +140,7 @@ var currentCPUIndex int = 10 + rand.Intn(10)
 
 // Log file handler
 var (
-	requestCount int
-	countMutex   sync.Mutex
-	logBuffer    strings.Builder
+	logChannel chan string
 )
 
 // MAIN   //////////////////////////////////////////////////////////////////////
@@ -236,6 +234,8 @@ func init() {
 		SendFakeRequest(container2)
 		time.Sleep(5 * time.Second)
 	}
+	// Initialize the log channel with a buffer size of 100
+	logChannel = make(chan string, 100)
 }
 
 func main() {
@@ -262,6 +262,7 @@ func main() {
 
 	// Stop all running Docker containers
 	stopAllRunningContainers()
+	close(logChannel)
 	fmt.Println("Load balancer server shot down.")
 }
 
@@ -692,46 +693,45 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 	}
 }
 
+// logHeapInfo sends log information to the logChannel.
 func logHeapInfo(filename, info string) {
-	// Lock mutex for safe counter increment
-	countMutex.Lock()
-	defer countMutex.Unlock()
-
-	// Append the current info to the log buffer
-	logBuffer.WriteString(info)
-
-	// Increment request count
-	requestCount++
-
-	// Check if we have accumulated 100 requests
-	if requestCount >= 100 {
-		// Reset the counter
-		requestCount = 0
-
-		// Write the buffered log entries to the file
-		flushLogBuffer(filename)
-	}
-}
-
-func flushLogBuffer(filename string) {
 	var builder strings.Builder
 	builder.WriteString("/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/")
 	builder.WriteString(filename)
+	builder.WriteString(": ")
+	builder.WriteString(info)
 
-	fullPath := builder.String()
+	// Send the constructed log entry to the channel
+	logChannel <- builder.String()
+}
 
-	file, err := os.OpenFile(fullPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+// writeLogToFile writes the log entry to the specified file.
+func writeLogToFile(logEntry string) {
+	// Extract filename and info from logEntry
+	parts := strings.SplitN(logEntry, ": ", 2)
+	if len(parts) != 2 {
+		fmt.Println("Invalid log entry format")
+		return
+	}
+	filename, info := parts[0], parts[1]
+
+	// Open the file
+	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
 	}
 	defer file.Close()
 
-	// Write the entire buffer to the file
-	if _, err := file.WriteString(logBuffer.String()); err != nil {
+	// Write the info to the file
+	if _, err := file.WriteString(info + "\n"); err != nil {
 		fmt.Println("Error writing to file:", err)
 	}
+}
 
-	// Clear the buffer
-	logBuffer.Reset()
+// loggerRoutine handles writing log messages to files.
+func loggerRoutine() {
+	for logEntry := range logChannel {
+		writeLogToFile(logEntry)
+	}
 }

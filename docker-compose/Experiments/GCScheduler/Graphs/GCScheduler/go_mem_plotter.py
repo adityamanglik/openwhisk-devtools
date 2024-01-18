@@ -9,6 +9,8 @@ def read_data(file_path):
     with open(file_path, 'r') as file:
         for line in file:
             parts = line.strip().split(", ")
+            if '9501' in parts[1]:
+                continue
             alloc = int(parts[2].split(": ")[1])
             idle = int(parts[3].split(": ")[1])
             inuse = int(parts[4].split(": ")[1])
