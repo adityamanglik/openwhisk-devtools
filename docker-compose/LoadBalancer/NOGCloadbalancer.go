@@ -21,14 +21,14 @@ import (
 
 // SCHEDULING POLICY DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
-func newGoGCStructure() *GoGCStructure {
-	GoGC := GoGCStructure{}
-	GoGC.currentHeapIdle = 0
-	GoGC.currentHeapAlloc = 0
-	GoGC.HeapAllocThreshold = 0
-	GoGC.GCThreshold = 0.0
-	return &GoGC
-}
+// func newGoGCStructure() *GoGCStructure {
+// 	GoGC := GoGCStructure{}
+// 	GoGC.currentHeapIdle = 0
+// 	GoGC.currentHeapAlloc = 0
+// 	GoGC.HeapAllocThreshold = 0
+// 	GoGC.GCThreshold = 0.0
+// 	return &GoGC
+// }
 
 // 	maxGoHeapSize             = 6692864 // Max size of the heap
 // 	GoGCTriggerThreshold      = 0.60    // GC is triggered at 55% utilization
@@ -47,16 +47,17 @@ const (
 var currentSchedulingPolicy SchedulingPolicy = GCMitigation
 var handlingGCForGoContainers bool
 var GoGCTriggerThreshold float32
+var GoGCIdleHeapThreshold int64
 
-type GoGCStructure struct {
-	currentHeapIdle    int64
-	currentHeapAlloc   int64
-	HeapAllocThreshold int64
-	GCThreshold        float32
-}
+// type GoGCStructure struct {
+// 	currentHeapIdle    int64
+// 	currentHeapAlloc   int64
+// 	HeapAllocThreshold int64
+// 	GCThreshold        float32
+// }
 
 // Track heap across active go containers
-var GoContainerHeapTracker = make(map[string]*GoGCStructure)
+// var GoContainerHeapTracker = make(map[string]*GoGCStructure)
 var mutexHandlingGCForGoContainers sync.Mutex
 
 // Fake request array size
@@ -77,8 +78,8 @@ var goRoundRobinIndex int = goPortStart
 var client = &http.Client{
 	Timeout: 60 * time.Second, // Set the timeout to 5 seconds
 	Transport: &http.Transport{
-		MaxIdleConns:        99999,
-		MaxIdleConnsPerHost: 99999,
+		MaxIdleConns:        2000,
+		MaxIdleConnsPerHost: 2000,
 		IdleConnTimeout:     90 * time.Second,
 	},
 }
@@ -137,6 +138,11 @@ var aliveContainers = make(map[string]string)
 // Allocate dedicated CPU for container
 var currentCPUIndex int = 10 + rand.Intn(10)
 
+// Log file handler
+var (
+	logChannel chan string
+)
+
 // MAIN   //////////////////////////////////////////////////////////////////////
 func init() {
 	// Stop all running Docker containers
@@ -144,10 +150,11 @@ func init() {
 
 	// Initialize the request counter variable
 	globalRequestCounter = 0
-	// Initialize GC threshold
+	// Initialize GC thresholds
 	GoGCTriggerThreshold = 0.935
+	GoGCIdleHeapThreshold = 100000
 
-	fakeRequestArraySize = 10000
+	fakeRequestArraySize = 100
 
 	// If GCMitigation Policy, start and warm the containers
 	if currentSchedulingPolicy == GCMitigation {
@@ -190,7 +197,48 @@ func init() {
 		time.Sleep(5 * time.Second)
 		// fmt.Println("Sent request to initialize GC data structure")
 		// fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", GoContainerHeapTracker[container1].currentHeapIdle, GoContainerHeapTracker[container1].currentHeapAlloc, GoContainerHeapTracker[container1].GCThreshold)
+	} else if currentSchedulingPolicy == RoundRobin {
+		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		startNewContainer(container1)
+		startNewContainer(container2)
+		handlingGCForGoContainers = false
+
+		// Send 10000 request to warm up containers
+		for j := 0; j <= 2000; j++ {
+			seed := rand.Intn(10000)
+			arraysize := fakeRequestArraySize
+			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
+			// Send fake request
+			resp, err := http.Get(requestURL)
+			if err != nil {
+				fmt.Println("Error sending fake request:", err)
+				continue
+			} else {
+				resp.Body.Close() // Ensure response body is closed
+			}
+
+			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
+			// Send fake request
+			// Send fake request
+			resp, err = http.Get(requestURL)
+			if err != nil {
+				fmt.Println("Error sending fake request:", err)
+				continue
+			} else {
+				resp.Body.Close() // Ensure response body is closed
+			}
+		}
+		// initialize GCTracker values
+		SendFakeRequest(container1)
+		SendFakeRequest(container2)
+		time.Sleep(5 * time.Second)
 	}
+	// Initialize the log channel with a buffer size of 100
+	logChannel = make(chan string, 110)
+
+	// Start the logger goroutine
+	go loggerRoutine()
 }
 
 func main() {
@@ -217,6 +265,7 @@ func main() {
 
 	// Stop all running Docker containers
 	stopAllRunningContainers()
+	close(logChannel)
 	fmt.Println("Load balancer server shot down.")
 }
 
@@ -289,7 +338,7 @@ func startNewContainer(containerName string) {
 		targetURL = serverIP + containerPort + "/GoNative"
 		// add container to heap tracker
 		// mutexGoContainerHeapTracker.Lock()
-		GoContainerHeapTracker[containerName] = newGoGCStructure()
+		// GoContainerHeapTracker[containerName] = newGoGCStructure()
 		// mutexGoContainerHeapTracker.Unlock()
 	} else {
 		fmt.Println("Unknown container name:", containerName)
@@ -404,7 +453,10 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 
 	//  Check if the container is already running
 	if !isContainerRunning(containerName) {
-		startNewContainer(containerName)
+		// startNewContainer(containerName)
+		// FOR NOW Assume containers stay alive for execution
+		fmt.Print("Container " + containerName + " is not alive, KILLING LoadBalancer\n")
+		panic(1)
 	}
 
 	forwardRequest(w, r, targetURL, containerName, requestNumber)
@@ -492,8 +544,8 @@ func scheduleGoContainer() string {
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 
 	case GCMitigation:
-		fmt.Println("In GCMITIGATION Sched policy")
-		fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
+		// fmt.Println("In GCMITIGATION Sched policy")
+		// fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
 		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		// if we are performing cleanup, send requests to other containers
 		mutexHandlingGCForGoContainers.Lock()
@@ -550,13 +602,23 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 		return
 	}
 	var heapInfo string
+	var builder strings.Builder
 	if strings.Contains(containerName, "java") {
 		var javaResp JavaResponse
 		if err := json.Unmarshal(bodyBytes, &javaResp); err != nil {
 			fmt.Println("Java JSON unmarshalling error:", err)
 		} else {
-			heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
+			builder.WriteString("HeapUsedMemory: ")
+			builder.WriteString(strconv.FormatInt(javaResp.HeapUsedMemory, 10))
+			builder.WriteString(", HeapCommittedMemory: ")
+			builder.WriteString(strconv.FormatInt(javaResp.HeapCommittedMemory, 10))
+			builder.WriteString(", HeapMaxMemory: ")
+			builder.WriteString(strconv.FormatInt(javaResp.HeapMaxMemory, 10))
+			heapInfo = builder.String()
 			logHeapInfo("java_heap_memory.log", heapInfo)
+
+			// heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
+			// logHeapInfo("java_heap_memory.log", heapInfo)
 		}
 	} else if strings.Contains(containerName, "go") {
 		var goResp GoResponse
@@ -566,25 +628,46 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 			fmt.Printf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, NextGC: %d, NumGC: %d RN:%d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.NextGC, goResp.NumGC, goResp.RequestNumber)
 			// Fake requests have invalid request number
 			if goResp.RequestNumber != math.MaxInt32 {
-				heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
+
+				builder.WriteString("Request: ")
+				builder.WriteString(strconv.FormatInt(goResp.RequestNumber, 10))
+				builder.WriteString(", Container: ")
+				builder.WriteString(containerName)
+				builder.WriteString(", HeapAlloc: ")
+				builder.WriteString(strconv.FormatInt(goResp.HeapAlloc, 10))
+				builder.WriteString(", HeapIdle: ")
+				builder.WriteString(strconv.FormatInt(goResp.HeapIdle, 10))
+				builder.WriteString(", HeapInuse: ")
+				builder.WriteString(strconv.FormatInt(goResp.HeapInuse, 10))
+				builder.WriteString(", NextGC: ")
+				builder.WriteString(strconv.FormatInt(goResp.NextGC, 10))
+				builder.WriteString(", NumGC: ")
+				builder.WriteString(strconv.FormatInt(goResp.NumGC, 10))
+				builder.WriteString("\n")
+
+				heapInfo := builder.String()
 				// fmt.Println(heapInfo)
 				logHeapInfo("go_heap_memory.log", heapInfo)
+
+				// heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
+				// fmt.Println(heapInfo)
+				// logHeapInfo("go_heap_memory.log", heapInfo)
 			}
 			// track heap stats in struct
 
-			GoContainerHeapTracker[containerName].currentHeapAlloc = goResp.HeapAlloc
-			GoContainerHeapTracker[containerName].currentHeapIdle = goResp.HeapIdle
+			// GoContainerHeapTracker[containerName].currentHeapAlloc = goResp.HeapAlloc
+			// GoContainerHeapTracker[containerName].currentHeapIdle = goResp.HeapIdle
 			GCThresh := float32(goResp.HeapAlloc) / float32(goResp.NextGC)
-			GoContainerHeapTracker[containerName].GCThreshold = GCThresh
+			// GoContainerHeapTracker[containerName].GCThreshold = GCThresh
 
 			// print the tracked stats
 			// fmt.Printf("Updated tracker from extractAndLogHeapInfo for %s \n", containerName)
 			// fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", goResp.HeapIdle, goResp.HeapAlloc, float32(goResp.HeapAlloc)/float32(goResp.NextGC))
 
 			// if target container is likely to undergo GC, schedule to alternate and force GC on target
-			if goResp.HeapIdle < int64(100000) {
+			if goResp.HeapIdle < int64(GoGCIdleHeapThreshold) {
 				fmt.Printf("targetContainer: %s\t", containerName)
-				fmt.Printf("HeapIdle < 100000 = %d\n", goResp.HeapIdle)
+				fmt.Printf("HeapIdle < %d = %d\n", GoGCIdleHeapThreshold, goResp.HeapIdle)
 				// Make sure to signal in process
 				mutexHandlingGCForGoContainers.Lock()
 				handlingGCForGoContainers = true
@@ -613,16 +696,45 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 	}
 }
 
+// logHeapInfo sends log information to the logChannel.
 func logHeapInfo(filename, info string) {
-	fullPath := "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/" + filename
-	file, err := os.OpenFile(fullPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	var builder strings.Builder
+	builder.WriteString("/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/")
+	builder.WriteString(filename)
+	builder.WriteString("+ ")
+	builder.WriteString(info)
+
+	// Send the constructed log entry to the channel
+	logChannel <- builder.String()
+}
+
+// writeLogToFile writes the log entry to the specified file.
+func writeLogToFile(logEntry string) {
+	// Extract filename and info from logEntry
+	parts := strings.SplitN(logEntry, "+ ", 2)
+	if len(parts) != 2 {
+		fmt.Println("Invalid log entry format")
+		return
+	}
+	filename, info := parts[0], parts[1]
+
+	// Open the file
+	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
 	}
 	defer file.Close()
 
-	if _, err := file.WriteString(info); err != nil {
+	// Write the info to the file
+	if _, err := file.WriteString(info + "\n"); err != nil {
 		fmt.Println("Error writing to file:", err)
+	}
+}
+
+// loggerRoutine handles writing log messages to files.
+func loggerRoutine() {
+	for logEntry := range logChannel {
+		writeLogToFile(logEntry)
 	}
 }

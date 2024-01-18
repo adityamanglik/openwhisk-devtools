@@ -34,12 +34,14 @@ def extract_and_aggregate_values(file_path):
 
     return median_values, p95_values, p99_values, p999_values, p9999_values
 
-def plot_values(values_dict, title, ylabel):
+def plot_values(values_dict, NOGC_values_dict, title):
     plt.figure(figsize=(10, 6))
     for user_count, latencies in sorted(values_dict.items()):
-        plt.plot(user_count, latencies, marker='o')
+        NOGC_latencies = NOGC_values_dict[user_count]
+        plt.plot(user_count, latencies, marker='o', color='r')
+        plt.plot(user_count, NOGC_latencies, marker='o', color='b')
     plt.xlabel("Number of Users")
-    plt.ylabel(ylabel)
+    plt.ylabel("Latency (ms)")
     plt.title(title)
     # plt.legend()
     plt.grid(True)
@@ -47,13 +49,15 @@ def plot_values(values_dict, title, ylabel):
     plt.savefig(f'./Graphs/LoadTesting/Go/' + title + '.pdf')
 
 # Replace 'your_file_path.csv' with the actual path of your CSV file
+file_path = './EM_locust_stats_history.csv'
 file_path = './locust_stats_history.csv'
 
 median_values, p95_values, p99_values, p999_values, p9999_values = extract_and_aggregate_values(file_path)
+NOGC_median_values, NOGC_p95_values, NOGC_p99_values, NOGC_p999_values, NOGC_p9999_values = extract_and_aggregate_values(NOGC_file_path)
 
 # Plotting the latencies
-plot_values(median_values, "Median", "Latency (ms)")
-plot_values(p95_values, "p95", "Latency (ms)")
-plot_values(p99_values, "p99", "Latency (ms)")
-plot_values(p999_values, "p999", "Latency (ms)")
-plot_values(p9999_values, "p9999", "Latency (ms)")
+plot_values(median_values, NOGC_median_values, "Median")
+plot_values(p95_values, NOGC_p95_values, "p95")
+plot_values(p99_values, NOGC_p99_values, "p99")
+plot_values(p999_values, NOGC_p999_values, "p999")
+plot_values(p9999_values, NOGC_p9999_values, "p9999")
