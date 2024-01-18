@@ -38,11 +38,11 @@ class ServerLoadTest(HttpUser):
                 response.failure(f"Unexpected status code: {response.status_code}")
 
 class CustomLoadShape(LoadTestShape):
-    time_limit = 2000  # Test duration in seconds
+    time_limit = 240  # Test duration in seconds
     spawn_rate = 200  # Users to spawn per second
-    initial_users = 20  # Starting number of users
+    initial_users = 10  # Starting number of users
     user_increment = 10  # Users to add every interval
-    interval = 200  # Interval (in seconds) to increase users
+    interval = 10  # Interval (in seconds) to increase users
 
     def tick(self):
         run_time = self.get_run_time()

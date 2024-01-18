@@ -43,7 +43,7 @@ def plot_values(values_dict, NOGC_values_dict, title):
     plt.xlabel("Number of Users")
     plt.ylabel("Latency (ms)")
     plt.title(title)
-    plt.legend()
+    # plt.legend()
     plt.grid(True)
     plt.tight_layout()
     plt.savefig(f'./Graphs/LoadTesting/Go/' + title + '.pdf')
