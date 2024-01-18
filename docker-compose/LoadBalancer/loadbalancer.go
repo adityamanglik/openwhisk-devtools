@@ -21,14 +21,14 @@ import (
 
 // SCHEDULING POLICY DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
-func newGoGCStructure() *GoGCStructure {
-	GoGC := GoGCStructure{}
-	GoGC.currentHeapIdle = 0
-	GoGC.currentHeapAlloc = 0
-	GoGC.HeapAllocThreshold = 0
-	GoGC.GCThreshold = 0.0
-	return &GoGC
-}
+// func newGoGCStructure() *GoGCStructure {
+// 	GoGC := GoGCStructure{}
+// 	GoGC.currentHeapIdle = 0
+// 	GoGC.currentHeapAlloc = 0
+// 	GoGC.HeapAllocThreshold = 0
+// 	GoGC.GCThreshold = 0.0
+// 	return &GoGC
+// }
 
 // 	maxGoHeapSize             = 6692864 // Max size of the heap
 // 	GoGCTriggerThreshold      = 0.60    // GC is triggered at 55% utilization
@@ -49,12 +49,12 @@ var handlingGCForGoContainers bool
 var GoGCTriggerThreshold float32
 var GoGCIdleHeapThreshold int64
 
-type GoGCStructure struct {
-	currentHeapIdle    int64
-	currentHeapAlloc   int64
-	HeapAllocThreshold int64
-	GCThreshold        float32
-}
+// type GoGCStructure struct {
+// 	currentHeapIdle    int64
+// 	currentHeapAlloc   int64
+// 	HeapAllocThreshold int64
+// 	GCThreshold        float32
+// }
 
 // Track heap across active go containers
 // var GoContainerHeapTracker = make(map[string]*GoGCStructure)
@@ -137,6 +137,13 @@ var aliveContainers = make(map[string]string)
 
 // Allocate dedicated CPU for container
 var currentCPUIndex int = 10 + rand.Intn(10)
+
+// Log file handler
+var (
+	requestCount int
+	countMutex   sync.Mutex
+	logBuffer    strings.Builder
+)
 
 // MAIN   //////////////////////////////////////////////////////////////////////
 func init() {
@@ -591,13 +598,23 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 		return
 	}
 	var heapInfo string
+	var builder strings.Builder
 	if strings.Contains(containerName, "java") {
 		var javaResp JavaResponse
 		if err := json.Unmarshal(bodyBytes, &javaResp); err != nil {
 			fmt.Println("Java JSON unmarshalling error:", err)
 		} else {
-			heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
+			builder.WriteString("HeapUsedMemory: ")
+			builder.WriteString(strconv.FormatInt(javaResp.HeapUsedMemory, 10))
+			builder.WriteString(", HeapCommittedMemory: ")
+			builder.WriteString(strconv.FormatInt(javaResp.HeapCommittedMemory, 10))
+			builder.WriteString(", HeapMaxMemory: ")
+			builder.WriteString(strconv.FormatInt(javaResp.HeapMaxMemory, 10))
+			heapInfo = builder.String()
 			logHeapInfo("java_heap_memory.log", heapInfo)
+
+			// heapInfo = fmt.Sprintf("HeapUsedMemory: %d, HeapCommittedMemory: %d, HeapMaxMemory: %d\n", javaResp.HeapUsedMemory, javaResp.HeapCommittedMemory, javaResp.HeapMaxMemory)
+			// logHeapInfo("java_heap_memory.log", heapInfo)
 		}
 	} else if strings.Contains(containerName, "go") {
 		var goResp GoResponse
@@ -607,9 +624,30 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 			fmt.Printf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, NextGC: %d, NumGC: %d RN:%d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.NextGC, goResp.NumGC, goResp.RequestNumber)
 			// Fake requests have invalid request number
 			if goResp.RequestNumber != math.MaxInt32 {
-				heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
+
+				builder.WriteString("Request: ")
+				builder.WriteString(strconv.FormatInt(goResp.RequestNumber, 10))
+				builder.WriteString(", Container: ")
+				builder.WriteString(containerName)
+				builder.WriteString(", HeapAlloc: ")
+				builder.WriteString(strconv.FormatInt(goResp.HeapAlloc, 10))
+				builder.WriteString(", HeapIdle: ")
+				builder.WriteString(strconv.FormatInt(goResp.HeapIdle, 10))
+				builder.WriteString(", HeapInuse: ")
+				builder.WriteString(strconv.FormatInt(goResp.HeapInuse, 10))
+				builder.WriteString(", NextGC: ")
+				builder.WriteString(strconv.FormatInt(goResp.NextGC, 10))
+				builder.WriteString(", NumGC: ")
+				builder.WriteString(strconv.FormatInt(goResp.NumGC, 10))
+				builder.WriteString("\n")
+
+				heapInfo := builder.String()
 				// fmt.Println(heapInfo)
 				logHeapInfo("go_heap_memory.log", heapInfo)
+
+				// heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
+				// fmt.Println(heapInfo)
+				// logHeapInfo("go_heap_memory.log", heapInfo)
 			}
 			// track heap stats in struct
 
@@ -655,7 +693,33 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 }
 
 func logHeapInfo(filename, info string) {
-	fullPath := "/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/" + filename
+	// Lock mutex for safe counter increment
+	countMutex.Lock()
+	defer countMutex.Unlock()
+
+	// Append the current info to the log buffer
+	logBuffer.WriteString(info)
+
+	// Increment request count
+	requestCount++
+
+	// Check if we have accumulated 100 requests
+	if requestCount >= 100 {
+		// Reset the counter
+		requestCount = 0
+
+		// Write the buffered log entries to the file
+		flushLogBuffer(filename)
+	}
+}
+
+func flushLogBuffer(filename string) {
+	var builder strings.Builder
+	builder.WriteString("/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/")
+	builder.WriteString(filename)
+
+	fullPath := builder.String()
+
 	file, err := os.OpenFile(fullPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
@@ -663,7 +727,11 @@ func logHeapInfo(filename, info string) {
 	}
 	defer file.Close()
 
-	if _, err := file.WriteString(info); err != nil {
+	// Write the entire buffer to the file
+	if _, err := file.WriteString(logBuffer.String()); err != nil {
 		fmt.Println("Error writing to file:", err)
 	}
+
+	// Clear the buffer
+	logBuffer.Reset()
 }
