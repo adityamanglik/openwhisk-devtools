@@ -10,10 +10,10 @@ class ServerLoadTest(HttpUser):
 
     def on_start(self):
         # Read API from the environment variable
-        self.API = os.getenv("API_URL")
-        if not self.API:
-            print("No API URL provided in environment. Skipping requests.")
-            return  # Stop executing if no API URL is set
+        self.API = "http://128.110.96.59:8180/go"
+        # if not self.API:
+            # print("No API URL provided in environment. Skipping requests.")
+            # return  # Stop executing if no API URL is set
         self.execution_times_file = open("execution_times.txt", "a")  # File to save execution times
     
     def on_stop(self):
@@ -21,12 +21,13 @@ class ServerLoadTest(HttpUser):
 
     @task
     def send_request(self):
-        if not self.API:
-            print("API URL not set. Skipping task.")
-            return
-
+        # if not self.API:
+            # print("API URL not set. Skipping task.")
+            # return
+        arraysize = 100000
+        requestnumber = random.randint(0, 10000)
         random_seed = random.randint(0, 10000)
-        request_url = self.API + "/java?seed=" + str(random_seed)
+        request_url = self.API + "?seed=" + str(random_seed) + "&arraysize=" + str(arraysize) + "&requestnumber=" + str(requestnumber)
 
         with self.client.get(request_url, catch_response=True) as response:
             if response.status_code == 200:

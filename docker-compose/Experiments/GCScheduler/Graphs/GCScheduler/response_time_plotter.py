@@ -73,10 +73,10 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
             # print("HeapAlloc")
             # print(memory_log[idx][0], memory_log[idx - 1][0])
             GC_iterations.append(idx)
-        elif memory_log[idx][1] > memory_log[idx - 1][1]:
+        # elif memory_log[idx][1] > memory_log[idx - 1][1]:
             # print("HeapIdle")
             # print(memory_log[idx][1], memory_log[idx - 1][1])
-            GC_iterations.append(idx)
+            # GC_iterations.append(idx)
         idx += 1
     # Mark GC cycle iterations with green vertical lines
     for iter in GC_iterations:
