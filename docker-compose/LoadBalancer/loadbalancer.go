@@ -235,7 +235,10 @@ func init() {
 		time.Sleep(5 * time.Second)
 	}
 	// Initialize the log channel with a buffer size of 100
-	logChannel = make(chan string, 100)
+	logChannel = make(chan string, 110)
+
+	// Start the logger goroutine
+	go loggerRoutine()
 }
 
 func main() {
