@@ -8,6 +8,8 @@ def parse_memory_log(memory_file):
     second_container = []
     for idx, line in enumerate(memory_file):
         l2 = line.strip()
+        if l2 == "":
+            continue
         parts = l2.split(", ")
         if '9501' in parts[1]:
             second_container.append(idx)

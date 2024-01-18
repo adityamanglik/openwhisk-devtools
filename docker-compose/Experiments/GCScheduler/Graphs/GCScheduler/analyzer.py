@@ -6,6 +6,8 @@ def parse_memory_log(memory_file):
     ret_val = []
     for line in memory_file:
         l2 = line.strip()
+        if l2 == "":
+            continue
         parts = l2.split(", ")
         parts = parts[3]
         ret_val.append(int(parts.split(": ")[1]))

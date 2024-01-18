@@ -8,7 +8,10 @@ def read_data(file_path):
 
     with open(file_path, 'r') as file:
         for line in file:
-            parts = line.strip().split(", ")
+            parts = line.strip()
+            if parts == "":
+                continue # Skip empty lines
+            parts = parts.split(", ")
             if '9501' in parts[1]:
                 continue
             alloc = int(parts[2].split(": ")[1])
