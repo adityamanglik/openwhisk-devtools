@@ -80,6 +80,7 @@ for size in "${sizes[@]}"; do
     python ./Graphs/GCScheduler/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/$size/client_time.txt"
     # echo "$size" >> analyzer3.log
 done
+python ./Graphs/GCScheduler/gc_impact_plotter.py
 # echo "" >> "/users/am_CU/openwhis-devtools/docker-compose/Experiments/GCScheduler/Graphs/GCScheduler/Go/latencies.csv"
 # echo "" >> analyzer3.log
 # CSV post processing
