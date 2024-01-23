@@ -154,7 +154,7 @@ func init() {
 	GoGCTriggerThreshold = 0.935
 	GoGCIdleHeapThreshold = 100000
 
-	fakeRequestArraySize = 100
+	fakeRequestArraySize = 100000
 
 	// If GCMitigation Policy, start and warm the containers
 	if currentSchedulingPolicy == GCMitigation {
