@@ -146,7 +146,7 @@ func checkServerAlive(apiURL string) {
 			resp.Body.Close()
 			fmt.Println("Response: ", string(responseBody))
 			// Break out of the loop if a correct response is received
-			// break
+			break
 		} else {
 			resp.Body.Close()
 		}
