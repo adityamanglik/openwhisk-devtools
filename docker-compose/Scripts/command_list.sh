@@ -23,6 +23,11 @@ curl http://128.110.96.176:9876/jsonresponse?seed=654
 docker stop my-java-server
 docker rm my-java-server
 
+# Server load testing
+ab -e ab.csv -n 10000 -c 1 "http://128.110.96.59:9875/GoNative?seed=1000&arraysize=100000&requestnumber=5"
+# -n = Number fo requests
+# -c = Number of clients
+# Cannot change the parameters in the URL
 
 # Ensure your Go and Java server images are built and available.
 # Run this load balancer Go program.
