@@ -18,9 +18,9 @@ import (
 
 // Constants for API endpoints and file names
 const (
-	iterations            = 500
+	iterations            = 1000
 	javaAPI               = "http://128.110.96.59:8180/java"
-	goAPI                 = "http://128.110.96.59:8180/go"
+	goAPI                 = "http://128.110.96.59:9875/GoNative"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -56,7 +56,7 @@ func main() {
 	writeTimesToFile(goServerTimesFile, goServerTimes)
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
 	// calculateAndPrintStats(goServerTimes, "Go Server Times")
-	filePath := fmt.Sprintf("./Graphs/ nowGo/%d/latencies.csv", arraysize)
+	filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
 	err := latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
 	if err != nil {
 		fmt.Println("Error writing to CSV:", err)
@@ -128,7 +128,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 
 func checkServerAlive(apiURL string) {
 	fmt.Println("Checking server for heartbeat.")
-	for i := 0; i < iterations; i++ {
+	for i := 0; i < iterations/10; i++ {
 		seed := rand.Intn(10000)      // Random seed generation
 		arraysize := rand.Intn(10000) // Random seed generation
 		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
@@ -146,7 +146,7 @@ func checkServerAlive(apiURL string) {
 			resp.Body.Close()
 			fmt.Println("Response: ", string(responseBody))
 			// Break out of the loop if a correct response is received
-			break
+			// break
 		} else {
 			resp.Body.Close()
 		}
