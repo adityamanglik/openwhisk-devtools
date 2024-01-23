@@ -20,7 +20,7 @@ import (
 const (
 	iterations            = 1000
 	javaAPI               = "http://128.110.96.59:8180/java"
-	goAPI                 = "http://128.110.96.59:9875/GoNative"
+	goAPI                 = "http://128.110.96.59:8180/go"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
