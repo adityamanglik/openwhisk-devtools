@@ -15,13 +15,13 @@ send_requests() {
     ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/../Native/Go/; docker build -t go-server-image ."
 
     # Change fakerequestarraysize
-    ssh $OW_SERVER_NODE "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go"
+    ssh $OW_SERVER_NODE "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go"
 
     # # Restart docker for good measure
     # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
 
     # Restart the load balancer
-    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
+    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
     sleep 5
     
     # Start sending requests
@@ -39,7 +39,7 @@ send_requests() {
 
 }
 
-sizes=(1000000)
+sizes=(100000)
 # sizes=(1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000)
 
 # Loop through each size
