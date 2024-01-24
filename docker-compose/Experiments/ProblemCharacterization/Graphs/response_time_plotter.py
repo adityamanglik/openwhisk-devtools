@@ -52,7 +52,7 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
     _, med, _, _, _, stdd = calculate_statistics(client_times)
     # Plot client times on the primary y-axis
     ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times')
-    ax1.set_xlabel('Time (microseconds)')
+    ax1.set_xlabel('Request Number')
     ax1.set_ylabel('Client Time', color='r')
     ax1.set_ylim([med - 5*stdd, med + 5*stdd])
     
