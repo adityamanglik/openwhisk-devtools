@@ -24,7 +24,8 @@ docker stop my-java-server
 docker rm my-java-server
 
 # Server load testing
-ab -e ab.csv -n 10000 -c 1 "http://128.110.96.59:9875/GoNative?seed=1000&arraysize=100000&requestnumber=5"
+ab -e ab.csv -n 10000 -c 1 "http://node0:9875/GoNative?seed=1000&arraysize=100000&requestnumber=5"
+ab -e ab.csv -n 10000 -c 1 "http://node0:8180/go?seed=1000&arraysize=100000&requestnumber=5"
 # -n = Number fo requests
 # -c = Number of clients
 # Cannot change the parameters in the URL
