@@ -117,7 +117,7 @@ const (
 	javaServerImage  = "java-server-image"
 	goServerImage    = "go-server-image"
 	waitTimeout      = 10 * time.Second
-	serverIP         = "http://128.110.96.59:"
+	serverIP         = "http://128.110.96.87:"
 )
 
 // OPERATION DATA STRUCTURES//////////////////////////////////////////////////////////////////////
