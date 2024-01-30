@@ -1,8 +1,8 @@
 # Constants and Variables
 OW_SERVER_NODE="am_CU@node0"
-JAVA_API="http://128.110.96.87:8180/java"
-GO_API="http://128.110.96.87:8180/go"
-KILL_SERVER_API="http://128.110.96.87:8180/exitCall"
+JAVA_API="http://node0:8180/java"
+GO_API="http://node0:8180/go"
+KILL_SERVER_API="http://node0:8180/exitCall"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose/Experiments"
 JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
