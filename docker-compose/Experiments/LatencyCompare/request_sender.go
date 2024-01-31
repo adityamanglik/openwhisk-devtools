@@ -117,7 +117,7 @@ func sendRequests(EMURL string, NOGCURL string, arraysize int) ([]int64, []int64
 		resp.Body.Close()
 		endTime = time.Now()
 		elapsed = endTime.Sub(startTime)
-		EMTimes = append(NOGCTimes, elapsed.Microseconds())
+		NOGCTimes = append(NOGCTimes, elapsed.Microseconds())
 
 
 	}

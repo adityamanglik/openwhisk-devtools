@@ -41,8 +41,9 @@ def calculate_statistics(times):
  
     return average, median, p90, p99, summed, stdd
 
-def plot_latency(client_times, server_times, memory_log, NOGC_client_times, NOGC_server_times, NOGC_memory_log, output_image_file):
-    # client_times = client_times[:5000]
+def plot_latency(client_times, NOGC_client_times, output_image_file):
+    client_times = client_times[2000:2500]
+    NOGC_client_times = NOGC_client_times[2000:2500]
     # server_times = server_times[:5000]
     # memory_log = memory_log[:5000]
     
@@ -50,47 +51,58 @@ def plot_latency(client_times, server_times, memory_log, NOGC_client_times, NOGC
     # Plotting
     fig, ax1 = plt.subplots(figsize=(10, 6))
     _, med, _, _, _, stdd = calculate_statistics(client_times)
+    stats_text = f'EM Median: {med:.2f} Std: {stdd:.2f}\n'
+    print(med, stdd)
+    _, med, _, _, _, stdd = calculate_statistics(NOGC_client_times)
+    stats_text += f'NOGC Median: {med:.2f} Std: {stdd:.2f}'
+    print(med, stdd)
     # Plot client times on the primary y-axis
-    ax1.plot(client_times, color='r', alpha=0.9, label='EM Response Times')
-    ax1.plot(NOGC_client_times, color='b', alpha=0.9, label='NOGC Response Times')
+    
+    ax1.plot(NOGC_client_times, color='b', alpha=0.6, label='NOGC Response Times')
+    ax1.plot(client_times, color='r', alpha=0.95, label='EM Response Times')
     ax1.set_xlabel('Request Number')
     ax1.set_ylabel('Client Time', color='r')
-    ax1.set_ylim([med - 5*stdd, med + 5*stdd])
+    # ax1.set_ylim([med - 5*stdd, med + 5*stdd])
     
     # Plot med + std on y axis
-    median = np.median(client_times)
-    stdd = np.std(client_times)
-    ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
-    ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
+    # median = np.median(client_times)
+    # stdd = np.std(client_times)
+    # ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
+    # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
 
     # Create a secondary y-axis for server times
     # ax2 = ax1.twinx()
     # ax2.plot(server_times, color='b', alpha=0.7, label='Server Execution Times')
     # ax2.set_ylabel('Server Time', color='b')
         
-    GC_iterations = []
-    for idx in range(1, len(memory_log)):
-        # heapalloc, heapidle
-        # mark iterations with HeapIdle increase or HeapAlloc decrease as GC calls
-        if memory_log[idx][0] < memory_log[idx - 1][0]:
-            # print("HeapAlloc")
-            # print(memory_log[idx][0], memory_log[idx - 1][0])
-            GC_iterations.append(idx)
-        # elif memory_log[idx][1] > memory_log[idx - 1][1]:
-            # print("HeapIdle")
-            # print(memory_log[idx][1], memory_log[idx - 1][1])
-            # GC_iterations.append(idx)
-        idx += 1
-    # Mark GC cycle iterations with green vertical lines
-    for iter in GC_iterations:
-        ax1.axvline(x=iter, c = 'green', alpha = 0.27, linestyle = '--')
+    # GC_iterations = []
+    # for idx in range(1, len(memory_log)):
+    #     # heapalloc, heapidle
+    #     # mark iterations with HeapIdle increase or HeapAlloc decrease as GC calls
+    #     if memory_log[idx][0] < memory_log[idx - 1][0]:
+    #         # print("HeapAlloc")
+    #         # print(memory_log[idx][0], memory_log[idx - 1][0])
+    #         GC_iterations.append(idx)
+    #     # elif memory_log[idx][1] > memory_log[idx - 1][1]:
+    #         # print("HeapIdle")
+    #         # print(memory_log[idx][1], memory_log[idx - 1][1])
+    #         # GC_iterations.append(idx)
+    #     idx += 1
+    # # Mark GC cycle iterations with green vertical lines
+    # for iter in GC_iterations:
+    #     ax1.axvline(x=iter, c = 'green', alpha = 0.27, linestyle = '--')
         
-    # Plot second container calls
-    # if second_container != []:
-    #     for req in second_container:
-    #         ax1.scatter(x=req, y = 3500, c = 'blue', alpha = 0.27, marker = '*')
+    # # Plot second container calls
+    # # if second_container != []:
+    # #     for req in second_container:
+    # #         ax1.scatter(x=req, y = 3500, c = 'blue', alpha = 0.27, marker = '*')
+    
+    # Add median and stdd in text box
+    props = dict(boxstyle='round', facecolor='yellow', alpha=0.5)
+    ax1.text(0.65, 0.92, stats_text, transform=ax1.transAxes, fontsize=10,
+             verticalalignment='top', bbox=props)
         
-    # Add titles and legends
+    # # Add titles and legends
     plt.title('Response Times')
     ax1.legend(loc='upper left')
     # ax2.legend(loc='upper right')    
@@ -157,29 +169,18 @@ if __name__ == "__main__":
     # if len(sys.argv) != 6:
     #     print("Usage: python script.py <client_time_file> <server_time_file> <memory_file> <dist_image_file> <latency_image_file>")
     #     sys.exit(1)
-    with open(sys.argv[1], 'r') as f:
+    with open("../EM.txt", 'r') as f:
         client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
     # print(client_times[:10])
-    with open(sys.argv[2], 'r') as f:
-        server_times = [float(line.strip().split(',')[1]) for line in f.readlines()]
-        
-    with open(sys.argv[3], 'r') as f:
+    with open("../NOGC.txt", 'r') as f:
         NOGC_client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
-    # print(client_times[:10])
-    with open(sys.argv[4], 'r') as f:
-        NOGC_server_times = [float(line.strip().split(',')[1]) for line in f.readlines()]
-    # print(server_times[:10])
-    with open(sys.argv[5], 'r') as f:
-        memory_log, second_container = parse_memory_log(f)
-    with open(sys.argv[6], 'r') as f:
-        NOGC_memory_log, NOGC_second_container = parse_memory_log(f)
         
     # Discard first 100 values as they are unstable
-    client_times = client_times[100:]
-    server_times = server_times[100:]
-    NOGC_client_times = NOGC_client_times[100:]
-    NOGC_server_times = NOGC_server_times[100:]
+    # client_times = client_times[100:]
+    # server_times = server_times[100:]
+    # NOGC_client_times = NOGC_client_times[100:]
+    # NOGC_server_times = NOGC_server_times[100:]
     # print(memory_log[:10])
     # print(second_container)
     # plot_histograms(client_times, server_times, sys.argv[4])
-    plot_latency(client_times, server_times, memory_log, NOGC_client_times, NOGC_server_times, NOGC_memory_log, sys.argv[7])
+    plot_latency(client_times, NOGC_client_times, "../EM_NOGC.pdf")
