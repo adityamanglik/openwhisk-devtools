@@ -3,7 +3,6 @@ package main
 // Import the required packages
 import (
 	"encoding/csv"
-	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"math/rand"
@@ -18,9 +17,10 @@ import (
 
 // Constants for API endpoints and file names
 const (
-	iterations            = 1000
+	iterations            = 10000
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:8180/go"
+	goAPI                 = "http://node0:8180/go" // EM
+	goAPI2                 = "http://node1:8180/go" // NOGC
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -34,7 +34,7 @@ type APIResponse struct {
 
 func main() {
 	// Set a default value for arraysize
-	defaultArraySize := 10000
+	defaultArraySize := 100000
 	arraysize := defaultArraySize
 
 	// Check if a command line argument is provided
@@ -48,19 +48,20 @@ func main() {
 	}
 	fmt.Printf("Arraysize: %d\n", arraysize)
 	// ensure server is alive
-	checkServerAlive(goAPI)
+	// checkServerAlive(goAPI)
+	// checkServerAlive(goAPI2)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
-	goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
+	goResponseTimes, goResponseTimes2 := sendRequests(goAPI, goAPI2, arraysize)
 
-	writeTimesToFile(goResponseTimesFile, goResponseTimes)
-	writeTimesToFile(goServerTimesFile, goServerTimes)
+	writeTimesToFile("EM.txt", goResponseTimes)
+	writeTimesToFile("NOGC.txt", goResponseTimes2)
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
 	// calculateAndPrintStats(goServerTimes, "Go Server Times")
-	filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
-	err := latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
-	if err != nil {
-		fmt.Println("Error writing to CSV:", err)
-	}
+	// filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
+	// err := latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
+	// if err != nil {
+		// fmt.Println("Error writing to CSV:", err)
+	// }
 
 	// // ensure server is alive
 	// checkServerAlive(javaAPI)
@@ -79,51 +80,49 @@ func main() {
 	// }
 }
 
-func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
-	var responseTimes []int64
-	var serverTimes []int64
+func sendRequests(EMURL string, NOGCURL string, arraysize int) ([]int64, []int64) {
+	var EMTimes []int64
+	var NOGCTimes []int64
 
 	for i := 0; i < iterations; i++ {
 		// fmt.Printf("Sent request: %d\n", i)
 		seed := rand.Intn(10000) // Example seed generation
-		requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
+
+		// Send request to EM
+		requestURL1 := fmt.Sprintf("%s?seed=%d", EMURL, seed)
 		requestURL2 := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
 		requestURL := fmt.Sprintf("%s&requestnumber=%d", requestURL2, i)
-
+		
 		startTime := time.Now()
 		resp, err := http.Get(requestURL)
 		if err != nil {
 			fmt.Println("Error sending request:", err)
 			continue
 		}
-		defer resp.Body.Close()
-
-		if resp.StatusCode != http.StatusOK {
-			fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
-		}
-
-		// Read and unmarshal the response body
-		responseBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			fmt.Println("Error reading response body:", err)
-			continue
-		}
-
-		var apiResp APIResponse
-		if err := json.Unmarshal(responseBody, &apiResp); err != nil {
-			fmt.Println("Error unmarshalling response:", err)
-			fmt.Println("Response body:", string(responseBody))
-			continue
-		}
-
+		resp.Body.Close()
 		endTime := time.Now()
 		elapsed := endTime.Sub(startTime)
+		EMTimes = append(EMTimes, elapsed.Microseconds())
 
-		responseTimes = append(responseTimes, elapsed.Microseconds())
-		serverTimes = append(serverTimes, apiResp.ExecutionTime)
+		// Send SAME request to NOGC
+		requestURL1 = fmt.Sprintf("%s?seed=%d", NOGCURL, seed)
+		requestURL2 = fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
+		requestURL = fmt.Sprintf("%s&requestnumber=%d", requestURL2, i)
+		startTime = time.Now()
+		resp, err = http.Get(requestURL)
+		if err != nil {
+			fmt.Println("Error sending request:", err)
+			continue
+		}
+		resp.Body.Close()
+		endTime = time.Now()
+		elapsed = endTime.Sub(startTime)
+		EMTimes = append(NOGCTimes, elapsed.Microseconds())
+
+
 	}
 
-	return responseTimes, serverTimes
+	return EMTimes, NOGCTimes
 }
 
 func checkServerAlive(apiURL string) {
