@@ -1,0 +1,1785 @@
+All docker containers stopped successfully.
+Waiting for container:  http://128.110.96.59:9500/GoNative
+Waiting for container:  http://128.110.96.59:9500/GoNative
+Container started: go-server-image-9500
+Waiting for container:  http://128.110.96.59:9501/GoNative
+Container started: go-server-image-9501
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 2539472, HeapIdle: 38576128, NextGC: 41943040, NumGC: 40 RN:2147483647
+Sending fake request to tip over the container go-server-image-9501
+Request: 2147483647, Container: go-server-image-9501, HeapAlloc: 2541632, HeapIdle: 38543360, NextGC: 41943040, NumGC: 40 RN:2147483647
+Load Balancer is running on port :8180
+GRequest: 1, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 2595784, HeapIdle: 38526976, NextGC: 41943040, NumGC: 40 RN:2147483647
+GRequest: 2, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 0, Container: go-server-image-9500, HeapAlloc: 3403776, HeapIdle: 37715968, NextGC: 41943040, NumGC: 40 RN:0
+GRequest: 3, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 1, Container: go-server-image-9500, HeapAlloc: 4211768, HeapIdle: 36904960, NextGC: 41943040, NumGC: 40 RN:1
+GRequest: 4, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2, Container: go-server-image-9500, HeapAlloc: 5019760, HeapIdle: 36102144, NextGC: 41943040, NumGC: 40 RN:2
+GRequest: 5, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 3, Container: go-server-image-9500, HeapAlloc: 5827736, HeapIdle: 35299328, NextGC: 41943040, NumGC: 40 RN:3
+GRequest: 6, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 4, Container: go-server-image-9500, HeapAlloc: 6635728, HeapIdle: 34496512, NextGC: 41943040, NumGC: 40 RN:4
+GRequest: 7, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 5, Container: go-server-image-9500, HeapAlloc: 7443720, HeapIdle: 33693696, NextGC: 41943040, NumGC: 40 RN:5
+GRequest: 8, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 6, Container: go-server-image-9500, HeapAlloc: 8251712, HeapIdle: 32890880, NextGC: 41943040, NumGC: 40 RN:6
+GRequest: 9, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 7, Container: go-server-image-9500, HeapAlloc: 9059704, HeapIdle: 32079872, NextGC: 41943040, NumGC: 40 RN:7
+GRequest: 10, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 8, Container: go-server-image-9500, HeapAlloc: 9867696, HeapIdle: 31277056, NextGC: 41943040, NumGC: 40 RN:8
+GRequest: 11, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 9, Container: go-server-image-9500, HeapAlloc: 10675688, HeapIdle: 30474240, NextGC: 41943040, NumGC: 40 RN:9
+GRequest: 12, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 10, Container: go-server-image-9500, HeapAlloc: 11483680, HeapIdle: 29671424, NextGC: 41943040, NumGC: 40 RN:10
+GRequest: 13, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 11, Container: go-server-image-9500, HeapAlloc: 12291960, HeapIdle: 28868608, NextGC: 41943040, NumGC: 40 RN:11
+GRequest: 14, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 12, Container: go-server-image-9500, HeapAlloc: 13099952, HeapIdle: 28065792, NextGC: 41943040, NumGC: 40 RN:12
+GRequest: 15, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 13, Container: go-server-image-9500, HeapAlloc: 13907944, HeapIdle: 27254784, NextGC: 41943040, NumGC: 40 RN:13
+GRequest: 16, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 14, Container: go-server-image-9500, HeapAlloc: 14715936, HeapIdle: 26451968, NextGC: 41943040, NumGC: 40 RN:14
+GRequest: 17, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 15, Container: go-server-image-9500, HeapAlloc: 15523928, HeapIdle: 25649152, NextGC: 41943040, NumGC: 40 RN:15
+GRequest: 18, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 16, Container: go-server-image-9500, HeapAlloc: 16331920, HeapIdle: 24838144, NextGC: 41943040, NumGC: 40 RN:16
+GRequest: 19, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 17, Container: go-server-image-9500, HeapAlloc: 17139912, HeapIdle: 24035328, NextGC: 41943040, NumGC: 40 RN:17
+GRequest: 20, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 18, Container: go-server-image-9500, HeapAlloc: 17947904, HeapIdle: 23224320, NextGC: 41943040, NumGC: 40 RN:18
+GRequest: 21, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 19, Container: go-server-image-9500, HeapAlloc: 18755896, HeapIdle: 22421504, NextGC: 41943040, NumGC: 40 RN:19
+GRequest: 22, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 20, Container: go-server-image-9500, HeapAlloc: 19563888, HeapIdle: 21618688, NextGC: 41943040, NumGC: 40 RN:20
+GRequest: 23, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 21, Container: go-server-image-9500, HeapAlloc: 20371880, HeapIdle: 20815872, NextGC: 41943040, NumGC: 40 RN:21
+GRequest: 24, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 22, Container: go-server-image-9500, HeapAlloc: 21179872, HeapIdle: 20004864, NextGC: 41943040, NumGC: 40 RN:22
+GRequest: 25, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 23, Container: go-server-image-9500, HeapAlloc: 21987864, HeapIdle: 19185664, NextGC: 41943040, NumGC: 40 RN:23
+GRequest: 26, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 24, Container: go-server-image-9500, HeapAlloc: 22795856, HeapIdle: 18374656, NextGC: 41943040, NumGC: 40 RN:24
+GRequest: 27, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 25, Container: go-server-image-9500, HeapAlloc: 23603848, HeapIdle: 17571840, NextGC: 41943040, NumGC: 40 RN:25
+GRequest: 28, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 26, Container: go-server-image-9500, HeapAlloc: 24411840, HeapIdle: 16769024, NextGC: 41943040, NumGC: 40 RN:26
+GRequest: 29, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 27, Container: go-server-image-9500, HeapAlloc: 25219832, HeapIdle: 15958016, NextGC: 41943040, NumGC: 40 RN:27
+GRequest: 30, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 28, Container: go-server-image-9500, HeapAlloc: 26027824, HeapIdle: 15147008, NextGC: 41943040, NumGC: 40 RN:28
+GRequest: 31, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 29, Container: go-server-image-9500, HeapAlloc: 26835816, HeapIdle: 14344192, NextGC: 41943040, NumGC: 40 RN:29
+GRequest: 32, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 30, Container: go-server-image-9500, HeapAlloc: 27643808, HeapIdle: 13533184, NextGC: 41943040, NumGC: 40 RN:30
+GRequest: 33, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 31, Container: go-server-image-9500, HeapAlloc: 28451800, HeapIdle: 12722176, NextGC: 41943040, NumGC: 40 RN:31
+GRequest: 34, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 32, Container: go-server-image-9500, HeapAlloc: 29259792, HeapIdle: 11919360, NextGC: 41943040, NumGC: 40 RN:32
+GRequest: 35, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 33, Container: go-server-image-9500, HeapAlloc: 30067784, HeapIdle: 11116544, NextGC: 41943040, NumGC: 40 RN:33
+GRequest: 36, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 34, Container: go-server-image-9500, HeapAlloc: 30875776, HeapIdle: 10313728, NextGC: 41943040, NumGC: 40 RN:34
+GRequest: 37, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 35, Container: go-server-image-9500, HeapAlloc: 31683768, HeapIdle: 9510912, NextGC: 41943040, NumGC: 40 RN:35
+GRequest: 38, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 36, Container: go-server-image-9500, HeapAlloc: 32491760, HeapIdle: 8699904, NextGC: 41943040, NumGC: 40 RN:36
+GRequest: 39, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 37, Container: go-server-image-9500, HeapAlloc: 33299752, HeapIdle: 7888896, NextGC: 41943040, NumGC: 40 RN:37
+GRequest: 40, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 38, Container: go-server-image-9500, HeapAlloc: 34107744, HeapIdle: 7069696, NextGC: 41943040, NumGC: 40 RN:38
+GRequest: 41, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 39, Container: go-server-image-9500, HeapAlloc: 34915736, HeapIdle: 6258688, NextGC: 41943040, NumGC: 40 RN:39
+GRequest: 42, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 40, Container: go-server-image-9500, HeapAlloc: 35723728, HeapIdle: 5455872, NextGC: 41943040, NumGC: 40 RN:40
+GRequest: 43, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 41, Container: go-server-image-9500, HeapAlloc: 36531720, HeapIdle: 4644864, NextGC: 41943040, NumGC: 40 RN:41
+GRequest: 44, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 42, Container: go-server-image-9500, HeapAlloc: 37339712, HeapIdle: 3842048, NextGC: 41943040, NumGC: 40 RN:42
+GRequest: 45, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 43, Container: go-server-image-9500, HeapAlloc: 38147704, HeapIdle: 3039232, NextGC: 41943040, NumGC: 40 RN:43
+GRequest: 46, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 44, Container: go-server-image-9500, HeapAlloc: 38955696, HeapIdle: 2236416, NextGC: 41943040, NumGC: 40 RN:44
+GRequest: 47, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 45, Container: go-server-image-9500, HeapAlloc: 39763672, HeapIdle: 1433600, NextGC: 41943040, NumGC: 40 RN:45
+GCThreshold >= GoGCTriggerThreshold 0.948040
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 48, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40571648, HeapIdle: 4792320, NextGC: 41943040, NumGC: 40 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.967303
+Sending fake request to tip over the container go-server-image-9500
+Request: 46, Container: go-server-image-9501, HeapAlloc: 3359848, HeapIdle: 37732352, NextGC: 41943040, NumGC: 40 RN:46
+GRequest: 49, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 929120, HeapIdle: 44318720, NextGC: 41943040, NumGC: 41 RN:2147483647
+Request: 47, Container: go-server-image-9500, HeapAlloc: 1737128, HeapIdle: 43548672, NextGC: 41943040, NumGC: 41 RN:47
+GRequest: 50, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 48, Container: go-server-image-9500, HeapAlloc: 2545120, HeapIdle: 42737664, NextGC: 41943040, NumGC: 41 RN:48
+GRequest: 51, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 49, Container: go-server-image-9500, HeapAlloc: 3353112, HeapIdle: 41934848, NextGC: 41943040, NumGC: 41 RN:49
+GRequest: 52, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 50, Container: go-server-image-9500, HeapAlloc: 4161392, HeapIdle: 41132032, NextGC: 41943040, NumGC: 41 RN:50
+GRequest: 53, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 51, Container: go-server-image-9500, HeapAlloc: 4969384, HeapIdle: 40321024, NextGC: 41943040, NumGC: 41 RN:51
+GRequest: 54, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 52, Container: go-server-image-9500, HeapAlloc: 5777376, HeapIdle: 39518208, NextGC: 41943040, NumGC: 41 RN:52
+GRequest: 55, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 53, Container: go-server-image-9500, HeapAlloc: 6585368, HeapIdle: 38715392, NextGC: 41943040, NumGC: 41 RN:53
+GRequest: 56, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 54, Container: go-server-image-9500, HeapAlloc: 7393360, HeapIdle: 37912576, NextGC: 41943040, NumGC: 41 RN:54
+GRequest: 57, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 55, Container: go-server-image-9500, HeapAlloc: 8201640, HeapIdle: 37109760, NextGC: 41943040, NumGC: 41 RN:55
+GRequest: 58, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 56, Container: go-server-image-9500, HeapAlloc: 9009632, HeapIdle: 36306944, NextGC: 41943040, NumGC: 41 RN:56
+GRequest: 59, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 57, Container: go-server-image-9500, HeapAlloc: 9817624, HeapIdle: 35495936, NextGC: 41943040, NumGC: 41 RN:57
+GRequest: 60, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 58, Container: go-server-image-9500, HeapAlloc: 10625616, HeapIdle: 34693120, NextGC: 41943040, NumGC: 41 RN:58
+GRequest: 61, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 59, Container: go-server-image-9500, HeapAlloc: 11433608, HeapIdle: 33890304, NextGC: 41943040, NumGC: 41 RN:59
+GRequest: 62, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 60, Container: go-server-image-9500, HeapAlloc: 12241600, HeapIdle: 33087488, NextGC: 41943040, NumGC: 41 RN:60
+GRequest: 63, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 61, Container: go-server-image-9500, HeapAlloc: 13049592, HeapIdle: 32284672, NextGC: 41943040, NumGC: 41 RN:61
+GRequest: 64, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 62, Container: go-server-image-9500, HeapAlloc: 13857584, HeapIdle: 31481856, NextGC: 41943040, NumGC: 41 RN:62
+GRequest: 65, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 63, Container: go-server-image-9500, HeapAlloc: 14665576, HeapIdle: 30670848, NextGC: 41943040, NumGC: 41 RN:63
+GRequest: 66, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 64, Container: go-server-image-9500, HeapAlloc: 15473568, HeapIdle: 29868032, NextGC: 41943040, NumGC: 41 RN:64
+GRequest: 67, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 65, Container: go-server-image-9500, HeapAlloc: 16281560, HeapIdle: 29065216, NextGC: 41943040, NumGC: 41 RN:65
+GRequest: 68, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 66, Container: go-server-image-9500, HeapAlloc: 17089552, HeapIdle: 28254208, NextGC: 41943040, NumGC: 41 RN:66
+GRequest: 69, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 67, Container: go-server-image-9500, HeapAlloc: 17897544, HeapIdle: 27451392, NextGC: 41943040, NumGC: 41 RN:67
+GRequest: 70, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 68, Container: go-server-image-9500, HeapAlloc: 18705536, HeapIdle: 26640384, NextGC: 41943040, NumGC: 41 RN:68
+GRequest: 71, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 69, Container: go-server-image-9500, HeapAlloc: 19513816, HeapIdle: 25837568, NextGC: 41943040, NumGC: 41 RN:69
+GRequest: 72, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 70, Container: go-server-image-9500, HeapAlloc: 20321808, HeapIdle: 25034752, NextGC: 41943040, NumGC: 41 RN:70
+GRequest: 73, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 71, Container: go-server-image-9500, HeapAlloc: 21129800, HeapIdle: 24231936, NextGC: 41943040, NumGC: 41 RN:71
+GRequest: 74, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 72, Container: go-server-image-9500, HeapAlloc: 21937792, HeapIdle: 23429120, NextGC: 41943040, NumGC: 41 RN:72
+GRequest: 75, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 73, Container: go-server-image-9500, HeapAlloc: 22745784, HeapIdle: 22618112, NextGC: 41943040, NumGC: 41 RN:73
+GRequest: 76, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 74, Container: go-server-image-9500, HeapAlloc: 23553776, HeapIdle: 21807104, NextGC: 41943040, NumGC: 41 RN:74
+GRequest: 77, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 75, Container: go-server-image-9500, HeapAlloc: 24361768, HeapIdle: 21004288, NextGC: 41943040, NumGC: 41 RN:75
+GRequest: 78, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 76, Container: go-server-image-9500, HeapAlloc: 25169760, HeapIdle: 20201472, NextGC: 41943040, NumGC: 41 RN:76
+GRequest: 79, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 77, Container: go-server-image-9500, HeapAlloc: 25977752, HeapIdle: 19390464, NextGC: 41943040, NumGC: 41 RN:77
+GRequest: 80, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 78, Container: go-server-image-9500, HeapAlloc: 26785744, HeapIdle: 18587648, NextGC: 41943040, NumGC: 41 RN:78
+GRequest: 81, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 79, Container: go-server-image-9500, HeapAlloc: 27593736, HeapIdle: 17784832, NextGC: 41943040, NumGC: 41 RN:79
+GRequest: 82, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 80, Container: go-server-image-9500, HeapAlloc: 28401728, HeapIdle: 16973824, NextGC: 41943040, NumGC: 41 RN:80
+GRequest: 83, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 81, Container: go-server-image-9500, HeapAlloc: 29209720, HeapIdle: 16162816, NextGC: 41943040, NumGC: 41 RN:81
+GRequest: 84, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 82, Container: go-server-image-9500, HeapAlloc: 30017712, HeapIdle: 15360000, NextGC: 41943040, NumGC: 41 RN:82
+GRequest: 85, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 83, Container: go-server-image-9500, HeapAlloc: 30825704, HeapIdle: 14557184, NextGC: 41943040, NumGC: 41 RN:83
+GRequest: 86, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 84, Container: go-server-image-9500, HeapAlloc: 31633696, HeapIdle: 13754368, NextGC: 41943040, NumGC: 41 RN:84
+GRequest: 87, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 85, Container: go-server-image-9500, HeapAlloc: 32441688, HeapIdle: 12951552, NextGC: 41943040, NumGC: 41 RN:85
+GRequest: 88, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 86, Container: go-server-image-9500, HeapAlloc: 33249680, HeapIdle: 12140544, NextGC: 41943040, NumGC: 41 RN:86
+GRequest: 89, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 87, Container: go-server-image-9500, HeapAlloc: 34057672, HeapIdle: 11321344, NextGC: 41943040, NumGC: 41 RN:87
+GRequest: 90, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 88, Container: go-server-image-9500, HeapAlloc: 34865664, HeapIdle: 10502144, NextGC: 41943040, NumGC: 41 RN:88
+GRequest: 91, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 89, Container: go-server-image-9500, HeapAlloc: 35673656, HeapIdle: 9699328, NextGC: 41943040, NumGC: 41 RN:89
+GRequest: 92, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 90, Container: go-server-image-9500, HeapAlloc: 36481648, HeapIdle: 8896512, NextGC: 41943040, NumGC: 41 RN:90
+GRequest: 93, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 91, Container: go-server-image-9500, HeapAlloc: 37289640, HeapIdle: 8085504, NextGC: 41943040, NumGC: 41 RN:91
+GRequest: 94, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 92, Container: go-server-image-9500, HeapAlloc: 38097632, HeapIdle: 7282688, NextGC: 41943040, NumGC: 41 RN:92
+GRequest: 95, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 93, Container: go-server-image-9500, HeapAlloc: 38905624, HeapIdle: 6479872, NextGC: 41943040, NumGC: 41 RN:93
+GRequest: 96, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 94, Container: go-server-image-9500, HeapAlloc: 39713616, HeapIdle: 5677056, NextGC: 41943040, NumGC: 41 RN:94
+GCThreshold >= GoGCTriggerThreshold 0.946846
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 97, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40521592, HeapIdle: 4833280, NextGC: 41943040, NumGC: 41 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.966110
+Sending fake request to tip over the container go-server-image-9500
+Request: 95, Container: go-server-image-9501, HeapAlloc: 4167840, HeapIdle: 36921344, NextGC: 41943040, NumGC: 40 RN:95
+GRequest: 98, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 928848, HeapIdle: 44318720, NextGC: 41943040, NumGC: 42 RN:2147483647
+Request: 96, Container: go-server-image-9500, HeapAlloc: 1736856, HeapIdle: 43548672, NextGC: 41943040, NumGC: 42 RN:96
+GRequest: 99, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 97, Container: go-server-image-9500, HeapAlloc: 2544848, HeapIdle: 42737664, NextGC: 41943040, NumGC: 42 RN:97
+GRequest: 100, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 98, Container: go-server-image-9500, HeapAlloc: 3352840, HeapIdle: 41934848, NextGC: 41943040, NumGC: 42 RN:98
+GRequest: 101, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 99, Container: go-server-image-9500, HeapAlloc: 4160832, HeapIdle: 41132032, NextGC: 41943040, NumGC: 42 RN:99
+GRequest: 102, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 100, Container: go-server-image-9500, HeapAlloc: 4968824, HeapIdle: 40321024, NextGC: 41943040, NumGC: 42 RN:100
+GRequest: 103, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 101, Container: go-server-image-9500, HeapAlloc: 5776816, HeapIdle: 39518208, NextGC: 41943040, NumGC: 42 RN:101
+GRequest: 104, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 102, Container: go-server-image-9500, HeapAlloc: 6584808, HeapIdle: 38715392, NextGC: 41943040, NumGC: 42 RN:102
+GRequest: 105, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 103, Container: go-server-image-9500, HeapAlloc: 7392800, HeapIdle: 37912576, NextGC: 41943040, NumGC: 42 RN:103
+GRequest: 106, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 104, Container: go-server-image-9500, HeapAlloc: 8200792, HeapIdle: 37109760, NextGC: 41943040, NumGC: 42 RN:104
+GRequest: 107, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 105, Container: go-server-image-9500, HeapAlloc: 9008784, HeapIdle: 36306944, NextGC: 41943040, NumGC: 42 RN:105
+GRequest: 108, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 106, Container: go-server-image-9500, HeapAlloc: 9816776, HeapIdle: 35495936, NextGC: 41943040, NumGC: 42 RN:106
+GRequest: 109, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 107, Container: go-server-image-9500, HeapAlloc: 10624768, HeapIdle: 34693120, NextGC: 41943040, NumGC: 42 RN:107
+GRequest: 110, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 108, Container: go-server-image-9500, HeapAlloc: 11432760, HeapIdle: 33890304, NextGC: 41943040, NumGC: 42 RN:108
+GRequest: 111, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 109, Container: go-server-image-9500, HeapAlloc: 12240752, HeapIdle: 33087488, NextGC: 41943040, NumGC: 42 RN:109
+GRequest: 112, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 110, Container: go-server-image-9500, HeapAlloc: 13048744, HeapIdle: 32284672, NextGC: 41943040, NumGC: 42 RN:110
+GRequest: 113, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 111, Container: go-server-image-9500, HeapAlloc: 13856736, HeapIdle: 31481856, NextGC: 41943040, NumGC: 42 RN:111
+GRequest: 114, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 112, Container: go-server-image-9500, HeapAlloc: 14664728, HeapIdle: 30670848, NextGC: 41943040, NumGC: 42 RN:112
+GRequest: 115, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 113, Container: go-server-image-9500, HeapAlloc: 15472720, HeapIdle: 29868032, NextGC: 41943040, NumGC: 42 RN:113
+GRequest: 116, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 114, Container: go-server-image-9500, HeapAlloc: 16280712, HeapIdle: 29065216, NextGC: 41943040, NumGC: 42 RN:114
+GRequest: 117, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 115, Container: go-server-image-9500, HeapAlloc: 17088704, HeapIdle: 28254208, NextGC: 41943040, NumGC: 42 RN:115
+GRequest: 118, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 116, Container: go-server-image-9500, HeapAlloc: 17896696, HeapIdle: 27451392, NextGC: 41943040, NumGC: 42 RN:116
+GRequest: 119, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 117, Container: go-server-image-9500, HeapAlloc: 18704688, HeapIdle: 26640384, NextGC: 41943040, NumGC: 42 RN:117
+GRequest: 120, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 118, Container: go-server-image-9500, HeapAlloc: 19512680, HeapIdle: 25837568, NextGC: 41943040, NumGC: 42 RN:118
+GRequest: 121, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 119, Container: go-server-image-9500, HeapAlloc: 20320672, HeapIdle: 25034752, NextGC: 41943040, NumGC: 42 RN:119
+GRequest: 122, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 120, Container: go-server-image-9500, HeapAlloc: 21128664, HeapIdle: 24231936, NextGC: 41943040, NumGC: 42 RN:120
+GRequest: 123, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 121, Container: go-server-image-9500, HeapAlloc: 21936656, HeapIdle: 23429120, NextGC: 41943040, NumGC: 42 RN:121
+GRequest: 124, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 122, Container: go-server-image-9500, HeapAlloc: 22744648, HeapIdle: 22618112, NextGC: 41943040, NumGC: 42 RN:122
+GRequest: 125, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 123, Container: go-server-image-9500, HeapAlloc: 23552640, HeapIdle: 21807104, NextGC: 41943040, NumGC: 42 RN:123
+GRequest: 126, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 124, Container: go-server-image-9500, HeapAlloc: 24360920, HeapIdle: 21004288, NextGC: 41943040, NumGC: 42 RN:124
+GRequest: 127, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 125, Container: go-server-image-9500, HeapAlloc: 25168912, HeapIdle: 20201472, NextGC: 41943040, NumGC: 42 RN:125
+GRequest: 128, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 126, Container: go-server-image-9500, HeapAlloc: 25976904, HeapIdle: 19390464, NextGC: 41943040, NumGC: 42 RN:126
+GRequest: 129, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 127, Container: go-server-image-9500, HeapAlloc: 26784896, HeapIdle: 18587648, NextGC: 41943040, NumGC: 42 RN:127
+GRequest: 130, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 128, Container: go-server-image-9500, HeapAlloc: 27592888, HeapIdle: 17784832, NextGC: 41943040, NumGC: 42 RN:128
+GRequest: 131, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 129, Container: go-server-image-9500, HeapAlloc: 28400880, HeapIdle: 16973824, NextGC: 41943040, NumGC: 42 RN:129
+GRequest: 132, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 130, Container: go-server-image-9500, HeapAlloc: 29208872, HeapIdle: 16162816, NextGC: 41943040, NumGC: 42 RN:130
+GRequest: 133, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 131, Container: go-server-image-9500, HeapAlloc: 30016864, HeapIdle: 15360000, NextGC: 41943040, NumGC: 42 RN:131
+GRequest: 134, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 132, Container: go-server-image-9500, HeapAlloc: 30824856, HeapIdle: 14557184, NextGC: 41943040, NumGC: 42 RN:132
+GRequest: 135, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 133, Container: go-server-image-9500, HeapAlloc: 31632848, HeapIdle: 13754368, NextGC: 41943040, NumGC: 42 RN:133
+GRequest: 136, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 134, Container: go-server-image-9500, HeapAlloc: 32440840, HeapIdle: 12951552, NextGC: 41943040, NumGC: 42 RN:134
+GRequest: 137, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 135, Container: go-server-image-9500, HeapAlloc: 33248832, HeapIdle: 12140544, NextGC: 41943040, NumGC: 42 RN:135
+GRequest: 138, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 136, Container: go-server-image-9500, HeapAlloc: 34056824, HeapIdle: 11321344, NextGC: 41943040, NumGC: 42 RN:136
+GRequest: 139, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 137, Container: go-server-image-9500, HeapAlloc: 34864816, HeapIdle: 10502144, NextGC: 41943040, NumGC: 42 RN:137
+GRequest: 140, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 138, Container: go-server-image-9500, HeapAlloc: 35672808, HeapIdle: 9699328, NextGC: 41943040, NumGC: 42 RN:138
+GRequest: 141, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 139, Container: go-server-image-9500, HeapAlloc: 36480800, HeapIdle: 8896512, NextGC: 41943040, NumGC: 42 RN:139
+GRequest: 142, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 140, Container: go-server-image-9500, HeapAlloc: 37288792, HeapIdle: 8085504, NextGC: 41943040, NumGC: 42 RN:140
+GRequest: 143, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 141, Container: go-server-image-9500, HeapAlloc: 38096784, HeapIdle: 7282688, NextGC: 41943040, NumGC: 42 RN:141
+GRequest: 144, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 142, Container: go-server-image-9500, HeapAlloc: 38904776, HeapIdle: 6479872, NextGC: 41943040, NumGC: 42 RN:142
+GRequest: 145, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 143, Container: go-server-image-9500, HeapAlloc: 39712768, HeapIdle: 5677056, NextGC: 41943040, NumGC: 42 RN:143
+GCThreshold >= GoGCTriggerThreshold 0.946826
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 146, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40520744, HeapIdle: 4841472, NextGC: 41943040, NumGC: 42 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.966090
+Sending fake request to tip over the container go-server-image-9500
+Request: 144, Container: go-server-image-9501, HeapAlloc: 4975832, HeapIdle: 36110336, NextGC: 41943040, NumGC: 40 RN:144
+GRequest: 147, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40458784, HeapIdle: 4808704, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.964613
+Sending fake request to tip over the container go-server-image-9500
+Request: 145, Container: go-server-image-9500, HeapAlloc: 39657320, HeapIdle: 5644288, NextGC: 41943040, NumGC: 43 RN:145
+GCThreshold >= GoGCTriggerThreshold 0.945504
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 148, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39660608, HeapIdle: 5644288, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945583
+Sending fake request to tip over the container go-server-image-9500
+Request: 146, Container: go-server-image-9501, HeapAlloc: 5783824, HeapIdle: 35307520, NextGC: 41943040, NumGC: 40 RN:146
+GRequest: 149, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39636200, HeapIdle: 5644288, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945001
+Sending fake request to tip over the container go-server-image-9500
+Request: 147, Container: go-server-image-9500, HeapAlloc: 39641392, HeapIdle: 5644288, NextGC: 41943040, NumGC: 43 RN:147
+GCThreshold >= GoGCTriggerThreshold 0.945124
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 150, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39638440, HeapIdle: 5644288, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945054
+Sending fake request to tip over the container go-server-image-9500
+Request: 148, Container: go-server-image-9501, HeapAlloc: 6591816, HeapIdle: 34504704, NextGC: 41943040, NumGC: 40 RN:148
+GRequest: 151, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39643616, HeapIdle: 5644288, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945177
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39658984, HeapIdle: 5636096, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945544
+Sending fake request to tip over the container go-server-image-9500
+Request: 149, Container: go-server-image-9500, HeapAlloc: 39664176, HeapIdle: 5636096, NextGC: 41943040, NumGC: 43 RN:149
+GCThreshold >= GoGCTriggerThreshold 0.945668
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 152, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40472440, HeapIdle: 4833280, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.964938
+Sending fake request to tip over the container go-server-image-9500
+Request: 150, Container: go-server-image-9501, HeapAlloc: 7399808, HeapIdle: 33701888, NextGC: 41943040, NumGC: 40 RN:150
+GRequest: 153, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39674800, HeapIdle: 5636096, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945921
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39675736, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945943
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39680912, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946067
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39686088, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946190
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39683200, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946121
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39688376, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946245
+Sending fake request to tip over the container go-server-image-9500
+Request: 151, Container: go-server-image-9500, HeapAlloc: 39688704, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:151
+GCThreshold >= GoGCTriggerThreshold 0.946252
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 154, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39685768, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946182
+Sending fake request to tip over the container go-server-image-9500
+Request: 152, Container: go-server-image-9501, HeapAlloc: 8207800, HeapIdle: 32899072, NextGC: 41943040, NumGC: 40 RN:152
+GRequest: 155, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39690944, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946306
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39696120, HeapIdle: 5595136, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946429
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38890736, HeapIdle: 6397952, NextGC: 41943040, NumGC: 43 RN:2147483647
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38899976, HeapIdle: 6389760, NextGC: 41943040, NumGC: 43 RN:2147483647
+Request: 153, Container: go-server-image-9500, HeapAlloc: 38897072, HeapIdle: 6389760, NextGC: 41943040, NumGC: 43 RN:153
+GRequest: 156, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38902232, HeapIdle: 6389760, NextGC: 41943040, NumGC: 43 RN:2147483647
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38907408, HeapIdle: 6389760, NextGC: 41943040, NumGC: 43 RN:2147483647
+Request: 154, Container: go-server-image-9500, HeapAlloc: 38912600, HeapIdle: 6389760, NextGC: 41943040, NumGC: 43 RN:154
+GRequest: 157, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38902368, HeapIdle: 6389760, NextGC: 41943040, NumGC: 43 RN:2147483647
+Request: 155, Container: go-server-image-9500, HeapAlloc: 38901512, HeapIdle: 6356992, NextGC: 41943040, NumGC: 43 RN:155
+GRequest: 158, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 156, Container: go-server-image-9500, HeapAlloc: 23594608, HeapIdle: 21667840, NextGC: 41943040, NumGC: 43 RN:156
+GRequest: 159, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 157, Container: go-server-image-9500, HeapAlloc: 24402888, HeapIdle: 20865024, NextGC: 41943040, NumGC: 43 RN:157
+GRequest: 160, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 158, Container: go-server-image-9500, HeapAlloc: 25210880, HeapIdle: 20062208, NextGC: 41943040, NumGC: 43 RN:158
+GRequest: 161, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 159, Container: go-server-image-9500, HeapAlloc: 26018872, HeapIdle: 19251200, NextGC: 41943040, NumGC: 43 RN:159
+GRequest: 162, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 160, Container: go-server-image-9500, HeapAlloc: 26826864, HeapIdle: 18448384, NextGC: 41943040, NumGC: 43 RN:160
+GRequest: 163, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 161, Container: go-server-image-9500, HeapAlloc: 27634856, HeapIdle: 17645568, NextGC: 41943040, NumGC: 43 RN:161
+GRequest: 164, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 162, Container: go-server-image-9500, HeapAlloc: 28442848, HeapIdle: 16834560, NextGC: 41943040, NumGC: 43 RN:162
+GRequest: 165, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 163, Container: go-server-image-9500, HeapAlloc: 29250840, HeapIdle: 16023552, NextGC: 41943040, NumGC: 43 RN:163
+GRequest: 166, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 164, Container: go-server-image-9500, HeapAlloc: 30058832, HeapIdle: 15220736, NextGC: 41943040, NumGC: 43 RN:164
+GRequest: 167, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 165, Container: go-server-image-9500, HeapAlloc: 30866824, HeapIdle: 14417920, NextGC: 41943040, NumGC: 43 RN:165
+GRequest: 168, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 166, Container: go-server-image-9500, HeapAlloc: 31675104, HeapIdle: 13615104, NextGC: 41943040, NumGC: 43 RN:166
+GRequest: 169, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 167, Container: go-server-image-9500, HeapAlloc: 32483096, HeapIdle: 12812288, NextGC: 41943040, NumGC: 43 RN:167
+GRequest: 170, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 168, Container: go-server-image-9500, HeapAlloc: 33291088, HeapIdle: 12001280, NextGC: 41943040, NumGC: 43 RN:168
+GRequest: 171, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 169, Container: go-server-image-9500, HeapAlloc: 34099080, HeapIdle: 11190272, NextGC: 41943040, NumGC: 43 RN:169
+GRequest: 172, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 170, Container: go-server-image-9500, HeapAlloc: 34907072, HeapIdle: 10379264, NextGC: 41943040, NumGC: 43 RN:170
+GRequest: 173, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 171, Container: go-server-image-9500, HeapAlloc: 35715064, HeapIdle: 9576448, NextGC: 41943040, NumGC: 43 RN:171
+GRequest: 174, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 172, Container: go-server-image-9500, HeapAlloc: 36523344, HeapIdle: 8773632, NextGC: 41943040, NumGC: 43 RN:172
+GRequest: 175, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 173, Container: go-server-image-9500, HeapAlloc: 37331336, HeapIdle: 7962624, NextGC: 41943040, NumGC: 43 RN:173
+GRequest: 176, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 174, Container: go-server-image-9500, HeapAlloc: 38139328, HeapIdle: 7159808, NextGC: 41943040, NumGC: 43 RN:174
+GRequest: 177, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 175, Container: go-server-image-9500, HeapAlloc: 38947320, HeapIdle: 6356992, NextGC: 41943040, NumGC: 43 RN:175
+GRequest: 178, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 176, Container: go-server-image-9500, HeapAlloc: 39755312, HeapIdle: 5545984, NextGC: 41943040, NumGC: 43 RN:176
+GCThreshold >= GoGCTriggerThreshold 0.947841
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 179, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40563560, HeapIdle: 4710400, NextGC: 41943040, NumGC: 43 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.967111
+Sending fake request to tip over the container go-server-image-9500
+Request: 177, Container: go-server-image-9501, HeapAlloc: 9015792, HeapIdle: 32096256, NextGC: 41943040, NumGC: 40 RN:177
+GRequest: 180, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 966400, HeapIdle: 44244992, NextGC: 41943040, NumGC: 44 RN:2147483647
+Request: 178, Container: go-server-image-9500, HeapAlloc: 1774408, HeapIdle: 43442176, NextGC: 41943040, NumGC: 44 RN:178
+GRequest: 181, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 179, Container: go-server-image-9500, HeapAlloc: 2582400, HeapIdle: 42631168, NextGC: 41943040, NumGC: 44 RN:179
+GRequest: 182, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 180, Container: go-server-image-9500, HeapAlloc: 3390392, HeapIdle: 41828352, NextGC: 41943040, NumGC: 44 RN:180
+GRequest: 183, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 181, Container: go-server-image-9500, HeapAlloc: 4198384, HeapIdle: 41025536, NextGC: 41943040, NumGC: 44 RN:181
+GRequest: 184, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 182, Container: go-server-image-9500, HeapAlloc: 5006664, HeapIdle: 40214528, NextGC: 41943040, NumGC: 44 RN:182
+GRequest: 185, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 183, Container: go-server-image-9500, HeapAlloc: 5814656, HeapIdle: 39411712, NextGC: 41943040, NumGC: 44 RN:183
+GRequest: 186, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 184, Container: go-server-image-9500, HeapAlloc: 6622648, HeapIdle: 38608896, NextGC: 41943040, NumGC: 44 RN:184
+GRequest: 187, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 185, Container: go-server-image-9500, HeapAlloc: 7430640, HeapIdle: 37806080, NextGC: 41943040, NumGC: 44 RN:185
+GRequest: 188, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 186, Container: go-server-image-9500, HeapAlloc: 8238632, HeapIdle: 37003264, NextGC: 41943040, NumGC: 44 RN:186
+GRequest: 189, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 187, Container: go-server-image-9500, HeapAlloc: 9046624, HeapIdle: 36200448, NextGC: 41943040, NumGC: 44 RN:187
+GRequest: 190, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 188, Container: go-server-image-9500, HeapAlloc: 9854616, HeapIdle: 35389440, NextGC: 41943040, NumGC: 44 RN:188
+GRequest: 191, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 189, Container: go-server-image-9500, HeapAlloc: 10662608, HeapIdle: 34586624, NextGC: 41943040, NumGC: 44 RN:189
+GRequest: 192, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 190, Container: go-server-image-9500, HeapAlloc: 11470888, HeapIdle: 33783808, NextGC: 41943040, NumGC: 44 RN:190
+GRequest: 193, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 191, Container: go-server-image-9500, HeapAlloc: 12278880, HeapIdle: 32980992, NextGC: 41943040, NumGC: 44 RN:191
+GRequest: 194, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 192, Container: go-server-image-9500, HeapAlloc: 13086872, HeapIdle: 32178176, NextGC: 41943040, NumGC: 44 RN:192
+GRequest: 195, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 193, Container: go-server-image-9500, HeapAlloc: 13894864, HeapIdle: 31375360, NextGC: 41943040, NumGC: 44 RN:193
+GRequest: 196, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 194, Container: go-server-image-9500, HeapAlloc: 14702856, HeapIdle: 30564352, NextGC: 41943040, NumGC: 44 RN:194
+GRequest: 197, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 195, Container: go-server-image-9500, HeapAlloc: 15510848, HeapIdle: 29761536, NextGC: 41943040, NumGC: 44 RN:195
+GRequest: 198, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 196, Container: go-server-image-9500, HeapAlloc: 16319128, HeapIdle: 28958720, NextGC: 41943040, NumGC: 44 RN:196
+GRequest: 199, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 197, Container: go-server-image-9500, HeapAlloc: 17127120, HeapIdle: 28147712, NextGC: 41943040, NumGC: 44 RN:197
+GRequest: 200, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 198, Container: go-server-image-9500, HeapAlloc: 17935112, HeapIdle: 27344896, NextGC: 41943040, NumGC: 44 RN:198
+GRequest: 201, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 199, Container: go-server-image-9500, HeapAlloc: 18743392, HeapIdle: 26533888, NextGC: 41943040, NumGC: 44 RN:199
+GRequest: 202, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 200, Container: go-server-image-9500, HeapAlloc: 19551384, HeapIdle: 25731072, NextGC: 41943040, NumGC: 44 RN:200
+GRequest: 203, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 201, Container: go-server-image-9500, HeapAlloc: 20359376, HeapIdle: 24928256, NextGC: 41943040, NumGC: 44 RN:201
+GRequest: 204, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 202, Container: go-server-image-9500, HeapAlloc: 21167368, HeapIdle: 24125440, NextGC: 41943040, NumGC: 44 RN:202
+GRequest: 205, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 203, Container: go-server-image-9500, HeapAlloc: 21975360, HeapIdle: 23322624, NextGC: 41943040, NumGC: 44 RN:203
+GRequest: 206, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 204, Container: go-server-image-9500, HeapAlloc: 22783352, HeapIdle: 22511616, NextGC: 41943040, NumGC: 44 RN:204
+GRequest: 207, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 205, Container: go-server-image-9500, HeapAlloc: 23591344, HeapIdle: 21700608, NextGC: 41943040, NumGC: 44 RN:205
+GRequest: 208, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 206, Container: go-server-image-9500, HeapAlloc: 24399336, HeapIdle: 20897792, NextGC: 41943040, NumGC: 44 RN:206
+GRequest: 209, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 207, Container: go-server-image-9500, HeapAlloc: 25207328, HeapIdle: 20094976, NextGC: 41943040, NumGC: 44 RN:207
+GRequest: 210, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 208, Container: go-server-image-9500, HeapAlloc: 26015320, HeapIdle: 19283968, NextGC: 41943040, NumGC: 44 RN:208
+GRequest: 211, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 209, Container: go-server-image-9500, HeapAlloc: 26823312, HeapIdle: 18481152, NextGC: 41943040, NumGC: 44 RN:209
+GRequest: 212, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 210, Container: go-server-image-9500, HeapAlloc: 27631304, HeapIdle: 17678336, NextGC: 41943040, NumGC: 44 RN:210
+GRequest: 213, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 211, Container: go-server-image-9500, HeapAlloc: 28439296, HeapIdle: 16867328, NextGC: 41943040, NumGC: 44 RN:211
+GRequest: 214, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 212, Container: go-server-image-9500, HeapAlloc: 29247288, HeapIdle: 16056320, NextGC: 41943040, NumGC: 44 RN:212
+GRequest: 215, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 213, Container: go-server-image-9500, HeapAlloc: 30055280, HeapIdle: 15253504, NextGC: 41943040, NumGC: 44 RN:213
+GRequest: 216, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 214, Container: go-server-image-9500, HeapAlloc: 30863272, HeapIdle: 14450688, NextGC: 41943040, NumGC: 44 RN:214
+GRequest: 217, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 215, Container: go-server-image-9500, HeapAlloc: 31671264, HeapIdle: 13647872, NextGC: 41943040, NumGC: 44 RN:215
+GRequest: 218, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 216, Container: go-server-image-9500, HeapAlloc: 32479256, HeapIdle: 12845056, NextGC: 41943040, NumGC: 44 RN:216
+GRequest: 219, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 217, Container: go-server-image-9500, HeapAlloc: 33287248, HeapIdle: 12034048, NextGC: 41943040, NumGC: 44 RN:217
+GRequest: 220, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 218, Container: go-server-image-9500, HeapAlloc: 34095240, HeapIdle: 11214848, NextGC: 41943040, NumGC: 44 RN:218
+GRequest: 221, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 219, Container: go-server-image-9500, HeapAlloc: 34903232, HeapIdle: 10403840, NextGC: 41943040, NumGC: 44 RN:219
+GRequest: 222, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 220, Container: go-server-image-9500, HeapAlloc: 35711224, HeapIdle: 9601024, NextGC: 41943040, NumGC: 44 RN:220
+GRequest: 223, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 221, Container: go-server-image-9500, HeapAlloc: 36519216, HeapIdle: 8798208, NextGC: 41943040, NumGC: 44 RN:221
+GRequest: 224, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 222, Container: go-server-image-9500, HeapAlloc: 37327208, HeapIdle: 7987200, NextGC: 41943040, NumGC: 44 RN:222
+GRequest: 225, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 223, Container: go-server-image-9500, HeapAlloc: 38135200, HeapIdle: 7184384, NextGC: 41943040, NumGC: 44 RN:223
+GRequest: 226, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 224, Container: go-server-image-9500, HeapAlloc: 38943192, HeapIdle: 6373376, NextGC: 41943040, NumGC: 44 RN:224
+GRequest: 227, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 225, Container: go-server-image-9500, HeapAlloc: 39751184, HeapIdle: 5570560, NextGC: 41943040, NumGC: 44 RN:225
+GCThreshold >= GoGCTriggerThreshold 0.947742
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 228, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40559160, HeapIdle: 4734976, NextGC: 41943040, NumGC: 44 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.967006
+Sending fake request to tip over the container go-server-image-9500
+Request: 226, Container: go-server-image-9501, HeapAlloc: 9823784, HeapIdle: 31285248, NextGC: 41943040, NumGC: 40 RN:226
+GRequest: 229, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 940432, HeapIdle: 44277760, NextGC: 41943040, NumGC: 45 RN:2147483647
+Request: 227, Container: go-server-image-9500, HeapAlloc: 1748440, HeapIdle: 43474944, NextGC: 41943040, NumGC: 45 RN:227
+GRequest: 230, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 228, Container: go-server-image-9500, HeapAlloc: 2556432, HeapIdle: 42663936, NextGC: 41943040, NumGC: 45 RN:228
+GRequest: 231, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 229, Container: go-server-image-9500, HeapAlloc: 3364424, HeapIdle: 41861120, NextGC: 41943040, NumGC: 45 RN:229
+GRequest: 232, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 230, Container: go-server-image-9500, HeapAlloc: 4172416, HeapIdle: 41058304, NextGC: 41943040, NumGC: 45 RN:230
+GRequest: 233, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 231, Container: go-server-image-9500, HeapAlloc: 4980408, HeapIdle: 40247296, NextGC: 41943040, NumGC: 45 RN:231
+GRequest: 234, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 232, Container: go-server-image-9500, HeapAlloc: 5788400, HeapIdle: 39444480, NextGC: 41943040, NumGC: 45 RN:232
+GRequest: 235, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 233, Container: go-server-image-9500, HeapAlloc: 6596392, HeapIdle: 38641664, NextGC: 41943040, NumGC: 45 RN:233
+GRequest: 236, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 234, Container: go-server-image-9500, HeapAlloc: 7404384, HeapIdle: 37838848, NextGC: 41943040, NumGC: 45 RN:234
+GRequest: 237, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 235, Container: go-server-image-9500, HeapAlloc: 8212376, HeapIdle: 37036032, NextGC: 41943040, NumGC: 45 RN:235
+GRequest: 238, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 236, Container: go-server-image-9500, HeapAlloc: 9020368, HeapIdle: 36233216, NextGC: 41943040, NumGC: 45 RN:236
+GRequest: 239, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 237, Container: go-server-image-9500, HeapAlloc: 9828360, HeapIdle: 35422208, NextGC: 41943040, NumGC: 45 RN:237
+GRequest: 240, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 238, Container: go-server-image-9500, HeapAlloc: 10636352, HeapIdle: 34619392, NextGC: 41943040, NumGC: 45 RN:238
+GRequest: 241, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 239, Container: go-server-image-9500, HeapAlloc: 11444344, HeapIdle: 33816576, NextGC: 41943040, NumGC: 45 RN:239
+GRequest: 242, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 240, Container: go-server-image-9500, HeapAlloc: 12252336, HeapIdle: 33013760, NextGC: 41943040, NumGC: 45 RN:240
+GRequest: 243, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 241, Container: go-server-image-9500, HeapAlloc: 13060328, HeapIdle: 32210944, NextGC: 41943040, NumGC: 45 RN:241
+GRequest: 244, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 242, Container: go-server-image-9500, HeapAlloc: 13868320, HeapIdle: 31408128, NextGC: 41943040, NumGC: 45 RN:242
+GRequest: 245, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 243, Container: go-server-image-9500, HeapAlloc: 14676312, HeapIdle: 30597120, NextGC: 41943040, NumGC: 45 RN:243
+GRequest: 246, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 244, Container: go-server-image-9500, HeapAlloc: 15484304, HeapIdle: 29794304, NextGC: 41943040, NumGC: 45 RN:244
+GRequest: 247, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 245, Container: go-server-image-9500, HeapAlloc: 16292296, HeapIdle: 28991488, NextGC: 41943040, NumGC: 45 RN:245
+GRequest: 248, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 246, Container: go-server-image-9500, HeapAlloc: 17100288, HeapIdle: 28180480, NextGC: 41943040, NumGC: 45 RN:246
+GRequest: 249, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 247, Container: go-server-image-9500, HeapAlloc: 17908280, HeapIdle: 27377664, NextGC: 41943040, NumGC: 45 RN:247
+GRequest: 250, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 248, Container: go-server-image-9500, HeapAlloc: 18716272, HeapIdle: 26566656, NextGC: 41943040, NumGC: 45 RN:248
+GRequest: 251, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 249, Container: go-server-image-9500, HeapAlloc: 19524264, HeapIdle: 25763840, NextGC: 41943040, NumGC: 45 RN:249
+GRequest: 252, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 250, Container: go-server-image-9500, HeapAlloc: 20332256, HeapIdle: 24961024, NextGC: 41943040, NumGC: 45 RN:250
+GRequest: 253, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 251, Container: go-server-image-9500, HeapAlloc: 21140248, HeapIdle: 24158208, NextGC: 41943040, NumGC: 45 RN:251
+GRequest: 254, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 252, Container: go-server-image-9500, HeapAlloc: 21948240, HeapIdle: 23355392, NextGC: 41943040, NumGC: 45 RN:252
+GRequest: 255, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 253, Container: go-server-image-9500, HeapAlloc: 22756232, HeapIdle: 22544384, NextGC: 41943040, NumGC: 45 RN:253
+GRequest: 256, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 254, Container: go-server-image-9500, HeapAlloc: 23564224, HeapIdle: 21733376, NextGC: 41943040, NumGC: 45 RN:254
+GRequest: 257, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 255, Container: go-server-image-9500, HeapAlloc: 24372216, HeapIdle: 20930560, NextGC: 41943040, NumGC: 45 RN:255
+GRequest: 258, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 256, Container: go-server-image-9500, HeapAlloc: 25180224, HeapIdle: 20127744, NextGC: 41943040, NumGC: 45 RN:256
+GRequest: 259, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 257, Container: go-server-image-9500, HeapAlloc: 25988232, HeapIdle: 19316736, NextGC: 41943040, NumGC: 45 RN:257
+GRequest: 260, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 258, Container: go-server-image-9500, HeapAlloc: 26796240, HeapIdle: 18513920, NextGC: 41943040, NumGC: 45 RN:258
+GRequest: 261, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 259, Container: go-server-image-9500, HeapAlloc: 27604248, HeapIdle: 17711104, NextGC: 41943040, NumGC: 45 RN:259
+GRequest: 262, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 260, Container: go-server-image-9500, HeapAlloc: 28412256, HeapIdle: 16900096, NextGC: 41943040, NumGC: 45 RN:260
+GRequest: 263, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 261, Container: go-server-image-9500, HeapAlloc: 29220264, HeapIdle: 16089088, NextGC: 41943040, NumGC: 45 RN:261
+GRequest: 264, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 262, Container: go-server-image-9500, HeapAlloc: 30028272, HeapIdle: 15286272, NextGC: 41943040, NumGC: 45 RN:262
+GRequest: 265, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 263, Container: go-server-image-9500, HeapAlloc: 30836280, HeapIdle: 14483456, NextGC: 41943040, NumGC: 45 RN:263
+GRequest: 266, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 264, Container: go-server-image-9500, HeapAlloc: 31644288, HeapIdle: 13680640, NextGC: 41943040, NumGC: 45 RN:264
+GRequest: 267, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 265, Container: go-server-image-9500, HeapAlloc: 32452584, HeapIdle: 12877824, NextGC: 41943040, NumGC: 45 RN:265
+GRequest: 268, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 266, Container: go-server-image-9500, HeapAlloc: 33260592, HeapIdle: 12066816, NextGC: 41943040, NumGC: 45 RN:266
+GRequest: 269, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 267, Container: go-server-image-9500, HeapAlloc: 34068600, HeapIdle: 11247616, NextGC: 41943040, NumGC: 45 RN:267
+GRequest: 270, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 268, Container: go-server-image-9500, HeapAlloc: 34876608, HeapIdle: 10428416, NextGC: 41943040, NumGC: 45 RN:268
+GRequest: 271, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 269, Container: go-server-image-9500, HeapAlloc: 35684616, HeapIdle: 9625600, NextGC: 41943040, NumGC: 45 RN:269
+GRequest: 272, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 270, Container: go-server-image-9500, HeapAlloc: 36492624, HeapIdle: 8822784, NextGC: 41943040, NumGC: 45 RN:270
+GRequest: 273, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 271, Container: go-server-image-9500, HeapAlloc: 37300632, HeapIdle: 8011776, NextGC: 41943040, NumGC: 45 RN:271
+GRequest: 274, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 272, Container: go-server-image-9500, HeapAlloc: 38108640, HeapIdle: 7208960, NextGC: 41943040, NumGC: 45 RN:272
+GRequest: 275, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 273, Container: go-server-image-9500, HeapAlloc: 38916648, HeapIdle: 6406144, NextGC: 41943040, NumGC: 45 RN:273
+GRequest: 276, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 274, Container: go-server-image-9500, HeapAlloc: 39724656, HeapIdle: 5603328, NextGC: 41943040, NumGC: 45 RN:274
+GCThreshold >= GoGCTriggerThreshold 0.947110
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 277, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40532632, HeapIdle: 4767744, NextGC: 41943040, NumGC: 45 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.966373
+Sending fake request to tip over the container go-server-image-9500
+Request: 275, Container: go-server-image-9501, HeapAlloc: 10631792, HeapIdle: 30482432, NextGC: 41943040, NumGC: 40 RN:275
+GRequest: 278, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40470352, HeapIdle: 4767744, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.964888
+Sending fake request to tip over the container go-server-image-9500
+Request: 276, Container: go-server-image-9500, HeapAlloc: 39668904, HeapIdle: 5570560, NextGC: 41943040, NumGC: 46 RN:276
+GCThreshold >= GoGCTriggerThreshold 0.945780
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 279, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39672176, HeapIdle: 5570560, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945858
+Sending fake request to tip over the container go-server-image-9500
+Request: 277, Container: go-server-image-9501, HeapAlloc: 11439800, HeapIdle: 29679616, NextGC: 41943040, NumGC: 40 RN:277
+GRequest: 280, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39677352, HeapIdle: 5570560, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945982
+Sending fake request to tip over the container go-server-image-9500
+Request: 278, Container: go-server-image-9500, HeapAlloc: 39682560, HeapIdle: 5570560, NextGC: 41943040, NumGC: 46 RN:278
+GCThreshold >= GoGCTriggerThreshold 0.946106
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 281, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39679624, HeapIdle: 5570560, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946036
+Sending fake request to tip over the container go-server-image-9500
+Request: 279, Container: go-server-image-9501, HeapAlloc: 12247808, HeapIdle: 28876800, NextGC: 41943040, NumGC: 40 RN:279
+GRequest: 282, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39684800, HeapIdle: 5570560, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946159
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39611656, HeapIdle: 5652480, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.944415
+Sending fake request to tip over the container go-server-image-9500
+Request: 280, Container: go-server-image-9500, HeapAlloc: 39616864, HeapIdle: 5652480, NextGC: 41943040, NumGC: 46 RN:280
+GCThreshold >= GoGCTriggerThreshold 0.944540
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 283, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39622024, HeapIdle: 5652480, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.944663
+Sending fake request to tip over the container go-server-image-9500
+Request: 281, Container: go-server-image-9501, HeapAlloc: 13055816, HeapIdle: 28073984, NextGC: 41943040, NumGC: 40 RN:281
+GRequest: 284, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39627200, HeapIdle: 5652480, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.944786
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39635816, HeapIdle: 5636096, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.944991
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39640992, HeapIdle: 5636096, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945115
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39646168, HeapIdle: 5636096, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945238
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39643280, HeapIdle: 5636096, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945169
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39648456, HeapIdle: 5636096, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945293
+Sending fake request to tip over the container go-server-image-9500
+Request: 282, Container: go-server-image-9500, HeapAlloc: 39648816, HeapIdle: 5636096, NextGC: 41943040, NumGC: 46 RN:282
+GCThreshold >= GoGCTriggerThreshold 0.945301
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 285, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39653976, HeapIdle: 5627904, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945424
+Sending fake request to tip over the container go-server-image-9500
+Request: 283, Container: go-server-image-9501, HeapAlloc: 13863824, HeapIdle: 27271168, NextGC: 41943040, NumGC: 40 RN:283
+GRequest: 286, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39659152, HeapIdle: 5627904, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945548
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39664312, HeapIdle: 5627904, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945671
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40464848, HeapIdle: 4825088, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.964757
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38867768, HeapIdle: 6422528, NextGC: 41943040, NumGC: 46 RN:2147483647
+Request: 284, Container: go-server-image-9500, HeapAlloc: 38872976, HeapIdle: 6414336, NextGC: 41943040, NumGC: 46 RN:284
+GRequest: 287, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38878136, HeapIdle: 6414336, NextGC: 41943040, NumGC: 46 RN:2147483647
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38883312, HeapIdle: 6414336, NextGC: 41943040, NumGC: 46 RN:2147483647
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38888488, HeapIdle: 6414336, NextGC: 41943040, NumGC: 46 RN:2147483647
+Request: 285, Container: go-server-image-9500, HeapAlloc: 38878320, HeapIdle: 6414336, NextGC: 41943040, NumGC: 46 RN:285
+GRequest: 288, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38883480, HeapIdle: 6414336, NextGC: 41943040, NumGC: 46 RN:2147483647
+Request: 286, Container: go-server-image-9500, HeapAlloc: 38881552, HeapIdle: 6373376, NextGC: 41943040, NumGC: 46 RN:286
+GRequest: 289, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 287, Container: go-server-image-9500, HeapAlloc: 24402584, HeapIdle: 20905984, NextGC: 41943040, NumGC: 46 RN:287
+GRequest: 290, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 288, Container: go-server-image-9500, HeapAlloc: 25210592, HeapIdle: 20103168, NextGC: 41943040, NumGC: 46 RN:288
+GRequest: 291, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 289, Container: go-server-image-9500, HeapAlloc: 26018600, HeapIdle: 19292160, NextGC: 41943040, NumGC: 46 RN:289
+GRequest: 292, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 290, Container: go-server-image-9500, HeapAlloc: 26826608, HeapIdle: 18489344, NextGC: 41943040, NumGC: 46 RN:290
+GRequest: 293, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 291, Container: go-server-image-9500, HeapAlloc: 27634616, HeapIdle: 17686528, NextGC: 41943040, NumGC: 46 RN:291
+GRequest: 294, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 292, Container: go-server-image-9500, HeapAlloc: 28442624, HeapIdle: 16875520, NextGC: 41943040, NumGC: 46 RN:292
+GRequest: 295, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 293, Container: go-server-image-9500, HeapAlloc: 29250632, HeapIdle: 16064512, NextGC: 41943040, NumGC: 46 RN:293
+GRequest: 296, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 294, Container: go-server-image-9500, HeapAlloc: 30058640, HeapIdle: 15261696, NextGC: 41943040, NumGC: 46 RN:294
+GRequest: 297, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 295, Container: go-server-image-9500, HeapAlloc: 30866936, HeapIdle: 14458880, NextGC: 41943040, NumGC: 46 RN:295
+GRequest: 298, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 296, Container: go-server-image-9500, HeapAlloc: 31674944, HeapIdle: 13656064, NextGC: 41943040, NumGC: 46 RN:296
+GRequest: 299, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 297, Container: go-server-image-9500, HeapAlloc: 32482952, HeapIdle: 12853248, NextGC: 41943040, NumGC: 46 RN:297
+GRequest: 300, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 298, Container: go-server-image-9500, HeapAlloc: 33290960, HeapIdle: 12042240, NextGC: 41943040, NumGC: 46 RN:298
+GRequest: 301, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 299, Container: go-server-image-9500, HeapAlloc: 34098968, HeapIdle: 11231232, NextGC: 41943040, NumGC: 46 RN:299
+GRequest: 302, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 300, Container: go-server-image-9500, HeapAlloc: 34906976, HeapIdle: 10420224, NextGC: 41943040, NumGC: 46 RN:300
+GRequest: 303, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 301, Container: go-server-image-9500, HeapAlloc: 35714984, HeapIdle: 9609216, NextGC: 41943040, NumGC: 46 RN:301
+GRequest: 304, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 302, Container: go-server-image-9500, HeapAlloc: 36522992, HeapIdle: 8806400, NextGC: 41943040, NumGC: 46 RN:302
+GRequest: 305, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 303, Container: go-server-image-9500, HeapAlloc: 37331000, HeapIdle: 7995392, NextGC: 41943040, NumGC: 46 RN:303
+GRequest: 306, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 304, Container: go-server-image-9500, HeapAlloc: 38139008, HeapIdle: 7192576, NextGC: 41943040, NumGC: 46 RN:304
+GRequest: 307, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 305, Container: go-server-image-9500, HeapAlloc: 38947016, HeapIdle: 6389760, NextGC: 41943040, NumGC: 46 RN:305
+GRequest: 308, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 306, Container: go-server-image-9500, HeapAlloc: 39755024, HeapIdle: 5586944, NextGC: 41943040, NumGC: 46 RN:306
+GCThreshold >= GoGCTriggerThreshold 0.947834
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 309, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40563000, HeapIdle: 4751360, NextGC: 41943040, NumGC: 46 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.967097
+Sending fake request to tip over the container go-server-image-9500
+Request: 307, Container: go-server-image-9501, HeapAlloc: 14671832, HeapIdle: 26460160, NextGC: 41943040, NumGC: 40 RN:307
+GRequest: 310, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 966112, HeapIdle: 44261376, NextGC: 41943040, NumGC: 47 RN:2147483647
+Request: 308, Container: go-server-image-9500, HeapAlloc: 1774136, HeapIdle: 43458560, NextGC: 41943040, NumGC: 47 RN:308
+GRequest: 311, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 309, Container: go-server-image-9500, HeapAlloc: 2582144, HeapIdle: 42647552, NextGC: 41943040, NumGC: 47 RN:309
+GRequest: 312, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 310, Container: go-server-image-9500, HeapAlloc: 3390152, HeapIdle: 41844736, NextGC: 41943040, NumGC: 47 RN:310
+GRequest: 313, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 311, Container: go-server-image-9500, HeapAlloc: 4198160, HeapIdle: 41041920, NextGC: 41943040, NumGC: 47 RN:311
+GRequest: 314, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 312, Container: go-server-image-9500, HeapAlloc: 5006168, HeapIdle: 40230912, NextGC: 41943040, NumGC: 47 RN:312
+GRequest: 315, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 313, Container: go-server-image-9500, HeapAlloc: 5814176, HeapIdle: 39428096, NextGC: 41943040, NumGC: 47 RN:313
+GRequest: 316, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 314, Container: go-server-image-9500, HeapAlloc: 6622184, HeapIdle: 38625280, NextGC: 41943040, NumGC: 47 RN:314
+GRequest: 317, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 315, Container: go-server-image-9500, HeapAlloc: 7430192, HeapIdle: 37822464, NextGC: 41943040, NumGC: 47 RN:315
+GRequest: 318, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 316, Container: go-server-image-9500, HeapAlloc: 8238200, HeapIdle: 37019648, NextGC: 41943040, NumGC: 47 RN:316
+GRequest: 319, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 317, Container: go-server-image-9500, HeapAlloc: 9046208, HeapIdle: 36216832, NextGC: 41943040, NumGC: 47 RN:317
+GRequest: 320, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 318, Container: go-server-image-9500, HeapAlloc: 9854216, HeapIdle: 35405824, NextGC: 41943040, NumGC: 47 RN:318
+GRequest: 321, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 319, Container: go-server-image-9500, HeapAlloc: 10662224, HeapIdle: 34603008, NextGC: 41943040, NumGC: 47 RN:319
+GRequest: 322, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 320, Container: go-server-image-9500, HeapAlloc: 11470520, HeapIdle: 33800192, NextGC: 41943040, NumGC: 47 RN:320
+GRequest: 323, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 321, Container: go-server-image-9500, HeapAlloc: 12278528, HeapIdle: 32997376, NextGC: 41943040, NumGC: 47 RN:321
+GRequest: 324, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 322, Container: go-server-image-9500, HeapAlloc: 13086536, HeapIdle: 32194560, NextGC: 41943040, NumGC: 47 RN:322
+GRequest: 325, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 323, Container: go-server-image-9500, HeapAlloc: 13894544, HeapIdle: 31391744, NextGC: 41943040, NumGC: 47 RN:323
+GRequest: 326, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 324, Container: go-server-image-9500, HeapAlloc: 14702552, HeapIdle: 30580736, NextGC: 41943040, NumGC: 47 RN:324
+GRequest: 327, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 325, Container: go-server-image-9500, HeapAlloc: 15510560, HeapIdle: 29777920, NextGC: 41943040, NumGC: 47 RN:325
+GRequest: 328, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 326, Container: go-server-image-9500, HeapAlloc: 16318568, HeapIdle: 28975104, NextGC: 41943040, NumGC: 47 RN:326
+GRequest: 329, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 327, Container: go-server-image-9500, HeapAlloc: 17126576, HeapIdle: 28164096, NextGC: 41943040, NumGC: 47 RN:327
+GRequest: 330, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 328, Container: go-server-image-9500, HeapAlloc: 17934584, HeapIdle: 27361280, NextGC: 41943040, NumGC: 47 RN:328
+GRequest: 331, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 329, Container: go-server-image-9500, HeapAlloc: 18742592, HeapIdle: 26550272, NextGC: 41943040, NumGC: 47 RN:329
+GRequest: 332, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 330, Container: go-server-image-9500, HeapAlloc: 19550600, HeapIdle: 25739264, NextGC: 41943040, NumGC: 47 RN:330
+GRequest: 333, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 331, Container: go-server-image-9500, HeapAlloc: 20358896, HeapIdle: 24936448, NextGC: 41943040, NumGC: 47 RN:331
+GRequest: 334, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 332, Container: go-server-image-9500, HeapAlloc: 21166904, HeapIdle: 24133632, NextGC: 41943040, NumGC: 47 RN:332
+GRequest: 335, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 333, Container: go-server-image-9500, HeapAlloc: 21975200, HeapIdle: 23330816, NextGC: 41943040, NumGC: 47 RN:333
+GRequest: 336, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 334, Container: go-server-image-9500, HeapAlloc: 22783208, HeapIdle: 22519808, NextGC: 41943040, NumGC: 47 RN:334
+GRequest: 337, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 335, Container: go-server-image-9500, HeapAlloc: 23591216, HeapIdle: 21708800, NextGC: 41943040, NumGC: 47 RN:335
+GRequest: 338, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 336, Container: go-server-image-9500, HeapAlloc: 24399224, HeapIdle: 20905984, NextGC: 41943040, NumGC: 47 RN:336
+GRequest: 339, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 337, Container: go-server-image-9500, HeapAlloc: 25207520, HeapIdle: 20103168, NextGC: 41943040, NumGC: 47 RN:337
+GRequest: 340, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 338, Container: go-server-image-9500, HeapAlloc: 26015528, HeapIdle: 19292160, NextGC: 41943040, NumGC: 47 RN:338
+GRequest: 341, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 339, Container: go-server-image-9500, HeapAlloc: 26823824, HeapIdle: 18489344, NextGC: 41943040, NumGC: 47 RN:339
+GRequest: 342, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 340, Container: go-server-image-9500, HeapAlloc: 27631832, HeapIdle: 17686528, NextGC: 41943040, NumGC: 47 RN:340
+GRequest: 343, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 341, Container: go-server-image-9500, HeapAlloc: 28439840, HeapIdle: 16875520, NextGC: 41943040, NumGC: 47 RN:341
+GRequest: 344, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 342, Container: go-server-image-9500, HeapAlloc: 29247848, HeapIdle: 16064512, NextGC: 41943040, NumGC: 47 RN:342
+GRequest: 345, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 343, Container: go-server-image-9500, HeapAlloc: 30055856, HeapIdle: 15261696, NextGC: 41943040, NumGC: 47 RN:343
+GRequest: 346, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 344, Container: go-server-image-9500, HeapAlloc: 30863864, HeapIdle: 14458880, NextGC: 41943040, NumGC: 47 RN:344
+GRequest: 347, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 345, Container: go-server-image-9500, HeapAlloc: 31671872, HeapIdle: 13656064, NextGC: 41943040, NumGC: 47 RN:345
+GRequest: 348, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 346, Container: go-server-image-9500, HeapAlloc: 32479880, HeapIdle: 12853248, NextGC: 41943040, NumGC: 47 RN:346
+GRequest: 349, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 347, Container: go-server-image-9500, HeapAlloc: 33287888, HeapIdle: 12042240, NextGC: 41943040, NumGC: 47 RN:347
+GRequest: 350, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 348, Container: go-server-image-9500, HeapAlloc: 34095896, HeapIdle: 11223040, NextGC: 41943040, NumGC: 47 RN:348
+GRequest: 351, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 349, Container: go-server-image-9500, HeapAlloc: 34903904, HeapIdle: 10403840, NextGC: 41943040, NumGC: 47 RN:349
+GRequest: 352, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 350, Container: go-server-image-9500, HeapAlloc: 35711912, HeapIdle: 9601024, NextGC: 41943040, NumGC: 47 RN:350
+GRequest: 353, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 351, Container: go-server-image-9500, HeapAlloc: 36519920, HeapIdle: 8798208, NextGC: 41943040, NumGC: 47 RN:351
+GRequest: 354, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 352, Container: go-server-image-9500, HeapAlloc: 37327928, HeapIdle: 7987200, NextGC: 41943040, NumGC: 47 RN:352
+GRequest: 355, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 353, Container: go-server-image-9500, HeapAlloc: 38135936, HeapIdle: 7184384, NextGC: 41943040, NumGC: 47 RN:353
+GRequest: 356, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 354, Container: go-server-image-9500, HeapAlloc: 38943944, HeapIdle: 6373376, NextGC: 41943040, NumGC: 47 RN:354
+GRequest: 357, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 355, Container: go-server-image-9500, HeapAlloc: 39751952, HeapIdle: 5570560, NextGC: 41943040, NumGC: 47 RN:355
+GCThreshold >= GoGCTriggerThreshold 0.947760
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 358, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40559912, HeapIdle: 4734976, NextGC: 41943040, NumGC: 47 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.967024
+Sending fake request to tip over the container go-server-image-9500
+Request: 356, Container: go-server-image-9501, HeapAlloc: 15479840, HeapIdle: 25657344, NextGC: 41943040, NumGC: 40 RN:356
+GRequest: 359, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 940400, HeapIdle: 44277760, NextGC: 41943040, NumGC: 48 RN:2147483647
+Request: 357, Container: go-server-image-9500, HeapAlloc: 1748424, HeapIdle: 43474944, NextGC: 41943040, NumGC: 48 RN:357
+GRequest: 360, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 358, Container: go-server-image-9500, HeapAlloc: 2556432, HeapIdle: 42663936, NextGC: 41943040, NumGC: 48 RN:358
+GRequest: 361, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 359, Container: go-server-image-9500, HeapAlloc: 3364440, HeapIdle: 41861120, NextGC: 41943040, NumGC: 48 RN:359
+GRequest: 362, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 360, Container: go-server-image-9500, HeapAlloc: 4172448, HeapIdle: 41058304, NextGC: 41943040, NumGC: 48 RN:360
+GRequest: 363, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 361, Container: go-server-image-9500, HeapAlloc: 4980456, HeapIdle: 40247296, NextGC: 41943040, NumGC: 48 RN:361
+GRequest: 364, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 362, Container: go-server-image-9500, HeapAlloc: 5788464, HeapIdle: 39444480, NextGC: 41943040, NumGC: 48 RN:362
+GRequest: 365, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 363, Container: go-server-image-9500, HeapAlloc: 6596760, HeapIdle: 38641664, NextGC: 41943040, NumGC: 48 RN:363
+GRequest: 366, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 364, Container: go-server-image-9500, HeapAlloc: 7404768, HeapIdle: 37838848, NextGC: 41943040, NumGC: 48 RN:364
+GRequest: 367, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 365, Container: go-server-image-9500, HeapAlloc: 8212776, HeapIdle: 37036032, NextGC: 41943040, NumGC: 48 RN:365
+GRequest: 368, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 366, Container: go-server-image-9500, HeapAlloc: 9020784, HeapIdle: 36233216, NextGC: 41943040, NumGC: 48 RN:366
+GRequest: 369, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 367, Container: go-server-image-9500, HeapAlloc: 9828792, HeapIdle: 35422208, NextGC: 41943040, NumGC: 48 RN:367
+GRequest: 370, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 368, Container: go-server-image-9500, HeapAlloc: 10636800, HeapIdle: 34619392, NextGC: 41943040, NumGC: 48 RN:368
+GRequest: 371, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 369, Container: go-server-image-9500, HeapAlloc: 11444808, HeapIdle: 33816576, NextGC: 41943040, NumGC: 48 RN:369
+GRequest: 372, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 370, Container: go-server-image-9500, HeapAlloc: 12252816, HeapIdle: 33013760, NextGC: 41943040, NumGC: 48 RN:370
+GRequest: 373, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 371, Container: go-server-image-9500, HeapAlloc: 13060824, HeapIdle: 32210944, NextGC: 41943040, NumGC: 48 RN:371
+GRequest: 374, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 372, Container: go-server-image-9500, HeapAlloc: 13868832, HeapIdle: 31408128, NextGC: 41943040, NumGC: 48 RN:372
+GRequest: 375, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 373, Container: go-server-image-9500, HeapAlloc: 14676840, HeapIdle: 30597120, NextGC: 41943040, NumGC: 48 RN:373
+GRequest: 376, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 374, Container: go-server-image-9500, HeapAlloc: 15484848, HeapIdle: 29794304, NextGC: 41943040, NumGC: 48 RN:374
+GRequest: 377, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 375, Container: go-server-image-9500, HeapAlloc: 16292856, HeapIdle: 28991488, NextGC: 41943040, NumGC: 48 RN:375
+GRequest: 378, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 376, Container: go-server-image-9500, HeapAlloc: 17100864, HeapIdle: 28180480, NextGC: 41943040, NumGC: 48 RN:376
+GRequest: 379, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 377, Container: go-server-image-9500, HeapAlloc: 17908872, HeapIdle: 27377664, NextGC: 41943040, NumGC: 48 RN:377
+GRequest: 380, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 378, Container: go-server-image-9500, HeapAlloc: 18716880, HeapIdle: 26566656, NextGC: 41943040, NumGC: 48 RN:378
+GRequest: 381, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 379, Container: go-server-image-9500, HeapAlloc: 19524888, HeapIdle: 25763840, NextGC: 41943040, NumGC: 48 RN:379
+GRequest: 382, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 380, Container: go-server-image-9500, HeapAlloc: 20332896, HeapIdle: 24961024, NextGC: 41943040, NumGC: 48 RN:380
+GRequest: 383, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 381, Container: go-server-image-9500, HeapAlloc: 21140904, HeapIdle: 24158208, NextGC: 41943040, NumGC: 48 RN:381
+GRequest: 384, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 382, Container: go-server-image-9500, HeapAlloc: 21948912, HeapIdle: 23355392, NextGC: 41943040, NumGC: 48 RN:382
+GRequest: 385, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 383, Container: go-server-image-9500, HeapAlloc: 22756920, HeapIdle: 22544384, NextGC: 41943040, NumGC: 48 RN:383
+GRequest: 386, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 384, Container: go-server-image-9500, HeapAlloc: 23564928, HeapIdle: 21733376, NextGC: 41943040, NumGC: 48 RN:384
+GRequest: 387, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 385, Container: go-server-image-9500, HeapAlloc: 24372936, HeapIdle: 20930560, NextGC: 41943040, NumGC: 48 RN:385
+GRequest: 388, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 386, Container: go-server-image-9500, HeapAlloc: 25180944, HeapIdle: 20127744, NextGC: 41943040, NumGC: 48 RN:386
+GRequest: 389, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 387, Container: go-server-image-9500, HeapAlloc: 25988952, HeapIdle: 19316736, NextGC: 41943040, NumGC: 48 RN:387
+GRequest: 390, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 388, Container: go-server-image-9500, HeapAlloc: 26797248, HeapIdle: 18513920, NextGC: 41943040, NumGC: 48 RN:388
+GRequest: 391, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 389, Container: go-server-image-9500, HeapAlloc: 27605256, HeapIdle: 17711104, NextGC: 41943040, NumGC: 48 RN:389
+GRequest: 392, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 390, Container: go-server-image-9500, HeapAlloc: 28413264, HeapIdle: 16900096, NextGC: 41943040, NumGC: 48 RN:390
+GRequest: 393, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 391, Container: go-server-image-9500, HeapAlloc: 29221272, HeapIdle: 16089088, NextGC: 41943040, NumGC: 48 RN:391
+GRequest: 394, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 392, Container: go-server-image-9500, HeapAlloc: 30029280, HeapIdle: 15286272, NextGC: 41943040, NumGC: 48 RN:392
+GRequest: 395, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 393, Container: go-server-image-9500, HeapAlloc: 30837288, HeapIdle: 14483456, NextGC: 41943040, NumGC: 48 RN:393
+GRequest: 396, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 394, Container: go-server-image-9500, HeapAlloc: 31645296, HeapIdle: 13680640, NextGC: 41943040, NumGC: 48 RN:394
+GRequest: 397, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 395, Container: go-server-image-9500, HeapAlloc: 32453304, HeapIdle: 12877824, NextGC: 41943040, NumGC: 48 RN:395
+GRequest: 398, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 396, Container: go-server-image-9500, HeapAlloc: 33261312, HeapIdle: 12066816, NextGC: 41943040, NumGC: 48 RN:396
+GRequest: 399, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 397, Container: go-server-image-9500, HeapAlloc: 34069320, HeapIdle: 11247616, NextGC: 41943040, NumGC: 48 RN:397
+GRequest: 400, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 398, Container: go-server-image-9500, HeapAlloc: 34877328, HeapIdle: 10428416, NextGC: 41943040, NumGC: 48 RN:398
+GRequest: 401, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 399, Container: go-server-image-9500, HeapAlloc: 35685336, HeapIdle: 9625600, NextGC: 41943040, NumGC: 48 RN:399
+GRequest: 402, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 400, Container: go-server-image-9500, HeapAlloc: 36493344, HeapIdle: 8822784, NextGC: 41943040, NumGC: 48 RN:400
+GRequest: 403, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 401, Container: go-server-image-9500, HeapAlloc: 37301352, HeapIdle: 8011776, NextGC: 41943040, NumGC: 48 RN:401
+GRequest: 404, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 402, Container: go-server-image-9500, HeapAlloc: 38109360, HeapIdle: 7208960, NextGC: 41943040, NumGC: 48 RN:402
+GRequest: 405, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 403, Container: go-server-image-9500, HeapAlloc: 38917368, HeapIdle: 6406144, NextGC: 41943040, NumGC: 48 RN:403
+GRequest: 406, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 404, Container: go-server-image-9500, HeapAlloc: 39725376, HeapIdle: 5603328, NextGC: 41943040, NumGC: 48 RN:404
+GCThreshold >= GoGCTriggerThreshold 0.947127
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 407, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40533336, HeapIdle: 4767744, NextGC: 41943040, NumGC: 48 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.966390
+Sending fake request to tip over the container go-server-image-9500
+Request: 405, Container: go-server-image-9501, HeapAlloc: 16287848, HeapIdle: 24854528, NextGC: 41943040, NumGC: 40 RN:405
+GRequest: 408, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 940400, HeapIdle: 44277760, NextGC: 41943040, NumGC: 49 RN:2147483647
+Request: 406, Container: go-server-image-9500, HeapAlloc: 1748424, HeapIdle: 43474944, NextGC: 41943040, NumGC: 49 RN:406
+GRequest: 409, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 407, Container: go-server-image-9500, HeapAlloc: 2556432, HeapIdle: 42663936, NextGC: 41943040, NumGC: 49 RN:407
+GRequest: 410, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 408, Container: go-server-image-9500, HeapAlloc: 3364440, HeapIdle: 41861120, NextGC: 41943040, NumGC: 49 RN:408
+GRequest: 411, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 409, Container: go-server-image-9500, HeapAlloc: 4172448, HeapIdle: 41058304, NextGC: 41943040, NumGC: 49 RN:409
+GRequest: 412, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 410, Container: go-server-image-9500, HeapAlloc: 4980456, HeapIdle: 40247296, NextGC: 41943040, NumGC: 49 RN:410
+GRequest: 413, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 411, Container: go-server-image-9500, HeapAlloc: 5788464, HeapIdle: 39444480, NextGC: 41943040, NumGC: 49 RN:411
+GRequest: 414, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 412, Container: go-server-image-9500, HeapAlloc: 6596472, HeapIdle: 38641664, NextGC: 41943040, NumGC: 49 RN:412
+GRequest: 415, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 413, Container: go-server-image-9500, HeapAlloc: 7404480, HeapIdle: 37838848, NextGC: 41943040, NumGC: 49 RN:413
+GRequest: 416, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 414, Container: go-server-image-9500, HeapAlloc: 8212488, HeapIdle: 37036032, NextGC: 41943040, NumGC: 49 RN:414
+GRequest: 417, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 415, Container: go-server-image-9500, HeapAlloc: 9020496, HeapIdle: 36233216, NextGC: 41943040, NumGC: 49 RN:415
+GRequest: 418, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 416, Container: go-server-image-9500, HeapAlloc: 9828504, HeapIdle: 35422208, NextGC: 41943040, NumGC: 49 RN:416
+GRequest: 419, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 417, Container: go-server-image-9500, HeapAlloc: 10636800, HeapIdle: 34619392, NextGC: 41943040, NumGC: 49 RN:417
+GRequest: 420, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 418, Container: go-server-image-9500, HeapAlloc: 11444808, HeapIdle: 33816576, NextGC: 41943040, NumGC: 49 RN:418
+GRequest: 421, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 419, Container: go-server-image-9500, HeapAlloc: 12252816, HeapIdle: 33013760, NextGC: 41943040, NumGC: 49 RN:419
+GRequest: 422, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 420, Container: go-server-image-9500, HeapAlloc: 13060824, HeapIdle: 32210944, NextGC: 41943040, NumGC: 49 RN:420
+GRequest: 423, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 421, Container: go-server-image-9500, HeapAlloc: 13868832, HeapIdle: 31408128, NextGC: 41943040, NumGC: 49 RN:421
+GRequest: 424, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 422, Container: go-server-image-9500, HeapAlloc: 14676840, HeapIdle: 30597120, NextGC: 41943040, NumGC: 49 RN:422
+GRequest: 425, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 423, Container: go-server-image-9500, HeapAlloc: 15484848, HeapIdle: 29794304, NextGC: 41943040, NumGC: 49 RN:423
+GRequest: 426, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 424, Container: go-server-image-9500, HeapAlloc: 16292856, HeapIdle: 28991488, NextGC: 41943040, NumGC: 49 RN:424
+GRequest: 427, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 425, Container: go-server-image-9500, HeapAlloc: 17100864, HeapIdle: 28180480, NextGC: 41943040, NumGC: 49 RN:425
+GRequest: 428, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 426, Container: go-server-image-9500, HeapAlloc: 17908872, HeapIdle: 27377664, NextGC: 41943040, NumGC: 49 RN:426
+GRequest: 429, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 427, Container: go-server-image-9500, HeapAlloc: 18716880, HeapIdle: 26566656, NextGC: 41943040, NumGC: 49 RN:427
+GRequest: 430, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 428, Container: go-server-image-9500, HeapAlloc: 19525176, HeapIdle: 25763840, NextGC: 41943040, NumGC: 49 RN:428
+GRequest: 431, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 429, Container: go-server-image-9500, HeapAlloc: 20333184, HeapIdle: 24961024, NextGC: 41943040, NumGC: 49 RN:429
+GRequest: 432, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 430, Container: go-server-image-9500, HeapAlloc: 21141192, HeapIdle: 24158208, NextGC: 41943040, NumGC: 49 RN:430
+GRequest: 433, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 431, Container: go-server-image-9500, HeapAlloc: 21949200, HeapIdle: 23355392, NextGC: 41943040, NumGC: 49 RN:431
+GRequest: 434, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 432, Container: go-server-image-9500, HeapAlloc: 22757208, HeapIdle: 22544384, NextGC: 41943040, NumGC: 49 RN:432
+GRequest: 435, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 433, Container: go-server-image-9500, HeapAlloc: 23565216, HeapIdle: 21733376, NextGC: 41943040, NumGC: 49 RN:433
+GRequest: 436, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 434, Container: go-server-image-9500, HeapAlloc: 24373512, HeapIdle: 20930560, NextGC: 41943040, NumGC: 49 RN:434
+GRequest: 437, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 435, Container: go-server-image-9500, HeapAlloc: 25181520, HeapIdle: 20127744, NextGC: 41943040, NumGC: 49 RN:435
+GRequest: 438, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 436, Container: go-server-image-9500, HeapAlloc: 25989528, HeapIdle: 19316736, NextGC: 41943040, NumGC: 49 RN:436
+GRequest: 439, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 437, Container: go-server-image-9500, HeapAlloc: 26797536, HeapIdle: 18513920, NextGC: 41943040, NumGC: 49 RN:437
+GRequest: 440, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 438, Container: go-server-image-9500, HeapAlloc: 27605544, HeapIdle: 17711104, NextGC: 41943040, NumGC: 49 RN:438
+GRequest: 441, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 439, Container: go-server-image-9500, HeapAlloc: 28413552, HeapIdle: 16900096, NextGC: 41943040, NumGC: 49 RN:439
+GRequest: 442, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 440, Container: go-server-image-9500, HeapAlloc: 29221560, HeapIdle: 16089088, NextGC: 41943040, NumGC: 49 RN:440
+GRequest: 443, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 441, Container: go-server-image-9500, HeapAlloc: 30029568, HeapIdle: 15286272, NextGC: 41943040, NumGC: 49 RN:441
+GRequest: 444, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 442, Container: go-server-image-9500, HeapAlloc: 30837864, HeapIdle: 14483456, NextGC: 41943040, NumGC: 49 RN:442
+GRequest: 445, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 443, Container: go-server-image-9500, HeapAlloc: 31645872, HeapIdle: 13680640, NextGC: 41943040, NumGC: 49 RN:443
+GRequest: 446, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 444, Container: go-server-image-9500, HeapAlloc: 32453880, HeapIdle: 12877824, NextGC: 41943040, NumGC: 49 RN:444
+GRequest: 447, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 445, Container: go-server-image-9500, HeapAlloc: 33262176, HeapIdle: 12066816, NextGC: 41943040, NumGC: 49 RN:445
+GRequest: 448, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 446, Container: go-server-image-9500, HeapAlloc: 34070184, HeapIdle: 11247616, NextGC: 41943040, NumGC: 49 RN:446
+GRequest: 449, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 447, Container: go-server-image-9500, HeapAlloc: 34878192, HeapIdle: 10428416, NextGC: 41943040, NumGC: 49 RN:447
+GRequest: 450, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 448, Container: go-server-image-9500, HeapAlloc: 35686200, HeapIdle: 9625600, NextGC: 41943040, NumGC: 49 RN:448
+GRequest: 451, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 449, Container: go-server-image-9500, HeapAlloc: 36494208, HeapIdle: 8822784, NextGC: 41943040, NumGC: 49 RN:449
+GRequest: 452, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 450, Container: go-server-image-9500, HeapAlloc: 37302216, HeapIdle: 8011776, NextGC: 41943040, NumGC: 49 RN:450
+GRequest: 453, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 451, Container: go-server-image-9500, HeapAlloc: 38110224, HeapIdle: 7208960, NextGC: 41943040, NumGC: 49 RN:451
+GRequest: 454, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 452, Container: go-server-image-9500, HeapAlloc: 38918232, HeapIdle: 6397952, NextGC: 41943040, NumGC: 49 RN:452
+GRequest: 455, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 453, Container: go-server-image-9500, HeapAlloc: 39726240, HeapIdle: 5595136, NextGC: 41943040, NumGC: 49 RN:453
+GCThreshold >= GoGCTriggerThreshold 0.947147
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 456, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40534216, HeapIdle: 4759552, NextGC: 41943040, NumGC: 49 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.966411
+Sending fake request to tip over the container go-server-image-9500
+Request: 454, Container: go-server-image-9501, HeapAlloc: 17095856, HeapIdle: 24043520, NextGC: 41943040, NumGC: 40 RN:454
+GRequest: 457, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40478384, HeapIdle: 4759552, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.965080
+Sending fake request to tip over the container go-server-image-9500
+Request: 455, Container: go-server-image-9500, HeapAlloc: 39676936, HeapIdle: 5562368, NextGC: 41943040, NumGC: 50 RN:455
+GCThreshold >= GoGCTriggerThreshold 0.945972
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 458, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39680224, HeapIdle: 5562368, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946050
+Sending fake request to tip over the container go-server-image-9500
+Request: 456, Container: go-server-image-9501, HeapAlloc: 17903864, HeapIdle: 23240704, NextGC: 41943040, NumGC: 40 RN:456
+GRequest: 459, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39685400, HeapIdle: 5562368, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946174
+Sending fake request to tip over the container go-server-image-9500
+Request: 457, Container: go-server-image-9500, HeapAlloc: 39690608, HeapIdle: 5562368, NextGC: 41943040, NumGC: 50 RN:457
+GCThreshold >= GoGCTriggerThreshold 0.946298
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 460, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39687672, HeapIdle: 5562368, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946228
+Sending fake request to tip over the container go-server-image-9500
+Request: 458, Container: go-server-image-9501, HeapAlloc: 18711872, HeapIdle: 22429696, NextGC: 41943040, NumGC: 40 RN:458
+GRequest: 461, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39692848, HeapIdle: 5562368, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946351
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39644088, HeapIdle: 5619712, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945189
+Sending fake request to tip over the container go-server-image-9500
+Request: 459, Container: go-server-image-9500, HeapAlloc: 39649296, HeapIdle: 5619712, NextGC: 41943040, NumGC: 50 RN:459
+GCThreshold >= GoGCTriggerThreshold 0.945313
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 462, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39654456, HeapIdle: 5619712, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945436
+Sending fake request to tip over the container go-server-image-9500
+Request: 460, Container: go-server-image-9501, HeapAlloc: 19519880, HeapIdle: 21626880, NextGC: 41943040, NumGC: 40 RN:460
+GRequest: 463, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39659632, HeapIdle: 5619712, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945559
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39660152, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945572
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39665328, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945695
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39670504, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945819
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39667616, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945750
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39672792, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945873
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39673120, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945881
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39670200, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945811
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39675376, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.945935
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 39680552, HeapIdle: 5611520, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.946058
+Sending fake request to tip over the container go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38875168, HeapIdle: 6414336, NextGC: 41943040, NumGC: 50 RN:2147483647
+Request: 461, Container: go-server-image-9500, HeapAlloc: 38873992, HeapIdle: 6414336, NextGC: 41943040, NumGC: 50 RN:461
+GRequest: 464, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38879152, HeapIdle: 6406144, NextGC: 41943040, NumGC: 50 RN:2147483647
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38884328, HeapIdle: 6406144, NextGC: 41943040, NumGC: 50 RN:2147483647
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 38889504, HeapIdle: 6406144, NextGC: 41943040, NumGC: 50 RN:2147483647
+Request: 462, Container: go-server-image-9500, HeapAlloc: 38894712, HeapIdle: 6373376, NextGC: 41943040, NumGC: 50 RN:462
+GRequest: 465, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 463, Container: go-server-image-9500, HeapAlloc: 21968544, HeapIdle: 23289856, NextGC: 41943040, NumGC: 50 RN:463
+GRequest: 466, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 464, Container: go-server-image-9500, HeapAlloc: 22776552, HeapIdle: 22487040, NextGC: 41943040, NumGC: 50 RN:464
+GRequest: 467, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 465, Container: go-server-image-9500, HeapAlloc: 23584560, HeapIdle: 21676032, NextGC: 41943040, NumGC: 50 RN:465
+GRequest: 468, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 466, Container: go-server-image-9500, HeapAlloc: 24392568, HeapIdle: 20873216, NextGC: 41943040, NumGC: 50 RN:466
+GRequest: 469, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 467, Container: go-server-image-9500, HeapAlloc: 25200576, HeapIdle: 20070400, NextGC: 41943040, NumGC: 50 RN:467
+GRequest: 470, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 468, Container: go-server-image-9500, HeapAlloc: 26008584, HeapIdle: 19259392, NextGC: 41943040, NumGC: 50 RN:468
+GRequest: 471, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 469, Container: go-server-image-9500, HeapAlloc: 26816592, HeapIdle: 18456576, NextGC: 41943040, NumGC: 50 RN:469
+GRequest: 472, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 470, Container: go-server-image-9500, HeapAlloc: 27624600, HeapIdle: 17653760, NextGC: 41943040, NumGC: 50 RN:470
+GRequest: 473, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 471, Container: go-server-image-9500, HeapAlloc: 28432608, HeapIdle: 16842752, NextGC: 41943040, NumGC: 50 RN:471
+GRequest: 474, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 472, Container: go-server-image-9500, HeapAlloc: 29240616, HeapIdle: 16031744, NextGC: 41943040, NumGC: 50 RN:472
+GRequest: 475, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 473, Container: go-server-image-9500, HeapAlloc: 30048624, HeapIdle: 15228928, NextGC: 41943040, NumGC: 50 RN:473
+GRequest: 476, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 474, Container: go-server-image-9500, HeapAlloc: 30856632, HeapIdle: 14426112, NextGC: 41943040, NumGC: 50 RN:474
+GRequest: 477, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 475, Container: go-server-image-9500, HeapAlloc: 31664640, HeapIdle: 13623296, NextGC: 41943040, NumGC: 50 RN:475
+GRequest: 478, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 476, Container: go-server-image-9500, HeapAlloc: 32472648, HeapIdle: 12820480, NextGC: 41943040, NumGC: 50 RN:476
+GRequest: 479, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 477, Container: go-server-image-9500, HeapAlloc: 33280656, HeapIdle: 12009472, NextGC: 41943040, NumGC: 50 RN:477
+GRequest: 480, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 478, Container: go-server-image-9500, HeapAlloc: 34088664, HeapIdle: 11198464, NextGC: 41943040, NumGC: 50 RN:478
+GRequest: 481, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 479, Container: go-server-image-9500, HeapAlloc: 34896672, HeapIdle: 10387456, NextGC: 41943040, NumGC: 50 RN:479
+GRequest: 482, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 480, Container: go-server-image-9500, HeapAlloc: 35704680, HeapIdle: 9584640, NextGC: 41943040, NumGC: 50 RN:480
+GRequest: 483, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 481, Container: go-server-image-9500, HeapAlloc: 36512688, HeapIdle: 8781824, NextGC: 41943040, NumGC: 50 RN:481
+GRequest: 484, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 482, Container: go-server-image-9500, HeapAlloc: 37320696, HeapIdle: 7970816, NextGC: 41943040, NumGC: 50 RN:482
+GRequest: 485, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 483, Container: go-server-image-9500, HeapAlloc: 38128704, HeapIdle: 7168000, NextGC: 41943040, NumGC: 50 RN:483
+GRequest: 486, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 484, Container: go-server-image-9500, HeapAlloc: 38936712, HeapIdle: 6365184, NextGC: 41943040, NumGC: 50 RN:484
+GRequest: 487, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 485, Container: go-server-image-9500, HeapAlloc: 39744720, HeapIdle: 5562368, NextGC: 41943040, NumGC: 50 RN:485
+GCThreshold >= GoGCTriggerThreshold 0.947588
+Sending fake request to tip over the container go-server-image-9500
+handlingGCForGoContainers is True
+GRequest: 488, Selected container: go-server-image-9501
+Container already running:  go-server-image-9501
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 40552696, HeapIdle: 4726784, NextGC: 41943040, NumGC: 50 RN:2147483647
+GCThreshold >= GoGCTriggerThreshold 0.966852
+Sending fake request to tip over the container go-server-image-9500
+Request: 486, Container: go-server-image-9501, HeapAlloc: 20327888, HeapIdle: 20824064, NextGC: 41943040, NumGC: 40 RN:486
+GRequest: 489, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 2147483647, Container: go-server-image-9500, HeapAlloc: 957776, HeapIdle: 44261376, NextGC: 41943040, NumGC: 51 RN:2147483647
+Request: 487, Container: go-server-image-9500, HeapAlloc: 1765800, HeapIdle: 43458560, NextGC: 41943040, NumGC: 51 RN:487
+GRequest: 490, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 488, Container: go-server-image-9500, HeapAlloc: 2573808, HeapIdle: 42647552, NextGC: 41943040, NumGC: 51 RN:488
+GRequest: 491, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 489, Container: go-server-image-9500, HeapAlloc: 3381816, HeapIdle: 41844736, NextGC: 41943040, NumGC: 51 RN:489
+GRequest: 492, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 490, Container: go-server-image-9500, HeapAlloc: 4189824, HeapIdle: 41041920, NextGC: 41943040, NumGC: 51 RN:490
+GRequest: 493, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 491, Container: go-server-image-9500, HeapAlloc: 4997832, HeapIdle: 40230912, NextGC: 41943040, NumGC: 51 RN:491
+GRequest: 494, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 492, Container: go-server-image-9500, HeapAlloc: 5805840, HeapIdle: 39428096, NextGC: 41943040, NumGC: 51 RN:492
+GRequest: 495, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 493, Container: go-server-image-9500, HeapAlloc: 6613848, HeapIdle: 38625280, NextGC: 41943040, NumGC: 51 RN:493
+GRequest: 496, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 494, Container: go-server-image-9500, HeapAlloc: 7421856, HeapIdle: 37822464, NextGC: 41943040, NumGC: 51 RN:494
+GRequest: 497, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 495, Container: go-server-image-9500, HeapAlloc: 8229864, HeapIdle: 37019648, NextGC: 41943040, NumGC: 51 RN:495
+GRequest: 498, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 496, Container: go-server-image-9500, HeapAlloc: 9037872, HeapIdle: 36216832, NextGC: 41943040, NumGC: 51 RN:496
+GRequest: 499, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 497, Container: go-server-image-9500, HeapAlloc: 9845880, HeapIdle: 35405824, NextGC: 41943040, NumGC: 51 RN:497
+GRequest: 500, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 498, Container: go-server-image-9500, HeapAlloc: 10653888, HeapIdle: 34603008, NextGC: 41943040, NumGC: 51 RN:498
+GRequest: 501, Selected container: go-server-image-9500
+Container already running:  go-server-image-9500
+Request: 499, Container: go-server-image-9500, HeapAlloc: 11461896, HeapIdle: 33800192, NextGC: 41943040, NumGC: 51 RN:499
