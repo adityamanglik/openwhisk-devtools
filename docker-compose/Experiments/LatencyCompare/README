@@ -1,4 +1,6 @@
 hOW TO RUN THIS EXPERIMENT:
+Disable warmup requests in BOTH loadbalancers
+Make sure to change ServerIP in NOGCLoadbalancer to node1
 Start Loadbalancer on node0
 Start NOGCLoadbalancer on node1
 Run request_sender.go
