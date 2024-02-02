@@ -1,0 +1,5 @@
+hOW TO RUN THIS EXPERIMENT:
+Start Loadbalancer on node0
+Start NOGCLoadbalancer on node1
+Run request_sender.go
+Run EM_NOGC_plotter.py
