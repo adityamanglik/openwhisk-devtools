@@ -98,7 +98,7 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 
 	rand.Seed(int64(seed))
 
-	lst := list.new()
+	lst := list.New()
 
 	for i := 0; i < ARRAY_SIZE; i++ {
 		// Inserting integers directly, assuming payload simulation isn't the focus
