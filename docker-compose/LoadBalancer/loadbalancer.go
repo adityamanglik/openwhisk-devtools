@@ -19,6 +19,9 @@ import (
 	"time"
 )
 
+// KNOWN BUGS
+// 1. If the docker container is NOT pre-compiled image, LB fails
+
 // SCHEDULING POLICY DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
 // func newGoGCStructure() *GoGCStructure {

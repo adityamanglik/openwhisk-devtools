@@ -11,7 +11,7 @@
 # Go
 docker build -t go-server-image .
 docker run -d  --rm --name my-go-server -p 9875:9875 go-server-image
-curl http://128.110.96.176:9875/GoNative?seed=654
+curl http://node0:9875/GoNative?seed=654
 docker stop my-go-server
 docker rm my-go-server
 
@@ -19,7 +19,7 @@ docker rm my-go-server
 # Java
 docker build -t java-server-image .
 docker run -d --rm --name my-java-server -p 9876:9876 java-server-image
-curl http://128.110.96.176:9876/jsonresponse?seed=654
+curl http://node0:9876/jsonresponse?seed=654
 docker stop my-java-server
 docker rm my-java-server
 

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"container/list"
 	"context"
 	"encoding/json"
 	"log"
@@ -97,15 +98,19 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 
 	rand.Seed(int64(seed))
 
-	arr := make([]int, ARRAY_SIZE)
-	var sum int64 = 0
+	lst := list.new()
 
-	for i := range arr {
-		arr[i] = rand.Intn(100000)
+	for i := 0; i < ARRAY_SIZE; i++ {
+		// Inserting integers directly, assuming payload simulation isn't the focus
+		lst.PushFront(rand.Intn(1000)) // Use integers for direct summation
 	}
-
-	for i := range arr {
-		sum += int64(arr[i])
+	
+	// Dummy operation to simulate processing - Adjusted for integer summation
+	var sum int64 = 0
+	for e := lst.Front(); e != nil; e = e.Next() {
+		if val, ok := e.Value.(int64); ok {
+			sum += int64(val)
+		}
 	}
 
 	executionTime := time.Now().UnixMicro() - start
