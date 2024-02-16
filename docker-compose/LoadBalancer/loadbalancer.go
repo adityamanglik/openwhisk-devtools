@@ -191,7 +191,7 @@ func init() {
 				resp.Body.Close() // Ensure response body is closed
 			}
 		}
-		initialize GCTracker values
+		// initialize GCTracker values
 		SendFakeRequest(container1)
 		SendFakeRequest(container2)
 		time.Sleep(5 * time.Second)
