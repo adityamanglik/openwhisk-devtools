@@ -102,13 +102,15 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 
 	for i := 0; i < ARRAY_SIZE; i++ {
 		// Inserting integers directly, assuming payload simulation isn't the focus
-		lst.PushFront(rand.Intn(seed)) // Use integers for direct summation
+		lst.PushFront(rand.Intn(1000)) // Use integers for direct summation
 	}
 	
 	// Dummy operation to simulate processing - Adjusted for integer summation
 	var sum int64 = 0
 	for e := lst.Front(); e != nil; e = e.Next() {
-			sum += int64(e.Value)
+		if val, ok := e.Value.(int); ok {
+			sum += int64(val)
+		}
 	}
 
 	executionTime := time.Now().UnixMicro() - start
