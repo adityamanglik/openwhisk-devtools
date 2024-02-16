@@ -104,7 +104,7 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 		// Inserting integers directly, assuming payload simulation isn't the focus
 		lst.PushFront(rand.Intn(seed)) // Use integers for direct summation
 		// Stress GC with nested list
-		if (i%rand.Intn(5) == 0){
+		if (i%5 == 0){
 			nestedList := list.New()
 			for j := 0; j < rand.Intn(5); j++ {
 				nestedList.PushBack(rand.Intn(seed))
@@ -112,7 +112,7 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 			lst.PushBack(nestedList)
 		}
 		// Immediate removal after insertion to stress GC
-		if (i%rand.Intn(5) == 0){
+		if (i%5 == 0){
 			e := lst.PushFront(rand.Intn(seed))
     		lst.Remove(e)
 		}
