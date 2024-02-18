@@ -33,10 +33,16 @@ send_requests() {
         # Restart the load balancer
         ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
     
+        # Sleep for warming up LoadBalancer
+        sleep 5
+        
         # Start sending requests
         taskset -c 2 go run request_sender.go $size $gc
 
-        # Extract required data from file
+        # Perform multiple throughput testing
+        ab -n 1000 -c 1 "http://node0:8180/go?seed=1000&arraysize=$size&requestnumber=56" | grep "Requests per second" >> "$OW_DIRECTORY/Data/${size}_${gc}_throughput.txt"
+        ab -n 1000 -c 1 "http://node0:8180/go?seed=1001&arraysize=$size&requestnumber=57" | grep "Requests per second" >> "$OW_DIRECTORY/Data/${size}_${gc}_throughput.txt"
+        ab -n 1000 -c 1 "http://node0:8180/go?seed=1002&arraysize=$size&requestnumber=58" | grep "Requests per second" >> "$OW_DIRECTORY/Data/${size}_${gc}_throughput.txt"
         
         # Move files for postprocessing
         scp "$OW_SERVER_NODE:/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/go_heap_memory.log" "$OW_DIRECTORY/Data/${size}_${gc}_memory.txt"

@@ -1,36 +1,34 @@
-Request: 0, Container: go-server-image-9500, HeapAlloc: 11124304, HeapIdle: 6963200, HeapInuse: 13647872, NextGC: 12173200, NumGC: 17379
+Request: 0, Container: go-server-image-9500, HeapAlloc: 14236560, HeapIdle: 5898240, HeapInuse: 14712832, NextGC: 13846128, NumGC: 1768
 
-Request: 1, Container: go-server-image-9500, HeapAlloc: 13414800, HeapIdle: 6201344, HeapInuse: 14409728, NextGC: 13724352, NumGC: 17395
+Request: 1, Container: go-server-image-9500, HeapAlloc: 16802592, HeapIdle: 3252224, HeapInuse: 17293312, NextGC: 17540400, NumGC: 1784
 
-Request: 2, Container: go-server-image-9500, HeapAlloc: 21233696, HeapIdle: 3014656, HeapInuse: 21725184, NextGC: 20505808, NumGC: 17416
+Request: 2, Container: go-server-image-9500, HeapAlloc: 29326120, HeapIdle: 7847936, HeapInuse: 33636352, NextGC: 28430712, NumGC: 1803
 
-Request: 3, Container: go-server-image-9500, HeapAlloc: 29568408, HeapIdle: 5488640, HeapInuse: 35995648, NextGC: 29731816, NumGC: 17434
+Request: 3, Container: go-server-image-9500, HeapAlloc: 25996384, HeapIdle: 7127040, HeapInuse: 38551552, NextGC: 26962400, NumGC: 1810
 
-Request: 4, Container: go-server-image-9500, HeapAlloc: 32866656, HeapIdle: 4685824, HeapInuse: 40960000, NextGC: 32529840, NumGC: 17443
+Request: 4, Container: go-server-image-9500, HeapAlloc: 50821864, HeapIdle: 2662400, HeapInuse: 51404800, NextGC: 49530568, NumGC: 1818
 
-Request: 5, Container: go-server-image-9500, HeapAlloc: 30731216, HeapIdle: 2990080, HeapInuse: 46882816, NextGC: 29929472, NumGC: 17448
+Request: 5, Container: go-server-image-9500, HeapAlloc: 38580400, HeapIdle: 6004736, HeapInuse: 52191232, NextGC: 36473976, NumGC: 1828
 
-Request: 6, Container: go-server-image-9500, HeapAlloc: 49575072, HeapIdle: 12230656, HeapInuse: 50159616, NextGC: 46179776, NumGC: 17459
+Request: 6, Container: go-server-image-9500, HeapAlloc: 44353016, HeapIdle: 9887744, HeapInuse: 52502528, NextGC: 35920584, NumGC: 1835
 
-Request: 7, Container: go-server-image-9500, HeapAlloc: 40548296, HeapIdle: 18161664, HeapInuse: 48455680, NextGC: 36910312, NumGC: 17473
+Request: 7, Container: go-server-image-9500, HeapAlloc: 42840896, HeapIdle: 6758400, HeapInuse: 59760640, NextGC: 43890688, NumGC: 1849
 
-Request: 8, Container: go-server-image-9500, HeapAlloc: 72254056, HeapIdle: 2039808, HeapInuse: 72900608, NextGC: 68675272, NumGC: 17481
+Request: 8, Container: go-server-image-9500, HeapAlloc: 56171816, HeapIdle: 13934592, HeapInuse: 56778752, NextGC: 56335320, NumGC: 1865
 
-Request: 9, Container: go-server-image-9500, HeapAlloc: 56083896, HeapIdle: 3473408, HeapInuse: 79888384, NextGC: 53897016, NumGC: 17496
+Request: 9, Container: go-server-image-9500, HeapAlloc: 61379328, HeapIdle: 10944512, HeapInuse: 72351744, NextGC: 60658296, NumGC: 1881
 
-Request: 10, Container: go-server-image-9500, HeapAlloc: 65644736, HeapIdle: 16818176, HeapInuse: 66478080, NextGC: 56784704, NumGC: 17506
+Request: 10, Container: go-server-image-9500, HeapAlloc: 70851184, HeapIdle: 4243456, HeapInuse: 79020032, NextGC: 69559416, NumGC: 1891
 
-Request: 11, Container: go-server-image-9500, HeapAlloc: 77764000, HeapIdle: 3153920, HeapInuse: 80142336, NextGC: 71276192, NumGC: 17515
+Request: 11, Container: go-server-image-9500, HeapAlloc: 72484168, HeapIdle: 8617984, HeapInuse: 83034112, NextGC: 72379320, NumGC: 1901
 
-Request: 12, Container: go-server-image-9500, HeapAlloc: 65329280, HeapIdle: 14991360, HeapInuse: 72433664, NextGC: 63407456, NumGC: 17523
+Request: 12, Container: go-server-image-9500, HeapAlloc: 102996912, HeapIdle: 4489216, HeapInuse: 103874560, NextGC: 93309456, NumGC: 1914
 
-Request: 13, Container: go-server-image-9500, HeapAlloc: 69454696, HeapIdle: 10584064, HeapInuse: 93618176, NextGC: 68675960, NumGC: 17533
+Request: 13, Container: go-server-image-9500, HeapAlloc: 81476072, HeapIdle: 34586624, HeapInuse: 82165760, NextGC: 69409672, NumGC: 1924
 
-Request: 14, Container: go-server-image-9500, HeapAlloc: 74266000, HeapIdle: 10969088, HeapInuse: 93167616, NextGC: 73582704, NumGC: 17535
+Request: 14, Container: go-server-image-9500, HeapAlloc: 108264320, HeapIdle: 5128192, HeapInuse: 119947264, NextGC: 99224512, NumGC: 1931
 
-Request: 15, Container: go-server-image-9500, HeapAlloc: 90939592, HeapIdle: 27197440, HeapInuse: 114688000, NextGC: 85872160, NumGC: 17545
+Request: 15, Container: go-server-image-9500, HeapAlloc: 114713928, HeapIdle: 7864320, HeapInuse: 125599744, NextGC: 110224072, NumGC: 1943
 
-Request: 16, Container: go-server-image-9500, HeapAlloc: 102573760, HeapIdle: 35659776, HeapInuse: 106225664, NextGC: 79192696, NumGC: 17553
-
-Request: 17, Container: go-server-image-9500, HeapAlloc: 171207016, HeapIdle: 2506752, HeapInuse: 177094656, NextGC: 165823176, NumGC: 17568
+Request: 16, Container: go-server-image-9500, HeapAlloc: 137259456, HeapIdle: 4227072, HeapInuse: 146014208, NextGC: 125398432, NumGC: 1953
 
