@@ -6,7 +6,7 @@ import os
 directory = './Data'
 
 # Array of sizes and GOGC values
-sizes = [100000, 1000000]
+sizes = [1000, 10000, 100000]
 GOGC = [1, 10, 100, 500, 999, -1]
 GOGC_plot = [1, 10, 100, 500, 999, 1000]
 column_list = ["ArraySize", "totalExecutionTime", "ClientAvg", "ClientP50", "ClientP99", "ClientP999", "ClientP9999", "ServerAvg", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"]

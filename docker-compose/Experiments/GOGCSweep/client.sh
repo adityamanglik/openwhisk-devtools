@@ -1,12 +1,12 @@
 # Constants and Variables
 OW_SERVER_NODE="am_CU@node0"
-GO_API="http://128.110.96.59:8180/go"
-KILL_SERVER_API="http://128.110.96.59:8180/exitCall"
+GO_API="http://node0:8180/go"
+KILL_SERVER_API="http://node0:8180/exitCall"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GOGCSweep"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 
 # Array of sizes
-sizes=(100000 1000000)
+sizes=(1000 10000 100000)
 # Array of GOGC values
 GOGC=(-1 1 10 100 500 999)
 
