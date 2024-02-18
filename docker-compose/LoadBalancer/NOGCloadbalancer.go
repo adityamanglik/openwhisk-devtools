@@ -156,84 +156,45 @@ func init() {
 
 	fakeRequestArraySize = 100000
 
-	// If GCMitigation Policy, start and warm the containers
-	if currentSchedulingPolicy == GCMitigation {
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		startNewContainer(container1)
-		startNewContainer(container2)
-		mutexHandlingGCForGoContainers.Lock()
-		handlingGCForGoContainers = false
-		mutexHandlingGCForGoContainers.Unlock()
+	// Start and warm the containers
+	container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+	container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+	startNewContainer(container1)
+	startNewContainer(container2)
+	mutexHandlingGCForGoContainers.Lock()
+	handlingGCForGoContainers = false
+	mutexHandlingGCForGoContainers.Unlock()
 
-		// Send 10000 request to warm up containers
-		for j := 0; j <= 2000; j++ {
-			seed := rand.Intn(10000)
-			arraysize := fakeRequestArraySize
-			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			resp, err := http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
-
-			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			// Send fake request
-			resp, err = http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
+	// Send 10000 request to warm up containers
+	for j := 0; j <= 200; j++ {
+		seed := rand.Intn(10000)
+		arraysize := fakeRequestArraySize
+		requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
+		// Send fake request
+		resp, err := http.Get(requestURL)
+		if err != nil {
+			fmt.Println("Error sending fake request:", err)
+			continue
+		} else {
+			resp.Body.Close() // Ensure response body is closed
 		}
-		// initialize GCTracker values
-		SendFakeRequest(container1)
-		SendFakeRequest(container2)
-		time.Sleep(5 * time.Second)
-		fmt.Println("Sent request to initialize GC data structure")
-		
-	} else if currentSchedulingPolicy == RoundRobin {
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		startNewContainer(container1)
-		startNewContainer(container2)
-		handlingGCForGoContainers = false
 
-		// Send 10000 request to warm up containers
-		for j := 0; j <= 2000; j++ {
-			seed := rand.Intn(10000)
-			arraysize := fakeRequestArraySize
-			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			resp, err := http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
-
-			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			// Send fake request
-			resp, err = http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
+		requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
+		// Send fake request
+		// Send fake request
+		resp, err = http.Get(requestURL)
+		if err != nil {
+			fmt.Println("Error sending fake request:", err)
+			continue
+		} else {
+			resp.Body.Close() // Ensure response body is closed
 		}
-		// initialize GCTracker values
-		SendFakeRequest(container1)
-		SendFakeRequest(container2)
-		time.Sleep(5 * time.Second)
 	}
+	// initialize GCTracker values
+	SendFakeRequest(container1)
+	SendFakeRequest(container2)
+	time.Sleep(5 * time.Second)
+	fmt.Println("Sent request to initialize GC data structure")
 	// Initialize the log channel with a buffer size of 100
 	logChannel = make(chan string, 110)
 

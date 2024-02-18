@@ -6,9 +6,9 @@ OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GOGCSwe
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 
 # Array of sizes
-sizes=(1000 10000 100000)
+sizes=(10000 100000)
 # Array of GOGC values
-GOGC=(-1 1 10 100 500 999)
+GOGC=(1 10 100 500 999)
 
 # Send request and measure request response latencies
 send_requests() {
