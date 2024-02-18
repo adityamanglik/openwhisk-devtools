@@ -21,6 +21,8 @@ import (
 
 // KNOWN BUGS
 // 1. If the docker container is NOT pre-compiled image, LB fails
+// 2. Instead of separate NOGC LoadBalancer, specify scheduling policy as command line parameter when starting LB
+// 3. Track IdleTime GC Triggers
 
 // SCHEDULING POLICY DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
