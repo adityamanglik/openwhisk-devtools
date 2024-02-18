@@ -1,3 +1,6 @@
 Requests per second:    263.43 [#/sec] (mean)
 Requests per second:    250.73 [#/sec] (mean)
 Requests per second:    260.49 [#/sec] (mean)
+Requests per second:    242.32 [#/sec] (mean)
+Requests per second:    260.20 [#/sec] (mean)
+Requests per second:    253.01 [#/sec] (mean)

@@ -35,6 +35,7 @@ send_requests() {
     
         # Sleep for warming up LoadBalancer
         sleep 5
+
         
         # Start sending requests
         taskset -c 2 go run request_sender.go $size $gc
