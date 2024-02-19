@@ -20,9 +20,14 @@ import (
 )
 
 // KNOWN BUGS
-// 1. If the docker container is NOT pre-compiled image, LB fails
+// 1. If the docker container is NOT pre-compiled image, LB fails --> Compile image each time LB starts new container --> Exacerbates cold start, but that is a desired effect + we don't solve the problem
 // 2. Instead of separate NOGC LoadBalancer, specify scheduling policy as command line parameter when starting LB
 // 3. Track IdleTime GC Triggers
+// 4. Move all variables for Go GC control into a single data structure for encapsulation and sanity
+// 5. Expand arbitration beyond two containers --> worker pool and unavailable pool
+// 6. Fix query size as 100K for sanity and consistency
+// 7. Assumption: Docker container CPU allocator assumes 16 core CPU, loadbalancer is running on CPU 1
+// 8. Assumption: NEVER taskset the loadbalancer
 
 // SCHEDULING POLICY DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
@@ -40,6 +45,19 @@ import (
 // 	resumeGoRequestsThreshold = 0.90    // Resume normal operations at 90% idle
 // }
 
+// type GoGCStructure struct {
+// 	currentHeapIdle    int64
+// 	currentHeapAlloc   int64
+// 	HeapAllocThreshold int64
+// 	GCThreshold        float32
+// }
+
+// // Heap to track Heap usage across multiple containers
+// var GoContainerHeapTracker = make(map[string]*GoGCStructure)
+
+// // Mutex to synchronize access to dict declared above
+// var mutexGoContainerHeapTracker sync.Mutex
+
 // Add scheduling policy selection logic
 type SchedulingPolicy int
 
@@ -48,27 +66,17 @@ const (
 	GCMitigation SchedulingPolicy = 2
 )
 
-// Track current scheduling policy
-var currentSchedulingPolicy SchedulingPolicy = GCMitigation
+var currentSchedulingPolicy SchedulingPolicy
+
 var handlingGCForGoContainers bool
 var GoGCTriggerThreshold float32
 var GoGCIdleHeapThreshold int64
 
-// type GoGCStructure struct {
-// 	currentHeapIdle    int64
-// 	currentHeapAlloc   int64
-// 	HeapAllocThreshold int64
-// 	GCThreshold        float32
-// }
-
 // Track heap across active go containers
-// var GoContainerHeapTracker = make(map[string]*GoGCStructure)
 var mutexHandlingGCForGoContainers sync.Mutex
 
 // Fake request array size
 var fakeRequestArraySize int
-
-// var mutexGoContainerHeapTracker sync.Mutex
 
 // NETWORK CONNECTION DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
@@ -76,18 +84,25 @@ var fakeRequestArraySize int
 const javaPortStart = 8400
 const goPortStart = 9500
 
-var javaRoundRobinIndex int = javaPortStart
-var goRoundRobinIndex int = goPortStart
-
 // Global http.Client with Transport settings for high-performance
 var client = &http.Client{
 	Timeout: 60 * time.Second, // Set the timeout to 5 seconds
 	Transport: &http.Transport{
-		MaxIdleConns:        2000,
-		MaxIdleConnsPerHost: 2000,
-		IdleConnTimeout:     90 * time.Second,
+		MaxIdleConns:        5000,
+		MaxIdleConnsPerHost: 5000,
+		IdleConnTimeout:     10 * time.Second,
 	},
 }
+
+const (
+	javaServerPort   = "9876"
+	goServerPort     = "9875"
+	loadBalancerPort = ":8180"
+	javaServerImage  = "java-server-image"
+	goServerImage    = "go-server-image"
+	waitTimeout      = 10 * time.Second
+	serverIP         = "http://node0:"
+)
 
 // Data structures to parse the JSON
 type JavaResponse struct {
@@ -115,46 +130,66 @@ type GoResponse struct {
 	RequestNumber int64 `json:"requestNumber"`
 }
 
-const (
-	javaServerPort   = "9876"
-	goServerPort     = "9875"
-	loadBalancerPort = ":8180"
-	javaServerImage  = "java-server-image"
-	goServerImage    = "go-server-image"
-	waitTimeout      = 10 * time.Second
-	serverIP         = "http://node0:"
-)
-
 // OPERATION DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
 // We do not need 64 containers for the paper, only 2 should suffice to show the idea works
 const maxNumberOfJavaContainers int = 2
 const maxNumberOfGoContainers int = 2
 
-// Global request identifier
-var globalRequestCounter int64
-
 // Since there are only two containers, we do not need to worry about assigning both to same CPU
-// There is plenty of space among 22 CPUs
+// There is plenty of space among 16 CPUs
+
+// Allocate dedicated CPU for container
+var currentCPUIndex int
+
+// Indices for scheduling containers
+var javaRoundRobinIndex int
+var goRoundRobinIndex int
 
 // Track running containers
 var aliveContainers = make(map[string]string)
-
-// Allocate dedicated CPU for container
-var currentCPUIndex int = 10 + rand.Intn(10)
 
 // Log file handler
 var (
 	logChannel chan string
 )
 
+// Global request identifier
+var globalRequestCounter int64
+
 // MAIN   //////////////////////////////////////////////////////////////////////
 func init() {
 	// Stop all running Docker containers
 	stopAllRunningContainers()
 
+	// Set default scheduling policy
+	var currentSchedulingPolicy SchedulingPolicy = GCMitigation
+
+	// Read command line parameters to set scheduling policy
+	if len(os.Args) > 1 {
+		policy := os.Args[1]
+		if policy == "GCMitigation" {
+			currentSchedulingPolicy = GCMitigation
+		} else if policy == "RoundRobin" {
+			currentSchedulingPolicy = RoundRobin
+		} else {
+			fmt.Printf("Invalid or NO scheduling policy provided, using default value %d\n", currentSchedulingPolicy)
+		}
+	}
+	fmt.Printf("Scheduling policy selected: %d\n", currentSchedulingPolicy)
+
+	// Since there are only two containers, we do not need to worry about assigning both to same CPU
+	// There is plenty of space among 16 CPUs
+	// Allocate dedicated CPU for container
+	currentCPUIndex = 2 + rand.Intn(10)
+
+	// Indices for scheduling containers
+	javaRoundRobinIndex = javaPortStart
+	goRoundRobinIndex = goPortStart
+
 	// Initialize the request counter variable
 	globalRequestCounter = 0
+
 	// Initialize GC thresholds
 	GoGCTriggerThreshold = 0.935
 	GoGCIdleHeapThreshold = 100000
@@ -201,7 +236,7 @@ func init() {
 		SendFakeRequest(container2)
 		time.Sleep(5 * time.Second)
 		fmt.Println("Sent request to initialize GC data structure")
-		
+
 	} else if currentSchedulingPolicy == RoundRobin {
 		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
