@@ -15,7 +15,7 @@ COPY . .
 
 # ENV GOMAXPROCS=1
 # Set GOGC environment variable
-ENV GOGC=1
+ENV GOGC=999
 ENV GOMEMLIMIT 128MiB
 
 # Build the Go application

@@ -1,6 +1,13 @@
+// ASSUMPTIONS //////////////////////////////////////////////////////////////////////
+// 0. Assumption: Docker container CPU allocator assumes 16 core CPU, loadbalancer is running on CPU 1
+// 1. Assumption: NEVER taskset the loadbalancer
+// 2. There are only two containers for ALL experiments
+// 3. Fixed query size as 100K for sanity and consistency
+
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"encoding/json"
 	"fmt"
@@ -18,16 +25,6 @@ import (
 	"syscall"
 	"time"
 )
-
-// KNOWN BUGS
-// 1. If the docker container is NOT pre-compiled image, LB fails --> Compile image each time LB starts new container --> Exacerbates cold start, but that is a desired effect + we don't solve the problem
-// 2. Instead of separate NOGC LoadBalancer, specify scheduling policy as command line parameter when starting LB
-// 3. Track IdleTime GC Triggers
-// 4. Move all variables for Go GC control into a single data structure for encapsulation and sanity
-// 5. Expand arbitration beyond two containers --> worker pool and unavailable pool
-// 6. Fix query size as 100K for sanity and consistency
-// 7. Assumption: Docker container CPU allocator assumes 16 core CPU, loadbalancer is running on CPU 1
-// 8. Assumption: NEVER taskset the loadbalancer
 
 // SCHEDULING POLICY DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
@@ -90,18 +87,19 @@ var client = &http.Client{
 	Transport: &http.Transport{
 		MaxIdleConns:        5000,
 		MaxIdleConnsPerHost: 5000,
-		IdleConnTimeout:     10 * time.Second,
+		IdleConnTimeout:     60 * time.Second,
 	},
 }
 
 const (
-	javaServerPort   = "9876"
-	goServerPort     = "9875"
-	loadBalancerPort = ":8180"
-	javaServerImage  = "java-server-image"
-	goServerImage    = "go-server-image"
-	waitTimeout      = 10 * time.Second
-	serverIP         = "http://node0:"
+	javaServerPort      = "8400"
+	goServerPort        = "9500"
+	loadBalancerPort    = ":8180"
+	javaServerImage     = "java-server-image"
+	goServerImage       = "go-server-image"
+	waitTimeout         = 60 * time.Second // Deadline for container to start and respond
+	serverIP            = "http://node0:"
+	Available_CPU_Count = 15
 )
 
 // Data structures to parse the JSON
@@ -136,9 +134,6 @@ type GoResponse struct {
 const maxNumberOfJavaContainers int = 2
 const maxNumberOfGoContainers int = 2
 
-// Since there are only two containers, we do not need to worry about assigning both to same CPU
-// There is plenty of space among 16 CPUs
-
 // Allocate dedicated CPU for container
 var currentCPUIndex int
 
@@ -163,7 +158,7 @@ func init() {
 	stopAllRunningContainers()
 
 	// Set default scheduling policy
-	var currentSchedulingPolicy SchedulingPolicy = GCMitigation
+	var currentSchedulingPolicy SchedulingPolicy = RoundRobin
 
 	// Read command line parameters to set scheduling policy
 	if len(os.Args) > 1 {
@@ -172,16 +167,17 @@ func init() {
 			currentSchedulingPolicy = GCMitigation
 		} else if policy == "RoundRobin" {
 			currentSchedulingPolicy = RoundRobin
-		} else {
-			fmt.Printf("Invalid or NO scheduling policy provided, using default value %d\n", currentSchedulingPolicy)
 		}
+	} else {
+		fmt.Printf("Usage: loadbalancer <Scheduling Policy = GCMitigation OR RoundRobin>\n")
+		fmt.Printf("Invalid or NO scheduling policy provided, using default value: RoundRobin.\n")
 	}
 	fmt.Printf("Scheduling policy selected: %d\n", currentSchedulingPolicy)
 
 	// Since there are only two containers, we do not need to worry about assigning both to same CPU
 	// There is plenty of space among 16 CPUs
 	// Allocate dedicated CPU for container
-	currentCPUIndex = 2 + rand.Intn(10)
+	currentCPUIndex = 2 + rand.Intn(Available_CPU_Count)
 
 	// Indices for scheduling containers
 	javaRoundRobinIndex = javaPortStart
@@ -190,90 +186,52 @@ func init() {
 	// Initialize the request counter variable
 	globalRequestCounter = 0
 
-	// Initialize GC thresholds
-	GoGCTriggerThreshold = 0.935
-	GoGCIdleHeapThreshold = 100000
+	// Initialize GC thresholds based on GOGC value from Dockerfile
+	SetGoGCThresholds()
 
+	// Start containers
+	container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+	container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+	startNewContainer(container1)
+	startNewContainer(container2)
+	mutexHandlingGCForGoContainers.Lock()
+	handlingGCForGoContainers = false
+	mutexHandlingGCForGoContainers.Unlock()
+
+	// Warm up containers
+	numWarmUpRequests := 100
 	fakeRequestArraySize = 100000
 
-	// If GCMitigation Policy, start and warm the containers
-	if currentSchedulingPolicy == GCMitigation {
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		startNewContainer(container1)
-		startNewContainer(container2)
-		mutexHandlingGCForGoContainers.Lock()
-		handlingGCForGoContainers = false
-		mutexHandlingGCForGoContainers.Unlock()
-
-		// Send 10000 request to warm up containers
-		for j := 0; j <= 2000; j++ {
-			seed := rand.Intn(10000)
-			arraysize := fakeRequestArraySize
-			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			resp, err := http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
-
-			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			// Send fake request
-			resp, err = http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
+	for j := 0; j <= numWarmUpRequests; j++ {
+		seed := rand.Intn(10000)
+		// Container 1
+		requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize)
+		// Send fake request
+		resp, err := http.Get(requestURL)
+		if err != nil {
+			fmt.Println("Error sending fake request:", err)
+			continue
+		} else {
+			resp.Body.Close() // Ensure response body is closed
 		}
-		// initialize GCTracker values
-		SendFakeRequest(container1)
-		SendFakeRequest(container2)
-		time.Sleep(5 * time.Second)
-		fmt.Println("Sent request to initialize GC data structure")
 
-	} else if currentSchedulingPolicy == RoundRobin {
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		startNewContainer(container1)
-		startNewContainer(container2)
-		handlingGCForGoContainers = false
-
-		// Send 10000 request to warm up containers
-		for j := 0; j <= 2000; j++ {
-			seed := rand.Intn(10000)
-			arraysize := fakeRequestArraySize
-			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			resp, err := http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
-
-			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
-			// Send fake request
-			// Send fake request
-			resp, err = http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
+		// Container 2
+		requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize)
+		// Send fake request
+		// Send fake request
+		resp, err = http.Get(requestURL)
+		if err != nil {
+			fmt.Println("Error sending fake request:", err)
+			continue
+		} else {
+			resp.Body.Close() // Ensure response body is closed
 		}
-		// initialize GCTracker values
-		SendFakeRequest(container1)
-		SendFakeRequest(container2)
-		time.Sleep(5 * time.Second)
 	}
+	// initialize GCTracker values
+	SendFakeRequest(container1)
+	SendFakeRequest(container2)
+	fmt.Println("Sent requests to initialize GC data structure")
+
 	// Initialize the log channel with a buffer size of 100
 	logChannel = make(chan string, 110)
 
@@ -362,6 +320,21 @@ func isContainerRunning(containerName string) bool {
 
 // Start a new container
 func startNewContainer(containerName string) {
+	// Build container image before starting
+	if strings.HasPrefix(containerName, "go") {
+		cmd := exec.Command("docker", "build", "-t", "go-server-image", "/users/am_CU/openwhisk-devtools/docker-compose/Native/Go/")
+		if err := cmd.Run(); err != nil {
+			fmt.Println("Error building container image:", containerName, err)
+			panic(1)
+		}
+	} else if strings.HasPrefix(containerName, "java") {
+		cmd := exec.Command("docker", "build", "-t", "java-server-image", "/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/")
+		if err := cmd.Run(); err != nil {
+			fmt.Println("Error building container image:", containerName, err)
+			panic(1)
+		}
+	} // Fresh contianer images are now built and ready to launch
+
 	var portMapping, imageName, containerPort, targetURL string
 	var w http.ResponseWriter
 
@@ -388,11 +361,13 @@ func startNewContainer(containerName string) {
 
 	// Assign a specific CPU to the container and increment the CPU index
 	cpuSet := strconv.Itoa(currentCPUIndex)
-
+	// Increment CPU allocation pointer
 	currentCPUIndex++
 	// Ensure currentCPUIndex doesn't exceed your system's CPU count
-	if currentCPUIndex >= 31 { // assuming you have 32 CPUs
-		currentCPUIndex = 10 + rand.Intn(10) // reset to 11 or handle as needed
+	if currentCPUIndex >= Available_CPU_Count {
+		// Since there are only two containers, we do not need to worry about assigning both to same CPU
+		// There is plenty of space among 16 CPUs
+		currentCPUIndex = 2 + rand.Intn(Available_CPU_Count)
 	}
 
 	cmd := exec.Command("docker", "run", "--cpuset-cpus", cpuSet, "--memory=128m", "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
@@ -734,6 +709,47 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 			mutexHandlingGCForGoContainers.Unlock()
 		}
 	}
+}
+
+func SetGoGCThresholds() {
+	// Read dockerfile for GOGC value
+	dockerfilePath := "/users/am_CU/openwhisk-devtools/docker-compose/Native/Go/Dockerfile"
+	file, err := os.Open(dockerfilePath)
+	if err != nil {
+		fmt.Printf("Error opening Dockerfile: %s\n", err)
+		return
+	}
+	defer file.Close()
+	// Parse Dockerfile to determine GOGC value
+	detectedGOGC := 1
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		if strings.HasPrefix(line, "ENV") {
+			envVars := strings.Fields(line)
+			for i := 1; i < len(envVars); i++ { // Start from 1 to skip "ENV"
+				parts := strings.Split(envVars[i], "=")
+				if len(parts) == 2 && parts[0] == "GOGC" {
+					detectedGOGC1, convErr := strconv.Atoi(parts[1])
+					if convErr != nil {
+						fmt.Printf("Error converting GOGC value to int: %s\n", convErr)
+						fmt.Printf("Assuming default GOGC value: %d\n", detectedGOGC)
+						break
+					}
+					detectedGOGC = detectedGOGC1
+					break
+				}
+			}
+		}
+	}
+	fmt.Printf("GOGC value found: %d\n", detectedGOGC)
+	if err := scanner.Err(); err != nil {
+		fmt.Printf("Error reading Dockerfile: %s\n", err)
+	}
+	// TODO: Add if conditions to distinguish Thresholds for detected GOGC value
+
+	GoGCTriggerThreshold = 0.935
+	GoGCIdleHeapThreshold = 100000
 }
 
 // logHeapInfo sends log information to the logChannel.
