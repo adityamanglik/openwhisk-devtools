@@ -3,6 +3,7 @@
 // 1. Assumption: NEVER taskset the loadbalancer
 // 2. There are only two containers for ALL experiments
 // 3. Fixed query size as 100K for sanity and consistency
+// 4. Container numbering starts after the portStart --> Server Port = 9500, C1 = 9501, C2 = 9502
 
 package main
 
@@ -85,9 +86,9 @@ const goPortStart = 9500
 var client = &http.Client{
 	Timeout: 60 * time.Second, // Set the timeout to 5 seconds
 	Transport: &http.Transport{
-		MaxIdleConns:        5000,
-		MaxIdleConnsPerHost: 5000,
-		IdleConnTimeout:     60 * time.Second,
+		MaxIdleConns:        2000,
+		MaxIdleConnsPerHost: 2000,
+		IdleConnTimeout:     90 * time.Second,
 	},
 }
 
@@ -190,8 +191,8 @@ func init() {
 	SetGoGCThresholds()
 
 	// Start containers
-	container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-	container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+	container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+	container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
 	startNewContainer(container1)
 	startNewContainer(container2)
 	mutexHandlingGCForGoContainers.Lock()
@@ -203,6 +204,7 @@ func init() {
 	fakeRequestArraySize = 100000
 
 	for j := 0; j <= numWarmUpRequests; j++ {
+		// Send same request to both containers
 		seed := rand.Intn(10000)
 		// Container 1
 		requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize)
@@ -218,7 +220,6 @@ func init() {
 		// Container 2
 		requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize)
 		// Send fake request
-		// Send fake request
 		resp, err = http.Get(requestURL)
 		if err != nil {
 			fmt.Println("Error sending fake request:", err)
@@ -227,7 +228,7 @@ func init() {
 			resp.Body.Close() // Ensure response body is closed
 		}
 	}
-	// initialize GCTracker values
+	// initialize GC Structure values
 	SendFakeRequest(container1)
 	SendFakeRequest(container2)
 	fmt.Println("Sent requests to initialize GC data structure")
@@ -349,10 +350,6 @@ func startNewContainer(containerName string) {
 		portMapping = containerPort + ":" + goServerPort
 		imageName = goServerImage
 		targetURL = serverIP + containerPort + "/GoNative"
-		// add container to heap tracker
-		// mutexGoContainerHeapTracker.Lock()
-		// GoContainerHeapTracker[containerName] = newGoGCStructure()
-		// mutexGoContainerHeapTracker.Unlock()
 	} else {
 		fmt.Println("Unknown container name:", containerName)
 		// Die fast
@@ -364,7 +361,7 @@ func startNewContainer(containerName string) {
 	// Increment CPU allocation pointer
 	currentCPUIndex++
 	// Ensure currentCPUIndex doesn't exceed your system's CPU count
-	if currentCPUIndex >= Available_CPU_Count {
+	if currentCPUIndex > Available_CPU_Count {
 		// Since there are only two containers, we do not need to worry about assigning both to same CPU
 		// There is plenty of space among 16 CPUs
 		currentCPUIndex = 2 + rand.Intn(Available_CPU_Count)
@@ -442,9 +439,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	// Extract request number for passing to local functions
-
-	// Extract seed value from the query parameters
+	// Extract query parameters
 	seedValue := r.URL.Query().Get("seed")
 	arraysizeValue := r.URL.Query().Get("arraysize")
 	requestNumber := r.URL.Query().Get("requestnumber")
@@ -461,7 +456,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 		targetURL += "&requestnumber=" + requestNumber
 	}
 
-	// print(targetURL)
+	// fmt.Printf("targetURL: %s, Selected container: %s\n", targetURL, containerName)
 
 	// Start the container and wait for it to be ready
 	// fmt.Println("Checking and starting container:", containerName)
@@ -525,8 +520,7 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, co
 		return
 	}
 
-	// Extract and log heap info for each request
-	// Off the critical path
+	// Extract and log heap info for each request off the critical path
 	extractAndLogHeapInfo(reader2, containerName, requestNumber)
 }
 
@@ -561,14 +555,14 @@ func scheduleGoContainer() string {
 	case GCMitigation:
 		// fmt.Println("In GCMITIGATION Sched policy")
 		// fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
-		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 		// if we are performing cleanup, send requests to other containers
 		mutexHandlingGCForGoContainers.Lock()
 		localReadValue := handlingGCForGoContainers
 		mutexHandlingGCForGoContainers.Unlock()
 		if localReadValue == true {
 			fmt.Println("handlingGCForGoContainers is True")
-			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
 		}
 		return targetContainer
 
