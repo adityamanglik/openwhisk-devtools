@@ -11,17 +11,8 @@ GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 send_requests() {
     local size=$1
 
-    # compile the docker images
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/../Native/Go/; docker build -t go-server-image ."
-
-    # Change fakerequestarraysize
-    ssh $OW_SERVER_NODE "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go"
-
-    # # Restart docker for good measure
-    # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
-
     # Restart the load balancer
-    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
+    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go GCMitigation > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
     sleep 10
     
     # Start sending requests
@@ -43,17 +34,8 @@ send_requests() {
 send_requests_NOGC() {
     local size=$1
 
-    # compile the docker images
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/../Native/Go/; docker build -t go-server-image ."
-
-    # Change fakerequestarraysize
-    ssh $OW_SERVER_NODE "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go"
-
-    # # Restart docker for good measure
-    # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
-
     # Restart the load balancer
-    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
+    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
     sleep 10
     
     # Start sending requests
