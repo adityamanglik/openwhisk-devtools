@@ -133,6 +133,7 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 		"sum":           sum,
 		"executionTime": executionTime, // Include raw execution time in microseconds
 		"requestNumber": REQ_NUM,
+		"arraysize":     ARRAY_SIZE,
 	}
 
 	gogcValue := os.Getenv("GOGC")
@@ -141,9 +142,9 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 	runtime.ReadMemStats(&m)
 
 	response["heapAlloc"] = m.HeapAlloc
-	response["heapSys"] = m.HeapSys
+	// response["heapSys"] = m.HeapSys
 	response["heapIdle"] = m.HeapIdle
-	response["heapInuse"] = m.HeapInuse
+	// response["heapInuse"] = m.HeapInuse
 	response["NextGC"] = m.NextGC
 	response["NumGC"] = m.NumGC
 	response["GOGC"] = gogcValue

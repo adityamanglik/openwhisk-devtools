@@ -66,15 +66,25 @@ const (
 
 var currentSchedulingPolicy SchedulingPolicy
 
-var handlingGCForGoContainers bool
-var GoGCTriggerThreshold float32
-var GoGCIdleHeapThreshold int64
-
-// Track heap across active go containers
-var mutexHandlingGCForGoContainers sync.Mutex
+// var GoGCTriggerThreshold float32
+// var GoGCIdleHeapThreshold int64
+var prevHeapAlloc1 int64
+var prevNextGC1 int64
+var prevHeapAlloc2 int64
+var prevNextGC2 int64
 
 // Fake request array size
-var fakeRequestArraySize int
+var fakeRequestArraySize1 int
+var fakeRequestArraySize2 int
+
+const RequestHeapMargin = 1
+
+// Track heap across active go containers
+var mutexHandlingGCForGoContainers1 sync.Mutex
+var mutexHandlingGCForGoContainers2 sync.Mutex
+
+var handlingGCForGoContainers1 bool
+var handlingGCForGoContainers2 bool
 
 // NETWORK CONNECTION DATA STRUCTURES//////////////////////////////////////////////////////////////////////
 
@@ -118,15 +128,16 @@ type JavaResponse struct {
 }
 
 type GoResponse struct {
-	ExecutionTime int64 `json:"executionTime"`
-	HeapAlloc     int64 `json:"heapAlloc"`
-	HeapIdle      int64 `json:"heapIdle"`
-	HeapInuse     int64 `json:"heapInuse"`
-	HeapSys       int64 `json:"heapSys"`
-	NextGC        int64 `json:"NextGC"`
-	NumGC         int64 `json:"NumGC"`
-	Sum           int64 `json:"sum"`
-	RequestNumber int64 `json:"requestNumber"`
+	Sum           int64  `json:"sum"`
+	RequestNumber int64  `json:"requestNumber"`
+	ExecutionTime int64  `json:"executionTime"`
+	ArraySize     int    `json:"arraysize"`
+	HeapAlloc     int64  `json:"heapAlloc"`
+	HeapIdle      int64  `json:"heapIdle"`
+	NextGC        int64  `json:"NextGC"`
+	NumGC         int64  `json:"NumGC"`
+	GOGC          string `json:"GOGC"`
+	GOMEMLIMIT    string `json:"GOMEMLIMIT"`
 }
 
 // OPERATION DATA STRUCTURES//////////////////////////////////////////////////////////////////////
@@ -187,51 +198,65 @@ func init() {
 	// Initialize the request counter variable
 	globalRequestCounter = 0
 
-	// Initialize GC thresholds based on GOGC value from Dockerfile
-	SetGoGCThresholds()
-
 	// Start containers
 	container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 	container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
 	startNewContainer(container1)
 	startNewContainer(container2)
-	mutexHandlingGCForGoContainers.Lock()
-	handlingGCForGoContainers = false
-	mutexHandlingGCForGoContainers.Unlock()
 
-	// Warm up containers
-	numWarmUpRequests := 100
-	fakeRequestArraySize = 10000
+	if currentSchedulingPolicy == GCMitigation {
 
-	for j := 0; j <= numWarmUpRequests; j++ {
-		// Send same request to both containers
-		seed := rand.Intn(10000)
-		// Container 1
-		requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize)
-		// Send fake request
-		resp, err := http.Get(requestURL)
-		if err != nil {
-			fmt.Println("Error sending fake request:", err)
-			continue
-		} else {
-			resp.Body.Close() // Ensure response body is closed
+		// Initialize GC thresholds based on GOGC value from Dockerfile
+		SetGoGCThresholds()
+
+		mutexHandlingGCForGoContainers1.Lock()
+		handlingGCForGoContainers1 = false
+		mutexHandlingGCForGoContainers1.Unlock()
+
+		mutexHandlingGCForGoContainers2.Lock()
+		handlingGCForGoContainers2 = false
+		mutexHandlingGCForGoContainers2.Unlock()
+
+		// Warm up containers
+		numWarmUpRequests := 100
+		fakeRequestArraySize1 = 10000
+		fakeRequestArraySize2 = 10000
+
+		// initialize GC Structure values
+		SendFakeRequest(container1)
+		SendFakeRequest(container2)
+
+		// Warm up containers
+		for j := 0; j <= numWarmUpRequests; j++ {
+			// Send same request to both containers
+			seed := rand.Intn(10000)
+			// Container 1
+			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize1)
+			// Send fake request
+			resp, err := http.Get(requestURL)
+			if err != nil {
+				fmt.Println("Error sending fake request:", err)
+				continue
+			} else {
+				resp.Body.Close() // Ensure response body is closed
+			}
+
+			// Container 2
+			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize2)
+			// Send fake request
+			resp, err = http.Get(requestURL)
+			if err != nil {
+				fmt.Println("Error sending fake request:", err)
+				continue
+			} else {
+				resp.Body.Close() // Ensure response body is closed
+			}
 		}
-
-		// Container 2
-		requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize)
-		// Send fake request
-		resp, err = http.Get(requestURL)
-		if err != nil {
-			fmt.Println("Error sending fake request:", err)
-			continue
-		} else {
-			resp.Body.Close() // Ensure response body is closed
-		}
+		// initialize GC Structure values
+		SendFakeRequest(container1)
+		SendFakeRequest(container2)
+		fmt.Println("Sent requests to initialize GC data structure")
 	}
-	// initialize GC Structure values
-	SendFakeRequest(container1)
-	SendFakeRequest(container2)
-	fmt.Println("Sent requests to initialize GC data structure")
 
 	// Initialize the log channel with a buffer size of 100
 	logChannel = make(chan string, 110)
@@ -520,8 +545,10 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, co
 		return
 	}
 
-	// Extract and log heap info for each request off the critical path
-	extractAndLogHeapInfo(reader2, containerName, requestNumber)
+	// Turn OFF heap tracking for RoundRobin
+	if currentSchedulingPolicy == GCMitigation {
+		extractAndLogHeapInfo(reader2, containerName, requestNumber)
+	}
 }
 
 // SCHEDULING POLICY //////////////////////////////////////////////////////////////////////
@@ -554,12 +581,15 @@ func scheduleGoContainer() string {
 
 	case GCMitigation:
 		// fmt.Println("In GCMITIGATION Sched policy")
+		// Try and acquire lock, if can acquire, send request?
+		// TODO
+
 		// fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
 		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 		// if we are performing cleanup, send requests to other containers
-		mutexHandlingGCForGoContainers.Lock()
-		localReadValue := handlingGCForGoContainers
-		mutexHandlingGCForGoContainers.Unlock()
+		mutexHandlingGCForGoContainers1.Lock()
+		localReadValue := handlingGCForGoContainers1
+		mutexHandlingGCForGoContainers1.Unlock()
 		if localReadValue == true {
 			fmt.Println("handlingGCForGoContainers is True")
 			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
@@ -580,7 +610,12 @@ func SendFakeRequest(containerName string) {
 	fmt.Printf("Sending fake request to tip over the container %s\n", containerName)
 	// Generate fake request
 	seed := rand.Intn(10000)
-	arraysize := fakeRequestArraySize
+	var arraysize int
+	if strings.Contains(containerName, "1") {
+		arraysize = fakeRequestArraySize1
+	} else {
+		arraysize = fakeRequestArraySize2
+	}
 	if strings.Contains(containerName, "go") {
 		requestURL := serverIP + aliveContainers[containerName] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(arraysize)
 
@@ -634,73 +669,115 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 		if err := json.Unmarshal(bodyBytes, &goResp); err != nil {
 			fmt.Println("Go JSON unmarshalling error:", err)
 		} else {
-			fmt.Printf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, NextGC: %d, NumGC: %d RN:%d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.NextGC, goResp.NumGC, goResp.RequestNumber)
+			fmt.Printf("Request: %d, Container: %s, HeapAlloc: %d, NextGC: %d, NumGC: %d, HeapIdle: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.NextGC, goResp.NumGC, goResp.HeapIdle)
 			// Fake requests have invalid request number
 			if goResp.RequestNumber != math.MaxInt32 {
-
 				builder.WriteString("Request: ")
 				builder.WriteString(strconv.FormatInt(goResp.RequestNumber, 10))
 				builder.WriteString(", Container: ")
 				builder.WriteString(containerName)
 				builder.WriteString(", HeapAlloc: ")
 				builder.WriteString(strconv.FormatInt(goResp.HeapAlloc, 10))
-				builder.WriteString(", HeapIdle: ")
-				builder.WriteString(strconv.FormatInt(goResp.HeapIdle, 10))
-				builder.WriteString(", HeapInuse: ")
-				builder.WriteString(strconv.FormatInt(goResp.HeapInuse, 10))
 				builder.WriteString(", NextGC: ")
 				builder.WriteString(strconv.FormatInt(goResp.NextGC, 10))
 				builder.WriteString(", NumGC: ")
 				builder.WriteString(strconv.FormatInt(goResp.NumGC, 10))
+				builder.WriteString(", HeapIdle: ")
+				builder.WriteString(strconv.FormatInt(goResp.HeapIdle, 10))
 				builder.WriteString("\n")
 
 				heapInfo := builder.String()
 				// fmt.Println(heapInfo)
 				logHeapInfo("go_heap_memory.log", heapInfo)
 
-				// heapInfo = fmt.Sprintf("Request: %d, Container: %s, HeapAlloc: %d, HeapIdle: %d, HeapInuse: %d, NextGC: %d, NumGC: %d\n", goResp.RequestNumber, containerName, goResp.HeapAlloc, goResp.HeapIdle, goResp.HeapInuse, goResp.NextGC, goResp.NumGC)
-				// fmt.Println(heapInfo)
-				// logHeapInfo("go_heap_memory.log", heapInfo)
 			}
-			// track heap stats in struct
 
-			// GoContainerHeapTracker[containerName].currentHeapAlloc = goResp.HeapAlloc
-			// GoContainerHeapTracker[containerName].currentHeapIdle = goResp.HeapIdle
-			GCThresh := float32(goResp.HeapAlloc) / float32(goResp.NextGC)
-			// GoContainerHeapTracker[containerName].GCThreshold = GCThresh
+			// GC is triggered only for HeapAlloc breaching NextGC
+			if strings.Contains(containerName, "1") {
+				marginAvailable := RequestHeapMargin * (goResp.HeapAlloc - prevHeapAlloc1)
+				fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc1, marginAvailable, prevNextGC1)
+				if (goResp.HeapAlloc + marginAvailable) > prevNextGC1 {
+					// Container likely under heap memory pressure
+					fmt.Printf("targetContainer: %s\t", containerName)
+					fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC1)
+					// Make sure to signal in process
+					mutexHandlingGCForGoContainers1.Lock()
+					handlingGCForGoContainers1 = true
+					mutexHandlingGCForGoContainers1.Unlock()
+					go func() {
+						SendFakeRequest(containerName)
+					}()
+					return
+				}
 
-			// print the tracked stats
-			// fmt.Printf("Updated tracker from extractAndLogHeapInfo for %s \n", containerName)
-			// fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", goResp.HeapIdle, goResp.HeapAlloc, float32(goResp.HeapAlloc)/float32(goResp.NextGC))
+				// Update latest HeapAlloc and NextGC
 
-			// if target container is likely to undergo GC, schedule to alternate and force GC on target
-			if goResp.HeapIdle < int64(GoGCIdleHeapThreshold) {
-				fmt.Printf("targetContainer: %s\t", containerName)
-				fmt.Printf("HeapIdle < %d = %d\n", GoGCIdleHeapThreshold, goResp.HeapIdle)
-				// Make sure to signal in process
-				mutexHandlingGCForGoContainers.Lock()
-				handlingGCForGoContainers = true
-				mutexHandlingGCForGoContainers.Unlock()
-				go func() {
-					SendFakeRequest(containerName)
-				}()
-				return
+				prevHeapAlloc1 = goResp.HeapAlloc
+				prevNextGC1 = goResp.NextGC
+				fakeRequestArraySize1 = goResp.ArraySize
+				fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc1, prevNextGC1, fakeRequestArraySize1)
+				mutexHandlingGCForGoContainers1.Lock()
+				handlingGCForGoContainers1 = false
+				mutexHandlingGCForGoContainers1.Unlock()
+			} else { //second container
+				marginAvailable := RequestHeapMargin * (goResp.HeapAlloc - prevHeapAlloc2)
+				fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
+				if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
+					// Container likely under heap memory pressure
+					fmt.Printf("targetContainer: %s\t", containerName)
+					fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC2)
+					// Make sure to signal in process
+					mutexHandlingGCForGoContainers2.Lock()
+					handlingGCForGoContainers2 = true
+					mutexHandlingGCForGoContainers2.Unlock()
+					go func() {
+						SendFakeRequest(containerName)
+					}()
+					return
+				}
+				// Update latest HeapAlloc and NextGC
+
+				prevHeapAlloc2 = goResp.HeapAlloc
+				prevNextGC2 = goResp.NextGC
+				fakeRequestArraySize2 = goResp.ArraySize
+				fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize2)
+
+				// If both conditions are false, set lever to 9500
+				mutexHandlingGCForGoContainers2.Lock()
+				handlingGCForGoContainers2 = false
+				mutexHandlingGCForGoContainers2.Unlock()
 			}
-			if GCThresh >= GoGCTriggerThreshold {
-				fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f\n", GCThresh)
-				// Make sure to signal in process
-				mutexHandlingGCForGoContainers.Lock()
-				handlingGCForGoContainers = true
-				mutexHandlingGCForGoContainers.Unlock()
-				go func() {
-					SendFakeRequest(containerName)
-				}()
-				return
-			}
-			// If both conditions are false, set lever to 9500
-			mutexHandlingGCForGoContainers.Lock()
-			handlingGCForGoContainers = false
-			mutexHandlingGCForGoContainers.Unlock()
+			// GCThresh := float32(goResp.HeapAlloc) / float32(goResp.NextGC)
+			// // GoContainerHeapTracker[containerName].GCThreshold = GCThresh
+
+			// // print the tracked stats
+			// // fmt.Printf("Updated tracker from extractAndLogHeapInfo for %s \n", containerName)
+			// // fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", goResp.HeapIdle, goResp.HeapAlloc, float32(goResp.HeapAlloc)/float32(goResp.NextGC))
+
+			// // if target container is likely to undergo GC, schedule to alternate and force GC on target
+			// if goResp.HeapIdle < int64(GoGCIdleHeapThreshold) {
+			// 	fmt.Printf("targetContainer: %s\t", containerName)
+			// 	fmt.Printf("HeapIdle < %d = %d\n", GoGCIdleHeapThreshold, goResp.HeapIdle)
+			// 	// Make sure to signal in process
+			// 	mutexHandlingGCForGoContainers.Lock()
+			// 	handlingGCForGoContainers = true
+			// 	mutexHandlingGCForGoContainers.Unlock()
+			// 	go func() {
+			// 		SendFakeRequest(containerName)
+			// 	}()
+			// 	return
+			// }
+			// if GCThresh >= GoGCTriggerThreshold {
+			// 	fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f\n", GCThresh)
+			// 	// Make sure to signal in process
+			// 	mutexHandlingGCForGoContainers.Lock()
+			// 	handlingGCForGoContainers = true
+			// 	mutexHandlingGCForGoContainers.Unlock()
+			// 	go func() {
+			// 		SendFakeRequest(containerName)
+			// 	}()
+			// 	return
+			// }
 		}
 	}
 }
@@ -742,8 +819,14 @@ func SetGoGCThresholds() {
 	}
 	// TODO: Add if conditions to distinguish Thresholds for detected GOGC value
 
-	GoGCTriggerThreshold = 0.935
-	GoGCIdleHeapThreshold = 100000
+	// GoGCTriggerThreshold = 0.935
+	// GoGCIdleHeapThreshold = 100000
+
+	// Set initial values assuming GOGC 1000
+	prevHeapAlloc1 = 100000
+	prevNextGC2 = 41943040
+	prevHeapAlloc1 = 100000
+	prevNextGC2 = 41943040
 }
 
 // logHeapInfo sends log information to the logChannel.
