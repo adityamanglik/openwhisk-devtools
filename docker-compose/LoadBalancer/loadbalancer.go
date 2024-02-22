@@ -201,7 +201,7 @@ func init() {
 
 	// Warm up containers
 	numWarmUpRequests := 100
-	fakeRequestArraySize = 100000
+	fakeRequestArraySize = 10000
 
 	for j := 0; j <= numWarmUpRequests; j++ {
 		// Send same request to both containers
