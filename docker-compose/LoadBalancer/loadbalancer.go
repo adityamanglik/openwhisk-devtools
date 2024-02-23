@@ -62,6 +62,7 @@ type SchedulingPolicy int
 const (
 	RoundRobin   SchedulingPolicy = 1
 	GCMitigation SchedulingPolicy = 2
+	SingleServer SchedulingPolicy = 3
 )
 
 var currentSchedulingPolicy SchedulingPolicy
@@ -77,7 +78,8 @@ var prevNextGC2 int64
 var fakeRequestArraySize1 int
 var fakeRequestArraySize2 int
 
-const RequestHeapMargin = 1
+var RequestHeapMargin1 int
+var RequestHeapMargin2 int
 
 // Track heap across active go containers
 var mutexHandlingGCForGoContainers1 sync.Mutex
@@ -169,23 +171,6 @@ func init() {
 	// Stop all running Docker containers
 	stopAllRunningContainers()
 
-	// Set default scheduling policy
-	var currentSchedulingPolicy SchedulingPolicy = RoundRobin
-
-	// Read command line parameters to set scheduling policy
-	if len(os.Args) > 1 {
-		policy := os.Args[1]
-		if policy == "GCMitigation" {
-			currentSchedulingPolicy = GCMitigation
-		} else if policy == "RoundRobin" {
-			currentSchedulingPolicy = RoundRobin
-		}
-	} else {
-		fmt.Printf("Usage: loadbalancer <Scheduling Policy = GCMitigation OR RoundRobin>\n")
-		fmt.Printf("Invalid or NO scheduling policy provided, using default value: RoundRobin.\n")
-	}
-	fmt.Printf("Scheduling policy selected: %d\n", currentSchedulingPolicy)
-
 	// Since there are only two containers, we do not need to worry about assigning both to same CPU
 	// There is plenty of space among 16 CPUs
 	// Allocate dedicated CPU for container
@@ -198,33 +183,58 @@ func init() {
 	// Initialize the request counter variable
 	globalRequestCounter = 0
 
-	// Start containers
-	container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-	container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
-	startNewContainer(container1)
-	startNewContainer(container2)
+	// Set default scheduling policy
+	var currentSchedulingPolicy SchedulingPolicy = RoundRobin
 
-	if currentSchedulingPolicy == GCMitigation {
+	// Read command line parameters to set scheduling policy
+	if len(os.Args) > 1 {
+		policy := os.Args[1]
+		if policy == "GCMitigation" {
+			currentSchedulingPolicy = GCMitigation
+		} else if policy == "RoundRobin" {
+			currentSchedulingPolicy = RoundRobin
+		} else if policy == "SingleServer" {
+			currentSchedulingPolicy = SingleServer
+		}
+	} else {
+		fmt.Printf("Usage: loadbalancer <Scheduling Policy = GCMitigation OR RoundRobin>\n")
+		fmt.Printf("Invalid or NO scheduling policy provided, using default value: RoundRobin.\n")
+	}
+	fmt.Printf("Scheduling policy selected: %d\n", currentSchedulingPolicy)
+
+	if currentSchedulingPolicy == RoundRobin {
+		// Start containers
+		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
+		startNewContainer(container1)
+		startNewContainer(container2)
+	} else if currentSchedulingPolicy == SingleServer {
+		// Start containers
+		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		startNewContainer(container1)
+	} else if currentSchedulingPolicy == GCMitigation {
+		// Start the containers
+		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
+		startNewContainer(container1)
+		startNewContainer(container2)
 
 		// Initialize GC thresholds based on GOGC value from Dockerfile
 		SetGoGCThresholds()
 
+		// Since there are only two containers, one mutex is enough
 		mutexHandlingGCForGoContainers1.Lock()
 		handlingGCForGoContainers1 = false
 		mutexHandlingGCForGoContainers1.Unlock()
 
-		mutexHandlingGCForGoContainers2.Lock()
-		handlingGCForGoContainers2 = false
-		mutexHandlingGCForGoContainers2.Unlock()
+		// Set different margins for different containers
+		RequestHeapMargin1 = 1
+		RequestHeapMargin2 = 10
 
 		// Warm up containers
 		numWarmUpRequests := 100
 		fakeRequestArraySize1 = 10000
 		fakeRequestArraySize2 = 10000
-
-		// initialize GC Structure values
-		SendFakeRequest(container1)
-		SendFakeRequest(container2)
 
 		// Warm up containers
 		for j := 0; j <= numWarmUpRequests; j++ {
@@ -266,9 +276,7 @@ func init() {
 }
 
 func main() {
-	// Inform go runtime that we are constrained to a single CPU
-	// runtime.GOMAXPROCS(1)
-
+	// Start request handler
 	http.HandleFunc("/", handleRequest)
 	fmt.Println("Load Balancer is running on port", loadBalancerPort)
 
@@ -555,8 +563,12 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, co
 
 func scheduleJavaContainer() string {
 	switch currentSchedulingPolicy {
+	case SingleServer:
+		// server ports are always one ahead of port start
+		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex+1)
 	case RoundRobin:
 		javaRoundRobinIndex = (javaRoundRobinIndex % maxNumberOfJavaContainers) + javaPortStart
+		// server ports are always one ahead of port start
 		javaRoundRobinIndex++
 		return javaServerImage + fmt.Sprintf("-%d", javaRoundRobinIndex)
 	case GCMitigation:
@@ -574,8 +586,12 @@ func scheduleJavaContainer() string {
 
 func scheduleGoContainer() string {
 	switch currentSchedulingPolicy {
+	case SingleServer:
+		// server ports are always one ahead of port start
+		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 	case RoundRobin:
 		goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
+		// server ports are always one ahead of port start
 		goRoundRobinIndex++
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 
@@ -694,7 +710,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 
 			// GC is triggered only for HeapAlloc breaching NextGC
 			if strings.Contains(containerName, "1") {
-				marginAvailable := RequestHeapMargin * (goResp.HeapAlloc - prevHeapAlloc1)
+				marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc1)
 				fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc1, marginAvailable, prevNextGC1)
 				if (goResp.HeapAlloc + marginAvailable) > prevNextGC1 {
 					// Container likely under heap memory pressure
@@ -720,7 +736,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 				handlingGCForGoContainers1 = false
 				mutexHandlingGCForGoContainers1.Unlock()
 			} else { //second container
-				marginAvailable := RequestHeapMargin * (goResp.HeapAlloc - prevHeapAlloc2)
+				marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc2)
 				fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
 				if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
 					// Container likely under heap memory pressure
@@ -817,16 +833,24 @@ func SetGoGCThresholds() {
 	if err := scanner.Err(); err != nil {
 		fmt.Printf("Error reading Dockerfile: %s\n", err)
 	}
-	// TODO: Add if conditions to distinguish Thresholds for detected GOGC value
 
-	// GoGCTriggerThreshold = 0.935
-	// GoGCIdleHeapThreshold = 100000
-
-	// Set initial values assuming GOGC 1000
-	prevHeapAlloc1 = 100000
-	prevNextGC2 = 41943040
-	prevHeapAlloc1 = 100000
-	prevNextGC2 = 41943040
+	// Set initial values assuming GOGC
+	if detectedGOGC == 1000 {
+		prevHeapAlloc1 = 100000
+		prevNextGC1 = 41943040
+		prevHeapAlloc2 = 100000
+		prevNextGC2 = 41943040
+	} else if detectedGOGC == 1 {
+		prevHeapAlloc1 = 100000
+		prevNextGC1 = 11943040
+		prevHeapAlloc2 = 100000
+		prevNextGC2 = 11943040
+	} else { // default
+		prevHeapAlloc1 = 100000
+		prevNextGC1 = 41943040
+		prevHeapAlloc2 = 100000
+		prevNextGC2 = 41943040
+	}
 }
 
 // logHeapInfo sends log information to the logChannel.
