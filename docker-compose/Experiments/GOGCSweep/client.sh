@@ -6,7 +6,7 @@ OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GOGCSwe
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 
 # Array of sizes
-sizes=(10000 100000)
+sizes=(1000 10000 100000)
 # Array of GOGC values
 GOGC=(1 10 100 500 999)
 
@@ -16,7 +16,7 @@ send_requests() {
     # # Restart docker for good measure
     # ssh $OW_SERVER_NODE "sudo systemctl restart docker"
     # Change fakerequestarraysize
-    ssh am_CU@node0 "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go"
+    # ssh am_CU@node0 "sed -i 's/fakeRequestArraySize = [^ ]*/fakeRequestArraySize = $size/' /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go"
 
     # sleep 10
     # Loop through each GOGC value
@@ -27,15 +27,8 @@ send_requests() {
         # Change GOGC value in Dockerfile
         ssh am_CU@node0 "sed -i 's/ENV GOGC=.*/ENV GOGC=$gc/' /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/Dockerfile"
 
-        # compile the docker images
-        ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/../../Native/Go/; docker build -t go-server-image ."
-
         # Restart the load balancer
-        ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/NOGCloadbalancer.go > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
-    
-        # Sleep for warming up LoadBalancer
-        sleep 5
-
+        ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go SingleServer > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
         
         # Start sending requests
         taskset -c 2 go run request_sender.go $size $gc
