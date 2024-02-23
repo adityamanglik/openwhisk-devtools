@@ -184,7 +184,7 @@ func init() {
 	globalRequestCounter = 0
 
 	// Set default scheduling policy
-	var currentSchedulingPolicy SchedulingPolicy = RoundRobin
+	currentSchedulingPolicy = RoundRobin
 
 	// Read command line parameters to set scheduling policy
 	if len(os.Args) > 1 {
@@ -197,7 +197,7 @@ func init() {
 			currentSchedulingPolicy = SingleServer
 		}
 	} else {
-		fmt.Printf("Usage: loadbalancer <Scheduling Policy = GCMitigation OR RoundRobin>\n")
+		fmt.Printf("Usage: loadbalancer <Scheduling Policy = RoundRobin GCMitigation SingleServer>\n")
 		fmt.Printf("Invalid or NO scheduling policy provided, using default value: RoundRobin.\n")
 	}
 	fmt.Printf("Scheduling policy selected: %d\n", currentSchedulingPolicy)
@@ -236,6 +236,7 @@ func init() {
 		fakeRequestArraySize1 = 10000
 		fakeRequestArraySize2 = 10000
 
+		// TODO: Move warm up request to client instead of server
 		// Warm up containers
 		for j := 0; j <= numWarmUpRequests; j++ {
 			// Send same request to both containers
@@ -585,18 +586,18 @@ func scheduleJavaContainer() string {
 }
 
 func scheduleGoContainer() string {
-	switch currentSchedulingPolicy {
-	case SingleServer:
+	if currentSchedulingPolicy == SingleServer {
 		// server ports are always one ahead of port start
+		fmt.Println("In SingleServer Sched policy")
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-	case RoundRobin:
+	} else if currentSchedulingPolicy == RoundRobin {
+		fmt.Println("In RoundRobin Sched policy")
 		goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
 		// server ports are always one ahead of port start
 		goRoundRobinIndex++
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-
-	case GCMitigation:
-		// fmt.Println("In GCMITIGATION Sched policy")
+	} else if currentSchedulingPolicy == GCMitigation {
+		fmt.Println("In GCMITIGATION Sched policy")
 		// Try and acquire lock, if can acquire, send request?
 		// TODO
 
@@ -611,10 +612,10 @@ func scheduleGoContainer() string {
 			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
 		}
 		return targetContainer
-
-	default:
+	} else {
 		// use Round Robin as default
 		goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
+		// server ports are always one ahead of port start
 		goRoundRobinIndex++
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 	}
