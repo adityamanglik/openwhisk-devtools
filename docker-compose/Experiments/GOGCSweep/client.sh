@@ -29,7 +29,7 @@ send_requests() {
 
         # Restart the load balancer
         ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go SingleServer > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
-        
+        sleep 5
         # Start sending requests
         taskset -c 2 go run request_sender.go $size $gc
 
