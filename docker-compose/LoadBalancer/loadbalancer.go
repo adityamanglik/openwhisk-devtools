@@ -337,6 +337,7 @@ func isContainerRunning(containerName string) bool {
 
 	// EDGE CASE
 	// IMPLEMENT if containers start becoming unresponsive over 20-30 minutes runtime
+	// Solution: create a coroutine that routinely polls containers under idle time (no request received at loadbalancer) to check if they are dead or alive. For any successful request returned to client, the trigger is reset to avoid polluting experiments
 
 	// // Check if the container is already running
 	// cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
