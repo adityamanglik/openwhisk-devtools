@@ -233,8 +233,8 @@ func init() {
 
 		// Warm up containers
 		numWarmUpRequests := 100
-		fakeRequestArraySize1 = 10000
-		fakeRequestArraySize2 = 10000
+		fakeRequestArraySize1 = 100000
+		fakeRequestArraySize2 = 100000
 
 		// TODO: Move warm up request to client instead of server
 		// Warm up containers
@@ -555,10 +555,7 @@ func forwardRequest(w http.ResponseWriter, r *http.Request, targetURL string, co
 		return
 	}
 
-	// Turn OFF heap tracking for RoundRobin
-	if currentSchedulingPolicy == GCMitigation {
-		extractAndLogHeapInfo(reader2, containerName, requestNumber)
-	}
+	extractAndLogHeapInfo(reader2, containerName, requestNumber)
 }
 
 // SCHEDULING POLICY //////////////////////////////////////////////////////////////////////
@@ -709,61 +706,62 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 				logHeapInfo("go_heap_memory.log", heapInfo)
 
 			}
+			if currentSchedulingPolicy == GCMitigation {
+				// GC is triggered only for HeapAlloc breaching NextGC
+				if strings.Contains(containerName, "1") {
+					marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc1)
+					fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc1, marginAvailable, prevNextGC1)
+					if (goResp.HeapAlloc + marginAvailable) > prevNextGC1 {
+						// Container likely under heap memory pressure
+						fmt.Printf("targetContainer: %s\t", containerName)
+						fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC1)
+						// Make sure to signal in process
+						mutexHandlingGCForGoContainers1.Lock()
+						handlingGCForGoContainers1 = true
+						mutexHandlingGCForGoContainers1.Unlock()
+						go func() {
+							SendFakeRequest(containerName)
+						}()
+						return
+					}
 
-			// GC is triggered only for HeapAlloc breaching NextGC
-			if strings.Contains(containerName, "1") {
-				marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc1)
-				fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc1, marginAvailable, prevNextGC1)
-				if (goResp.HeapAlloc + marginAvailable) > prevNextGC1 {
-					// Container likely under heap memory pressure
-					fmt.Printf("targetContainer: %s\t", containerName)
-					fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC1)
-					// Make sure to signal in process
+					// Update latest HeapAlloc and NextGC
+
+					prevHeapAlloc1 = goResp.HeapAlloc
+					prevNextGC1 = goResp.NextGC
+					fakeRequestArraySize1 = goResp.ArraySize
+					fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc1, prevNextGC1, fakeRequestArraySize1)
 					mutexHandlingGCForGoContainers1.Lock()
-					handlingGCForGoContainers1 = true
+					handlingGCForGoContainers1 = false
 					mutexHandlingGCForGoContainers1.Unlock()
-					go func() {
-						SendFakeRequest(containerName)
-					}()
-					return
-				}
+				} else { //second container
+					marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc2)
+					fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
+					if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
+						// Container likely under heap memory pressure
+						fmt.Printf("targetContainer: %s\t", containerName)
+						fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC2)
+						// Make sure to signal in process
+						mutexHandlingGCForGoContainers2.Lock()
+						handlingGCForGoContainers2 = true
+						mutexHandlingGCForGoContainers2.Unlock()
+						go func() {
+							SendFakeRequest(containerName)
+						}()
+						return
+					}
+					// Update latest HeapAlloc and NextGC
 
-				// Update latest HeapAlloc and NextGC
+					prevHeapAlloc2 = goResp.HeapAlloc
+					prevNextGC2 = goResp.NextGC
+					fakeRequestArraySize2 = goResp.ArraySize
+					fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize2)
 
-				prevHeapAlloc1 = goResp.HeapAlloc
-				prevNextGC1 = goResp.NextGC
-				fakeRequestArraySize1 = goResp.ArraySize
-				fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc1, prevNextGC1, fakeRequestArraySize1)
-				mutexHandlingGCForGoContainers1.Lock()
-				handlingGCForGoContainers1 = false
-				mutexHandlingGCForGoContainers1.Unlock()
-			} else { //second container
-				marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc2)
-				fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
-				if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
-					// Container likely under heap memory pressure
-					fmt.Printf("targetContainer: %s\t", containerName)
-					fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC2)
-					// Make sure to signal in process
+					// If both conditions are false, set lever to 9500
 					mutexHandlingGCForGoContainers2.Lock()
-					handlingGCForGoContainers2 = true
+					handlingGCForGoContainers2 = false
 					mutexHandlingGCForGoContainers2.Unlock()
-					go func() {
-						SendFakeRequest(containerName)
-					}()
-					return
 				}
-				// Update latest HeapAlloc and NextGC
-
-				prevHeapAlloc2 = goResp.HeapAlloc
-				prevNextGC2 = goResp.NextGC
-				fakeRequestArraySize2 = goResp.ArraySize
-				fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize2)
-
-				// If both conditions are false, set lever to 9500
-				mutexHandlingGCForGoContainers2.Lock()
-				handlingGCForGoContainers2 = false
-				mutexHandlingGCForGoContainers2.Unlock()
 			}
 			// GCThresh := float32(goResp.HeapAlloc) / float32(goResp.NextGC)
 			// // GoContainerHeapTracker[containerName].GCThreshold = GCThresh
