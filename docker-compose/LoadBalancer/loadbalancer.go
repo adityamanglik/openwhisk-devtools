@@ -906,9 +906,10 @@ func deleteExistingLogFiles() {
 		fmt.Println("Error finding log files:", err)
 		return
 	}
+	// fmt.Println("Found files:", logFiles)
 	for _, logFile := range logFiles {
-		path := filepath.Join("/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/", logFile)
-		if err := os.Remove(path); err != nil {
+		// path := filepath.Join("/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/", logFile)
+		if err := os.Remove(logFile); err != nil {
 			if !os.IsNotExist(err) { // Ignore error if file doesn't exist
 				fmt.Printf("Failed to delete log file %s: %v\n", logFile, err)
 			}
