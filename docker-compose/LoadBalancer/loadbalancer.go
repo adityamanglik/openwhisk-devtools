@@ -20,6 +20,7 @@ import (
 	"os"
 	"os/exec"
 	"os/signal"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -170,6 +171,9 @@ var globalRequestCounter int64
 func init() {
 	// Stop all running Docker containers
 	stopAllRunningContainers()
+
+	// Delete logs from previous execution
+	deleteExistingLogFiles()
 
 	// Since there are only two containers, we do not need to worry about assigning both to same CPU
 	// There is plenty of space among 16 CPUs
@@ -893,5 +897,23 @@ func writeLogToFile(logEntry string) {
 func loggerRoutine() {
 	for logEntry := range logChannel {
 		writeLogToFile(logEntry)
+	}
+}
+
+func deleteExistingLogFiles() {
+	logFiles, err := filepath.Glob("/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/*.log")
+	if err != nil {
+		fmt.Println("Error finding log files:", err)
+		return
+	}
+	for _, logFile := range logFiles {
+		path := filepath.Join("/users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/", logFile)
+		if err := os.Remove(path); err != nil {
+			if !os.IsNotExist(err) { // Ignore error if file doesn't exist
+				fmt.Printf("Failed to delete log file %s: %v\n", logFile, err)
+			}
+		} else {
+			fmt.Printf("Deleted existing log file: %s\n", logFile)
+		}
 	}
 }
