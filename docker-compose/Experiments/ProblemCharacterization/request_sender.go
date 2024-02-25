@@ -16,9 +16,11 @@ import (
 	"gonum.org/v1/gonum/stat"
 )
 
+var iterations int = 500
+var actualIterations int = 500
+
 // Constants for API endpoints and file names
 const (
-	iterations            = 1000
 	javaAPI               = "http://node0:8180/java"
 	goAPI                 = "http://node0:8180/go"
 	javaResponseTimesFile = "java_response_times.txt"
@@ -50,7 +52,11 @@ func main() {
 	// ensure server is alive
 	checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
+	// Warm up
 	goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
+	iterations = actualIterations
+	// Actual measurements
+	goResponseTimes, goServerTimes = sendRequests(goAPI, arraysize)
 
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
@@ -130,7 +136,7 @@ func checkServerAlive(apiURL string) {
 	fmt.Println("Checking server for heartbeat.")
 	for i := 0; i < iterations/10; i++ {
 		seed := rand.Intn(10000)      // Random seed generation
-		arraysize := rand.Intn(10000) // Random seed generation
+		arraysize := 10 // Do not pollute memory for aliveCheck
 		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
 		resp, err := http.Get(requestURL)
 		if err != nil {
