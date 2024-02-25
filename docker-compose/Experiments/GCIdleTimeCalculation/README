@@ -1,0 +1,4 @@
+Test server for building scheduling policy for bypassing GC in Golang
+Run:
+Start the server and directly send requests from client
+go run testServer.go

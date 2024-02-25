@@ -1,0 +1,7 @@
+This experiemnt calcualtes different latency statistics for different input sizes and GOGC values
+
+Run:
+latency tests-->
+bash client.sh
+throughput values for multiple readings -->
+loadtest.sh
