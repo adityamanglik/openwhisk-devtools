@@ -75,12 +75,13 @@ var prevNextGC1 int64
 var prevHeapAlloc2 int64
 var prevNextGC2 int64
 
+var RequestHeapMargin1 int
+var RequestHeapMargin2 int
+
+
 // Fake request array size
 var fakeRequestArraySize1 int
 var fakeRequestArraySize2 int
-
-var RequestHeapMargin1 int
-var RequestHeapMargin2 int
 
 // Track heap across active go containers
 var mutexHandlingGCForGoContainers1 sync.Mutex
@@ -181,8 +182,8 @@ func init() {
 	currentCPUIndex = 2 + rand.Intn(Available_CPU_Count)
 
 	// Indices for scheduling containers
-	javaRoundRobinIndex = javaPortStart
-	goRoundRobinIndex = goPortStart
+	javaRoundRobinIndex = javaPortStart + 1
+	goRoundRobinIndex = goPortStart + 1
 
 	// Initialize the request counter variable
 	globalRequestCounter = 0
@@ -207,38 +208,27 @@ func init() {
 	fmt.Printf("Scheduling policy selected: %d\n", currentSchedulingPolicy)
 
 	if currentSchedulingPolicy == RoundRobin {
-		// Start containers
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
+		// Start twp containers
+		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 		startNewContainer(container1)
 		startNewContainer(container2)
 	} else if currentSchedulingPolicy == SingleServer {
-		// Start containers
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		// Start one container
+		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		startNewContainer(container1)
 	} else if currentSchedulingPolicy == GCMitigation {
-		// Start the containers
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
+		// Start two containers
+		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 		startNewContainer(container1)
 		startNewContainer(container2)
 
 		// Initialize GC thresholds based on GOGC value from Dockerfile
 		SetGoGCThresholds()
 
-		// Since there are only two containers, one mutex is enough
-		mutexHandlingGCForGoContainers1.Lock()
-		handlingGCForGoContainers1 = false
-		mutexHandlingGCForGoContainers1.Unlock()
-
-		// Set different margins for different containers
-		RequestHeapMargin1 = 1
-		RequestHeapMargin2 = 10
-
 		// Warm up containers
 		numWarmUpRequests := 100
-		fakeRequestArraySize1 = 100000
-		fakeRequestArraySize2 = 100000
 
 		// TODO: Move warm up request to client instead of server
 		// Warm up containers
@@ -591,7 +581,7 @@ func scheduleGoContainer() string {
 	if currentSchedulingPolicy == SingleServer {
 		// server ports are always one ahead of port start
 		fmt.Println("In SingleServer Sched policy")
-		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 	} else if currentSchedulingPolicy == RoundRobin {
 		fmt.Println("In RoundRobin Sched policy")
 		goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
@@ -600,18 +590,17 @@ func scheduleGoContainer() string {
 		return goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 	} else if currentSchedulingPolicy == GCMitigation {
 		fmt.Println("In GCMITIGATION Sched policy")
+		fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
+		// Default container for requests
+		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
 		// Try and acquire lock, if can acquire, send request?
-		// TODO
-
-		// fmt.Printf("goRoundRobinIndex: %d\n", goRoundRobinIndex)
-		targetContainer := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		// if we are performing cleanup, send requests to other containers
 		mutexHandlingGCForGoContainers1.Lock()
 		localReadValue := handlingGCForGoContainers1
-		mutexHandlingGCForGoContainers1.Unlock()
+		mutexHandlingGCForGoContainers1.Unlock()		
+		// if we are performing cleanup, send requests to other containers
 		if localReadValue == true {
 			fmt.Println("handlingGCForGoContainers is True")
-			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+2)
+			targetContainer = goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
 		}
 		return targetContainer
 	} else {
@@ -715,8 +704,8 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 				if strings.Contains(containerName, "1") {
 					marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc1)
 					fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc1, marginAvailable, prevNextGC1)
+					// Container likely under heap memory pressure
 					if (goResp.HeapAlloc + marginAvailable) > prevNextGC1 {
-						// Container likely under heap memory pressure
 						fmt.Printf("targetContainer: %s\t", containerName)
 						fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC1)
 						// Make sure to signal in process
@@ -728,44 +717,40 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 						}()
 						return
 					}
-
 					// Update latest HeapAlloc and NextGC
-
 					prevHeapAlloc1 = goResp.HeapAlloc
 					prevNextGC1 = goResp.NextGC
 					fakeRequestArraySize1 = goResp.ArraySize
 					fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc1, prevNextGC1, fakeRequestArraySize1)
-					mutexHandlingGCForGoContainers1.Lock()
-					handlingGCForGoContainers1 = false
-					mutexHandlingGCForGoContainers1.Unlock()
-				} else { //second container
-					marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc2)
-					fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
-					if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
-						// Container likely under heap memory pressure
-						fmt.Printf("targetContainer: %s\t", containerName)
-						fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC2)
-						// Make sure to signal in process
-						mutexHandlingGCForGoContainers2.Lock()
-						handlingGCForGoContainers2 = true
-						mutexHandlingGCForGoContainers2.Unlock()
-						go func() {
-							SendFakeRequest(containerName)
-						}()
-						return
-					}
-					// Update latest HeapAlloc and NextGC
+				} 
+				// else { //TODO: second container NOT CONSIDERED FOR NOW
+				// 	marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc2)
+				// 	fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
+				// 	if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
+				// 		// Container likely under heap memory pressure
+				// 		fmt.Printf("targetContainer: %s\t", containerName)
+				// 		fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC2)
+				// 		// Make sure to signal in process
+				// 		mutexHandlingGCForGoContainers1.Lock()
+				// 		handlingGCForGoContainers1 = true
+				// 		mutexHandlingGCForGoContainers1.Unlock()
+				// 		go func() {
+				// 			SendFakeRequest(containerName)
+				// 		}()
+				// 		return
+				// 	}
+				// 	// Update latest HeapAlloc and NextGC
 
-					prevHeapAlloc2 = goResp.HeapAlloc
-					prevNextGC2 = goResp.NextGC
-					fakeRequestArraySize2 = goResp.ArraySize
-					fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize2)
+				// 	prevHeapAlloc2 = goResp.HeapAlloc
+				// 	prevNextGC2 = goResp.NextGC
+				// 	fakeRequestArraySize2 = goResp.ArraySize
+				// 	fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize2)
 
-					// If both conditions are false, set lever to 9500
-					mutexHandlingGCForGoContainers2.Lock()
-					handlingGCForGoContainers2 = false
-					mutexHandlingGCForGoContainers2.Unlock()
-				}
+				// 	// If both conditions are false, set lever to 9500
+				// 	mutexHandlingGCForGoContainers2.Lock()
+				// 	handlingGCForGoContainers2 = false
+				// 	mutexHandlingGCForGoContainers2.Unlock()
+				// }
 			}
 			// GCThresh := float32(goResp.HeapAlloc) / float32(goResp.NextGC)
 			// // GoContainerHeapTracker[containerName].GCThreshold = GCThresh
@@ -855,6 +840,19 @@ func SetGoGCThresholds() {
 		prevHeapAlloc2 = 100000
 		prevNextGC2 = 41943040
 	}
+
+	// Since there are only two containers, one mutex is enough
+	mutexHandlingGCForGoContainers1.Lock()
+	handlingGCForGoContainers1 = false
+	mutexHandlingGCForGoContainers1.Unlock()
+
+	// Set different margins for different containers
+	RequestHeapMargin1 = 1
+	RequestHeapMargin2 = 10
+
+	// Initialize fake request size
+	fakeRequestArraySize1 = 100000
+	fakeRequestArraySize2 = 100000
 }
 
 // logHeapInfo sends log information to the logChannel.
