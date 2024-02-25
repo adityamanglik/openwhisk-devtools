@@ -145,6 +145,39 @@ def plot_histograms(client_times, server_times, output_image_file):
     # Save the plot to the specified file
     plt.savefig(output_image_file)
     plt.close()
+    
+def plot_hdr_histograms(client_times, output_file):
+    # Define the percentiles we are interested in
+    percentiles = [50, 90, 95, 99, 99.9, 99.99, 99.999]
+
+    # Calculate the response times at each percentile
+    percentile_values = [np.percentile(client_times, p) for p in percentiles]
+    percentiles = [str(x) for x in percentiles]
+    # Create the plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(percentiles, percentile_values, marker='o', label='Baseline')
+
+    # Add the expected service level line
+    # expected_service_level = median + 3  # Example value for demonstration
+    # plt.axhline(y=expected_service_level, color='orange', linestyle='--', label='Expected Service Level')
+
+    # Set the plot labels and title
+    plt.xlabel('Percentile')
+    plt.ylabel('Response Time (ms)')
+    plt.title('Response Time by Percentile Distribution')
+
+    # Set the x-axis to a logarithmic scale
+    # plt.xscale('symlog')
+    # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
+
+    # Add grid and legend
+    plt.grid(True)
+    plt.legend(loc='upper left')
+
+    # Save the plot to the specified file
+    plt.savefig(output_file)
+    plt.close()
+    
 
 # Command-line arguments usage
 if __name__ == "__main__":
@@ -167,3 +200,4 @@ if __name__ == "__main__":
     # print(second_container)
     plot_histograms(client_times, server_times, sys.argv[4])
     plot_latency(client_times, server_times, memory_log, second_container, sys.argv[5], sys.argv[6])
+    plot_hdr_histograms(client_times, sys.argv[7])

@@ -41,7 +41,7 @@ for size in "${sizes[@]}"; do
     curl $KILL_SERVER_API
 
     # Plot time responses
-    python ./Graphs/response_time_plotter.py "./Graphs/Go/${size}/client_time.txt" "./Graphs/Go/${size}/server_time.txt" "./Graphs/Go/${size}/memory.txt" "./Graphs/Go/${size}/distribution.pdf" "./Graphs/Go/${size}/latency.pdf" "./Graphs/Go/${size}/latency_1.pdf"
+    python ./Graphs/response_time_plotter.py "./Graphs/Go/${size}/client_time.txt" "./Graphs/Go/${size}/server_time.txt" "./Graphs/Go/${size}/memory.txt" "./Graphs/Go/${size}/distribution.pdf" "./Graphs/Go/${size}/latency.pdf" "./Graphs/Go/${size}/latency_1.pdf" "./Graphs/Go/${size}/sla_plot.pdf"
     
     # Plot memory patterns
     python ./Graphs/go_mem_plotter.py "./Graphs/Go/${size}/memory.txt" "./Graphs/Go/${size}/memory.pdf"

@@ -1,0 +1,8 @@
+Sends warm up queries
+Sends actual queries
+Generates response time distribution
+Generates problem proving plots: shows peaks in request perf, second graph overlays memory allocation with request latency peaks that prove the problem
+Generates SLA plot
+
+Run:
+bash experiment.sh
