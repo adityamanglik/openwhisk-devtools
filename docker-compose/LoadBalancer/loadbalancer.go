@@ -228,35 +228,35 @@ func init() {
 		SetGoGCThresholds()
 
 		// Warm up containers
-		numWarmUpRequests := 100
+		// numWarmUpRequests := 100
 
-		// TODO: Move warm up request to client instead of server
-		// Warm up containers
-		for j := 0; j <= numWarmUpRequests; j++ {
-			// Send same request to both containers
-			seed := rand.Intn(10000)
-			// Container 1
-			requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize1)
-			// Send fake request
-			resp, err := http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
+		// // TODO: Move warm up request to client instead of server
+		// // Warm up containers
+		// for j := 0; j <= numWarmUpRequests; j++ {
+		// 	// Send same request to both containers
+		// 	seed := rand.Intn(10000)
+		// 	// Container 1
+		// 	requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize1)
+		// 	// Send fake request
+		// 	resp, err := http.Get(requestURL)
+		// 	if err != nil {
+		// 		fmt.Println("Error sending fake request:", err)
+		// 		continue
+		// 	} else {
+		// 		resp.Body.Close() // Ensure response body is closed
+		// 	}
 
-			// Container 2
-			requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize2)
-			// Send fake request
-			resp, err = http.Get(requestURL)
-			if err != nil {
-				fmt.Println("Error sending fake request:", err)
-				continue
-			} else {
-				resp.Body.Close() // Ensure response body is closed
-			}
-		}
+		// 	// Container 2
+		// 	requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize2)
+		// 	// Send fake request
+		// 	resp, err = http.Get(requestURL)
+		// 	if err != nil {
+		// 		fmt.Println("Error sending fake request:", err)
+		// 		continue
+		// 	} else {
+		// 		resp.Body.Close() // Ensure response body is closed
+		// 	}
+		// }
 		// initialize GC Structure values
 		SendFakeRequest(container1)
 		SendFakeRequest(container2)
