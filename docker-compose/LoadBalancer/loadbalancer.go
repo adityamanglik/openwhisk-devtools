@@ -70,8 +70,10 @@ var currentSchedulingPolicy SchedulingPolicy
 
 // var GoGCTriggerThreshold float32
 // var GoGCIdleHeapThreshold int64
-var prevHeapAlloc int64
-var prevNextGC int64
+var prevHeapAlloc1 int64
+var prevNextGC1 int64
+var prevHeapAlloc2 int64
+var prevNextGC2 int64
 
 var RequestHeapMargin int
 
@@ -695,90 +697,67 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 			}
 			// Policy implementation
 			if currentSchedulingPolicy == GCMitigation {
-				// GC is triggered for HeapAlloc breaching NextGC
-				marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc)
-				fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc, marginAvailable, prevNextGC)
-				// Current container likely under heap memory pressure
-				if (goResp.HeapAlloc + marginAvailable) > prevNextGC {
-					fmt.Printf("targetContainer: %s\t", containerName)
-					fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC)
-					// Send fake request in parallel while updating pointer
-					go func() {
-						SendFakeRequest(containerName)
-					}()
-					// Increment pointer
-					mutexIncrementGoPointer.Lock()
-					goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
-					// server ports are always one ahead of port start
-					goRoundRobinIndex++
-					mutexIncrementGoPointer.Unlock()
-					// Update heap tracker data structure for second container to prevent deadlock
-					// Send fake request to second container before returning
-					SendFakeRequest(goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex))
-					return // because we need heap statistics from new container, NOT dead one
+				if strings.Contains(containerName, "1") {
+					// GC is triggered for HeapAlloc breaching NextGC
+					marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc1)
+					fmt.Printf("BEFORE prevHeapAlloc1: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc1, marginAvailable, prevNextGC1)
+					// Current container likely under heap memory pressure
+					if (goResp.HeapAlloc + marginAvailable) > prevNextGC1 {
+						fmt.Printf("targetContainer: %s\t", containerName)
+						fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC1)
+						// Send fake request in parallel while updating pointer
+						go func() {
+							SendFakeRequest(containerName)
+						}()
+						// Increment pointer
+						mutexIncrementGoPointer.Lock()
+						goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
+						// server ports are always one ahead of port start
+						goRoundRobinIndex++
+						mutexIncrementGoPointer.Unlock()
+						// Update heap tracker data structure for second container to prevent deadlock
+						// Send fake request to second container before returning
+						// SendFakeRequest(goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex))
+						return // because we need heap statistics from new container, NOT dead one
+					}
+					// Update latest HeapAlloc and NextGC otherwise
+					prevHeapAlloc1 = goResp.HeapAlloc
+					prevNextGC1 = goResp.NextGC
+					fakeRequestArraySize = goResp.ArraySize
+					fmt.Printf("AFTER prevHeapAlloc1: %d, nextGC1: %d, arraysize: %d\n", prevHeapAlloc1, prevNextGC1, fakeRequestArraySize)
+				} else { // second container
+					// GC is triggered for HeapAlloc breaching NextGC
+					marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc2)
+					fmt.Printf("BEFORE prevHeapAlloc2: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
+					// Current container likely under heap memory pressure
+					if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
+						fmt.Printf("targetContainer: %s\t", containerName)
+						fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC2)
+						// Send fake request in parallel while updating pointer
+						go func() {
+							SendFakeRequest(containerName)
+						}()
+						// Increment pointer
+						mutexIncrementGoPointer.Lock()
+						goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
+						// server ports are always one ahead of port start
+						goRoundRobinIndex++
+						mutexIncrementGoPointer.Unlock()
+						// Update heap tracker data structure for second container to prevent deadlock
+						// Send fake request to second container before returning
+						// SendFakeRequest(goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex))
+						return // because we need heap statistics from new container, NOT dead one
+					}
+					// Update latest HeapAlloc and NextGC otherwise
+					prevHeapAlloc2 = goResp.HeapAlloc
+					prevNextGC2 = goResp.NextGC
+					fakeRequestArraySize = goResp.ArraySize
+					fmt.Printf("AFTER prevHeapAlloc2: %d, nextGC2: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize)
+
 				}
-				// Update latest HeapAlloc and NextGC otherwise
-				prevHeapAlloc = goResp.HeapAlloc
-				prevNextGC = goResp.NextGC
-				fakeRequestArraySize = goResp.ArraySize
-				fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc, prevNextGC, fakeRequestArraySize)
-				// Update latest HeapAlloc and NextGC
-
-				// prevHeapAlloc2 = goResp.HeapAlloc
-				// prevNextGC2 = goResp.NextGC
-				// fakeRequestArraySize2 = goResp.ArraySize
-				// fmt.Printf("AFTER prevHeapAlloc: %d, nextGC: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize2)
-
 			}
 		}
-		// else { //TODO: second container NOT CONSIDERED FOR NOW
-		// 	marginAvailable := int64(RequestHeapMargin1) * (goResp.HeapAlloc - prevHeapAlloc2)
-		// 	fmt.Printf("BEFORE prevHeapAlloc: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
-		// 	if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
-		// 		// Container likely under heap memory pressure
-		// 		fmt.Printf("targetContainer: %s\t", containerName)
-		// 		fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC2)
-		// 		// Make sure to signal in process
-		// 		mutexHandlingGCForGoContainers1.Lock()
-		// 		handlingGCForGoContainers1 = true
-		// 		mutexHandlingGCForGoContainers1.Unlock()
-		// 		go func() {
-		// 			SendFakeRequest(containerName)
-		// 		}()
-		// 		return
-		// 	}
 
-		// GCThresh := float32(goResp.HeapAlloc) / float32(goResp.NextGC)
-		// // GoContainerHeapTracker[containerName].GCThreshold = GCThresh
-
-		// // print the tracked stats
-		// // fmt.Printf("Updated tracker from extractAndLogHeapInfo for %s \n", containerName)
-		// // fmt.Printf("HeapIdle: %d, HeapAlloc: %d GCThresh %f \n", goResp.HeapIdle, goResp.HeapAlloc, float32(goResp.HeapAlloc)/float32(goResp.NextGC))
-
-		// // if target container is likely to undergo GC, schedule to alternate and force GC on target
-		// if goResp.HeapIdle < int64(GoGCIdleHeapThreshold) {
-		// 	fmt.Printf("targetContainer: %s\t", containerName)
-		// 	fmt.Printf("HeapIdle < %d = %d\n", GoGCIdleHeapThreshold, goResp.HeapIdle)
-		// 	// Make sure to signal in process
-		// 	mutexHandlingGCForGoContainers.Lock()
-		// 	handlingGCForGoContainers = true
-		// 	mutexHandlingGCForGoContainers.Unlock()
-		// 	go func() {
-		// 		SendFakeRequest(containerName)
-		// 	}()
-		// 	return
-		// }
-		// if GCThresh >= GoGCTriggerThreshold {
-		// 	fmt.Printf("GCThreshold >= GoGCTriggerThreshold %f\n", GCThresh)
-		// 	// Make sure to signal in process
-		// 	mutexHandlingGCForGoContainers.Lock()
-		// 	handlingGCForGoContainers = true
-		// 	mutexHandlingGCForGoContainers.Unlock()
-		// 	go func() {
-		// 		SendFakeRequest(containerName)
-		// 	}()
-		// 	return
-		// }
 	} // Go logging ends here ////////////////////////////////////////////////////////////////////////
 }
 
@@ -820,20 +799,20 @@ func SetGoGCThresholds() {
 
 	// Set initial values assuming GOGC
 	if detectedGOGC == 1000 {
-		prevHeapAlloc = 100000
-		prevNextGC = 41943040
-		prevHeapAlloc = 100000
-		prevNextGC = 41943040
+		prevHeapAlloc1 = 100000
+		prevNextGC1 = 41943040
+		prevHeapAlloc2 = 100000
+		prevNextGC2 = 41943040
 	} else if detectedGOGC == 1 {
-		prevHeapAlloc = 100000
-		prevNextGC = 11943040
-		prevHeapAlloc = 100000
-		prevNextGC = 11943040
+		prevHeapAlloc1 = 100000
+		prevNextGC1 = 11943040
+		prevHeapAlloc2 = 100000
+		prevNextGC2 = 11943040
 	} else { // default
-		prevHeapAlloc = 100000
-		prevNextGC = 41943040
-		prevHeapAlloc = 100000
-		prevNextGC = 41943040
+		prevHeapAlloc1 = 100000
+		prevNextGC1 = 41943040
+		prevHeapAlloc2 = 100000
+		prevNextGC2 = 41943040
 	}
 	// Set different margins for different containers
 	RequestHeapMargin = 2
