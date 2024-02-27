@@ -301,7 +301,7 @@ func stopAllRunningContainers() {
 	// fmt.Println("Stopping all running Docker containers...")
 
 	// Get the list of all container IDs
-	cmd := exec.Command("docker", "ps", "-aq")
+	cmd := exec.Command("sudo", "docker", "ps", "-aq")
 	output, err := cmd.Output()
 	if err != nil {
 		fmt.Println("Error getting container IDs:", err)
@@ -311,7 +311,7 @@ func stopAllRunningContainers() {
 
 	// Remove each container
 	for _, id := range containerIDs {
-		cmd = exec.Command("docker", "rm", "-vf", id)
+		cmd = exec.Command("sudo", "docker", "rm", "-vf", id)
 		if err := cmd.Run(); err != nil {
 			fmt.Println("Error removing container:", id, err)
 		}
@@ -334,7 +334,7 @@ func isContainerRunning(containerName string) bool {
 	// Solution: create a coroutine that routinely polls containers under idle time (no request received at loadbalancer) to check if they are dead or alive. For any successful request returned to client, the trigger is reset to avoid polluting experiments
 
 	// // Check if the container is already running
-	// cmd := exec.Command("docker", "ps", "-q", "-f", "name="+containerName)
+	// cmd := exec.Command("sudo", "docker", "ps", "-q", "-f", "name="+containerName)
 	// output, err := cmd.Output()
 	// if err != nil {
 	// 	fmt.Println("Error checking running container:", err)
@@ -352,13 +352,13 @@ func isContainerRunning(containerName string) bool {
 func startNewContainer(containerName string) {
 	// Build container image before starting
 	if strings.HasPrefix(containerName, "go") {
-		cmd := exec.Command("docker", "build", "-t", "go-server-image", "/users/am_CU/openwhisk-devtools/docker-compose/Native/Go/")
+		cmd := exec.Command("sudo", "docker", "build", "-t", "go-server-image", "/users/pss2161/openwhisk-devtools/docker-compose/Native/Go/")
 		if err := cmd.Run(); err != nil {
 			fmt.Println("Error building container image:", containerName, err)
 			panic(1)
 		}
 	} else if strings.HasPrefix(containerName, "java") {
-		cmd := exec.Command("docker", "build", "-t", "java-server-image", "/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/")
+		cmd := exec.Command("sudo", "docker", "build", "-t", "java-server-image", "/users/pss2161/openwhisk-devtools/docker-compose/Native/Java/")
 		if err := cmd.Run(); err != nil {
 			fmt.Println("Error building container image:", containerName, err)
 			panic(1)
@@ -396,11 +396,11 @@ func startNewContainer(containerName string) {
 		currentCPUIndex = 2 + rand.Intn(Available_CPU_Count)
 	}
 
-	cmd := exec.Command("docker", "run", "--cpuset-cpus", cpuSet, "--memory=128m", "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
+	cmd := exec.Command("sudo", "docker", "run", "--cpuset-cpus", cpuSet, "--memory=128m", "-d", "--rm", "--name", containerName, "-p", portMapping, imageName)
 	if err := cmd.Run(); err != nil {
 		fmt.Println("Error starting container:", containerName, err)
 		// Check if a stopped container with the name exists
-		cmd = exec.Command("docker", "ps", "-a", "-q", "-f", "name="+containerName)
+		cmd = exec.Command("sudo", "docker", "ps", "-a", "-q", "-f", "name="+containerName)
 		output, err := cmd.Output()
 		if err != nil {
 			fmt.Println("Error checking stopped container:", err)
@@ -408,7 +408,7 @@ func startNewContainer(containerName string) {
 		if string(output) != "" {
 			// Remove the existing container
 			fmt.Println("Removing existing container:", containerName)
-			cmd = exec.Command("docker", "rm", containerName)
+			cmd = exec.Command("sudo", "docker", "rm", containerName)
 			if err := cmd.Run(); err != nil {
 				fmt.Println("Error removing container:", err)
 			}

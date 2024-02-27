@@ -1,9 +1,11 @@
 # Constants and Variables
-OW_SERVER_NODE="am_CU@node0"
+OW_SERVER_NODE="pss2161@node0"
+
 JAVA_API="http://node0:8180/java"
 GO_API="http://node0:8180/go"
 KILL_SERVER_API="http://node0:8180/exitCall"
-OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose/Experiments"
+
+OW_DIRECTORY="/users/pss2161/openwhisk-devtools/docker-compose/Experiments"
 JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 
@@ -12,7 +14,7 @@ send_requests() {
     local size=$1
 
     # Start the load balancer
-    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go SingleServer > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
+    ssh $OW_SERVER_NODE "nohup go run /users/pss2161/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go SingleServer > /users/pss2161/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
     sleep 5
     
     # Start sending requests
