@@ -10,7 +10,7 @@
 
 # Go
 docker build -t go-server-image .
-docker run -d  --rm --name my-go-server -p 9875:9875 go-server-image
+docker run -d  --rm --name my-go-server -p 9875:9500 go-server-image
 curl http://node0:9875/GoNative?seed=654
 docker stop my-go-server
 docker rm my-go-server

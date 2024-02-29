@@ -808,33 +808,29 @@ func SetGoGCThresholds() {
 
 	// Set initial values assuming GOGC
 	if detectedGOGC == 1000 {
-		prevHeapAlloc1 = 1000000
+		prevHeapAlloc1 = 100000
 		prevNextGC1 = 41943040
-		prevHeapAlloc2 = 1000000
+		prevHeapAlloc2 = 100000
 		prevNextGC2 = 41943040
 		RequestHeapMargin = 3
 		fakeRequestArraySize = 10000
 	} else if detectedGOGC == 100 {
-		prevHeapAlloc1 = 1000000
+		prevHeapAlloc1 = 100000
 		prevNextGC1 = 4194304
-		prevHeapAlloc2 = 1000000
+		prevHeapAlloc2 = 100000
 		prevNextGC2 = 4194304
-		RequestHeapMargin = 1
-		fakeRequestArraySize = 1000
-	} else if detectedGOGC == 1 {
-		prevHeapAlloc1 = 1000000
-		prevNextGC1 = 11943040
-		prevHeapAlloc2 = 1000000
-		prevNextGC2 = 11943040
-		RequestHeapMargin = 2
+		RequestHeapMargin = 3
 		fakeRequestArraySize = 100
-	} else { // default
-		prevHeapAlloc1 = 1000000
-		prevNextGC1 = 41943040
-		prevHeapAlloc2 = 1000000
-		prevNextGC2 = 41943040
-		RequestHeapMargin = 2
-		fakeRequestArraySize = 1
+	} else if detectedGOGC == 1 {
+		prevHeapAlloc1 = 100000
+		prevNextGC1 = 1160000
+		prevHeapAlloc2 = 100000
+		prevNextGC2 = 1160000
+		RequestHeapMargin = 3
+		fakeRequestArraySize = 100
+	} else { // if GOGC not found, change scheduling policy
+		fmt.Println("Error detecting GOGC. Switching policy to RoundRobin.")
+		currentSchedulingPolicy = RoundRobin
 	}
 	// Set different margins for different containers
 	// RequestHeapMargin = 3
