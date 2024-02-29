@@ -822,7 +822,7 @@ func SetGoGCThresholds() {
 		prevNextGC2 = 41943040
 	}
 	// Set different margins for different containers
-	RequestHeapMargin = 4
+	RequestHeapMargin = 3
 
 	// Initialize fake request size
 	fakeRequestArraySize = 10000
