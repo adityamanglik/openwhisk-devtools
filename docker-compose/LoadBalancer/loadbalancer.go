@@ -699,8 +699,8 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 			if currentSchedulingPolicy == GCMitigation {
 				if strings.Contains(containerName, "1") {
 					// GC is triggered for HeapAlloc breaching NextGC
-					marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc1)
-					// marginAvailable := int64(RequestHeapMargin) * prevHeapAlloc1
+					// marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc1)
+					marginAvailable := int64(RequestHeapMargin) * prevHeapAlloc1
 					fmt.Printf("BEFORE prevHeapAlloc1: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc1, marginAvailable, prevNextGC1)
 					// Current container likely under heap memory pressure
 					if (goResp.HeapAlloc + marginAvailable) > prevNextGC1 {
@@ -724,7 +724,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 						return // because we need heap statistics from new container, NOT dead one
 					}
 					// Update latest HeapAlloc and NextGC otherwise
-					prevHeapAlloc1 = goResp.HeapAlloc
+					// prevHeapAlloc1 = goResp.HeapAlloc
 					prevNextGC1 = goResp.NextGC
 
 					// fakeRequestArraySize = goResp.ArraySize
@@ -732,8 +732,8 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 					fmt.Printf("AFTER prevHeapAlloc1: %d, nextGC1: %d, arraysize: %d\n", prevHeapAlloc1, prevNextGC1, fakeRequestArraySize)
 				} else { // second container
 					// GC is triggered for HeapAlloc breaching NextGC
-					marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc2)
-					// marginAvailable := int64(RequestHeapMargin) * prevHeapAlloc2
+					// marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc2)
+					marginAvailable := int64(RequestHeapMargin) * prevHeapAlloc2
 					fmt.Printf("BEFORE prevHeapAlloc2: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
 					// Current container likely under heap memory pressure
 					if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
@@ -757,7 +757,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 						return // because we need heap statistics from new container, NOT dead one
 					}
 					// Update latest HeapAlloc and NextGC otherwise
-					prevHeapAlloc2 = goResp.HeapAlloc
+					// prevHeapAlloc2 = goResp.HeapAlloc
 					prevNextGC2 = goResp.NextGC
 
 					// fakeRequestArraySize = goResp.ArraySize
@@ -812,22 +812,35 @@ func SetGoGCThresholds() {
 		prevNextGC1 = 41943040
 		prevHeapAlloc2 = 1000000
 		prevNextGC2 = 41943040
+		RequestHeapMargin = 3
+		fakeRequestArraySize = 10000
+	} else if detectedGOGC == 100 {
+		prevHeapAlloc1 = 1000000
+		prevNextGC1 = 4194304
+		prevHeapAlloc2 = 1000000
+		prevNextGC2 = 4194304
+		RequestHeapMargin = 1
+		fakeRequestArraySize = 1000
 	} else if detectedGOGC == 1 {
 		prevHeapAlloc1 = 1000000
 		prevNextGC1 = 11943040
 		prevHeapAlloc2 = 1000000
 		prevNextGC2 = 11943040
+		RequestHeapMargin = 2
+		fakeRequestArraySize = 100
 	} else { // default
 		prevHeapAlloc1 = 1000000
 		prevNextGC1 = 41943040
 		prevHeapAlloc2 = 1000000
 		prevNextGC2 = 41943040
+		RequestHeapMargin = 2
+		fakeRequestArraySize = 1
 	}
 	// Set different margins for different containers
-	RequestHeapMargin = 3
+	// RequestHeapMargin = 3
 
 	// Initialize fake request size
-	fakeRequestArraySize = 10000
+	// fakeRequestArraySize = 10000
 }
 
 // logHeapInfo sends log information to the logChannel.
