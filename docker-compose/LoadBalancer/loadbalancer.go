@@ -695,63 +695,70 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 				logHeapInfo("go_heap_memory.log", heapInfo)
 
 			}
-			// Policy implementation
+			// GCMitigation Policy ////////////////////////////////////////////////////////////////////////
 			if currentSchedulingPolicy == GCMitigation {
 				if strings.Contains(containerName, "1") {
 					// GC is triggered for HeapAlloc breaching NextGC
-					marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc1)
+					// marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc1)
+					marginAvailable := int64(RequestHeapMargin) * prevHeapAlloc1
 					fmt.Printf("BEFORE prevHeapAlloc1: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc1, marginAvailable, prevNextGC1)
 					// Current container likely under heap memory pressure
 					if (goResp.HeapAlloc + marginAvailable) > prevNextGC1 {
 						fmt.Printf("targetContainer: %s\t", containerName)
 						fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC1)
+						if goResp.RequestNumber != math.MaxInt32 {
+							// Increment pointer to start sending requests to second container
+							mutexIncrementGoPointer.Lock()
+							goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
+							// server ports are always one ahead of port start
+							goRoundRobinIndex++
+							mutexIncrementGoPointer.Unlock()
+						}
 						// Send fake request in parallel while updating pointer
 						go func() {
 							SendFakeRequest(containerName)
 						}()
-						// Increment pointer
-						mutexIncrementGoPointer.Lock()
-						goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
-						// server ports are always one ahead of port start
-						goRoundRobinIndex++
-						mutexIncrementGoPointer.Unlock()
 						// Update heap tracker data structure for second container to prevent deadlock
 						// Send fake request to second container before returning
 						// SendFakeRequest(goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex))
 						return // because we need heap statistics from new container, NOT dead one
 					}
 					// Update latest HeapAlloc and NextGC otherwise
-					prevHeapAlloc1 = goResp.HeapAlloc
-					prevNextGC1 = goResp.NextGC
-					fakeRequestArraySize = goResp.ArraySize
+					// prevHeapAlloc1 = goResp.HeapAlloc
+					// prevNextGC1 = goResp.NextGC
+					// fakeRequestArraySize = goResp.ArraySize
+
 					fmt.Printf("AFTER prevHeapAlloc1: %d, nextGC1: %d, arraysize: %d\n", prevHeapAlloc1, prevNextGC1, fakeRequestArraySize)
 				} else { // second container
 					// GC is triggered for HeapAlloc breaching NextGC
-					marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc2)
+					// marginAvailable := int64(RequestHeapMargin) * (goResp.HeapAlloc - prevHeapAlloc2)
+					marginAvailable := int64(RequestHeapMargin) * prevHeapAlloc2
 					fmt.Printf("BEFORE prevHeapAlloc2: %d, Margin: %d, nextGC: %d\n", prevHeapAlloc2, marginAvailable, prevNextGC2)
 					// Current container likely under heap memory pressure
 					if (goResp.HeapAlloc + marginAvailable) > prevNextGC2 {
 						fmt.Printf("targetContainer: %s\t", containerName)
 						fmt.Printf("(currHeapAlloc + margin) > prevNextGC) --> %d + %d > %d\n", goResp.HeapAlloc, marginAvailable, prevNextGC2)
+						// Increment pointer if NOT Fake request
+						if goResp.RequestNumber != math.MaxInt32 {
+							mutexIncrementGoPointer.Lock()
+							goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
+							// server ports are always one ahead of port start
+							goRoundRobinIndex++
+							mutexIncrementGoPointer.Unlock()
+						}
 						// Send fake request in parallel while updating pointer
 						go func() {
 							SendFakeRequest(containerName)
 						}()
-						// Increment pointer
-						mutexIncrementGoPointer.Lock()
-						goRoundRobinIndex = (goRoundRobinIndex % maxNumberOfGoContainers) + goPortStart
-						// server ports are always one ahead of port start
-						goRoundRobinIndex++
-						mutexIncrementGoPointer.Unlock()
 						// Update heap tracker data structure for second container to prevent deadlock
 						// Send fake request to second container before returning
 						// SendFakeRequest(goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex))
 						return // because we need heap statistics from new container, NOT dead one
 					}
 					// Update latest HeapAlloc and NextGC otherwise
-					prevHeapAlloc2 = goResp.HeapAlloc
-					prevNextGC2 = goResp.NextGC
-					fakeRequestArraySize = goResp.ArraySize
+					// prevHeapAlloc2 = goResp.HeapAlloc
+					// prevNextGC2 = goResp.NextGC
+					// fakeRequestArraySize = goResp.ArraySize
 					fmt.Printf("AFTER prevHeapAlloc2: %d, nextGC2: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize)
 
 				}
@@ -799,23 +806,23 @@ func SetGoGCThresholds() {
 
 	// Set initial values assuming GOGC
 	if detectedGOGC == 1000 {
-		prevHeapAlloc1 = 100000
+		prevHeapAlloc1 = 1000000
 		prevNextGC1 = 41943040
-		prevHeapAlloc2 = 100000
+		prevHeapAlloc2 = 1000000
 		prevNextGC2 = 41943040
 	} else if detectedGOGC == 1 {
-		prevHeapAlloc1 = 100000
+		prevHeapAlloc1 = 1000000
 		prevNextGC1 = 11943040
-		prevHeapAlloc2 = 100000
+		prevHeapAlloc2 = 1000000
 		prevNextGC2 = 11943040
 	} else { // default
-		prevHeapAlloc1 = 100000
+		prevHeapAlloc1 = 1000000
 		prevNextGC1 = 41943040
-		prevHeapAlloc2 = 100000
+		prevHeapAlloc2 = 1000000
 		prevNextGC2 = 41943040
 	}
 	// Set different margins for different containers
-	RequestHeapMargin = 2
+	RequestHeapMargin = 4
 
 	// Initialize fake request size
 	fakeRequestArraySize = 10000
