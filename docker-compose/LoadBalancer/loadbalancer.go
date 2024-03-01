@@ -819,14 +819,14 @@ func SetGoGCThresholds() {
 		prevNextGC1 = 4194304
 		prevHeapAlloc2 = 100000
 		prevNextGC2 = 4194304
-		RequestHeapMargin = 3
-		fakeRequestArraySize = 100
+		RequestHeapMargin = 5
+		fakeRequestArraySize = 1000
 	} else if detectedGOGC == 1 {
 		prevHeapAlloc1 = 100000
 		prevNextGC1 = 1160000
 		prevHeapAlloc2 = 100000
 		prevNextGC2 = 1160000
-		RequestHeapMargin = 3
+		RequestHeapMargin = 10
 		fakeRequestArraySize = 100
 	} else { // if GOGC not found, change scheduling policy
 		fmt.Println("Error detecting GOGC. Switching policy to RoundRobin.")
