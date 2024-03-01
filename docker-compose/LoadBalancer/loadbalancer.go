@@ -726,8 +726,7 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 					// Update latest HeapAlloc and NextGC otherwise
 					// prevHeapAlloc1 = goResp.HeapAlloc
 					prevNextGC1 = goResp.NextGC
-
-					// fakeRequestArraySize = goResp.ArraySize
+					fakeRequestArraySize = goResp.ArraySize
 
 					fmt.Printf("AFTER prevHeapAlloc1: %d, nextGC1: %d, arraysize: %d\n", prevHeapAlloc1, prevNextGC1, fakeRequestArraySize)
 				} else { // second container
@@ -759,8 +758,8 @@ func extractAndLogHeapInfo(responseBody io.Reader, containerName string, request
 					// Update latest HeapAlloc and NextGC otherwise
 					// prevHeapAlloc2 = goResp.HeapAlloc
 					prevNextGC2 = goResp.NextGC
+					fakeRequestArraySize = goResp.ArraySize
 
-					// fakeRequestArraySize = goResp.ArraySize
 					fmt.Printf("AFTER prevHeapAlloc2: %d, nextGC2: %d, arraysize: %d\n", prevHeapAlloc2, prevNextGC2, fakeRequestArraySize)
 
 				}
@@ -820,13 +819,13 @@ func SetGoGCThresholds() {
 		prevHeapAlloc2 = 100000
 		prevNextGC2 = 4194304
 		RequestHeapMargin = 5
-		fakeRequestArraySize = 1000
+		fakeRequestArraySize = 100
 	} else if detectedGOGC == 1 {
 		prevHeapAlloc1 = 100000
 		prevNextGC1 = 1160000
 		prevHeapAlloc2 = 100000
 		prevNextGC2 = 1160000
-		RequestHeapMargin = 10
+		RequestHeapMargin = 5
 		fakeRequestArraySize = 100
 	} else { // if GOGC not found, change scheduling policy
 		fmt.Println("Error detecting GOGC. Switching policy to RoundRobin.")
