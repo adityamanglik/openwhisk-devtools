@@ -16,13 +16,13 @@ import (
 	"gonum.org/v1/gonum/stat"
 )
 
-var iterations int = 500
-var actualIterations int = 500
+var iterations int = 1000
+var actualIterations int = 5000
 
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:8180/go"
+	goAPI                 = "http://node0:8801/JS"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -36,7 +36,7 @@ type APIResponse struct {
 
 func main() {
 	// Set a default value for arraysize
-	defaultArraySize := 10000
+	defaultArraySize := 100
 	arraysize := defaultArraySize
 
 	// Check if a command line argument is provided
