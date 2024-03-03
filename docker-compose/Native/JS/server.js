@@ -111,7 +111,7 @@ function mainLogic(seed, ARRAY_SIZE, REQ_NUM) {
         // Stress GC with nested list
         if (i % 5 === 0) {
             let nestedList = new LinkedList();
-            const nestedCount = generateRandomNormal(seed, seed);
+            const nestedCount = 10;
             for (let j = 0; j < nestedCount; j++) {
                 nestedList.pushBack(generateRandomNormal(seed, seed));
             }

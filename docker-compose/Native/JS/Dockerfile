@@ -12,4 +12,5 @@ COPY . .
 # ENV UV_THREADPOOL_SIZE=1
 
 # Command to run the application
-CMD ["node", "--max-old-space-size=96", "--max-semi-space-size=16", "--trace_gc", "--nouse-idle-notification", "server.js"]
+# CMD ["node", "--max-old-space-size=64", "--max-semi-space-size=32", "--trace_gc", "--nouse-idle-notification", "--noincremental_marking=false", " --noincremental_marking_steps", "--nolazy_sweeping", "server.js"]
+CMD ["node", "--max-old-space-size=64", "--max-semi-space-size=32", "server.js"]

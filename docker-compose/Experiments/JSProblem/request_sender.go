@@ -14,15 +14,18 @@ import (
 	"time"
 
 	"gonum.org/v1/gonum/stat"
+	"gonum.org/v1/plot"
+	"gonum.org/v1/plot/plotter"
+	"gonum.org/v1/plot/vg"
 )
 
 var iterations int = 1000
-var actualIterations int = 5000
+var actualIterations int = 50
 
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:8800/JS"
+	goAPI                 = "http://node0:8801/JS"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -32,6 +35,7 @@ const (
 // Response structure for unmarshalling JSON data
 type APIResponse struct {
 	ExecutionTime int64 `json:"executionTime"`
+	UsedHeapSize  int64 `json:"usedHeapSize"`
 }
 
 func main() {
@@ -53,17 +57,18 @@ func main() {
 	checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
 	// Warm up
-	goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
+	goResponseTimes, goServerTimes, heapSizes := sendRequests(goAPI, arraysize)
 	iterations = actualIterations
 	// Actual measurements
-	goResponseTimes, goServerTimes = sendRequests(goAPI, arraysize)
-
+	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
+	err := plotTimes(goResponseTimes, heapSizes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
+	// err = plotTimes(goResponseTimes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
 	// calculateAndPrintStats(goServerTimes, "Go Server Times")
 	filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
-	err := latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
+	err = latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
 	if err != nil {
 		fmt.Println("Error writing to CSV:", err)
 	}
@@ -85,9 +90,57 @@ func main() {
 	// }
 }
 
-func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
+func plotTimes(times []int64, heapsizes []int64, title string) error {
+	p := plot.New()
+	p.Title.Text = title
+	p.X.Label.Text = "Request"
+	p.Y.Label.Text = "Time (microseconds)"
+
+	pts := make(plotter.XYs, len(times))
+	for i := range times {
+		pts[i].X = float64(i)
+		pts[i].Y = float64(times[i])
+	}
+
+	line, err := plotter.NewLine(pts)
+	if err != nil {
+		return err
+	}
+	p.Add(line)
+	if err := p.Save(8*vg.Inch, 4*vg.Inch, "times_plot.png"); err != nil {
+		return err
+	}
+
+	p = plot.New()
+	p.Title.Text = title
+	p.X.Label.Text = "Request"
+	p.Y.Label.Text = "Time (microseconds)"
+
+	// Heap size series (optional: scale if necessary)
+	ptsHeapSizes := make(plotter.XYs, len(heapsizes))
+	for i, size := range heapsizes {
+		ptsHeapSizes[i].X = float64(i)
+		// Scale heap size for visualization if needed
+		ptsHeapSizes[i].Y = float64(size) // Consider scaling
+	}
+	lineHeapSizes, err := plotter.NewLine(ptsHeapSizes)
+	if err != nil {
+		return err
+	}
+	// lineHeapSizes.Color = plotter.DefaultColors[1] // Use a different color
+	p.Add(lineHeapSizes)
+
+	if err := p.Save(8*vg.Inch, 4*vg.Inch, "heap_plot.png"); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 	var responseTimes []int64
 	var serverTimes []int64
+	var heapSizes []int64
 
 	for i := 0; i < iterations; i++ {
 		// fmt.Printf("Sent request: %d\n", i)
@@ -127,16 +180,18 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 
 		responseTimes = append(responseTimes, elapsed.Microseconds())
 		serverTimes = append(serverTimes, apiResp.ExecutionTime)
+		// Collect usedHeapSize along with other metrics
+		heapSizes = append(heapSizes, apiResp.UsedHeapSize)
 	}
 
-	return responseTimes, serverTimes
+	return responseTimes, serverTimes, heapSizes
 }
 
 func checkServerAlive(apiURL string) {
 	fmt.Println("Checking server for heartbeat.")
 	for i := 0; i < iterations/10; i++ {
-		seed := rand.Intn(10000)      // Random seed generation
-		arraysize := 10 // Do not pollute memory for aliveCheck
+		seed := rand.Intn(10000) // Random seed generation
+		arraysize := 10          // Do not pollute memory for aliveCheck
 		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
 		resp, err := http.Get(requestURL)
 		if err != nil {
