@@ -1,0 +1,2 @@
+Characterize and stabilize JS
+go run request_sender.go 100
