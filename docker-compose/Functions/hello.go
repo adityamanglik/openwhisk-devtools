@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"runtime"
+	"runtime/debug"
 	"strconv"
 	"time"
 )
@@ -31,7 +32,18 @@ type Response struct {
 // const ARRAY_SIZE = 3200000;
 
 func init() {
-	// debug.SetGCPercent(-1) // Disable the garbage collector
+	debug.SetGCPercent(-1) // Disable the garbage collector
+
+	// Set GOGC, controls the garbage collector target percentage.
+	if err := os.Setenv("GOGC", "off"); err != nil {
+		panic(err)
+	}
+
+	// Set GOMEMLIMIT, an example environment variable. This is not standard in Go.
+	// You'll need to implement its usage logic within your application.
+	if err := os.Setenv("GOMEMLIMIT", "128M"); err != nil {
+		panic(err)
+	}
 }
 
 // Main is the function implementing the action
