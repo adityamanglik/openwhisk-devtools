@@ -195,28 +195,28 @@ function runJSExperiment() {
 function runGoExperiment() {
     # Update the Go code with the new array size
     local size=$1
-    ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" size \";\";next}1' size=${size} $OW_DIRECTORY/Functions/hello.go > $OW_DIRECTORY/Functions/temp.go && mv $OW_DIRECTORY/Functions/temp.go $OW_DIRECTORY/Functions/hello.go"
+    # ssh $OW_SERVER_NODE "awk '/MARKER_FOR_SIZE_UPDATE/{print;getline;print \"const ARRAY_SIZE = \" size \";\";next}1' size=${size} $OW_DIRECTORY/Functions/hello.go > $OW_DIRECTORY/Functions/temp.go && mv $OW_DIRECTORY/Functions/temp.go $OW_DIRECTORY/Functions/hello.go"
 
     # Make sure we get fresh data by resetting functions via update
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloGo Functions/hello.go"
+    # ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/; WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update helloGo Functions/hello.go"
 
     # Start generating load
     source gc_metric_experiment_base.sh $GO_API Go $ITERATIONS
 
     # Retrieve warm/cold status of each activation
-    scp Goactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/
-    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Scripts/; bash ./activation_status_checker.sh ./Goactivation_ids.txt"
-    scp $OW_SERVER_NODE:$OW_DIRECTORY/Scripts/Goactivation_ids.txt_startStates.txt ./
+    scp Goactivation_ids.txt $OW_SERVER_NODE:$OW_DIRECTORY/Experiments/GCMetrics/
+    ssh $OW_SERVER_NODE "cd $OW_DIRECTORY/Experiments/GCMetrics/; bash ./activation_status_checker.sh ./Goactivation_ids.txt"
+    scp $OW_SERVER_NODE:$OW_DIRECTORY/Experiments/GCMetrics/Goactivation_ids.txt_startStates.txt ./
 
     # Move all log and image files to that directory
-    mv $OW_DIRECTORY/Scripts/*.txt "$OW_DIRECTORY/Graphs/Go/$size/"
+    mv $OW_DIRECTORY/Experiments/GCMetrics/*.txt "$OW_DIRECTORY/Experiments/GCMetrics/Graphs/Go/$size/"
 
     # Go plotter (Assuming you have a python plotter for Go as well. If not, remove the next line)
-    python ../Graphs/go_response_time_plotter.py $size
+    # python ../Graphs/go_response_time_plotter.py $size
 }
 # Backup size: 5000000
 # Run the experiments for the three array sizes
-for size in 1000000; do
+for size in 1000; do
     echo "Size: $size"
     # runNativeJavaExperiment $size
     # cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/
@@ -226,6 +226,6 @@ for size in 1000000; do
     runGoExperiment $size
     # python ../Graphs/js_response_time_plotter.py $size
     # python ../Graphs/java_response_time_plotter.py $size
-    python ../Graphs/go_response_time_plotter.py $size
+    python ./go_response_time_plotter.py $size
     # python ../Graphs/native_java_response_time_plotter.py $size
 done

@@ -27,8 +27,46 @@ def plot_go_memory_stats(input_size, heap_alloc, heap_idle, heap_inuse, heap_obj
     plt.grid(True)
     plt.legend()
     plt.title('Go Memory Metrics Over {} Iterations'.format(len(heap_alloc)))
-    plt.savefig(f'../Graphs/Go/{input_size}/' + 'memory_stats_plot.pdf')
+    plt.savefig(f'./Graphs/Go/{input_size}/' + 'memory_stats_plot.pdf')
     # plt.show()
+
+def plot_double_histogram(input_size, data, data2):    
+    plt.figure(figsize=(12, 6))
+
+    # Compute median, p90, p95, and p99
+    median_val = np.median(data)
+    p90_val = np.percentile(data, 90)
+    p95_val = np.percentile(data, 95)
+    p99_val = np.percentile(data, 99)
+
+    # Create histogram bins
+    n, bins, patches = plt.hist(data, bins=100, color='red', label='GC Enabled Response Time', alpha=0.7)
+    
+    # Add text label for median, p90, p95, and p99
+    plt.text(0.85, 0.85, f"GC enabled\nMedian: {median_val:.2f}\nP90: {p90_val:.2f}\nP95: {p95_val:.2f}\nP99: {p99_val:.2f}", transform=plt.gca().transAxes, ha="right", va="top",
+             bbox=dict(boxstyle="round", facecolor="white", edgecolor="black"))
+    
+    # Compute median, p90, p95, and p99
+    median_val = np.median(data2)
+    p90_val = np.percentile(data2, 90)
+    p95_val = np.percentile(data2, 95)
+    p99_val = np.percentile(data2, 99)
+    
+    # Create histogram bins
+    n, bins, patches = plt.hist(data2, bins=100, color='blue', label='GC Disabled Response Time', alpha=0.7)
+    
+    # Add text label for median, p90, p95, and p99
+    plt.text(0.65, 0.85, f"GC disabled\nMedian: {median_val:.2f}\nP90: {p90_val:.2f}\nP95: {p95_val:.2f}\nP99: {p99_val:.2f}", transform=plt.gca().transAxes, ha="right", va="top",
+             bbox=dict(boxstyle="round", facecolor="white", edgecolor="black"))
+
+    plt.title('Distribution of Response Time')
+    plt.xlabel('Response Time (ms)')
+    plt.ylabel('Number of Activations')
+    
+    plt.yscale('symlog')
+    # plt.grid(True, which='both', linestyle='--', linewidth=0.5)
+    plt.legend()
+    plt.savefig(f'./Graphs/Go/{input_size}/' + 'histogram2_plot.pdf')
 
 def plot_histogram(input_size, data, states):    
     plt.figure(figsize=(12, 6))
@@ -40,7 +78,7 @@ def plot_histogram(input_size, data, states):
     p99_val = np.percentile(data, 99)
 
     # Create histogram bins
-    n, bins, patches = plt.hist(data, bins=50, color='blue', label='Warm Response Time', alpha=0.7)
+    n, bins, patches = plt.hist(data, bins=100, color='blue', label='Warm Response Time', alpha=0.7)
     
     # Get the counts of cold starts in each bin
     cold_counts, _ = np.histogram([data[i] for i, state in enumerate(states) if state == "cold"], bins=bins)
@@ -61,10 +99,11 @@ def plot_histogram(input_size, data, states):
     plt.title('Distribution of Response Time Over {} Iterations'.format(len(data)))
     plt.xlabel('Response Time (s)')
     plt.ylabel('Number of Activations')
+    
     plt.yscale('symlog')
     plt.grid(True, which='both', linestyle='--', linewidth=0.5)
     plt.legend()
-    plt.savefig(f'../Graphs/Go/{input_size}/' + 'histogram_plot.pdf')
+    plt.savefig(f'./Graphs/Go/{input_size}/' + 'histogram_plot.pdf')
     # plt.show()
 
 
@@ -82,7 +121,7 @@ def plot_line_orig(input_size, data, states):
     plt.grid(True)
     plt.yscale('symlog')
     plt.legend()
-    plt.savefig(f'../Graphs/Go/{input_size}/'+ 'line_plot.pdf')
+    plt.savefig(f'./Graphs/Go/{input_size}/'+ 'line_plot.pdf')
     # plt.show()
 
 def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times):
@@ -111,7 +150,7 @@ def plot_line(input_size, data, states, gc1_collections, gc1_collection_times, g
     plt.grid(True)
     fig.legend(loc='center right')
     plt.title('Response Time and GC Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig(f'../Graphs/Go/{input_size}/'+ 'combined_line_plot.pdf')
+    plt.savefig(f'./Graphs/Go/{input_size}/'+ 'combined_line_plot.pdf')
 
 
 def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collections, gc2_collection_times):
@@ -138,7 +177,7 @@ def plot_gc_stats(input_size, gc1_collections, gc1_collection_times, gc2_collect
     ax2.legend(lines + lines2, labels + labels2, loc='upper left')
 
     plt.title('GC Metrics Over {} Iterations'.format(len(gc1_collections)))
-    plt.savefig(f'../Graphs/Go/{input_size}/'+ 'gc_stats_plot.pdf')
+    plt.savefig(f'./Graphs/Go/{input_size}/'+ 'gc_stats_plot.pdf')
     # plt.show()
 
 def plot_js_metrics(input_size, data, states, used_heap, total_heap, heap_limit):
@@ -166,7 +205,7 @@ def plot_js_metrics(input_size, data, states, used_heap, total_heap, heap_limit)
     fig.tight_layout()
     
     plt.title('JavaScript Response Time and Memory Metrics Over {} Iterations'.format(len(data)))
-    plt.savefig(f'../Graphs/Go/{input_size}/' + 'combined_Go_metrics_plot.pdf')
+    plt.savefig(f'./Graphs/Go/{input_size}/' + 'combined_Go_metrics_plot.pdf')
     plt.show()
 
 
@@ -176,37 +215,42 @@ if __name__ == '__main__':
         print("Usage: python script_name.py <size>")
         sys.exit(1)
 
-    os.chdir('/users/am_CU/openwhisk-devtools/docker-compose/Graphs/')
+    os.chdir('/users/am_CU/openwhisk-devtools/docker-compose/Experiments/GCMetrics/')
 
     input_size = sys.argv[1]
-    directory_path = f'../Graphs/Go/{input_size}/'
+    directory_path = f'./Graphs/Go/{input_size}/'
     if not os.path.exists(directory_path):
         os.makedirs(directory_path)
 
-    base_path = os.getcwd()
-    base_path = os.path.join(base_path, f'Go/{input_size}/')
+    base_path = directory_path
+    # base_path = os.path.join(base_path, f'Go/{input_size}/')
 
     latency_data = read_data(os.path.join(base_path, "GoOutputTime.txt"))
+    latency_data2 = read_data(os.path.join(base_path, "GCGoOutputTime.txt"))
     states = [line.split(': ')[1].replace('"', '').strip() for line in open(os.path.join(base_path, "Goactivation_ids.txt_startStates.txt"))]
     
     heap_alloc = read_data(os.path.join(base_path, "heapAllocMemory.txt"))
-    heap_idle = read_data(os.path.join(base_path, "heapIdleMemory.txt"))
-    heap_inuse = read_data(os.path.join(base_path, "heapInuseMemory.txt"))
-    heap_objects = read_data(os.path.join(base_path, "heapObjects.txt"))
-    heap_released = read_data(os.path.join(base_path, "heapReleasedMemory.txt"))
-    heap_sys = read_data(os.path.join(base_path, "heapSysMemory.txt"))
+    # heap_idle = read_data(os.path.join(base_path, "heapIdleMemory.txt"))
+    # heap_inuse = read_data(os.path.join(base_path, "heapInuseMemory.txt"))
+    # heap_objects = read_data(os.path.join(base_path, "heapObjects.txt"))
+    # heap_released = read_data(os.path.join(base_path, "heapReleasedMemory.txt"))
+    # heap_sys = read_data(os.path.join(base_path, "heapSysMemory.txt"))
 
     # Truncate datasets to ITERATIONS
     latency_data = latency_data[:ITERATIONS]
+    latency_data = [1000*x for x in latency_data[1:]]
+    latency_data2 = latency_data2[:ITERATIONS]
+    latency_data2 = [1000*x for x in latency_data2[1:]]
+    # print(latency_data[:100])
     states = states[:ITERATIONS]
     heap_alloc = heap_alloc[:ITERATIONS]
-    heap_idle = heap_idle[:ITERATIONS]
-    heap_inuse = heap_inuse[:ITERATIONS]
-    heap_objects = heap_objects[:ITERATIONS]
-    heap_released = heap_released[:ITERATIONS]
-    heap_sys = heap_sys[:ITERATIONS]
+    # heap_idle = heap_idle[:ITERATIONS]
+    # heap_inuse = heap_inuse[:ITERATIONS]
+    # heap_objects = heap_objects[:ITERATIONS]
+    # heap_released = heap_released[:ITERATIONS]
+    # heap_sys = heap_sys[:ITERATIONS]
 
     # Plotting functions
-    plot_line_orig(input_size, latency_data, states)
-    plot_histogram(input_size, latency_data, states)
-    plot_go_memory_stats(input_size, heap_alloc, heap_idle, heap_inuse, heap_objects, heap_released, heap_sys)
+    plot_line_orig(input_size, latency_data2, states)
+    plot_double_histogram(input_size, latency_data2, latency_data)
+    # plot_go_memory_stats(input_size, heap_alloc, heap_idle, heap_inuse, heap_objects, heap_released, heap_sys)

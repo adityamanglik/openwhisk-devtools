@@ -1,0 +1,28 @@
+#!/bin/bash
+
+# Capture both the response headers, body, and timing info using the -w option to curl.
+response=$(curl -i -w "\
+\n\
+time_namelookup:  %{time_namelookup}\n\
+time_connect:  %{time_connect}\n\
+time_appconnect:  %{time_appconnect}\n\
+time_pretransfer:  %{time_pretransfer}\n\
+time_redirect:  %{time_redirect}\n\
+time_starttransfer:  %{time_starttransfer}\n\
+time_total:  %{time_total}\n" -s "$@")
+
+# Extract the x-openwhisk-activation-id from the headers.
+activation_id=$(echo "$response" | grep 'x-openwhisk-activation-id:' | awk '{print $2}' | tr -d '\r')
+
+# Extract the response payload
+payload=$(echo "$response" | sed -n '/{/,/}/p')
+
+# Extract the timing info
+timing_info=$(echo "$response" | sed -n '/time_namelookup:/,$p')
+
+# Print the headers, timings, response, and activation ID.
+echo "$response" | sed '/time_namelookup:/,$d'  # Print everything up to the timing info
+echo "----------"
+# echo "Response Payload: $payload"
+echo "$timing_info"  # Print the extracted timing info
+echo "OpenWhisk Activation ID: $activation_id"

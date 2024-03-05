@@ -1,3 +1,11 @@
+# Latest commands for wsk
+wsk action create helloGo hello.go
+wsk -i action update helloGo --web true
+wsk -i api create /helloGo /world get helloGo --response-type json
+wsk action invoke helloGo --result
+ 
+wsk action update helloGo hello.go
+
 # Create API for JS action
 WSK_CONFIG_FILE=./.wskprops ./openwhisk-src/bin/wsk -i action update "/guest/hello" --web true
 # Extract URL of action and place in variable web_action

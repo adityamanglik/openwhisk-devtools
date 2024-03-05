@@ -59,19 +59,10 @@ initialize_java_files() {
 
 initialize_go_files() {
     HEAP_ALLOC_MEMORY_FILE="heapAllocMemory.txt"
-    HEAP_IDLE_MEMORY_FILE="heapIdleMemory.txt"
-    HEAP_INUSE_MEMORY_FILE="heapInuseMemory.txt"
-    HEAP_OBJECTS_FILE="heapObjects.txt"
-    HEAP_RELEASED_MEMORY_FILE="heapReleasedMemory.txt"
-    HEAP_SYS_MEMORY_FILE="heapSysMemory.txt"
     SUM_FILE="sum.txt"
 
     >$HEAP_ALLOC_MEMORY_FILE
-    >$HEAP_IDLE_MEMORY_FILE
-    >$HEAP_INUSE_MEMORY_FILE
-    >$HEAP_OBJECTS_FILE
-    >$HEAP_RELEASED_MEMORY_FILE
-    >$HEAP_SYS_MEMORY_FILE
+    >$SUM_FILE
 }
 
 initialize_native_java_files() {
@@ -207,20 +198,18 @@ for i in $(seq 1 $ITERATIONS); do
         heapAllocMemoryValue=$(echo "$result" | grep -Eo '"heapAllocMemory": [0-9]+' | awk '{print $2}')
         echo $heapAllocMemoryValue >>$HEAP_ALLOC_MEMORY_FILE
 
-        heapIdleMemoryValue=$(echo "$result" | grep -Eo '"heapIdleMemory": [0-9]+' | awk '{print $2}')
-        echo $heapIdleMemoryValue >>$HEAP_IDLE_MEMORY_FILE
+        sumValue=$(echo "$result" | grep -Eo '"sum": [0-9]+' | awk '{print $2}')
+        echo $sumValue >>$SUM_FILE
 
-        heapInuseMemoryValue=$(echo "$result" | grep -Eo '"heapInuseMemory": [0-9]+' | awk '{print $2}')
-        echo $heapInuseMemoryValue >>$HEAP_INUSE_MEMORY_FILE
+        # # Assuming you have additional files for the parsed query parameters if needed
+        # parsedSeed=$(echo "$result" | grep -Eo '"parsedSeed": "[^"]+"' | awk -F': "' '{print $2}' | tr -d '"')
+        # parsedArraySize=$(echo "$result" | grep -Eo '"parsedArraySize": "[^"]+"' | awk -F': "' '{print $2}' | tr -d '"')
+        # parsedReqNum=$(echo "$result" | grep -Eo '"parsedReqNum": "[^"]+"' | awk -F': "' '{print $2}' | tr -d '"')
 
-        heapObjectsValue=$(echo "$result" | grep -Eo '"heapObjects": [0-9]+' | awk '{print $2}')
-        echo $heapObjectsValue >>$HEAP_OBJECTS_FILE
-
-        heapReleasedMemoryValue=$(echo "$result" | grep -Eo '"heapReleasedMemory": [0-9]+' | awk '{print $2}')
-        echo $heapReleasedMemoryValue >>$HEAP_RELEASED_MEMORY_FILE
-
-        heapSysMemoryValue=$(echo "$result" | grep -Eo '"heapSysMemory": [0-9]+' | awk '{print $2}')
-        echo $heapSysMemoryValue >>$HEAP_SYS_MEMORY_FILE
+        # # Optionally print these to files or stdout, depending on your needs
+        # echo "ParsedSeed for iteration $i: $parsedSeed"
+        # echo "ParsedArraySize for iteration $i: $parsedArraySize"
+        # echo "ParsedReqNum for iteration $i: $parsedReqNum"
         ;;
     "NativeJava")
         heapCommittedMemoryValue=$(echo "$result" | sed -n 's/.*"heapCommittedMemory: ":[ \t]*\([0-9]*\).*/\1/p')
