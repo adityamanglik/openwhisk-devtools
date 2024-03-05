@@ -1,9 +1,9 @@
 # set -x
 OW_SERVER_NODE="am_CU@node0"
-NATIVE_JAVA_API="http://128.110.96.62:9876/jsonresponse"
-JAVA_API="http://128.110.96.62:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloJava/world"
-JAVASCRIPT_API="http://128.110.96.62:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
-GO_API="http://128.110.96.62:9090/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloGo/world"
+NATIVE_JAVA_API="http://node0:9876/jsonresponse"
+JAVA_API="http://node0:3234/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloJava/world"
+JAVASCRIPT_API="http://node0:3234/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/hello/world"
+GO_API="http://node0:3234/api/23bc46b1-71f6-4ed5-8c54-816aa4f8c502/helloGo/world"
 OW_DIRECTORY="/users/am_CU/openwhisk-devtools/docker-compose"
 GC_FLAGS="-Xmx64m -XX:MaxGCPauseMillis=50 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/gc_log"
 NO_GC_FLAGS="-Xmx4g -XX:MaxGCPauseMillis=500 -XX:+PrintGCDetails -XX:+PrintGCDateStamps -Xloggc:/users/am_CU/openwhisk-devtools/docker-compose/Native/Java/no_gc_log"
@@ -218,14 +218,14 @@ function runGoExperiment() {
 # Run the experiments for the three array sizes
 for size in 1000000; do
     echo "Size: $size"
-    runNativeJavaExperiment $size
-    cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/
-    runNativeJavaNoGCExperiment $size
+    # runNativeJavaExperiment $size
+    # cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/
+    # runNativeJavaNoGCExperiment $size
     # runJavaExperiment $size
     # runJSExperiment $size
-    # runGoExperiment $size
+    runGoExperiment $size
     # python ../Graphs/js_response_time_plotter.py $size
     # python ../Graphs/java_response_time_plotter.py $size
-    # python ../Graphs/go_response_time_plotter.py $size
+    python ../Graphs/go_response_time_plotter.py $size
     # python ../Graphs/native_java_response_time_plotter.py $size
 done

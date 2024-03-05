@@ -1,61 +1,105 @@
 package main
 
 import (
-	"log"
+	"container/list"
+	"encoding/json"
+	"math"
 	"math/rand"
+	"os"
 	"runtime"
-	"runtime/debug" // Added this import
+	"time"
 )
 
 type Response struct {
-	Sum               int64  `json:"sum"`
-	HeapAllocMemory   uint64 `json:"heapAllocMemory"`
-	HeapSysMemory     uint64 `json:"heapSysMemory"`
-	HeapIdleMemory    uint64 `json:"heapIdleMemory"`
-	HeapInuseMemory   uint64 `json:"heapInuseMemory"`
-	HeapReleasedMemory uint64 `json:"heapReleasedMemory"`
-	HeapObjects       uint64 `json:"heapObjects"`
+	Sum             int64  `json:"sum"`
+	ExecutionTime   int64  `json:"executionTime"`
+	RequestNumber   int    `json:"requestNumber"`
+	ArraySize       int    `json:"arraysize"`
+	HeapAllocMemory uint64 `json:"heapAllocMemory"`
+	GOGC            string `json:"GOGC"`
+	GOMEMLIMIT      string `json:"GOMEMLIMIT"`
+	NextGC          uint64 `json:"NextGC"`
+	NumGC           uint32 `json:"NumGC"`
 }
 
 // MARKER_FOR_SIZE_UPDATE
-const ARRAY_SIZE = 3200000;
+// const ARRAY_SIZE = 3200000;
 
 func init() {
-	debug.SetGCPercent(-1) // Disable the garbage collector
+	// debug.SetGCPercent(-1) // Disable the garbage collector
 }
 
 // Main is the function implementing the action
 func Main(obj map[string]interface{}) map[string]interface{} {
-	seedValue := int64(42) // default seed value
+	seed := 42               // default seed value
+	ARRAY_SIZE := 10000      // default array size value
+	REQ_NUM := math.MaxInt32 // default request number
 
-	if seed, exists := obj["seed"].(float64); exists {
-		seedValue = int64(seed)
+	if val, ok := obj["seed"].(float64); ok {
+		seed = int(val)
 	}
 
-	r := rand.New(rand.NewSource(seedValue))
-	arr := make([]int, ARRAY_SIZE)
+	if val, ok := obj["arraysize"].(float64); ok {
+		ARRAY_SIZE = int(val)
+	}
+
+	if val, ok := obj["requestnumber"].(float64); ok {
+		REQ_NUM = int(val)
+	}
+
+	start := time.Now()
+
+	rand.Seed(int64(seed))
+
+	lst := list.New()
+
+	for i := 0; i < ARRAY_SIZE; i++ {
+		// Inserting integers directly, assuming payload simulation isn't the focus
+		lst.PushFront(rand.Intn(seed)) // Use integers for direct summation
+		// Stress GC with nested list
+		if i%5 == 0 {
+			nestedList := list.New()
+			for j := 0; j < rand.Intn(5); j++ {
+				nestedList.PushBack(rand.Intn(seed))
+			}
+			lst.PushBack(nestedList)
+		}
+		// Immediate removal after insertion to stress GC
+		if i%5 == 0 {
+			e := lst.PushFront(rand.Intn(seed))
+			lst.Remove(e)
+		}
+
+	}
+
+	// Sum values and return result
 	var sum int64 = 0
-
-	for i := 0; i < len(arr); i++ {
-		arr[i] = r.Intn(ARRAY_SIZE) // populate array with random integers between 0 and (ARRAY_IZE - 1)
-		sum += int64(arr[i])
+	for e := lst.Front(); e != nil; e = e.Next() {
+		if val, ok := e.Value.(int); ok {
+			sum += int64(val)
+		}
 	}
 
-	m := &runtime.MemStats{}
-	runtime.ReadMemStats(m)
+	executionTime := time.Since(start).Microseconds()
 
-	response := make(map[string]interface{})
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
 
-	response["sum"] = sum
-	response["heapAllocMemory"] = m.Alloc
-	response["heapSysMemory"] = m.HeapSys
-	response["heapIdleMemory"] = m.HeapIdle
-	response["heapInuseMemory"] = m.HeapInuse
-	response["heapReleasedMemory"] = m.HeapReleased
-	response["heapObjects"] = m.HeapObjects
+	response := Response{
+		Sum:             sum,
+		ExecutionTime:   executionTime,
+		RequestNumber:   REQ_NUM,
+		ArraySize:       ARRAY_SIZE,
+		HeapAllocMemory: m.HeapAlloc,
+		GOGC:            os.Getenv("GOGC"),
+		GOMEMLIMIT:      os.Getenv("GOMEMLIMIT"),
+		NextGC:          m.NextGC,
+		NumGC:           m.NumGC,
+	}
 
-	// log in stdout
-	log.Printf("Seed=%d\n", seedValue)
+	responseMap := make(map[string]interface{})
+	responseBytes, _ := json.Marshal(response)
+	json.Unmarshal(responseBytes, &responseMap)
 
-	return response
+	return responseMap
 }
