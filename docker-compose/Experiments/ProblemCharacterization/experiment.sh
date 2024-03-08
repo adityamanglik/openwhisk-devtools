@@ -8,11 +8,11 @@ JAVA_RESPONSE_TIMES_FILE="java_response_times.txt"
 GO_RESPONSE_TIMES_FILE="go_response_times.txt"
 
 # Send request and measure request response latencies
-send_requests() {  j
+send_requests() {
     local size=$1
 
     # Start the load balancer
-    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go RoundRobin > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
+    ssh $OW_SERVER_NODE "nohup go run /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/loadbalancer.go SingleServer > /users/am_CU/openwhisk-devtools/docker-compose/LoadBalancer/server.log 2>&1 &"
     sleep 5
     
     # Start sending requests
@@ -27,7 +27,7 @@ send_requests() {  j
 
 }
 
-sizes=(10000)
+sizes=(100)
 # sizes=(1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000 1000000)
 
 # Loop through each size
