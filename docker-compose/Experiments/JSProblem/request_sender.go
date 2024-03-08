@@ -20,7 +20,7 @@ import (
 )
 
 var iterations int = 1000
-var actualIterations int = 50
+var actualIterations int = 500
 
 // Constants for API endpoints and file names
 const (

@@ -41,7 +41,7 @@ def calculate_statistics(times):
  
     return average, median, p90, p99, summed, stdd
 
-def plot_latency(client_times, server_times, memory_log, second_container, output_image_file, output_image_file_1):
+def plot_latency(client_times, server_times, memory_log, output_image_file, output_image_file_1):
     # plot all iterations in line graph
     fig, ax1 = plt.subplots(figsize=(10, 6))
     _, med, _, _, _, stdd = calculate_statistics(client_times)
@@ -191,13 +191,13 @@ if __name__ == "__main__":
         server_times = [float(line.strip().split(',')[1]) for line in f.readlines()]
     # print(server_times[:10])
     with open(sys.argv[3], 'r') as f:
-        memory_log, second_container = parse_memory_log(f)
+        memory_log = [float(line.strip().split(',')[1]) for line in f.readlines()]
     # print(len(memory_log))
     # Skip warm up
     # TODO: Pass warm up and actual request numbers from go file
-    memory_log = memory_log[len(memory_log)//2:]
+    # memory_log = memory_log[len(memory_log)//2:]
     # print(memory_log[:10])
     # print(second_container)
     plot_histograms(client_times, server_times, sys.argv[4])
-    plot_latency(client_times, server_times, memory_log, second_container, sys.argv[5], sys.argv[6])
+    plot_latency(client_times, server_times, memory_log, sys.argv[5], sys.argv[6])
     plot_hdr_histograms(client_times, sys.argv[7])
