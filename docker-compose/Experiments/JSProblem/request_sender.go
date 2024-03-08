@@ -30,6 +30,7 @@ const (
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
 	goServerTimesFile     = "go_server_times.txt"
+	goHeapFile     = "go_heap_memory.log"
 )
 
 // Response structure for unmarshalling JSON data
@@ -61,17 +62,18 @@ func main() {
 	iterations = actualIterations
 	// Actual measurements
 	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
-	err := plotTimes(goResponseTimes, heapSizes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
+	// err := plotTimes(goResponseTimes, heapSizes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
 	// err = plotTimes(goResponseTimes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
+	writeTimesToFile(goHeapFile, heapSizes)
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
 	// calculateAndPrintStats(goServerTimes, "Go Server Times")
-	filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
-	err = latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
-	if err != nil {
-		fmt.Println("Error writing to CSV:", err)
-	}
+	// filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
+	// err = latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
+	// if err != nil {
+		// fmt.Println("Error writing to CSV:", err)
+	// }
 
 	// // ensure server is alive
 	// checkServerAlive(javaAPI)
