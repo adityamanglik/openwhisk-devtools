@@ -10,12 +10,17 @@ public class Hello {
     public static JsonObject main(JsonObject args) {
         int seed = 42; // default seed value
         int ARRAY_SIZE = 10000; // default arraysize value
+        int request_number = Integer.MAX_VALUE; // default arraysize value
         if (args.has("seed")) {
             seed = args.getAsJsonPrimitive("seed").getAsInt();
         }
 
         if (args.has("arraysize")) {
             ARRAY_SIZE = args.getAsJsonPrimitive("arraysize").getAsInt();
+        }
+
+        if (args.has("requestnumber")) {
+            request_number = args.getAsJsonPrimitive("requestnumber").getAsInt();
         }
 
         long startTime = System.nanoTime(); // Start time tracking
@@ -35,11 +40,7 @@ public class Hello {
         long executionTime = System.nanoTime() - startTime; // Calculate execution time
         executionTime = executionTime/1000;
         JsonObject response = new JsonObject();
-        response.addProperty("sum", sum);
-        response.addProperty("seed", seed);
-        response.addProperty("arraysize", ARRAY_SIZE);
-        response.addProperty("executionTime", executionTime); // Add execution time to response
-
+        
         // Garbage collector information
         int gcIndex = 0;
         for (GarbageCollectorMXBean gc : ManagementFactory.getGarbageCollectorMXBeans()) {
@@ -65,6 +66,13 @@ public class Hello {
         response.addProperty("heapUsedMemory: ", usedMemory);
         response.addProperty("heapCommittedMemory: ", committedMemory);
         response.addProperty("heapMaxMemory: ", maxMemory);
+
+        response.addProperty("sum", sum);
+        response.addProperty("seed", seed);
+        response.addProperty("arraysize", ARRAY_SIZE);
+        response.addProperty("request", request_number);
+        response.addProperty("executionTime", executionTime); // Add execution time to response
+
         
         return response;
     }

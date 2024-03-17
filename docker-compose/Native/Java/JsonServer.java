@@ -31,6 +31,10 @@ public class JsonServer {
             args.addProperty("arraysize", Integer.parseInt(params.get("arraysize")));
         }
 
+        if (params.containsKey("requestnumber")) {
+            args.addProperty("requestnumber", Integer.parseInt(params.get("requestnumber")));
+        }
+
         JsonObject response = Hello.main(args);
         String jsonResponse = response.toString();
 
