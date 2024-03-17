@@ -73,15 +73,16 @@ func main() {
 	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
 	_ = plotTimes(goResponseTimes, heapSizes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
 	// _ = plotTimes(goResponseTimes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
-	writeTimesToFile(goResponseTimesFile, goResponseTimes)
-	writeTimesToFile(goServerTimesFile, goServerTimes)
-	writeTimesToFile(goHeapFile, heapSizes)
 	fmt.Printf("Problem plots done, starting SLA run\n")
 	iterations = 100000
 	arraysize = 10000
 	// SLA measurements
 	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
-	_ = plotSLA(goResponseTimes)
+	// _ = plotSLA(goResponseTimes)
+	writeTimesToFile(goResponseTimesFile, goResponseTimes)
+	writeTimesToFile(goServerTimesFile, goServerTimes)
+	writeTimesToFile(goHeapFile, heapSizes)
+
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
 	// calculateAndPrintStats(goServerTimes, "Go Server Times")
 	// filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)

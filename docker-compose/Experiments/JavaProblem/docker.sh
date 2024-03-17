@@ -7,3 +7,4 @@ sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 sleep 1
 go run request_sender.go 100000
+python SLAplotter.py ./go_response_times.txt SLAPlot.pdf
