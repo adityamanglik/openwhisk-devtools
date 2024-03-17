@@ -1,4 +1,7 @@
 import com.google.gson.JsonObject;
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 import java.lang.management.ManagementFactory;
 import java.lang.management.MemoryMXBean;
@@ -26,15 +29,43 @@ public class Hello {
         long startTime = System.nanoTime(); // Start time tracking
 
         Random rand = new Random(seed);
-        Integer[] arr = new Integer[ARRAY_SIZE];
-        long sum = 0;
+        
+        List<Object> lst = new LinkedList<>();
 
-        for (int i = 0; i < arr.length; i++) {
-            arr[i] = rand.nextInt(100000); // populate array with random integers
+        for (int i = 0; i < ARRAY_SIZE; i++) {
+            // Direct insertion to stress GC
+            lst.add(0, rand.nextInt());
+
+            // Nested lists to create more objects and stress GC
+            if (i % 5 == 0) {
+                List<Object> nestedList = new LinkedList<>();
+                for (int j = 0; j < rand.nextInt(5); j++) {
+                    nestedList.add(rand.nextInt());
+                }
+                lst.add(nestedList);
+            }
+
+            // Immediate removal after insertion to stress GC
+            if (i % 5 == 0) {
+                lst.add(0, rand.nextInt());
+                lst.remove(0);
+            }
         }
 
-        for (int i = 0; i < arr.length; i++) {
-            sum += arr[i];
+        // Sum values to mimic computation
+        long sum = 0; // use long to avoid integer overflow if you expect the sum to be large
+        for (Object obj : lst) {
+            if (obj instanceof Integer) {
+                sum += (Integer) obj;
+            }
+            // If there are nested lists, you would need to handle them as well
+            else if (obj instanceof List) {
+                for (Object nestedObj : (List) obj) {
+                    if (nestedObj instanceof Integer) {
+                        sum += (Integer) nestedObj;
+                    }
+                }
+            }
         }
 
         long executionTime = System.nanoTime() - startTime; // Calculate execution time
