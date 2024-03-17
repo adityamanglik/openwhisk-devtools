@@ -1,3 +1,4 @@
+cp /users/am_CU/openwhisk-devtools/docker-compose/Experiments/JavaProblem/Dockerfile /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/Dockerfile
 docker build -t java-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/
 docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-java-server -p 8601:8600 java-server-image
 sleep 5
