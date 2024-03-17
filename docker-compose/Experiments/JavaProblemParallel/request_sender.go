@@ -116,7 +116,7 @@ func plotTimes(times []int64, heapsizes []int64, title string) error {
 	if err != nil {
 		return err
 	}
-	line.Color = color.RGBA{R: 255, G: 0, B: 0, A: 255} // Red color
+	line.Color = color.RGBA{R: 0, G: 0, B: 255, A: 255} // Red color
 	p.Add(line)
 	if err := p.Save(8*vg.Inch, 4*vg.Inch, "times_plot.png"); err != nil {
 		return err
