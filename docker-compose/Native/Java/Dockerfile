@@ -1,5 +1,5 @@
 # Use a base image with Java (specify the version you need)
-FROM openjdk:8
+FROM openjdk:21
 
 # Set the working directory inside the container
 WORKDIR /app
