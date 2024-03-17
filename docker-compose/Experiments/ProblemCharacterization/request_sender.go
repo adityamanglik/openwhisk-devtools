@@ -135,8 +135,8 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 func checkServerAlive(apiURL string) {
 	fmt.Println("Checking server for heartbeat.")
 	for i := 0; i < iterations/10; i++ {
-		seed := rand.Intn(10000)      // Random seed generation
-		arraysize := 10 // Do not pollute memory for aliveCheck
+		seed := rand.Intn(10000) // Random seed generation
+		arraysize := 10          // Do not pollute memory for aliveCheck
 		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
 		resp, err := http.Get(requestURL)
 		if err != nil {
@@ -161,7 +161,7 @@ func checkServerAlive(apiURL string) {
 
 // Function to log time values to a file
 func writeTimesToFile(filename string, times []int64) {
-	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return

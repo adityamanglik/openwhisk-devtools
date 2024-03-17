@@ -9,3 +9,6 @@ sudo apt install -y docker-compose
 sudo usermod -aG docker $USER
 newgrp docker
 docker run hello-world
+
+# Delete all images
+docker rmi -f $(docker images -aq)

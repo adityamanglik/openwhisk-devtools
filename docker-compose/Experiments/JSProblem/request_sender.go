@@ -218,7 +218,7 @@ func checkServerAlive(apiURL string) {
 
 // Function to log time values to a file
 func writeTimesToFile(filename string, times []int64) {
-	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return
