@@ -5,6 +5,7 @@ import (
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
+	"image/color"
 	"io/ioutil"
 	"math/rand"
 	"net/http"
@@ -20,7 +21,7 @@ import (
 )
 
 var iterations int = 1000
-var actualIterations int = 200
+var actualIterations int = 20
 
 // Constants for API endpoints and file names
 const (
@@ -35,8 +36,15 @@ const (
 
 // Response structure for unmarshalling JSON data
 type APIResponse struct {
-	ExecutionTime int64 `json:"executionTime"`
-	UsedHeapSize  int64 `json:"heapUsedMemory"`
+	ExecutionTime       int64 `json:"executionTime"`
+	UsedHeapSize        int64 `json:"heapUsedMemory"` // Ensure this matches the JSON key exactly
+	GC1CollectionCount  int64 `json:"gc1CollectionCount"`
+	GC1CollectionTime   int64 `json:"gc1CollectionTime"`
+	GC2CollectionCount  int64 `json:"gc2CollectionCount"`
+	GC2CollectionTime   int64 `json:"gc2CollectionTime"`
+	HeapInitMemory      int64 `json:"heapInitMemory"`      // Removed the colon and space
+	HeapCommittedMemory int64 `json:"heapCommittedMemory"` // Removed the colon and space
+	HeapMaxMemory       int64 `json:"heapMaxMemory"`       // Removed the colon and space
 }
 
 func main() {
@@ -108,6 +116,7 @@ func plotTimes(times []int64, heapsizes []int64, title string) error {
 	if err != nil {
 		return err
 	}
+	line.Color = color.RGBA{R: 255, G: 0, B: 0, A: 255} // Red color
 	p.Add(line)
 	if err := p.Save(8*vg.Inch, 4*vg.Inch, "times_plot.png"); err != nil {
 		return err
@@ -182,7 +191,9 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 
 		responseTimes = append(responseTimes, elapsed.Microseconds())
 		serverTimes = append(serverTimes, apiResp.ExecutionTime)
+		// fmt.Println("Time:", apiResp.ExecutionTime)
 		// Collect usedHeapSize along with other metrics
+		// fmt.Println("UsedHeapSize:", apiResp.UsedHeapSize)
 		heapSizes = append(heapSizes, apiResp.UsedHeapSize)
 	}
 
@@ -218,7 +229,7 @@ func checkServerAlive(apiURL string) {
 
 // Function to log time values to a file
 func writeTimesToFile(filename string, times []int64) {
-	file, err := os.OpenFile(filename, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	file, err := os.OpenFile(filename, os.O_CREATE|os.O_WRONLY|os.O_TRUNC, 0644)
 	if err != nil {
 		fmt.Println("Error opening file:", err)
 		return

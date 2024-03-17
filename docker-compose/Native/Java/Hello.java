@@ -93,10 +93,10 @@ public class Hello {
         long usedMemory = heapMemoryUsage.getUsed();  // Amount of used memory
         long committedMemory = heapMemoryUsage.getCommitted(); // Amount of memory guaranteed to be available for the JVM
         long maxMemory = heapMemoryUsage.getMax();   // Maximum amount of memory (can change over time, can be undefined)
-        response.addProperty("heapInitMemory: ", initMemory);
-        response.addProperty("heapUsedMemory: ", usedMemory);
-        response.addProperty("heapCommittedMemory: ", committedMemory);
-        response.addProperty("heapMaxMemory: ", maxMemory);
+        response.addProperty("heapInitMemory", initMemory);
+        response.addProperty("heapUsedMemory", usedMemory);
+        response.addProperty("heapCommittedMemory", committedMemory);
+        response.addProperty("heapMaxMemory", maxMemory);
 
         response.addProperty("sum", sum);
         response.addProperty("seed", seed);
