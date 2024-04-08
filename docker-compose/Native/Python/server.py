@@ -2,9 +2,10 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 import json
 import math
 import random
+import time
 from urllib.parse import urlparse, parse_qs
 
-PORT = 8800
+PORT = 9100
 
 class ListNode:
     def __init__(self, value):
@@ -56,6 +57,8 @@ def generateRandomNormal(mean, stdDev):
 
 def mainLogic(seed, ARRAY_SIZE, REQ_NUM):
     lst = LinkedList()
+    # Start the timer
+    start_time = time.perf_counter()
 
     for i in range(ARRAY_SIZE):
         num = generateRandomNormal(seed, seed)
@@ -78,15 +81,25 @@ def mainLogic(seed, ARRAY_SIZE, REQ_NUM):
         if isinstance(current.value, ListNode):
             nestedCurrent = current.value.head
             while nestedCurrent is not None:
-                sum_val += nestedCurrent.value
+            # Here, we ensure nestedCurrent.value is a float before adding
+                if isinstance(nestedCurrent.value, float):
+                    sum_val += nestedCurrent.value
                 nestedCurrent = nestedCurrent.next
-        else:
+        elif isinstance(current.value, float):  # Ensure current.value is a float
             sum_val += current.value
         current = current.next
+    # End the timer
+    end_time = time.perf_counter()
 
+    # Calculate the duration
+    duration_seconds = end_time - start_time
+
+    # Convert duration to microseconds
+    duration_microseconds = duration_seconds * 1_000_000
+    
     response = {
         "sum": sum_val,
-        "executionTime": 0,  # Placeholder for execution time calculation
+        "executionTime": duration_microseconds,  # Placeholder for execution time calculation
         "requestNumber": REQ_NUM,
         "arraysize": ARRAY_SIZE,
         "usedHeapSize": 0,  # Placeholder for heap size calculation
