@@ -16,51 +16,31 @@ void fill_with_random_alphabets(char *ptr, size_t size) {
 
 int main() {
     // Allocate huge pages
-    void *ptr[ITERS][NUM_PAGES];
-    for(int i = 0; i < ITERS; i++ )
-    {
-        printf("ITERATION NUMBER: %d\n", i);
+    int i = 0;
+    while(1) {
+        void *ptr[NUM_PAGES];
+        
+        printf("ITERATION NUMBER: %d\n", i++);
         for(int j = 0; j < NUM_PAGES; j++)
         {
-            ptr[i][j] = mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
-            if(ptr[i][j] == MAP_FAILED) {
+            ptr[j] = mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+            if(ptr[j] == MAP_FAILED) {
                 perror("mmap");
                 exit(EXIT_FAILURE);
             }
 
-            fill_with_random_alphabets(ptr[i][j], 1);
+            fill_with_random_alphabets(ptr[j], PAGE_SIZE);
         }
-
-        printf("Allocated %d huge pages.\n", NUM_PAGES);
-        // getchar();
-        srand(time(NULL));
-
-        for(int j = 0; j < NUM_PAGES/2; j++)
-        {
-            int index = rand() % NUM_PAGES;
-            if(ptr[i][j] != NULL) {
-                munmap(ptr[i][j], PAGE_SIZE);
-                ptr[i][j] = NULL;
-            } else {
-                j--;
-            }
-        }
-        printf("Deallocated %d huge pages randomly.\n", NUM_PAGES / 2);
-        // getchar();
-
-    }
-    getchar();
-    // Free remaining pages
-    for(int i = 0; i < ITERS; i++)
-    {
+    
         for(int j = 0; j < NUM_PAGES; j++)
         {
-            if(ptr[i][j] != NULL) {
-                munmap(ptr[i][j], PAGE_SIZE);
+            if(ptr[j] != NULL) {
+                munmap(ptr[j], PAGE_SIZE);
             }
         }
+        printf("All huge pages deallocated.\n");
     }
 
-    printf("All huge pages deallocated.\n");
+    
     return 0;
 }
