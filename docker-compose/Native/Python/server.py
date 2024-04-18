@@ -3,129 +3,47 @@ import json
 import math
 import random
 import time
+import mmap
+import os
+import struct
 from urllib.parse import urlparse, parse_qs
 
 PORT = 9100
 
-class ListNode:
-    def __init__(self, value):
-        self.value = value
-        self.next = None
+def initialize_data_sparse(mem):
+    # Define the pattern to be written sparsely
+    pattern = b'\x01'  # Example pattern
 
-class LinkedList:
-    def __init__(self):
-        self.head = None
-        self.tail = None
+    # Write the pattern sparsely into the memory
+    for i in range(0, len(mem), 1024 * 1024):  # Write 1 byte per megabyte
+        mem[i:i+1] = pattern
 
-    def pushFront(self, value):
-        newNode = ListNode(value)
-        if self.head is None:
-            self.head = newNode
-            self.tail = newNode
-        else:
-            newNode.next = self.head
-            self.head = newNode
+def allocate_huge_pages(size_gb):
+    # Calculate the size in bytes
+    size_bytes = size_gb * (1024 ** 3)  # 1 GB = 1024^3 bytes
 
-    def pushBack(self, value):
-        newNode = ListNode(value)
-        if self.tail is None:
-            self.head = newNode
-            self.tail = newNode
-        else:
-            self.tail.next = newNode
-            self.tail = newNode
+    # Open a temporary file to back the mmap object
+    with open("/dev/zero", "r+b") as f:
+        # Create a memory-mapped file using huge pages
+        mem = mmap.mmap(f.fileno(), size_bytes, mmap.MAP_PRIVATE | mmap.MAP_ANONYMOUS)
 
-    def remove(self, node):
-        if self.head == node:
-            self.head = self.head.next
-            if self.head is None:
-                self.tail = None
-        else:
-            current = self.head
-            while current.next is not None and current.next != node:
-                current = current.next
-            if current.next == node:
-                current.next = node.next
-                if node.next is None:
-                    self.tail = current
+    return mem
 
-def generateRandomNormal(mean, stdDev):
-    u1 = random.random()
-    u2 = random.random()
-    z0 = math.sqrt(-2 * math.log(u1)) * math.cos(2 * math.pi * u2)
-    return z0 * stdDev + mean
-
-def mainLogic(seed, ARRAY_SIZE, REQ_NUM):
-    lst = LinkedList()
-    # Start the timer
+def mainLogic():
     start_time = time.perf_counter()
-
-    for i in range(ARRAY_SIZE):
-        num = generateRandomNormal(seed, seed)
-        lst.pushFront(num)
-
-        if i % 5 == 0:
-            nestedList = LinkedList()
-            for j in range(10):
-                nestedList.pushBack(generateRandomNormal(seed, seed))
-            lst.pushBack(nestedList)
-
-        if i % 5 == 0:
-            tempNum = generateRandomNormal(seed, seed)
-            lst.pushFront(tempNum)
-            lst.remove(lst.head)
-
-    sum_val = 0
-    current = lst.head
-    while current is not None:
-        if isinstance(current.value, ListNode):
-            nestedCurrent = current.value.head
-            while nestedCurrent is not None:
-            # Here, we ensure nestedCurrent.value is a float before adding
-                if isinstance(nestedCurrent.value, float):
-                    sum_val += nestedCurrent.value
-                nestedCurrent = nestedCurrent.next
-        elif isinstance(current.value, float):  # Ensure current.value is a float
-            sum_val += current.value
-        current = current.next
-    # End the timer
+    huge_mem = allocate_huge_pages(20)
+    initialize_data_sparse(huge_mem)
+    huge_mem.close()
     end_time = time.perf_counter()
-
-    # Calculate the duration
-    duration_seconds = end_time - start_time
-
-    # Convert duration to microseconds
-    duration_microseconds = duration_seconds * 1_000_000
-    
-    response = {
-        "sum": sum_val,
-        "executionTime": duration_microseconds,  # Placeholder for execution time calculation
-        "requestNumber": REQ_NUM,
-        "arraysize": ARRAY_SIZE,
-        "usedHeapSize": 0,  # Placeholder for heap size calculation
-        "totalHeapSize": 0  # Placeholder for total heap size calculation
-    }
-    return response
+    duration_microseconds = (end_time - start_time) * 1_000_000
+    return {"state": "finished", "exec_time": duration_microseconds}
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         parsed_path = urlparse(self.path)
         path = parsed_path.path
-        query_components = parse_qs(parsed_path.query)
-
-        seed = 42
-        ARRAY_SIZE = 10000
-        REQ_NUM = 2**53-1  # Equivalent to Number.MAX_SAFE_INTEGER in JavaScript
-
-        if 'seed' in query_components:
-            seed = int(query_components['seed'][0])
-        if 'arraysize' in query_components:
-            ARRAY_SIZE = int(query_components['arraysize'][0])
-        if 'requestnumber' in query_components:
-            REQ_NUM = int(query_components['requestnumber'][0])
-
         if path.startswith("/Python"):
-            response = mainLogic(seed, ARRAY_SIZE, REQ_NUM)
+            response = mainLogic()
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()
@@ -135,6 +53,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
 if __name__ == "__main__":
-    server = HTTPServer(('localhost', PORT), RequestHandler)
+    server = HTTPServer(('0.0.0.0', PORT), RequestHandler)
     print("Server running on port", PORT)
     server.serve_forever()
