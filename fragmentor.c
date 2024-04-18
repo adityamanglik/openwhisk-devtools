@@ -22,7 +22,7 @@ int main() {
         printf("ITERATION NUMBER: %d\n", i);
         for(int j = 0; j < NUM_PAGES; j++)
         {
-            ptr[i][j] = mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+            ptr[i][j] = mmap(NULL, PAGE_SIZE, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS | MAP_HUGETLB, -1, 0);
             if(ptr[i][j] == MAP_FAILED) {
                 perror("mmap");
                 exit(EXIT_FAILURE);
