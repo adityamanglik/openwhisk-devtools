@@ -7,8 +7,12 @@ import mmap
 import os
 import struct
 from urllib.parse import urlparse, parse_qs
+import subprocess
+import re
+
 
 PORT = 9100
+REQUEST_NUMBER = 0
 
 def initialize_data_sparse(mem):
     # Define the pattern to be written sparsely
@@ -29,14 +33,34 @@ def allocate_huge_pages(size_gb):
 
     return mem
 
+def get_thp_status():
+    result = subprocess.run(['sudo', 'cat', '/sys/kernel/mm/transparent_hugepage/enabled'], stdout=subprocess.PIPE)    
+    match = re.search(rb"\[(.*?)\]", result.stdout)
+    if match:
+        return match.group(1).decode('utf-8')
+    else:
+        return "unknown"
+
+def get_nr_anon_thp():
+    result = subprocess.run(['sudo', 'egrep', 'nr_anon_transparent_hugepages', '/proc/vmstat'], stdout=subprocess.PIPE)
+    match = re.search(rb"[0-9]+", result.stdout)
+    if match:
+        return int(match.group(0).decode('utf-8'))
+    else:
+        return 0
+
 def mainLogic():
+    global REQUEST_NUMBER
+
     start_time = time.perf_counter()
     huge_mem = allocate_huge_pages(20)
     initialize_data_sparse(huge_mem)
     huge_mem.close()
     end_time = time.perf_counter()
     duration_microseconds = (end_time - start_time) * 1_000_000
-    return {"state": "finished", "exec_time": duration_microseconds}
+    REQUEST_NUMBER += 1
+    return {"state": "finished", "exec_time": duration_microseconds, "request_number": REQUEST_NUMBER, 
+    "thp_status": get_thp_status(), "nr_thp": get_nr_anon_thp()}
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
