@@ -12,8 +12,9 @@
 #include <regex.h>
 
 #define PORT 9100
-#define REQUEST_NUMBER 0
+#define GB_SIZE 20l
 
+static int REQUEST_NUMBER = 0;
 void initialize_data_sparse(char *mem, size_t size) {
     // Define the pattern to be written sparsely
     char pattern = '\x01';  // Example pattern
@@ -27,22 +28,12 @@ void initialize_data_sparse(char *mem, size_t size) {
 char *allocate_huge_pages(size_t size_gb) {
     // Calculate the size in bytes
     size_t size_bytes = size_gb * (1024 * 1024 * 1024);  // 1 GB = 1024^3 bytes
-
-    // Open a temporary file to back the mmap object
-    int fd = open("/dev/zero", O_RDWR);
-    if (fd == -1) {
-        perror("open");
-        exit(EXIT_FAILURE);
-    }
-
     // Create a memory-mapped file using huge pages
-    char *mem = mmap(NULL, size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
+    char *mem = mmap(NULL, size_bytes, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     if (mem == MAP_FAILED) {
         perror("mmap");
         exit(EXIT_FAILURE);
     }
-    close(fd);
-
     return mem;
 }
 
@@ -114,9 +105,9 @@ int get_nr_anon_thp() {
 
 char *mainLogic() {
     clock_t start_time = clock();
-    char *huge_mem = allocate_huge_pages(20);
-    initialize_data_sparse(huge_mem, 20l * (1024l * 1024l * 1024l));
-    munmap(huge_mem, 20l * (1024l * 1024l * 1024l));
+    char *huge_mem = allocate_huge_pages(GB_SIZE);
+    initialize_data_sparse(huge_mem, GB_SIZE * (1024l * 1024l * 1024l));
+    munmap(huge_mem, GB_SIZE * (1024l * 1024l * 1024l));
     clock_t end_time = clock();
     double duration_microseconds = ((double)(end_time - start_time)) * 1e6 / CLOCKS_PER_SEC;
 
@@ -129,7 +120,7 @@ char *mainLogic() {
         exit(EXIT_FAILURE);
     }
     sprintf(response, "{\"state\": \"finished\", \"exec_time\": %.2f, \"request_number\": %d, \"thp_status\": \"%s\", \"nr_thp\": %d}", 
-            duration_microseconds, REQUEST_NUMBER + 1, thp_status, nr_thp);
+            duration_microseconds, ++REQUEST_NUMBER, thp_status, nr_thp);
 
     free(thp_status);
     return response;
@@ -166,7 +157,6 @@ int main() {
             perror("accept");
             exit(EXIT_FAILURE);
         }
-        printf("Hello\n");
 
         response = mainLogic();
         printf("response: %s\n", response);
