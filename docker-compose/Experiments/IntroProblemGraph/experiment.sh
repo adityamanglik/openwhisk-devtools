@@ -18,8 +18,8 @@ send_requests() {
     taskset -c 2 go run request_sender.go $size
     
     # Move files for postprocessing
-    mv $OW_DIRECTORY/IntroProblemGraph/go_response_times.txt "$OW_DIRECTORY/ProblemCharacterization/Graphs/Go/$size/client_time.txt"
-    mv $OW_DIRECTORY/IntroProblemGraph/go_server_times.txt "$OW_DIRECTORY/ProblemCharacterization/Graphs/Go/$size/server_time.txt"
+    mv $OW_DIRECTORY/IntroProblemGraph/go_response_times.txt "$OW_DIRECTORY/IntroProblemGraph/Graphs/Go/$size/client_time.txt"
+    mv $OW_DIRECTORY/IntroProblemGraph/go_server_times.txt "$OW_DIRECTORY/IntroProblemGraph/Graphs/Go/$size/server_time.txt"
     scp $OW_SERVER_NODE:$OW_DIRECTORY/../LoadBalancer/go_heap_memory.log "./Graphs/Go/$size/memory.txt"
     # SCP the server.log file along with other files
     scp $OW_SERVER_NODE:$OW_DIRECTORY/../LoadBalancer/server.log "./Graphs/Go/$size/server.log"
@@ -46,5 +46,5 @@ for size in "${sizes[@]}"; do
     python ./Graphs/go_mem_plotter.py "./Graphs/Go/${size}/memory.txt" "./Graphs/Go/${size}/memory.pdf"
 
     # Calculate impact of GC
-    # python ./Graphs/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/ProblemCharacterization/Graphs/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/ProblemCharacterization/Graphs/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/ProblemCharacterization/Graphs/Go/$size/client_time.txt"
+    # python ./Graphs/analyzer.py "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/IntroProblemGraph/Graphs/Go/$size/memory.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/IntroProblemGraph/Graphs/Go/$size/server_time.txt" "/users/am_CU/openwhisk-devtools/docker-compose/Experiments/IntroProblemGraph/Graphs/Go/$size/client_time.txt"
 done

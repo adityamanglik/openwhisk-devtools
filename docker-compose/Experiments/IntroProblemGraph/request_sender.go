@@ -50,13 +50,13 @@ func main() {
 	}
 	fmt.Printf("Arraysize: %d\n", arraysize)
 	// ensure server is alive
-	checkServerAlive(goAPI)
+	// checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
 	// Warm up
 	goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
-	iterations = actualIterations
+	// iterations = actualIterations
 	// Actual measurements
-	goResponseTimes, goServerTimes = sendRequests(goAPI, arraysize)
+	// goResponseTimes, goServerTimes = sendRequests(goAPI, arraysize)
 
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
