@@ -13,7 +13,7 @@ import (
 	"strconv"
 	"time"
 
-	"gonum.org/v1/gonum/stat"
+	// "gonum.org/v1/gonum/stat"
 )
 
 var iterations int = 1000
@@ -62,11 +62,11 @@ func main() {
 	writeTimesToFile(goServerTimesFile, goServerTimes)
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
 	// calculateAndPrintStats(goServerTimes, "Go Server Times")
-	filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
-	err := latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
-	if err != nil {
-		fmt.Println("Error writing to CSV:", err)
-	}
+	// filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
+	// err := latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
+	// if err != nil {
+	// 	fmt.Println("Error writing to CSV:", err)
+	// }
 
 	// // ensure server is alive
 	// checkServerAlive(javaAPI)
@@ -233,59 +233,59 @@ func latencyAnalysis(fileName string, arraySize int, responseTimes, serverTimes 
 	return nil
 }
 
-func latencyAnalysis2(fileName string, arraySize int, responseTimes, serverTimes []int64) error {
-	file, err := os.Create(fileName)
-	if err != nil {
-		return fmt.Errorf("error opening file: %v", err)
-	}
-	defer file.Close()
+// func latencyAnalysis2(fileName string, arraySize int, responseTimes, serverTimes []int64) error {
+// 	file, err := os.Create(fileName)
+// 	if err != nil {
+// 		return fmt.Errorf("error opening file: %v", err)
+// 	}
+// 	defer file.Close()
 
-	writer := csv.NewWriter(file)
-	defer writer.Flush()
+// 	writer := csv.NewWriter(file)
+// 	defer writer.Flush()
 
-	// Function to calculate percentiles
-	percentile := func(times []int64, p float64) float64 {
-		sortedTimes := make([]float64, len(times))
-		for i, v := range times {
-			sortedTimes[i] = float64(v)
-		}
-		sort.Float64s(sortedTimes)
-		return stat.Quantile(p, stat.Empirical, sortedTimes, nil)
-	}
+// 	// Function to calculate percentiles
+// 	percentile := func(times []int64, p float64) float64 {
+// 		sortedTimes := make([]float64, len(times))
+// 		for i, v := range times {
+// 			sortedTimes[i] = float64(v)
+// 		}
+// 		sort.Float64s(sortedTimes)
+// 		return stat.Quantile(p, stat.Empirical, sortedTimes, nil)
+// 	}
 
-	// Calculate statistics
-	responseP50 := percentile(responseTimes, 0.50)
-	responseP99 := percentile(responseTimes, 0.99)
-	responseP999 := percentile(responseTimes, 0.999)
-	responseP9999 := percentile(responseTimes, 0.9999)
+// 	// Calculate statistics
+// 	responseP50 := percentile(responseTimes, 0.50)
+// 	responseP99 := percentile(responseTimes, 0.99)
+// 	responseP999 := percentile(responseTimes, 0.999)
+// 	responseP9999 := percentile(responseTimes, 0.9999)
 
-	serverP50 := percentile(serverTimes, 0.50)
-	serverP99 := percentile(serverTimes, 0.99)
-	serverP999 := percentile(serverTimes, 0.999)
-	serverP9999 := percentile(serverTimes, 0.9999)
+// 	serverP50 := percentile(serverTimes, 0.50)
+// 	serverP99 := percentile(serverTimes, 0.99)
+// 	serverP999 := percentile(serverTimes, 0.999)
+// 	serverP9999 := percentile(serverTimes, 0.9999)
 
-	// Writing headers
-	headers := []string{"ArraySize", "ResponseP50", "ResponseP99", "ResponseP999", "ResponseP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
-	if err := writer.Write(headers); err != nil {
-		return fmt.Errorf("error writing headers to csv: %v", err)
-	}
+// 	// Writing headers
+// 	headers := []string{"ArraySize", "ResponseP50", "ResponseP99", "ResponseP999", "ResponseP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
+// 	if err := writer.Write(headers); err != nil {
+// 		return fmt.Errorf("error writing headers to csv: %v", err)
+// 	}
 
-	// Write the data to CSV
-	record := []string{
-		fmt.Sprintf("%d", arraySize),
-		fmt.Sprintf("%f", responseP50),
-		fmt.Sprintf("%f", responseP99),
-		fmt.Sprintf("%f", responseP999),
-		fmt.Sprintf("%f", responseP9999),
-		fmt.Sprintf("%f", serverP50),
-		fmt.Sprintf("%f", serverP99),
-		fmt.Sprintf("%f", serverP999),
-		fmt.Sprintf("%f", serverP9999),
-	}
+// 	// Write the data to CSV
+// 	record := []string{
+// 		fmt.Sprintf("%d", arraySize),
+// 		fmt.Sprintf("%f", responseP50),
+// 		fmt.Sprintf("%f", responseP99),
+// 		fmt.Sprintf("%f", responseP999),
+// 		fmt.Sprintf("%f", responseP9999),
+// 		fmt.Sprintf("%f", serverP50),
+// 		fmt.Sprintf("%f", serverP99),
+// 		fmt.Sprintf("%f", serverP999),
+// 		fmt.Sprintf("%f", serverP9999),
+// 	}
 
-	if err := writer.Write(record); err != nil {
-		return fmt.Errorf("error writing record to csv: %v", err)
-	}
+// 	if err := writer.Write(record); err != nil {
+// 		return fmt.Errorf("error writing record to csv: %v", err)
+// 	}
 
-	return nil
-}
+// 	return nil
+// }
