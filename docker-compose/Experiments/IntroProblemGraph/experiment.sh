@@ -18,8 +18,8 @@ send_requests() {
     taskset -c 2 go run request_sender.go $size
     
     # Move files for postprocessing
-    mv $OW_DIRECTORY/ProblemCharacterization/go_response_times.txt "$OW_DIRECTORY/ProblemCharacterization/Graphs/Go/$size/client_time.txt"
-    mv $OW_DIRECTORY/ProblemCharacterization/go_server_times.txt "$OW_DIRECTORY/ProblemCharacterization/Graphs/Go/$size/server_time.txt"
+    mv $OW_DIRECTORY/IntroProblemGraph/go_response_times.txt "$OW_DIRECTORY/ProblemCharacterization/Graphs/Go/$size/client_time.txt"
+    mv $OW_DIRECTORY/IntroProblemGraph/go_server_times.txt "$OW_DIRECTORY/ProblemCharacterization/Graphs/Go/$size/server_time.txt"
     scp $OW_SERVER_NODE:$OW_DIRECTORY/../LoadBalancer/go_heap_memory.log "./Graphs/Go/$size/memory.txt"
     # SCP the server.log file along with other files
     scp $OW_SERVER_NODE:$OW_DIRECTORY/../LoadBalancer/server.log "./Graphs/Go/$size/server.log"

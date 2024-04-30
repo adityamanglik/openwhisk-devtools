@@ -204,63 +204,6 @@ func init() {
 	}
 	fmt.Printf("Scheduling policy selected: %d\n", currentSchedulingPolicy)
 
-	if currentSchedulingPolicy == RoundRobin {
-		// Start twp containers
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		startNewContainer(container1)
-		startNewContainer(container2)
-	} else if currentSchedulingPolicy == SingleServer {
-		// Start one container
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-		startNewContainer(container1)
-	} else if currentSchedulingPolicy == GCMitigation {
-		// Start two containers
-		container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
-		container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
-		startNewContainer(container1)
-		startNewContainer(container2)
-
-		// Initialize GC thresholds based on GOGC value from Dockerfile
-		SetGoGCThresholds()
-
-		// Warm up containers
-		// numWarmUpRequests := 100
-
-		// // TODO: Move warm up request to client instead of server
-		// // Warm up containers
-		// for j := 0; j <= numWarmUpRequests; j++ {
-		// 	// Send same request to both containers
-		// 	seed := rand.Intn(10000)
-		// 	// Container 1
-		// 	requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize1)
-		// 	// Send fake request
-		// 	resp, err := http.Get(requestURL)
-		// 	if err != nil {
-		// 		fmt.Println("Error sending fake request:", err)
-		// 		continue
-		// 	} else {
-		// 		resp.Body.Close() // Ensure response body is closed
-		// 	}
-
-		// 	// Container 2
-		// 	requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize2)
-		// 	// Send fake request
-		// 	resp, err = http.Get(requestURL)
-		// 	if err != nil {
-		// 		fmt.Println("Error sending fake request:", err)
-		// 		continue
-		// 	} else {
-		// 		resp.Body.Close() // Ensure response body is closed
-		// 	}
-		// }
-
-		// initialize GC Structure values
-		SendFakeRequest(container1)
-		SendFakeRequest(container2)
-		fmt.Println("Sent requests to initialize GC data structure")
-	}
-
 	// Initialize the log channel with a buffer size of 100
 	logChannel = make(chan string, 110)
 
@@ -324,6 +267,63 @@ func isContainerRunning(containerName string) bool {
 	if _, exists := aliveContainers[containerName]; exists {
 		fmt.Println("Container already running: ", containerName)
 		return true // Container is already running
+	} else { // start the containers
+		if currentSchedulingPolicy == RoundRobin {
+			// Start twp containers
+			container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+			container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			startNewContainer(container1)
+			startNewContainer(container2)
+		} else if currentSchedulingPolicy == SingleServer {
+			// Start one container
+			container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+			startNewContainer(container1)
+		} else if currentSchedulingPolicy == GCMitigation {
+			// Start two containers
+			container1 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex)
+			container2 := goServerImage + fmt.Sprintf("-%d", goRoundRobinIndex+1)
+			startNewContainer(container1)
+			startNewContainer(container2)
+	
+			// Initialize GC thresholds based on GOGC value from Dockerfile
+			SetGoGCThresholds()
+	
+			// Warm up containers
+			// numWarmUpRequests := 100
+	
+			// // TODO: Move warm up request to client instead of server
+			// // Warm up containers
+			// for j := 0; j <= numWarmUpRequests; j++ {
+			// 	// Send same request to both containers
+			// 	seed := rand.Intn(10000)
+			// 	// Container 1
+			// 	requestURL := serverIP + aliveContainers[container1] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize1)
+			// 	// Send fake request
+			// 	resp, err := http.Get(requestURL)
+			// 	if err != nil {
+			// 		fmt.Println("Error sending fake request:", err)
+			// 		continue
+			// 	} else {
+			// 		resp.Body.Close() // Ensure response body is closed
+			// 	}
+	
+			// 	// Container 2
+			// 	requestURL = serverIP + aliveContainers[container2] + "/GoNative?seed=" + strconv.Itoa(seed) + "&arraysize=" + strconv.Itoa(fakeRequestArraySize2)
+			// 	// Send fake request
+			// 	resp, err = http.Get(requestURL)
+			// 	if err != nil {
+			// 		fmt.Println("Error sending fake request:", err)
+			// 		continue
+			// 	} else {
+			// 		resp.Body.Close() // Ensure response body is closed
+			// 	}
+			// }
+	
+			// initialize GC Structure values
+			// SendFakeRequest(container1)
+			// SendFakeRequest(container2)
+			fmt.Println("Sent requests to initialize GC data structure")
+		}
 	}
 	return false
 
