@@ -1,0 +1,12 @@
+Goal: Draw graph for introduction which shows all stages of latency for the request. Cold start, quasi, stable.
+Then we say we focus on the stable state where the GC latencies lie.
+
+Start container
+Send warm up queries
+Send stable queries
+Generates response time distribution
+Generates problem proving plots: shows peaks in request perf, second graph overlays memory allocation with request latency peaks that prove the problem
+Generates SLA plot
+
+Run:
+bash experiment.sh
