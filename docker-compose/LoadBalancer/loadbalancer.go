@@ -324,6 +324,7 @@ func isContainerRunning(containerName string) bool {
 			// SendFakeRequest(container2)
 			fmt.Println("Sent requests to initialize GC data structure")
 		}
+		return true
 	}
 	return false
 
