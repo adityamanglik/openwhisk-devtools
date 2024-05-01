@@ -43,22 +43,38 @@ def calculate_statistics(times):
 
 def plot_latency(client_times, server_times, memory_log, second_container, output_image_file, output_image_file_1):
     # plot all iterations in line graph
+    client_times[0] = 1.1*max(client_times[1:])
+    print(client_times[0])
     fig, ax1 = plt.subplots(figsize=(10, 6))
     _, med, _, _, _, stdd = calculate_statistics(client_times)
-    # Plot client times on the primary y-axis
-    ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times')
+    
     ax1.set_xlabel('Request Number')
-    ax1.set_ylabel('Client Time', color='r')
-    ax1.set_ylim([med - 5*stdd, med + 5*stdd])
+    ax1.set_ylabel('Client Time')
+    # ax1.set_ylim([med - 5*stdd, med + 5*stdd])
     
     # Plot med + std on y axis
     median = np.median(client_times)
     stdd = np.std(client_times)
     ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
-    ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
+    # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
+    
+    # Delineate regions of interest
+    # ax1.axvline(x=8, c = 'blue', alpha = 0.27, linestyle = '-')
+    ax1.axvline(x=350, c = 'blue', alpha = 0.27, linestyle = '-')
+    
+    # Plot client times on the primary y-axis
+    ax1.plot(range(0, 2), client_times[0:2], color='r', alpha=0.9)
+    ax1.plot(range(1, 350), client_times[1:350], color='purple', alpha=0.9, label='Transient')
+    ax1.plot(range(350, len(client_times)), client_times[350:], color='blue', alpha=0.9, label='Stable')
+    # Plot cold start latency separately
+    ax1.plot(0,client_times[0],marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red", label='Cold Start')
+    
+    # Shade part of plot to clearly delineate
+    ax1.axvspan(350, len(client_times), facecolor='b', alpha=0.1)
     
     plt.title('Response Times')
-    ax1.legend(loc='upper left')
+    ax1.legend(loc='upper center')
+    # ax1.set_yscale('symlog')
     plt.savefig(output_image_file)
     
     ax2 = ax1.twinx()
