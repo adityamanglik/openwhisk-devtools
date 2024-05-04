@@ -57,6 +57,7 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
     stdd = np.std(client_times)
     ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
     # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
+    # ax1.axhline(y=median+2*stdd, c = 'green', alpha = 0.27, linestyle = '--')
     
     # Delineate regions of interest
     # ax1.axvline(x=8, c = 'blue', alpha = 0.27, linestyle = '-')
@@ -117,10 +118,15 @@ def plot_histograms(client_times, server_times, output_image_file):
     fig, ax1 = plt.subplots(figsize=(10, 6))
 
     # Plot client times on the primary y-axis
+    client_times[0] = 1.1*max(client_times[1:])
+    print(client_times[:10])
     ax1.hist(client_times, bins=200, color='r', alpha=0.7, label='Client Response Times')
     ax1.set_xlabel('Time (milliseconds)')
     ax1.set_ylabel('Client Frequency', color='g')
 
+    # Plot cold start marker
+    ax1.plot(client_times[0], 3, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red", label='Cold Start')
+    
     # Create a secondary y-axis for server times
     # ax2 = ax1.twinx()
     # ax2.hist(server_times, bins=200, color='b', alpha=0.7, label='Server Execution Times')
@@ -128,7 +134,7 @@ def plot_histograms(client_times, server_times, output_image_file):
 
     # Add titles and legends
     plt.title('Histogram of Response Times')
-    ax1.legend(loc='upper right')
+    ax1.legend(loc='upper center')
     # ax2.legend(loc='upper left')
     
     # Calculate statistics
@@ -138,7 +144,7 @@ def plot_histograms(client_times, server_times, output_image_file):
     # Add text box for client statistics
     stats_text = f'Client Times\nAverage: {client_stats[0]:.2f}\nMedian: {client_stats[1]:.2f}\nP90: {client_stats[2]:.2f}\nP99: {client_stats[3]:.2f}'
     props = dict(boxstyle='round', facecolor='yellow', alpha=0.3)
-    ax1.text(0.8, 0.92, stats_text, transform=ax1.transAxes, fontsize=10,
+    ax1.text(0.75, 0.975, stats_text, transform=ax1.transAxes, fontsize=10,
              verticalalignment='top', bbox=props)
     
     exceeding_gc_threshold = sum(1 for time in client_times if time > (client_stats[1] + client_stats[5]))
@@ -150,7 +156,13 @@ def plot_histograms(client_times, server_times, output_image_file):
             #  verticalalignment='top', horizontalalignment='right', bbox=props)
     
     # Add vertical line to distinguish GC times
-    ax1.axvline(x=client_stats[1] + client_stats[5], c = 'red', alpha = 0.27, linestyle = '--')
+    ax1.axvline(x=client_stats[1] + client_stats[5], c = 'blue', alpha = 0.27, linestyle = '-')
+    # ax1.axvline(x=client_stats[1] + 2*client_stats[5], c = 'red', alpha = 0.27, linestyle = '--')
+    # ax1.axvline(x=client_stats[1] + 3*client_stats[5], c = 'red', alpha = 0.27, linestyle = '--')
+    
+    # Shade part of plot to clearly delineate
+    ax1.axvspan(client_stats[1] + client_stats[5], max(client_times), facecolor='b', alpha=0.1)
+    
     # ax1.text((client_stats[1] + client_stats[5]), 30, str(exceeding_gc_threshold/len(client_times)), fontsize=10,
             #  verticalalignment='top', bbox=props)
     # ax1.vline(y, server_stats[1] + server_stats[5], ch, n)
