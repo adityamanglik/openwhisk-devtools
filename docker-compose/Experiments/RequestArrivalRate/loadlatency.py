@@ -5,7 +5,7 @@ import time
 import threading
 
 class ServerLoadTest(HttpUser):
-    wait_time = constant_pacing(1)
+    wait_time = constant_pacing(60)
 
     def on_start(self):
         self.API = "http://node0:8601/jsonresponse"
