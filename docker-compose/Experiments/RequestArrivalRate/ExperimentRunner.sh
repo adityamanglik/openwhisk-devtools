@@ -9,8 +9,8 @@ sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(1)/constant_pacing(2)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf
-cp ./locust_stats.csv ./Graphs/RequestArrivalRate/1.csv
+locust --config=master.conf -u 1
+cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_2.csv
 # ########################################################################
 
 # Kill container
@@ -20,10 +20,10 @@ ssh $OW_SERVER_NODE "docker stop my-java-server"
 ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
-sed -i 's/constant_pacing(1)/constant_pacing(2)/g' loadlatency.py
+# sed -i 's/constant_pacing(1)/constant_pacing(2)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf
-cp ./locust_stats.csv ./Graphs/RequestArrivalRate/2.csv
+locust --config=master.conf -u 10
+cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_20.csv
 # Backup ########################################################################
 # Kill container
 # ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
@@ -32,10 +32,10 @@ ssh $OW_SERVER_NODE "docker stop my-java-server"
 ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
-sed -i 's/constant_pacing(2)/constant_pacing(10)/g' loadlatency.py
+# sed -i 's/constant_pacing(2)/constant_pacing(10)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf
-cp ./locust_stats.csv ./Graphs/RequestArrivalRate/10.csv
+locust --config=master.conf -u 25
+cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_50.csv
 # Backup ########################################################################
 # Kill container
 # ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
@@ -44,10 +44,10 @@ ssh $OW_SERVER_NODE "docker stop my-java-server"
 ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
-sed -i 's/constant_pacing(10)/constant_pacing(30)/g' loadlatency.py
+# sed -i 's/constant_pacing(10)/constant_pacing(30)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf
-cp ./locust_stats.csv ./Graphs/RequestArrivalRate/30.csv
+locust --config=master.conf -u 50
+cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_100.csv
 # Backup ########################################################################
 # Kill container
 # ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
@@ -56,10 +56,10 @@ ssh $OW_SERVER_NODE "docker stop my-java-server"
 ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
-sed -i 's/constant_pacing(30)/constant_pacing(60)/g' loadlatency.py
+# sed -i 's/constant_pacing(30)/constant_pacing(60)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf
-cp ./locust_stats.csv ./Graphs/RequestArrivalRate/60.csv
+locust --config=master.conf -u 200
+cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_200.csv
 # Backup ########################################################################
 
 # # Constants and Variables

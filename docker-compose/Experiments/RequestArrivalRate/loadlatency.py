@@ -5,7 +5,7 @@ import time
 import threading
 
 class ServerLoadTest(HttpUser):
-    wait_time = constant_pacing(60)
+    wait_time = constant_pacing(1)
 
     def on_start(self):
         self.API = "http://node0:8601/jsonresponse"
@@ -29,13 +29,13 @@ class ServerLoadTest(HttpUser):
             else:
                 response.failure(f"Unexpected status code: {response.status_code}")
         # Each user makes two requests
-        # with self.client.get(request_url, catch_response=True) as response:
-        #     if response.status_code == 200:
-        #         data = response.json()
-        #         execution_time = data.get("executionTime", "NA")
-        #         self.execution_times_file.write(str(execution_time) + "\n")
-        #     else:
-        #         response.failure(f"Unexpected status code: {response.status_code}")
+        with self.client.get(request_url, catch_response=True) as response:
+            if response.status_code == 200:
+                data = response.json()
+                execution_time = data.get("executionTime", "NA")
+                self.execution_times_file.write(str(execution_time) + "\n")
+            else:
+                response.failure(f"Unexpected status code: {response.status_code}")
 
 # class CustomLoadShape(LoadTestShape):
 #     time_limit = 240  # Test duration in seconds
