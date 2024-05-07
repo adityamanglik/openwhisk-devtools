@@ -22,7 +22,7 @@ sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(1)/constant_pacing(2)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf -u 10
+locust --config=master.conf -u 10 -r 10
 cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_20.csv
 # Backup ########################################################################
 # Kill container
@@ -34,7 +34,7 @@ sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(2)/constant_pacing(10)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf -u 25
+locust --config=master.conf -u 25 -r 25
 cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_50.csv
 # Backup ########################################################################
 # Kill container
@@ -46,7 +46,7 @@ sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(10)/constant_pacing(30)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf -u 50
+locust --config=master.conf -u 50 -r 50
 cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_100.csv
 # Backup ########################################################################
 # Kill container
@@ -58,7 +58,7 @@ sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(30)/constant_pacing(60)/g' loadlatency.py
 rm ./*.csv
-locust --config=master.conf -u 200
+locust --config=master.conf -u 100 -r 100
 cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_200.csv
 # Backup ########################################################################
 
