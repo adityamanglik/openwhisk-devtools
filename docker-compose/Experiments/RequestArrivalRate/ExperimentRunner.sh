@@ -4,7 +4,7 @@ OW_SERVER_NODE="am_CU@node0"
 # ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
 ssh $OW_SERVER_NODE "docker stop my-java-server"
 # Start container
-ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
+ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(1)/constant_pacing(2)/g' loadlatency.py
@@ -17,7 +17,7 @@ cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_2.csv
 # ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
 ssh $OW_SERVER_NODE "docker stop my-java-server"
 # Start container
-ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
+ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(1)/constant_pacing(2)/g' loadlatency.py
@@ -29,7 +29,7 @@ cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_20.csv
 # ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
 ssh $OW_SERVER_NODE "docker stop my-java-server"
 # Start container
-ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
+ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(2)/constant_pacing(10)/g' loadlatency.py
@@ -41,7 +41,7 @@ cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_50.csv
 # ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
 ssh $OW_SERVER_NODE "docker stop my-java-server"
 # Start container
-ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
+ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(10)/constant_pacing(30)/g' loadlatency.py
@@ -53,7 +53,7 @@ cp ./locust_stats.csv ./Graphs/RequestArrivalRate/_100.csv
 # ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
 ssh $OW_SERVER_NODE "docker stop my-java-server"
 # Start container
-ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=4g -d  --rm --name my-java-server -p 8601:8600 java-server-image"
+ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 # sed -i 's/constant_pacing(30)/constant_pacing(60)/g' loadlatency.py
