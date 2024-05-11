@@ -185,7 +185,7 @@ def plot_histograms(client_times, server_times, output_image_file):
     
 
     # Save the plot to the specified file
-    plt.savefig(output_image_file)
+    plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     plt.close()
     
 def plot_hdr_histograms(client_times, output_file):
@@ -217,7 +217,61 @@ def plot_hdr_histograms(client_times, output_file):
     plt.legend(loc='upper left')
 
     # Save the plot to the specified file
-    plt.savefig(output_file)
+    plt.savefig(output_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
+    plt.close()
+    
+def plot_NOGC_histograms(client_times, output_file):
+    print('SLA Plot')
+    # Discard cold start value
+    client_times = client_times[1:]
+    
+    # Define the percentiles we are interested in
+    percentiles = [50, 90, 95, 99, 99.9, 99.99, 99.999]
+
+    # Calculate the response times at each percentile
+    percentile_values = [np.percentile(client_times, p) for p in percentiles]
+    print('Percentiles: ', percentile_values)
+    percentiles_2 = [str(x) for x in percentiles]
+    # Create the plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(percentiles_2, percentile_values, marker='o', color='red', label='With GC')
+
+    # Add the expected service level line
+    # expected_service_level = median + 3  # Example value for demonstration
+    # plt.axhline(y=expected_service_level, color='orange', linestyle='--', label='Expected Service Level')
+
+    # Remove values from GC
+    # Calculate statistics
+    client_stats = calculate_statistics(client_times)
+    # server_stats = calculate_statistics(server_times)
+    
+    # Add text box for client statistics
+    stats_text = f'Client Times\nAverage: {client_stats[0]:.2f}\nMedian: {client_stats[1]:.2f}\nP90: {client_stats[2]:.2f}\nP99: {client_stats[3]:.2f}\nSTD: {client_stats[5]:.2f}'
+    print(stats_text)
+    
+    exceeding_gc_threshold = sum(1 for time in client_times if time > (client_stats[1] + 1.5*client_stats[5]))
+    print(f'Number of client_times in GC influence: {exceeding_gc_threshold}, Fraction: {exceeding_gc_threshold/len(client_times)}')
+    
+    filtered_client_times = [time for time in client_times if time <= (client_stats[1] + 1.5*client_stats[5])]
+    percentile_values = [np.percentile(filtered_client_times, p) for p in percentiles]
+    percentiles = [str(x) for x in percentiles]
+    plt.plot(percentiles_2, percentile_values, marker='o', color='blue', label='Without GC')
+    # Set the plot labels and title
+    plt.xlabel('Percentile')
+    plt.ylabel('Response Time (ms)')
+    plt.title('Response Time by Percentile Distribution')
+
+    # Set the x-axis to a logarithmic scale
+    # plt.xscale('symlog')
+    # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
+
+    # Add grid and legend
+    plt.grid(True)
+    plt.legend(loc='upper left')
+
+    # Save the plot to the specified file
+    output_file = "./Graphs/Go/10000/sla_plot_2.pdf"
+    plt.savefig(output_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     plt.close()
     
 
@@ -243,3 +297,4 @@ if __name__ == "__main__":
     plot_histograms(client_times, server_times, sys.argv[4])
     plot_latency(client_times, server_times, memory_log, second_container, sys.argv[5], sys.argv[6])
     plot_hdr_histograms(client_times, sys.argv[7])
+    plot_NOGC_histograms(client_times, sys.argv[7])
