@@ -2,6 +2,19 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
+SMALL_SIZE = 18
+MEDIUM_SIZE = 20
+BIGGER_SIZE = 24
+
+plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
+plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
+plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
+plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
+plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
+
+
 def parse_memory_log(memory_file):
     # Extract heapidle and heapalloc
     ret_val = []
@@ -45,7 +58,7 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
     # plot all iterations in line graph
     client_times[0] = 1.1*max(client_times[1:])
     print(client_times[0])
-    fig, ax1 = plt.subplots(figsize=(10, 6))
+    fig, ax1 = plt.subplots(figsize=(18, 7))
     _, med, _, _, _, stdd = calculate_statistics(client_times)
     
     ax1.set_xlabel('Request Number')
@@ -109,7 +122,8 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
     # ax1.legend(loc='upper left')
     ax2.legend(loc='upper right')    
     # print(output_image_file.split('.')[0] + "_1.pdf")
-    plt.savefig(output_image_file_1)
+    plt.tight_layout(pad=0)
+    plt.savefig(output_image_file_1, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
         
     
 
