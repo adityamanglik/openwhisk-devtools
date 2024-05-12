@@ -216,7 +216,7 @@ function runGoExperiment() {
 }
 # Backup size: 5000000
 # Run the experiments for the three array sizes
-for size in 1000; do
+for size in 10000; do
     echo "Size: $size"
     # runNativeJavaExperiment $size
     # cp -r $OW_DIRECTORY/Graphs/NativeJava/* $OW_DIRECTORY/Graphs/NativeJavaWithGC/

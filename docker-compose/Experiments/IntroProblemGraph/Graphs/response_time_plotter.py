@@ -223,7 +223,7 @@ def plot_hdr_histograms(client_times, output_file):
 def plot_NOGC_histograms(client_times, output_file):
     print('SLA Plot')
     # Discard cold start value
-    client_times = client_times[1:]
+    client_times = client_times[350:]
     
     # Define the percentiles we are interested in
     percentiles = [50, 90, 95, 99, 99.9, 99.99, 99.999]
