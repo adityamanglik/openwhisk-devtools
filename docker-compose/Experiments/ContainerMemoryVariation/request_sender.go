@@ -89,6 +89,9 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64) {
 	var responseTimes []int64
 	var serverTimes []int64
 
+	// Initialize the random seed
+	rand.Seed(time.Now().UnixNano())
+
 	for i := 0; i < iterations; i++ {
 		// fmt.Printf("Sent request: %d\n", i)
 		seed := rand.Intn(10000) // Example seed generation
