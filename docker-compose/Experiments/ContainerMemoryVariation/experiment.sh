@@ -19,6 +19,7 @@ for memory in "${memory_sizes[@]}"; do
     go run request_sender.go 10000
     mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/go_response_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/times_${memory}.txt
 done
+python Graphs/response_time_plotter.py
 # Plot timings in SLA plot
 
 
