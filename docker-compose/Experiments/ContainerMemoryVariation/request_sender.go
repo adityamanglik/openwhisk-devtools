@@ -16,8 +16,8 @@ import (
 	// "gonum.org/v1/gonum/stat"
 )
 
-var iterations int = 100
-var actualIterations int = 5000
+var iterations int = 1000
+var actualIterations int = 99999
 
 // Constants for API endpoints and file names
 const (

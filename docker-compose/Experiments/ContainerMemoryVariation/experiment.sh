@@ -8,9 +8,9 @@ for memory in "${memory_sizes[@]}"; do
     echo "Running with memory size: $memory"
     ssh $OW_SERVER_NODE "docker stop my-go-server"
     ssh $OW_SERVER_NODE "docker build -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
-    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-go-server -p 9501:9500 go-server-image"
+    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=${memory} -d  --rm --name my-go-server -p 9501:9500 go-server-image"
     # Send traffic and record timings
-    sleep 5
+    sleep 2
     # Gut cold start
     curl "http://node0:9501/GoNative?seed=1000&arraysize=10000&requestnumber=56"
     go run request_sender.go 10000
