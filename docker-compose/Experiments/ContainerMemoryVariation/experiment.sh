@@ -6,9 +6,12 @@ memory_sizes=("128m" "256m" "512m" "1024m" "2048m")
 # Start container on node0 with specified memory allocation
 for memory in "${memory_sizes[@]}"; do
     echo "Running with memory size: $memory"
+    # Convert memory size to MiB for GOMEMLIMIT if needed
+    memory_mib=$(echo $memory | sed 's/m/MiB/')
+    
     ssh $OW_SERVER_NODE "docker stop my-go-server"
     ssh $OW_SERVER_NODE "docker build -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
-    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=${memory} -d  --rm --name my-go-server -p 9501:9500 go-server-image"
+    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=${memory} -e GOMEMLIMIT=$memory_mib -d  --rm --name my-go-server -p 9501:9500 go-server-image"
     # Send traffic and record timings
     sleep 2
     # Gut cold start
