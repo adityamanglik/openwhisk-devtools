@@ -188,38 +188,6 @@ def plot_histograms(client_times, server_times, output_image_file):
     plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     plt.close()
     
-def plot_hdr_histograms(client_times, output_file):
-    # Define the percentiles we are interested in
-    percentiles = [50, 90, 95, 99, 99.9, 99.99, 99.999]
-
-    # Calculate the response times at each percentile
-    percentile_values = [np.percentile(client_times, p) for p in percentiles]
-    percentiles = [str(x) for x in percentiles]
-    # Create the plot
-    plt.figure(figsize=(10, 6))
-    plt.plot(percentiles, percentile_values, marker='o', label='Baseline')
-
-    # Add the expected service level line
-    # expected_service_level = median + 3  # Example value for demonstration
-    # plt.axhline(y=expected_service_level, color='orange', linestyle='--', label='Expected Service Level')
-
-    # Set the plot labels and title
-    plt.xlabel('Percentile')
-    plt.ylabel('Response Time (ms)')
-    plt.title('Response Time by Percentile Distribution')
-
-    # Set the x-axis to a logarithmic scale
-    # plt.xscale('symlog')
-    # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
-
-    # Add grid and legend
-    plt.grid(True)
-    plt.legend(loc='upper left')
-
-    # Save the plot to the specified file
-    plt.savefig(output_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
-    plt.close()
-    
 def plot_NOGC_histograms(client_times, output_file):
     print('SLA Plot')
     # Discard cold start value
@@ -274,27 +242,52 @@ def plot_NOGC_histograms(client_times, output_file):
     plt.savefig(output_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     plt.close()
     
+def plot_hdr_histograms(latencies, memory_sizes):
+    # Define the percentiles we are interested in
+    percentiles = [50, 90, 95, 99, 99.9, 99.99, 99.999]
+    # Create the plot
+    plt.figure(figsize=(10, 6))
+    for client_times, memory in zip(latencies, memory_sizes):
+        # Calculate the response times at each percentile
+        percentile_values = [np.percentile(client_times, p) for p in percentiles]
+        percentiles_print = [str(x) for x in percentiles]
+        plt.plot(percentiles_print, percentile_values, marker='o', label=f'{memory}')
+
+    # Add the expected service level line
+    # expected_service_level = median + 3  # Example value for demonstration
+    # plt.axhline(y=expected_service_level, color='orange', linestyle='--', label='Expected Service Level')
+
+    # Set the plot labels and title
+    plt.xlabel('Percentile')
+    plt.ylabel('Response Time (ms)')
+    plt.title('Response Time by Percentile Distribution')
+
+    # Set the x-axis to a logarithmic scale
+    # plt.xscale('symlog')
+    # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
+
+    # Add grid and legend
+    plt.grid(True)
+    plt.legend(loc='upper left')
+
+    # Save the plot to the specified file
+    plt.savefig("naivesolution4.pdf", bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
+    plt.close()
 
 # Command-line arguments usage
 if __name__ == "__main__":
     # if len(sys.argv) != 6:
         # print("Usage: python script.py <client_time_file> <server_time_file> <memory_file> <dist_image_file> <latency_image_file>")
         # sys.exit(1)
-    with open(sys.argv[1], 'r') as f:
-        client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
-    # print(client_times[:10])
-    with open(sys.argv[2], 'r') as f:
-        server_times = [float(line.strip().split(',')[1]) for line in f.readlines()]
-    # print(server_times[:10])
-    with open(sys.argv[3], 'r') as f:
-        memory_log, second_container = parse_memory_log(f)
-    # print(len(memory_log))
-    # Skip warm up
-    # TODO: Pass warm up and actual request numbers from go file
-    memory_log = memory_log[len(memory_log)//2:]
-    # print(memory_log[:10])
-    # print(second_container)
-    plot_histograms(client_times, server_times, sys.argv[4])
-    plot_latency(client_times, server_times, memory_log, second_container, sys.argv[5], sys.argv[6])
-    plot_hdr_histograms(client_times, sys.argv[7])
-    plot_NOGC_histograms(client_times, sys.argv[7])
+        
+    memory_sizes=["128m", "256m", "512m", "1024m", "2048m"]
+    latencies = []
+    for mem in memory_sizes:
+        read_me = f'times_{mem}.txt'
+        with open(read_me, 'r') as f:
+            client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
+            print(client_times[:10])
+            latencies.append(client_times)
+    
+    plot_hdr_histograms(latencies, memory_sizes)
+    
