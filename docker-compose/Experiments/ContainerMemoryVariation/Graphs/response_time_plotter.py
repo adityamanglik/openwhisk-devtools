@@ -250,6 +250,7 @@ def plot_hdr_histograms(latencies, memory_sizes):
     for client_times, memory in zip(latencies, memory_sizes):
         # Calculate the response times at each percentile
         percentile_values = [np.percentile(client_times, p) for p in percentiles]
+        print(percentile_values)
         percentiles_print = [str(x) for x in percentiles]
         plt.plot(percentiles_print, percentile_values, marker='o', label=f'{memory}')
 
@@ -263,7 +264,7 @@ def plot_hdr_histograms(latencies, memory_sizes):
     plt.title('Response Time by Percentile Distribution')
 
     # Set the x-axis to a logarithmic scale
-    # plt.xscale('symlog')
+    plt.yscale('symlog')
     # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
 
     # Add grid and legend
@@ -286,7 +287,7 @@ if __name__ == "__main__":
         read_me = f'times_{mem}.txt'
         with open(read_me, 'r') as f:
             client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
-            print(client_times[:10])
+            # print(client_times[:10])
             latencies.append(client_times)
     
     plot_hdr_histograms(latencies, memory_sizes)
