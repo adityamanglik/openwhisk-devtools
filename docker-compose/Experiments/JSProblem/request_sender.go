@@ -21,7 +21,7 @@ import (
 )
 
 var iterations int = 1000
-var actualIterations int = 100
+var actualIterations int = 50
 
 // Constants for API endpoints and file names
 const (
@@ -61,16 +61,17 @@ func main() {
 	// Warm up
 	goResponseTimes, goServerTimes, heapSizes := sendRequests(goAPI, arraysize)
 	iterations = actualIterations
+	fmt.Printf("Warmup done, starting plotting run\n")
 	// Actual measurements
 	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
 	_ = plotTimes(goResponseTimes, heapSizes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
 	// _ = plotTimes(goResponseTimes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
-	fmt.Printf("Problem plots done, starting SLA run\n")
-	iterations = 100000
-	arraysize = 1000
+	
+	// iterations = 100000
+	// arraysize = 1000
 	// SLA measurements
-	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
-	fmt.Printf("Requests done, plotting SLA\n")
+	// goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
+	// fmt.Printf("Requests done, plotting SLA\n")
 	// _ = plotSLA(goResponseTimes)
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
