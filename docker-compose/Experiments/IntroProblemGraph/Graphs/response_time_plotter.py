@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-SMALL_SIZE = 18
-MEDIUM_SIZE = 20
-BIGGER_SIZE = 24
+SMALL_SIZE = 28
+MEDIUM_SIZE = 30
+BIGGER_SIZE = 38
 
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
 plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
@@ -74,22 +74,22 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
     
     # Delineate regions of interest
     # ax1.axvline(x=8, c = 'blue', alpha = 0.27, linestyle = '-')
-    ax1.axvline(x=350, c = 'blue', alpha = 0.27, linestyle = '-')
+    # ax1.axvline(x=200, c = 'blue', alpha = 0.27, linestyle = '-')
     
     # Plot client times on the primary y-axis
     ax1.plot(range(0, 2), client_times[0:2], color='r', alpha=0.9)
-    ax1.plot(range(1, 350), client_times[1:350], color='purple', alpha=0.9, label='Transient')
-    ax1.plot(range(350, len(client_times)), client_times[350:], color='blue', alpha=0.9, label='Stable')
+    ax1.plot(range(1, 200), client_times[1:200], color='purple', alpha=0.9, label='Transient')
+    ax1.plot(range(200, len(client_times)), client_times[200:], color='blue', alpha=0.9, label='Stable')
     # Plot cold start latency separately
     ax1.plot(0,client_times[0],marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red", label='Cold Start')
     
     # Shade part of plot to clearly delineate
-    ax1.axvspan(350, len(client_times), facecolor='b', alpha=0.1)
+    ax1.axvspan(200, len(client_times), facecolor='b', alpha=0.1)
     
     plt.title('Response Times')
-    ax1.legend(loc='upper center')
+    ax1.legend(loc='upper center', ncols=3)
     # ax1.set_yscale('symlog')
-    plt.savefig(output_image_file)
+    plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     
     ax2 = ax1.twinx()
     ax2.plot(memory_log, color='b', alpha=0.4, label='HeapAlloc')
