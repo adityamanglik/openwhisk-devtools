@@ -20,7 +20,7 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-var iterations int = 1000
+var iterations int = 500
 var actualIterations int = 50
 
 // Constants for API endpoints and file names
@@ -73,11 +73,11 @@ func main() {
 	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
 	_ = plotTimes(goResponseTimes, heapSizes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
 	// _ = plotTimes(goResponseTimes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
-	fmt.Printf("Problem plots done, starting SLA run\n")
-	iterations = 100000
-	arraysize = 10000
+	// fmt.Printf("Problem plots done, starting SLA run\n")
+	// iterations = 100000
+	// arraysize = 10000
 	// SLA measurements
-	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
+	// goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
 	// _ = plotSLA(goResponseTimes)
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
@@ -138,7 +138,7 @@ func plotSLA(times []int64) error {
 	p.Title.Text = "Server Response Time Percentiles"
 	p.X.Label.Text = "Percentile"
 	p.Y.Label.Text = "Time (microseconds)"
-	p.X.Tick.Marker = customTicks{} // Use custom tick marks
+	// p.X.Tick.Marker = customTicks{} // Use custom tick marks
 
 	// Define percentiles to plot
 	percentiles := []float64{0.50, 0.90, 0.95, 0.99, 0.999, 0.9999, 0.99999}
