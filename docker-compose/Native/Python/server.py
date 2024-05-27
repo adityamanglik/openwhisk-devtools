@@ -158,7 +158,10 @@ class RequestHandler(BaseHTTPRequestHandler):
 if __name__ == "__main__":
     # Set the maximum heap memory limit to 128 MB
     memory_limit = 128 * 1024 * 1024  # 128 MB in bytes
-    resource.setrlimit(resource.RLIMIT_AS, (memory_limit, memory_limit))
+    try:
+        resource.setrlimit(resource.RLIMIT_AS, (memory_limit, memory_limit))
+    except Exception as e:
+        print(f"Error setting memory limit: {e}")
     
     # Get the current garbage collection thresholds
     current_thresholds = gc.get_threshold()
@@ -172,6 +175,6 @@ if __name__ == "__main__":
     # Verify the new thresholds
     updated_thresholds = gc.get_threshold()
     print(f"Updated GC thresholds: {updated_thresholds}")
-    server = HTTPServer(('localhost', PORT), RequestHandler)
+    server = HTTPServer(('0.0.0.0', PORT), RequestHandler)
     print("Server running on port", PORT)
     server.serve_forever()
