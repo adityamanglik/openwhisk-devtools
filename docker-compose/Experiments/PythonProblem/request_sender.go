@@ -21,7 +21,7 @@ import (
 )
 
 var iterations int = 500
-var actualIterations int = 300
+var actualIterations int = 100
 
 // Constants for API endpoints and file names
 const (
@@ -36,7 +36,7 @@ const (
 
 // Response structure for unmarshalling JSON data
 type APIResponse struct {
-	ExecutionTime int64 `json:"executionTime"`
+	ExecutionTime float64 `json:"executionTime"`
 	HeapAlloc     int64 `json:"usedHeapSize"`
 }
 
@@ -250,7 +250,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 		elapsed := endTime.Sub(startTime)
 
 		responseTimes = append(responseTimes, elapsed.Microseconds())
-		serverTimes = append(serverTimes, apiResp.ExecutionTime)
+		serverTimes = append(serverTimes, int64(apiResp.ExecutionTime))
 		// fmt.Println("Time:", apiResp.ExecutionTime)
 		// Collect usedHeapSize along with other metrics
 		// fmt.Println("UsedHeapSize:", apiResp.UsedHeapSize)

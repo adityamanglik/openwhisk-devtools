@@ -116,14 +116,27 @@ def mainLogic(seed, ARRAY_SIZE, REQ_NUM):
     
      # Collect memory usage statistics
     process = psutil.Process()
+    
     memory_info = process.memory_info()
+    memory_full_info = process.memory_full_info()
+
+    # Print all available statistics
+    print("memory_info:")
+    for attr in dir(memory_info):
+        if not attr.startswith('_'):
+            print(f"{attr}: {getattr(memory_info, attr)}")
+
+    print("\n----------------------\nmemory_full_info:")
+    for attr in dir(memory_full_info):
+        if not attr.startswith('_'):
+            print(f"{attr}: {getattr(memory_full_info, attr)}")
     
     response = {
         "sum": sum_val,
         "executionTime": duration_microseconds,  # Placeholder for execution time calculation
         "requestNumber": REQ_NUM,
         "arraysize": ARRAY_SIZE,
-        "usedHeapSize": memory_info.rss,  # Placeholder for heap size calculation
+        "usedHeapSize": memory_full_info.uss,  # Placeholder for heap size calculation
         "totalHeapSize": memory_info.vms  # Placeholder for total heap size calculation
     }
     return response
@@ -157,11 +170,11 @@ class RequestHandler(BaseHTTPRequestHandler):
 
 if __name__ == "__main__":
     # Set the maximum heap memory limit to 128 MB
-    memory_limit = 128 * 1024 * 1024  # 128 MB in bytes
-    try:
-        resource.setrlimit(resource.RLIMIT_AS, (memory_limit, memory_limit))
-    except Exception as e:
-        print(f"Error setting memory limit: {e}")
+    # memory_limit = 128 * 1024 * 1024  # 128 MB in bytes
+    # try:
+        # resource.setrlimit(resource.RLIMIT_AS, (memory_limit, memory_limit))
+    # except Exception as e:
+        # print(f"Error setting memory limit: {e}")
     
     # Get the current garbage collection thresholds
     current_thresholds = gc.get_threshold()
@@ -169,9 +182,9 @@ if __name__ == "__main__":
 
     # Set new garbage collection thresholds
     # This example sets the thresholds to be less aggressive
-    new_thresholds = [10000*x for x in current_thresholds]
+    new_thresholds = [10*x for x in current_thresholds]
     gc.set_threshold(*new_thresholds)
-
+    gc.disable()
     # Verify the new thresholds
     updated_thresholds = gc.get_threshold()
     print(f"Updated GC thresholds: {updated_thresholds}")
