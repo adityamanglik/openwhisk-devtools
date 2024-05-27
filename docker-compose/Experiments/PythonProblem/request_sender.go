@@ -26,7 +26,7 @@ var actualIterations int = 300
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:9501/GoNative"
+	goAPI                 = "http://node0:9901/Python"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -37,7 +37,7 @@ const (
 // Response structure for unmarshalling JSON data
 type APIResponse struct {
 	ExecutionTime int64 `json:"executionTime"`
-	HeapAlloc     int64 `json:"heapAlloc"`
+	HeapAlloc     int64 `json:"usedHeapSize"`
 }
 
 func main() {

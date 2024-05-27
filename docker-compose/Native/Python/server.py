@@ -1,9 +1,11 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import resource
 import json
 import math
 import random
 import time
 import psutil
+import gc
 from urllib.parse import urlparse, parse_qs
 
 PORT = 9900
@@ -154,6 +156,22 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
 if __name__ == "__main__":
+    # Set the maximum heap memory limit to 128 MB
+    memory_limit = 128 * 1024 * 1024  # 128 MB in bytes
+    resource.setrlimit(resource.RLIMIT_AS, (memory_limit, memory_limit))
+    
+    # Get the current garbage collection thresholds
+    current_thresholds = gc.get_threshold()
+    print(f"Current GC thresholds: {current_thresholds}")
+
+    # Set new garbage collection thresholds
+    # This example sets the thresholds to be less aggressive
+    new_thresholds = [10000*x for x in current_thresholds]
+    gc.set_threshold(*new_thresholds)
+
+    # Verify the new thresholds
+    updated_thresholds = gc.get_threshold()
+    print(f"Updated GC thresholds: {updated_thresholds}")
     server = HTTPServer(('localhost', PORT), RequestHandler)
     print("Server running on port", PORT)
     server.serve_forever()
