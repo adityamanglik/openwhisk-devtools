@@ -21,12 +21,12 @@ import (
 )
 
 var iterations int = 500
-var actualIterations int = 50
+var actualIterations int = 300
 
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:8601/jsonresponse"
+	goAPI                 = "http://node0:9501/GoNative"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -36,15 +36,8 @@ const (
 
 // Response structure for unmarshalling JSON data
 type APIResponse struct {
-	ExecutionTime       int64 `json:"executionTime"`
-	UsedHeapSize        int64 `json:"heapUsedMemory"` // Ensure this matches the JSON key exactly
-	GC1CollectionCount  int64 `json:"gc1CollectionCount"`
-	GC1CollectionTime   int64 `json:"gc1CollectionTime"`
-	GC2CollectionCount  int64 `json:"gc2CollectionCount"`
-	GC2CollectionTime   int64 `json:"gc2CollectionTime"`
-	HeapInitMemory      int64 `json:"heapInitMemory"`      // Removed the colon and space
-	HeapCommittedMemory int64 `json:"heapCommittedMemory"` // Removed the colon and space
-	HeapMaxMemory       int64 `json:"heapMaxMemory"`       // Removed the colon and space
+	ExecutionTime int64 `json:"executionTime"`
+	HeapAlloc     int64 `json:"heapAlloc"`
 }
 
 func main() {
@@ -61,7 +54,7 @@ func main() {
 			fmt.Printf("Invalid array size provided, using default value %d\n", defaultArraySize)
 		}
 	}
-	fmt.Printf("Arraysize: %d\n", arraysize)
+	fmt.Printf("\nArraysize: %d\n", arraysize)
 	// ensure server is alive
 	checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
@@ -261,7 +254,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 		// fmt.Println("Time:", apiResp.ExecutionTime)
 		// Collect usedHeapSize along with other metrics
 		// fmt.Println("UsedHeapSize:", apiResp.UsedHeapSize)
-		heapSizes = append(heapSizes, apiResp.UsedHeapSize)
+		heapSizes = append(heapSizes, apiResp.HeapAlloc)
 	}
 
 	return responseTimes, serverTimes, heapSizes
