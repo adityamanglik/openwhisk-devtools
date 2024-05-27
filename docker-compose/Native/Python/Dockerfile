@@ -9,7 +9,7 @@ COPY . .
 
 # (Optional) If your server requires any external Python packages, 
 # you can list them in a requirements.txt file and uncomment the following line:
-# RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r psutil
 
 # There are no direct Python equivalents for the Node.js-specific environment variables 
 # and command-line flags shown in your JavaScript Dockerfile example.

@@ -3,9 +3,15 @@ import json
 import math
 import random
 import time
+import psutil
 from urllib.parse import urlparse, parse_qs
 
-PORT = 9100
+PORT = 9900
+
+class ListNode:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
 
 class ListNode:
     def __init__(self, value):
@@ -36,18 +42,27 @@ class LinkedList:
             self.tail = newNode
 
     def remove(self, node):
+        # Handle the case where the list is empty
+        if self.head is None:
+            return
+
+        # If the node to be removed is the head
         if self.head == node:
             self.head = self.head.next
-            if self.head is None:
+            if self.head is None:  # If the list becomes empty
                 self.tail = None
-        else:
-            current = self.head
-            while current.next is not None and current.next != node:
-                current = current.next
-            if current.next == node:
-                current.next = node.next
-                if node.next is None:
-                    self.tail = current
+            return
+
+        # If the node to be removed is not the head
+        current = self.head
+        while current.next is not None and current.next != node:
+            current = current.next
+
+        # If the node was found in the list
+        if current.next == node:
+            current.next = node.next
+            if node.next is None:  # If the node is the tail
+                self.tail = current
 
 def generateRandomNormal(mean, stdDev):
     u1 = random.random()
@@ -97,13 +112,17 @@ def mainLogic(seed, ARRAY_SIZE, REQ_NUM):
     # Convert duration to microseconds
     duration_microseconds = duration_seconds * 1_000_000
     
+     # Collect memory usage statistics
+    process = psutil.Process()
+    memory_info = process.memory_info()
+    
     response = {
         "sum": sum_val,
         "executionTime": duration_microseconds,  # Placeholder for execution time calculation
         "requestNumber": REQ_NUM,
         "arraysize": ARRAY_SIZE,
-        "usedHeapSize": 0,  # Placeholder for heap size calculation
-        "totalHeapSize": 0  # Placeholder for total heap size calculation
+        "usedHeapSize": memory_info.rss,  # Placeholder for heap size calculation
+        "totalHeapSize": memory_info.vms  # Placeholder for total heap size calculation
     }
     return response
 

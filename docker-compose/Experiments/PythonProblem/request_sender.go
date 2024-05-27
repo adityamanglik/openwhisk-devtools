@@ -20,13 +20,13 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-var iterations int = 1000
-var actualIterations int = 100
+var iterations int = 500
+var actualIterations int = 300
 
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:8801/JS"
+	goAPI                 = "http://node0:9501/GoNative"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -37,7 +37,7 @@ const (
 // Response structure for unmarshalling JSON data
 type APIResponse struct {
 	ExecutionTime int64 `json:"executionTime"`
-	UsedHeapSize  int64 `json:"usedHeapSize"`
+	HeapAlloc     int64 `json:"heapAlloc"`
 }
 
 func main() {
@@ -54,23 +54,23 @@ func main() {
 			fmt.Printf("Invalid array size provided, using default value %d\n", defaultArraySize)
 		}
 	}
-	fmt.Printf("Arraysize: %d\n", arraysize)
+	fmt.Printf("\nArraysize: %d\n", arraysize)
 	// ensure server is alive
 	checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
 	// Warm up
 	goResponseTimes, goServerTimes, heapSizes := sendRequests(goAPI, arraysize)
 	iterations = actualIterations
+	fmt.Printf("Warm up done, starting plotting run\n")
 	// Actual measurements
 	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
 	_ = plotTimes(goResponseTimes, heapSizes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
 	// _ = plotTimes(goResponseTimes, fmt.Sprintf("Server Times for Arraysize %d", arraysize))
-	fmt.Printf("Problem plots done, starting SLA run\n")
-	iterations = 100000
-	arraysize = 1000
+	// fmt.Printf("Problem plots done, starting SLA run\n")
+	// iterations = 100000
+	// arraysize = 10000
 	// SLA measurements
-	goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
-	fmt.Printf("Requests done, plotting SLA\n")
+	// goResponseTimes, goServerTimes, heapSizes = sendRequests(goAPI, arraysize)
 	// _ = plotSLA(goResponseTimes)
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
@@ -131,7 +131,7 @@ func plotSLA(times []int64) error {
 	p.Title.Text = "Server Response Time Percentiles"
 	p.X.Label.Text = "Percentile"
 	p.Y.Label.Text = "Time (microseconds)"
-	p.X.Tick.Marker = customTicks{} // Use custom tick marks
+	// p.X.Tick.Marker = customTicks{} // Use custom tick marks
 
 	// Define percentiles to plot
 	percentiles := []float64{0.50, 0.90, 0.95, 0.99, 0.999, 0.9999, 0.99999}
@@ -251,8 +251,10 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 
 		responseTimes = append(responseTimes, elapsed.Microseconds())
 		serverTimes = append(serverTimes, apiResp.ExecutionTime)
+		// fmt.Println("Time:", apiResp.ExecutionTime)
 		// Collect usedHeapSize along with other metrics
-		heapSizes = append(heapSizes, apiResp.UsedHeapSize)
+		// fmt.Println("UsedHeapSize:", apiResp.UsedHeapSize)
+		heapSizes = append(heapSizes, apiResp.HeapAlloc)
 	}
 
 	return responseTimes, serverTimes, heapSizes
@@ -350,63 +352,6 @@ func latencyAnalysis(fileName string, arraySize int, responseTimes, serverTimes 
 		strconv.FormatInt(serverP99, 10),
 		strconv.FormatInt(serverP999, 10),
 		strconv.FormatInt(serverP9999, 10),
-	}
-
-	if err := writer.Write(record); err != nil {
-		return fmt.Errorf("error writing record to csv: %v", err)
-	}
-
-	return nil
-}
-
-func latencyAnalysis2(fileName string, arraySize int, responseTimes, serverTimes []int64) error {
-	file, err := os.Create(fileName)
-	if err != nil {
-		return fmt.Errorf("error opening file: %v", err)
-	}
-	defer file.Close()
-
-	writer := csv.NewWriter(file)
-	defer writer.Flush()
-
-	// Function to calculate percentiles
-	percentile := func(times []int64, p float64) float64 {
-		sortedTimes := make([]float64, len(times))
-		for i, v := range times {
-			sortedTimes[i] = float64(v)
-		}
-		sort.Float64s(sortedTimes)
-		return stat.Quantile(p, stat.Empirical, sortedTimes, nil)
-	}
-
-	// Calculate statistics
-	responseP50 := percentile(responseTimes, 0.50)
-	responseP99 := percentile(responseTimes, 0.99)
-	responseP999 := percentile(responseTimes, 0.999)
-	responseP9999 := percentile(responseTimes, 0.9999)
-
-	serverP50 := percentile(serverTimes, 0.50)
-	serverP99 := percentile(serverTimes, 0.99)
-	serverP999 := percentile(serverTimes, 0.999)
-	serverP9999 := percentile(serverTimes, 0.9999)
-
-	// Writing headers
-	headers := []string{"ArraySize", "ResponseP50", "ResponseP99", "ResponseP999", "ResponseP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
-	if err := writer.Write(headers); err != nil {
-		return fmt.Errorf("error writing headers to csv: %v", err)
-	}
-
-	// Write the data to CSV
-	record := []string{
-		fmt.Sprintf("%d", arraySize),
-		fmt.Sprintf("%f", responseP50),
-		fmt.Sprintf("%f", responseP99),
-		fmt.Sprintf("%f", responseP999),
-		fmt.Sprintf("%f", responseP9999),
-		fmt.Sprintf("%f", serverP50),
-		fmt.Sprintf("%f", serverP99),
-		fmt.Sprintf("%f", serverP999),
-		fmt.Sprintf("%f", serverP9999),
 	}
 
 	if err := writer.Write(record); err != nil {
