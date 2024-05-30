@@ -133,10 +133,10 @@ def plot_histograms(client_times, server_times, output_image_file):
 
     # Plot client times on the primary y-axis
     client_times[0] = 1.1*max(client_times[1:])
-    print(client_times[:10])
+    # print(client_times[:10])
     ax1.hist(client_times, bins=200, color='r', alpha=0.7, label='Client Response Times')
-    ax1.set_xlabel('Time (milliseconds)')
-    ax1.set_ylabel('Client Frequency', color='g')
+    ax1.set_xlabel('Time (microseconds)')
+    ax1.set_ylabel('Frequency', color='r')
 
     # Plot cold start marker
     ax1.plot(client_times[0], 3, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red", label='Cold Start')
@@ -147,8 +147,8 @@ def plot_histograms(client_times, server_times, output_image_file):
     # ax2.set_ylabel('Server Frequency', color='b')
 
     # Add titles and legends
-    plt.title('Histogram of Response Times')
-    ax1.legend(loc='upper center')
+    # plt.title('Histogram of Response Times')
+    ax1.legend(loc='upper right', frameon=False)
     # ax2.legend(loc='upper left')
     
     # Calculate statistics
@@ -157,9 +157,10 @@ def plot_histograms(client_times, server_times, output_image_file):
     
     # Add text box for client statistics
     stats_text = f'Client Times\nAverage: {client_stats[0]:.2f}\nMedian: {client_stats[1]:.2f}\nP90: {client_stats[2]:.2f}\nP99: {client_stats[3]:.2f}'
+    print(stats_text)
     props = dict(boxstyle='round', facecolor='yellow', alpha=0.3)
-    ax1.text(0.75, 0.975, stats_text, transform=ax1.transAxes, fontsize=10,
-             verticalalignment='top', bbox=props)
+    # ax1.text(0.75, 0.975, stats_text, transform=ax1.transAxes, fontsize=10,
+            #  verticalalignment='top', bbox=props)
     
     exceeding_gc_threshold = sum(1 for time in client_times if time > (client_stats[1] + client_stats[5]))
     print(f'Number of client_times in GC influence: {exceeding_gc_threshold}, Fraction: {exceeding_gc_threshold/len(client_times)}')
