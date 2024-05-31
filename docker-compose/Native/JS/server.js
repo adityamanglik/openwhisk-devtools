@@ -101,7 +101,8 @@ function jsonHandler(req, res) {
 
 function mainLogic(seed, ARRAY_SIZE, REQ_NUM) {
     const start = Date.now();
-
+    const nestedCount = 10;
+    
     let lst = new LinkedList();
 
     for (let i = 0; i < ARRAY_SIZE; i++) {
@@ -111,7 +112,6 @@ function mainLogic(seed, ARRAY_SIZE, REQ_NUM) {
         // Stress GC with nested list
         if (i % 5 === 0) {
             let nestedList = new LinkedList();
-            const nestedCount = 10;
             for (let j = 0; j < nestedCount; j++) {
                 nestedList.pushBack(generateRandomNormal(seed, seed));
             }
