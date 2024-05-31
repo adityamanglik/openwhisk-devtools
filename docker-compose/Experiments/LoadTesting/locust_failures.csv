@@ -1,3 +1,1 @@
 Method,Name,Error,Occurrences
-GET,/GoNative?seed=0&arraysize=10000&requestnumber=4909,Unexpected status code: 0,1
-GET,/GoNative?seed=0&arraysize=10000&requestnumber=5264,Unexpected status code: 0,1

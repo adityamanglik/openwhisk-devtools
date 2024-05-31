@@ -8,7 +8,7 @@ class ServerLoadTest(HttpUser):
     # wait_time = constant_pacing(1)
 
     def on_start(self):
-        self.API = "http://node0:8801/JS"
+        self.API = "http://node0:8601/jsonresponse"
         # self.execution_times_file = open("execution_times.txt", "a")
 
     # def on_stop(self):

@@ -1,8 +1,24 @@
+# JS throughput testing
+OW_SERVER_NODE="am_CU@node0"
+
+ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
+ssh $OW_SERVER_NODE "docker rmi -f $(docker images -aq)"
+ssh $OW_SERVER_NODE "docker rmi -f my-js-server"
+ssh $OW_SERVER_NODE "docker build -t js-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/JS/"
+ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d --rm --name my-js-server -p 8801:8800 js-server-image"
+sleep 5
+curl "http://node0:8801/JS?seed=999&arraysize=99&requestnumber=567"
+sleep 1
+locust --config=master.conf
+
+exit 1
+# ---------------------------------------------------------------
 # Go throughput testing
 OW_SERVER_NODE="am_CU@node0"
 
 ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
 ssh $OW_SERVER_NODE "docker rmi -f $(docker images -aq)"
+ssh $OW_SERVER_NODE "docker rmi -f my-go-server"
 ssh $OW_SERVER_NODE "docker build -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
 ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 -d  --rm --name my-go-server -p 9501:9500 go-server-image"
 sleep 5
