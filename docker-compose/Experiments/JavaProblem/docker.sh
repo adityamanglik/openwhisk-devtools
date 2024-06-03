@@ -4,7 +4,7 @@ ssh $OW_SERVER_NODE "docker rmi -f $(docker images -aq)"
 ssh $OW_SERVER_NODE "docker stop my-java-server"
 ssh $OW_SERVER_NODE "cp /users/am_CU/openwhisk-devtools/docker-compose/Experiments/JavaProblem/Dockerfile /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/Dockerfile"
 ssh $OW_SERVER_NODE "docker build -t java-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/"
-ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d --rm --name my-java-server -p 8601:8600 java-server-image"
+ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=512m -d --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5
 curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
 sleep 1
