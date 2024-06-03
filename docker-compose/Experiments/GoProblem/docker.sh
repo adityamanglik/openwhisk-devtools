@@ -3,7 +3,7 @@ ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
 ssh $OW_SERVER_NODE "docker rmi -f $(docker images -aq)"
 ssh $OW_SERVER_NODE "docker stop my-go-server"
 ssh $OW_SERVER_NODE "docker build -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
-ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-go-server -p 9501:9500 go-server-image"
+ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=512m -d  --rm --name my-go-server -p 9501:9500 go-server-image"
 sleep 5
 curl "http://node0:9501/GoNative?seed=999&arraysize=99&requestnumber=567"
 sleep 1
