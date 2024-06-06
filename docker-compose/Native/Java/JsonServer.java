@@ -13,6 +13,7 @@ public class JsonServer {
     public static void main(String[] args) throws Exception {
         HttpServer server = HttpServer.create(new InetSocketAddress(8600), 0);
         server.createContext("/jsonresponse", new JsonHandler());
+        server.createContext("/ImageProcess", new ImageProcessHandler());
         server.setExecutor(null); // creates a default executor
         server.start();
     }
@@ -45,6 +46,36 @@ public class JsonServer {
         os.close();
         }
     }
+
+    static class ImageProcessHandler implements HttpHandler {
+        @Override
+        public void handle(HttpExchange exchange) throws IOException {
+            Map<String, String> params = queryToMap(exchange.getRequestURI().getQuery());
+            JsonObject args = new JsonObject();
+
+            if (params.containsKey("seed")) {
+                args.addProperty("seed", Integer.parseInt(params.get("seed")));
+            }
+
+            if (params.containsKey("arraysize")) {
+                args.addProperty("arraysize", Integer.parseInt(params.get("arraysize")));
+            }
+
+            if (params.containsKey("requestnumber")) {
+                args.addProperty("requestnumber", Integer.parseInt(params.get("requestnumber")));
+            }
+
+            JsonObject response = ImageProcessor.processImage(args);
+            String jsonResponse = response.toString();
+
+            // Send the response
+            exchange.sendResponseHeaders(200, jsonResponse.length());
+            OutputStream os = exchange.getResponseBody();
+            os.write(jsonResponse.getBytes());
+            os.close();
+        }
+    }
+
 
     private static Map<String, String> queryToMap(String query) {
     Map<String, String> result = new HashMap<>();
