@@ -14,7 +14,7 @@ for GC in "${GC_COLLECTORS[@]}"; do
     ssh $OW_SERVER_NODE "docker stop my-java-server"
 
     # Copy the Dockerfile to the target directory
-    # ssh $OW_SERVER_NODE "cp /users/am_CU/openwhisk-devtools/docker-compose/Experiments/JavaProblem/Dockerfile /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/Dockerfile"
+    ssh $OW_SERVER_NODE "cp /users/am_CU/openwhisk-devtools/docker-compose/Experiments/JavaProblem/Dockerfile /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/Dockerfile"
 
     # Build the Docker image with the current GC flags and memory sizes
     ssh $OW_SERVER_NODE "docker build --build-arg GC_FLAGS='$GC -Xms$MEM_SIZE -Xmx$MEM_SIZE' -t java-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/"
