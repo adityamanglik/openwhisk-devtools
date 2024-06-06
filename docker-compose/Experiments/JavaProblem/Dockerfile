@@ -13,7 +13,7 @@ WORKDIR /app
 COPY . /app
 
 # Compile your Java code (adjust the command according to your needs)
-RUN javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java
+RUN javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java ImageProcessor.java
 
 # Print the build arguments to verify they are correctly passed
 RUN echo "GC_FLAGS: $GC_FLAGS"
