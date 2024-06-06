@@ -38,24 +38,24 @@ class ServerLoadTest(HttpUser):
         #     else:
         #         response.failure(f"Unexpected status code: {response.status_code}")
         
-response_times = []
+        # response_times = []
 
-@events.request_success.add_listener
-def on_request_success(request_type, name, response_time, response_length, **kwargs):
-    response_times.append(response_time)
+        # @events.request_success.add_listener
+        # def on_request_success(request_type, name, response_time, response_length, **kwargs):
+        #     response_times.append(response_time)
 
-@events.request_failure.add_listener
-def on_request_failure(request_type, name, response_time, exception, **kwargs):
-    response_times.append(response_time)
+        # @events.request_failure.add_listener
+        # def on_request_failure(request_type, name, response_time, exception, **kwargs):
+        #     response_times.append(response_time)
 
-@events.quitting.add_listener
-def on_quitting(environment, **kwargs):
-    response_times.sort()
-    if response_times:
-        p99999 = response_times[int(len(response_times) * 0.99999)]
-        print(f"99.999th percentile response time: {p99999} ms")
-    else:
-        print("No requests were made during the test.")
+        # @events.quitting.add_listener
+        # def on_quitting(environment, **kwargs):
+        #     response_times.sort()
+        #     if response_times:
+        #         p99999 = response_times[int(len(response_times) * 0.99999)]
+        #         print(f"99.999th percentile response time: {p99999} ms")
+        #     else:
+        #         print("No requests were made during the test.")
 
 # class CustomLoadShape(LoadTestShape):
 #     time_limit = 10  # Test duration in seconds
