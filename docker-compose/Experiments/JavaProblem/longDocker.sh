@@ -26,7 +26,7 @@ for GC in "${GC_COLLECTORS[@]}"; do
     sleep 5
 
     # Make a sample request to the server
-    curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
+    curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567" >> Results/tracker.txt
 
     # Allow some time for the server to process the request
     sleep 1
