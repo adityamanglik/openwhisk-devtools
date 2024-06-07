@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the source file(s) into the container
 COPY . .
 
+# Copy the resources directory into the container
+COPY Resources /app/Resources
+
 # Set environment variable
 # ENV GOMAXPROCS=1
 # ENV UV_THREADPOOL_SIZE=1

@@ -66,11 +66,16 @@ class LinkedList {
 
 const http = require('http');
 const url = require('url');
+const fs = require('fs');
+const path = require('path');
+const { Buffer } = require('buffer'); // To handle binary data
 const serverPort = 8800;
 
 const server = http.createServer((req, res) => {
     if (req.url.startsWith('/JS')) {
         return jsonHandler(req, res);
+    } else if (req.url.startsWith('/ImageProcess')) {
+        return imageProcessHandler(req, res);
     }
     res.writeHead(404);
     res.end();
@@ -161,6 +166,123 @@ function mainLogic(seed, ARRAY_SIZE, REQ_NUM) {
     };
     return response;
 }
+
+async function imageProcessHandler(req, res) {
+    const queryObject = url.parse(req.url, true).query;
+    let seed = 42; // default seed value
+    let ARRAY_SIZE = 1000; // default array size value
+
+    if (queryObject.seed) {
+        seed = parseInt(queryObject.seed);
+    }
+
+    if (queryObject.arraysize) {
+        ARRAY_SIZE = parseInt(queryObject.arraysize);
+    }
+
+    if (queryObject.requestnumber) {
+        REQ_NUM = parseInt(queryObject.requestnumber);
+    }
+
+    try {
+        const jsonResponse = await imageLogic(seed, ARRAY_SIZE, REQ_NUM);
+        res.writeHead(200, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify(jsonResponse));
+    } catch (err) {
+        res.writeHead(500, {'Content-Type': 'application/json'});
+        res.end(JSON.stringify({ error: err.message }));
+    }
+}
+
+async function imageLogic(seed, ARRAY_SIZE, REQ_NUM) {
+    // console.log(`In ImageLogic`);
+    const start = Date.now();
+
+    const fileNames = ["Resources/img1.jpg", "Resources/img2.jpg"];
+    const selectedFile = fileNames[Math.floor(Math.random() * fileNames.length)];
+    const img = fs.readFileSync(path.join(__dirname, selectedFile));
+
+    const imgBuffer = Buffer.from(img).toString('base64');
+    const imgData = Buffer.from(imgBuffer, 'base64');
+
+    // Process image (this example assumes a grayscale image for simplicity)
+    let sum = 0;
+    for (let i = 0; i < imgData.length; i++) {
+        imgData[i] = clamp(imgData[i] + Math.floor(Math.random() * seed));
+        sum += imgData[i];
+    }
+
+    // Resize (simple example, not true resize)
+    const resizedData = imgData.slice(0, ARRAY_SIZE * ARRAY_SIZE);
+
+    sum += sumPixels(resizedData);
+
+    // Flip horizontally (simple example)
+    const flippedData = flipHorizontally(resizedData, ARRAY_SIZE);
+
+    sum += sumPixels(flippedData);
+
+    // Rotate 90 degrees (simple example)
+    const rotatedData = rotate(flippedData, ARRAY_SIZE, 90);
+
+    sum += sumPixels(rotatedData);
+
+    const executionTime = Date.now() - start;
+
+    // Calculate size of heap
+    // const { performance } = require('perf_hooks');
+    const usedHeapSize = process.memoryUsage().heapUsed;
+    const totalHeapSize = process.memoryUsage().heapTotal;
+    // Again, Node.js doesn't provide a direct equivalent to jsHeapSizeLimit, but you can get the resident set size
+    // const residentSetSize = process.memoryUsage().rss;
+
+    const response = {
+        sum: sum,
+        executionTime: executionTime,
+        requestNumber: REQ_NUM,
+        arraysize: ARRAY_SIZE,
+        usedHeapSize: usedHeapSize,
+        totalHeapSize: totalHeapSize
+    };
+    // console.log(`Response: ${JSON.stringify(response)}`);
+    return response;
+}
+
+function resize(data, size) {
+    return data.slice(0, size * size); // This is a simplification and not a true resize
+}
+
+function sumPixels(data) {
+    return data.reduce((acc, val) => acc + val, 0);
+}
+
+function flipHorizontally(data, size) {
+    const flippedData = new Uint8Array(data.length);
+    for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size; j++) {
+            flippedData[i * size + j] = data[i * size + (size - j - 1)];
+        }
+    }
+    return flippedData;
+}
+
+function rotate(data, size, angle) {
+    const rotatedData = new Uint8Array(data.length);
+    if (angle === 90) {
+        for (let i = 0; i < size; i++) {
+            for (let j = 0; j < size; j++) {
+                rotatedData[j * size + (size - i - 1)] = data[i * size + j];
+            }
+        }
+    }
+    return rotatedData;
+}
+
+function clamp(value) {
+    return Math.max(0, Math.min(255, value));
+}
+
+
 
 server.listen(serverPort, () => {
     console.log(`Server listening on http://localhost:${serverPort}`);
