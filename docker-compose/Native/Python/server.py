@@ -6,7 +6,9 @@ import random
 import time
 import psutil
 import gc
+import os
 from urllib.parse import urlparse, parse_qs
+from PIL import Image, ImageOps
 
 PORT = 9900
 
@@ -71,6 +73,107 @@ def generateRandomNormal(mean, stdDev):
     u2 = random.random()
     z0 = math.sqrt(-2 * math.log(u1)) * math.cos(2 * math.pi * u2)
     return z0 * stdDev + mean
+
+def ImageLogic(seed, ARRAY_SIZE, REQ_NUM):
+    lst = LinkedList()
+    # Start the timer
+    start_time = time.perf_counter()
+    
+    file_names = ["Resources/img1.jpg", "Resources/img2.jpg"]
+    selected_file = file_names[random.randint(0, len(file_names) - 1)]
+    
+    if not os.path.exists(selected_file):
+        raise FileNotFoundError(f"File {selected_file} not found.")
+    
+    img = Image.open(selected_file).convert('RGB')
+    # Calculate the duration
+    end_time = time.perf_counter()
+    duration_seconds = end_time - start_time
+    print(f"load: {duration_seconds}")
+    
+    # Resize the image
+    img = img.resize((ARRAY_SIZE, ARRAY_SIZE))
+    sum_val = sumPixels(img)
+        
+    # Add random seed to every pixel
+    pixels = img.load()
+    r1 = random.randint(0, 255)
+    r2 = random.randint(0, 255)
+    r3 = random.randint(0, 255)
+    for y in range(img.height):
+        for x in range(img.width):
+            r, g, b = pixels[x, y]
+            r = clamp(r + r1)
+            g = clamp(g + r2)
+            b = clamp(b + r3)
+            pixels[x, y] = (r, g, b)
+            
+    # Calculate the duration
+    end_time = time.perf_counter()
+    duration_seconds = end_time - start_time
+    print(f"randomization: {duration_seconds}")
+    
+    # Calculate the duration
+    end_time = time.perf_counter()
+    duration_seconds = end_time - start_time
+    print(f"resize: {duration_seconds}")
+
+    # Flip horizontally
+    img = ImageOps.mirror(img)
+    sum_val += sumPixels(img)
+    # Calculate the duration
+    end_time = time.perf_counter()
+    duration_seconds = end_time - start_time
+    print(f"mirror: {duration_seconds}")
+
+    # Rotate 90 degrees
+    img = img.rotate(90, expand=True)
+    sum_val += sumPixels(img)
+    # Calculate the duration
+    end_time = time.perf_counter()
+    duration_seconds = end_time - start_time
+    print(f"rotate: {duration_seconds}")
+
+    
+    # Calculate the duration
+    end_time = time.perf_counter()
+    duration_seconds = end_time - start_time
+
+    # Convert duration to microseconds
+    duration_microseconds = duration_seconds * 1_000_000
+    
+     # Collect memory usage statistics
+    process = psutil.Process()
+    
+    memory_info = process.memory_info()
+    memory_full_info = process.memory_full_info()
+
+    # Print all available statistics
+    print("memory_info:")
+    for attr in dir(memory_info):
+        if not attr.startswith('_'):
+            print(f"{attr}: {getattr(memory_info, attr)}")
+
+    print("\n----------------------\nmemory_full_info:")
+    for attr in dir(memory_full_info):
+        if not attr.startswith('_'):
+            print(f"{attr}: {getattr(memory_full_info, attr)}")
+    
+    response = {
+        "sum": sum_val,
+        "executionTime": duration_microseconds,  # Placeholder for execution time calculation
+        "requestNumber": REQ_NUM,
+        "arraysize": ARRAY_SIZE,
+        "usedHeapSize": memory_full_info.uss,  # Placeholder for heap size calculation
+        "totalHeapSize": memory_info.vms  # Placeholder for total heap size calculation
+    }
+    return response
+
+def clamp(value):
+    return max(0, min(255, value))
+
+def sumPixels(img):
+    return sum(sum(pixel[:3]) for pixel in img.getdata())
 
 def mainLogic(seed, ARRAY_SIZE, REQ_NUM):
     lst = LinkedList()
@@ -160,6 +263,12 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         if path.startswith("/Python"):
             response = mainLogic(seed, ARRAY_SIZE, REQ_NUM)
+            self.send_response(200)
+            self.send_header('Content-type', 'application/json')
+            self.end_headers()
+            self.wfile.write(bytes(json.dumps(response), "utf8"))
+        elif path.startswith("/ImageProcess"):
+            response = ImageLogic(seed, ARRAY_SIZE, REQ_NUM)
             self.send_response(200)
             self.send_header('Content-type', 'application/json')
             self.end_headers()

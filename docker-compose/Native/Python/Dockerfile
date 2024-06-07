@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the source file(s) into the container
 COPY . .
 
+# Copy the resources directory into the container
+COPY Resources /app/Resources
+
 # (Optional) If your server requires any external Python packages, 
 # you can list them in a requirements.txt file and uncomment the following line:
 RUN pip install --no-cache-dir -r requirements.txt

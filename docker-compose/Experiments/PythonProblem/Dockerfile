@@ -1,15 +1,22 @@
-# Use a base image with Java (specify the version you need)
-FROM openjdk:8
+# Use a base image with Python installed. Adjust the version as needed.
+FROM python:3.10
 
 # Set the working directory inside the container
 WORKDIR /app
 
-# Copy your Java files and any other necessary files into the container
-COPY . /app
+# Copy the source file(s) into the container
+COPY . .
 
-# Compile your Java code (adjust the command according to your needs)
-RUN javac -cp .:gson-2.10.1.jar Hello.java JsonServer.java
+# Copy the resources directory into the container
+COPY Resources /app/Resources
 
-ENV GC_FLAGS="-XX:+UseSerialGC -Xms128m -Xmx128m"
+# (Optional) If your server requires any external Python packages, 
+# you can list them in a requirements.txt file and uncomment the following line:
+RUN pip install --no-cache-dir -r requirements.txt
 
-CMD java -cp .:gson-2.10.1.jar $GC_FLAGS JsonServer
+# There are no direct Python equivalents for the Node.js-specific environment variables 
+# and command-line flags shown in your JavaScript Dockerfile example.
+# Python runtime behavior can be influenced by other means if necessary.
+
+# Command to run the application. Replace 'server.py' with the name of your Python server script.
+CMD ["python", "server.py"]
