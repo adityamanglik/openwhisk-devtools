@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the Go mod and sum files
 COPY go.mod ./
 
+# Copy the resources directory into the container
+COPY Resources /app/Resources
+
 # Download all dependencies
 RUN go mod download
 
