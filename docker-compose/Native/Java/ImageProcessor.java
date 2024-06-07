@@ -16,8 +16,8 @@ public class ImageProcessor {
 
     private static final String TMP = "/tmp/";
     private static final String[] fileNames = {
-        "/users/am_CU/openwhisk-devtools/docker-compose/Resources/img1.jpg",
-        "/users/am_CU/openwhisk-devtools/docker-compose/Resources/img2.jpg"
+        "Resources/img1.jpg",
+        "Resources/img2.jpg"
     };
 
     public static JsonObject processImage(JsonObject args) throws IOException {
@@ -105,7 +105,6 @@ public class ImageProcessor {
         response.addProperty("heapCommittedMemory", committedMemory);
         response.addProperty("heapMaxMemory", maxMemory);
         response.addProperty("request", request_number);
-
         return response;
     }
 

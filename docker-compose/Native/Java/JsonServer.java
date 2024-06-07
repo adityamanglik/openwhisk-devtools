@@ -73,6 +73,24 @@ public class JsonServer {
             OutputStream os = exchange.getResponseBody();
             os.write(jsonResponse.getBytes());
             os.close();
+            // try {
+            //     JsonObject response = ImageProcessor.processImage(args);
+            //     String jsonResponse = response.toString();
+            //     // System.out.println("Response: " + jsonResponse);
+
+            //     // Send the response
+            //     exchange.sendResponseHeaders(200, jsonResponse.length());
+            //     OutputStream os = exchange.getResponseBody();
+            //     os.write(jsonResponse.getBytes());
+            //     os.close();
+            // } catch (Exception e) {
+            //     e.printStackTrace();
+            //     String errorResponse = "Internal server error";
+            //     exchange.sendResponseHeaders(500, errorResponse.length());
+            //     OutputStream os = exchange.getResponseBody();
+            //     os.write(errorResponse.getBytes());
+            //     os.close();
+            // }
         }
     }
 
