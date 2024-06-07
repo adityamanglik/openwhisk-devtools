@@ -13,7 +13,7 @@ with open(filename, mode='r') as file:
 
     for row in csv_reader:
         user_count = int(row[1])
-        if user_count >= 499:
+        if user_count >= 999:
             data.append(row)
 
 trans = []
