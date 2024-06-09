@@ -4,6 +4,7 @@ OW_SERVER_NODE="am_CU@node0"
 GC_COLLECTORS=("-XX:+UseSerialGC" "-XX:+UseParallelGC" "-XX:+UseZGC")
 MEMORY_SIZES=("128m" "512m" "10240m")
 
+# Java
 for GC in "${GC_COLLECTORS[@]}"; do
   for MEM_SIZE in "${MEMORY_SIZES[@]}"; do
     echo "Running experiment with GC: $GC and Memory Size: $MEM_SIZE"
@@ -26,7 +27,7 @@ for GC in "${GC_COLLECTORS[@]}"; do
     sleep 5
 
     # Make a sample request to the server
-    curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567" >> Results/tracker.txt
+    curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567" >> Results/"res_'$GC'_'$MEM_SIZE'.txt"
 
     # Allow some time for the server to process the request
     sleep 1
@@ -38,7 +39,7 @@ for GC in "${GC_COLLECTORS[@]}"; do
     python analysis.py >> Results/"res_'$GC'_'$MEM_SIZE'.txt"
 
     # Optional: collect and store results for each GC and memory size run
-    # mv locust_stats_history.csv locust_stats_history_${GC}_${MEM_SIZE}.csv
+    mv locust_stats_history.csv Results/locust_stats_history_${GC}_${MEM_SIZE}.csv
 
   done
 done
