@@ -1,0 +1,2 @@
+Method,Name,Error,Occurrences
+GET,/GoNative?seed=0&arraysize=10000&requestnumber=7098,CatchResponseError('Unexpected status code: 0'),1

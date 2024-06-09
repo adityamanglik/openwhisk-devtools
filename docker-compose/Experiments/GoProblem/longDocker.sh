@@ -1,6 +1,6 @@
 # Go
 OW_SERVER_NODE="am_CU@node0"
-MEMORY_SIZES=("128m" "512m" "10240m")
+MEMORY_SIZES=("128MiB" "512MiB" "10240MiB")
 GOGC_VALUES=("1" "1000")
 
 for GOGC in "${GOGC_VALUES[@]}"; do
@@ -13,7 +13,7 @@ for GOGC in "${GOGC_VALUES[@]}"; do
       ssh $OW_SERVER_NODE "docker stop my-go-server"
       
       # Build the Docker image with the current GC flags and memory sizes
-      ssh $OW_SERVER_NODE "docker build --build-arg GOGC=$GOGC GOMEMLIMIT=$MEM_SIZE -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
+      ssh $OW_SERVER_NODE "docker build --build-arg GOGC=$GOGC --build-arg GOMEMLIMIT=$MEM_SIZE -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
 
       # Run the Docker container
       ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory='$MEM_SIZE' -d --rm --name my-go-server -p 9501:9500 go-server-image"
@@ -31,6 +31,7 @@ for GOGC in "${GOGC_VALUES[@]}"; do
       locust --config=master.conf
 
       # Run the analysis script
+      echo "" >> Results
       python analysis.py >> Results/"res_'$GOGC'_'$MEM_SIZE'.txt"
 
       # Optional: collect and store results for each GC and memory size run

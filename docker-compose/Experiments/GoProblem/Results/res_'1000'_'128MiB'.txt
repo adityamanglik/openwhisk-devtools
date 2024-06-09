@@ -1,0 +1,1 @@
+{"GOGC":"1000","GOMEMLIMIT":"128MiB","NextGC":41943040,"NumGC":0,"arraysize":99,"executionTime":143,"heapAlloc":203056,"heapIdle":3194880,"requestNumber":567,"sum":48521}
