@@ -24,7 +24,7 @@ int main() {
 
     // Get server information
     server = gethostbyname("node0");
-    printf("%s\n", server->h_name);
+    //printf("%s\n", server->h_name);
     if (server == NULL) {
         fprintf(stderr, "ERROR, no such host\n");
         exit(EXIT_FAILURE);
