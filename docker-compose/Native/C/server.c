@@ -107,12 +107,13 @@ char *mainLogic() {
     clock_t start_time = clock();
     char *huge_mem = allocate_huge_pages(GB_SIZE);
     initialize_data_sparse(huge_mem, GB_SIZE * (1024l * 1024l * 1024l));
+    int nr_thp = get_nr_anon_thp();
+    char *thp_status = get_thp_status();
     munmap(huge_mem, GB_SIZE * (1024l * 1024l * 1024l));
     clock_t end_time = clock();
     double duration_microseconds = ((double)(end_time - start_time)) * 1e6 / CLOCKS_PER_SEC;
 
-    char *thp_status = get_thp_status();
-    int nr_thp = get_nr_anon_thp();
+    
 
     char *response = malloc(256);
     if (!response) {
