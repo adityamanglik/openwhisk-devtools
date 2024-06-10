@@ -17,7 +17,7 @@ class ServerLoadTest(HttpUser):
 
     @task
     def send_request(self):
-        arraysize = 10000
+        arraysize = 100
         requestnumber = random.randint(0, 10000)
         random_seed = random.randint(0, 10000)
         request_url = self.API + "?seed=" + str(random_seed) + "&arraysize=" + str(arraysize) + "&requestnumber=" + str(requestnumber)

@@ -1,5 +1,6 @@
 from locust import HttpUser, task, events, LoadTestShape, constant_pacing
 import random
+import logging
 # from locust_plugins import constant_total_ips
 import time
 import threading
@@ -8,7 +9,7 @@ class ServerLoadTest(HttpUser):
     # wait_time = constant_pacing(1)
 
     def on_start(self):
-        self.API = "http://node0:9501/ImageProcess"
+        self.API = "http://node0:9500/ImageProcess"
         # self.execution_times_file = open("execution_times.txt", "a")
 
     # def on_stop(self):
@@ -16,19 +17,24 @@ class ServerLoadTest(HttpUser):
 
     @task
     def send_request(self):
-        arraysize = 10000
+        arraysize = 100
         requestnumber = random.randint(0, 10000)
         random_seed = random.randint(0, 10000)
         request_url = self.API + "?seed=" + str(random_seed) + "&arraysize=" + str(arraysize) + "&requestnumber=" + str(requestnumber)
 
         with self.client.get(request_url, catch_response=True) as response:
             if response.status_code != 200:
-                # continue
-                # data = response.json()
-                # execution_time = data.get("executionTime", "NA")
-                # self.execution_times_file.write(str(execution_time) + "\n")
-            # else:
                 response.failure(f"Unexpected status code: {response.status_code}")
+            else:
+                response.success()
+logging.basicConfig(level=logging.DEBUG)
+            # if response.status_code != 200:
+            #     # continue
+            #     # data = response.json()
+            #     # execution_time = data.get("executionTime", "NA")
+            #     # self.execution_times_file.write(str(execution_time) + "\n")
+            # # else:
+            #     response.failure(f"Unexpected status code: {response.status_code}")
         # Each user makes two requests
         # with self.client.get(request_url, catch_response=True) as response:
         #     if response.status_code == 200:
