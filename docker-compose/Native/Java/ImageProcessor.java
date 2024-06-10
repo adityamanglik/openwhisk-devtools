@@ -44,6 +44,10 @@ public class ImageProcessor {
         String selectedFile = fileNames[rand.nextInt(fileNames.length)];
         BufferedImage image = ImageIO.read(new File(selectedFile));
 
+        // Apply transformations and sum pixels after each step
+        image = resize(image, ARRAY_SIZE);
+        sum += sumPixels(image);
+
         // Add random seed to every pixel
         for (int y = 0; y < image.getHeight(); y++) {
             for (int x = 0; x < image.getWidth(); x++) {
@@ -55,11 +59,8 @@ public class ImageProcessor {
                 image.setRGB(x, y, newColor);
             }
         }
-
-                // Apply transformations and sum pixels after each step
-        image = resize(image, ARRAY_SIZE);
         sum += sumPixels(image);
-
+        
         image = flipHorizontally(image);
         sum += sumPixels(image);
 

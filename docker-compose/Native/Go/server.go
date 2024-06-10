@@ -169,6 +169,12 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 		return nil, err
 	}
 
+	// Resize the image
+	newImg = resize(newImg, ARRAY_SIZE)
+
+	// Sum all pixel values
+	sum := sumPixels(newImg)
+
 	// Add random seed to every pixel
 	bounds := img.Bounds()
 	newImg := image.NewRGBA(bounds)
@@ -183,12 +189,7 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 			newImg.Set(x, y, newColor)
 		}
 	}
-
-	// Resize the image
-	newImg = resize(newImg, ARRAY_SIZE)
-
-	// Sum all pixel values
-	sum := sumPixels(newImg)
+	sum += sumPixels(newImg)
 
 	// Flip horizontally
 	newImg = flipHorizontally(newImg)

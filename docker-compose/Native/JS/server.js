@@ -207,15 +207,17 @@ async function imageLogic(seed, ARRAY_SIZE, REQ_NUM) {
 
     // Process image (this example assumes a grayscale image for simplicity)
     let sum = 0;
-    for (let i = 0; i < imgData.length; i++) {
-        imgData[i] = clamp(imgData[i] + Math.floor(Math.random() * seed));
-        sum += imgData[i];
-    }
 
     // Resize (simple example, not true resize)
     const resizedData = imgData.slice(0, ARRAY_SIZE * ARRAY_SIZE);
 
     sum += sumPixels(resizedData);
+
+    // Add random value to every pixel
+    for (let i = 0; i < resizedData.length; i++) {
+        resizedData[i] = clamp(resizedData[i] + Math.floor(Math.random() * seed));
+        sum += resizedData[i];
+    }
 
     // Flip horizontally (simple example)
     const flippedData = flipHorizontally(resizedData, ARRAY_SIZE);

@@ -1,5 +1,6 @@
 from locust import HttpUser, task, events, LoadTestShape, constant_pacing
 import random
+import logging
 # from locust_plugins import constant_total_ips
 import time
 import threading
@@ -23,12 +24,17 @@ class ServerLoadTest(HttpUser):
 
         with self.client.get(request_url, catch_response=True) as response:
             if response.status_code != 200:
+                response.failure(f"Unexpected status code: {response.status_code}")
+            else:
+                response.success()
+logging.basicConfig(level=logging.DEBUG)
+            # if response.status_code != 200:
                 # continue
                 # data = response.json()
                 # execution_time = data.get("executionTime", "NA")
                 # self.execution_times_file.write(str(execution_time) + "\n")
             # else:
-                response.failure(f"Unexpected status code: {response.status_code}")
+                # response.failure(f"Unexpected status code: {response.status_code}")
         # Each user makes two requests
         # with self.client.get(request_url, catch_response=True) as response:
         #     if response.status_code == 200:
