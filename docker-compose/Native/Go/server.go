@@ -169,6 +169,9 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 		return nil, err
 	}
 
+	bounds := img.Bounds()
+	newImg := image.NewRGBA(bounds)
+
 	// Resize the image
 	newImg = resize(newImg, ARRAY_SIZE)
 
@@ -176,8 +179,6 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 	sum := sumPixels(newImg)
 
 	// Add random seed to every pixel
-	bounds := img.Bounds()
-	newImg := image.NewRGBA(bounds)
 	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
 		for x := bounds.Min.X; x < bounds.Max.X; x++ {
 			originalColor := img.At(x, y)
