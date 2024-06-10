@@ -8,8 +8,7 @@ sleep 5
 curl "http://node0:8801/JS?seed=1000&arraysize=10000&requestnumber=56" >> Results/"res_128.txt"
 sleep 1
 locust --config=master.conf
-
-echo "" >> Results
+echo "" >> Results/"res_128.txt"
 python analysis.py >> Results/"res_128.txt"
 # go run request_sender.go 10000
 # python Graphs/response_time_plotter.py go_response_times.txt go_server_times.txt go_heap_memory.log distribution.pdf latency.pdf latency_1.pdf sla.pdf
