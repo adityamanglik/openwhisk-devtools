@@ -1,0 +1,5 @@
+Characterize and stabilize JS
+Kill any prior running JS containers before running the script
+
+Script:
+bash docker.sh
