@@ -18,6 +18,7 @@ import (
 	"gonum.org/v1/plot"
 	"gonum.org/v1/plot/plotter"
 	"gonum.org/v1/plot/vg"
+	"golang.org/x/exp/slices"
 )
 
 var iterations int = 1000
