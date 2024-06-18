@@ -1,5 +1,6 @@
 # Use a base image with NodeJS
-FROM node
+# Add 14 for repeating JS experiments and plot sawtooth
+FROM node:14
 
 # Set the working directory inside the container
 WORKDIR /app
