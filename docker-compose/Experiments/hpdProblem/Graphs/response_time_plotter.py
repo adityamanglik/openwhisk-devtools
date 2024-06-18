@@ -1,3 +1,4 @@
+import csv
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
@@ -59,15 +60,15 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     client_times = [x//1000 for x in client_times]
     _, med, _, _, _, stdd = calculate_statistics(client_times)
     # Plot client times on the primary y-axis
-    ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times')
+    ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times', linewidth=2)
     ax1.set_xlabel('Request Number')
     ax1.set_ylabel('Client Time (ms)', color='r')
     # ax1.set_ylim([med - 5*stdd, med + 5*stdd])
     
     # Plot med + std on y axis
-    median = np.median(client_times)
-    stdd = np.std(client_times)
-    ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
+    # median = np.median(client_times)
+    # stdd = np.std(client_times)
+    # ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
     # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
     
     plt.title('Response Times')
@@ -75,8 +76,8 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     
     ax2 = ax1.twinx()
-    ax2.plot(memory_log, color='b', alpha=0.4, label='HeapAlloc')
-    ax2.set_ylabel('Allocated heap memory', color='b')
+    ax2.plot(memory_log, color='b', alpha=0.7, label='Number of Huge Pages', linewidth=2)
+    ax2.set_ylabel('Number of Huge Pages', color='b')
    
     # GC_iterations = []
     # for idx in range(1, len(memory_log)):
@@ -197,14 +198,16 @@ if __name__ == "__main__":
     # if len(sys.argv) != 6:
         # print("Usage: python script.py <client_time_file> <server_time_file> <memory_file> <dist_image_file> <latency_image_file>")
         # sys.exit(1)
-    with open(sys.argv[1], 'r') as f:
-        client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
+    with open(sys.argv[1], 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        client_times = [float(row[1]) for row in reader]
     # print(client_times[:10])
     with open(sys.argv[2], 'r') as f:
         server_times = [float(line.strip().split(',')[1]) for line in f.readlines()]
     # print(server_times[:10])
-    with open(sys.argv[3], 'r') as f:
-        memory_log = [float(line.strip().split(',')[1]) for line in f.readlines()]
+    with open(sys.argv[3], 'r') as csvfile:
+        reader = csv.reader(csvfile)
+        memory_log = [float(row[1]) for row in reader]
     # print(len(memory_log))
     # Skip warm up
     # TODO: Pass warm up and actual request numbers from go file
