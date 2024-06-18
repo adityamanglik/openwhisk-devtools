@@ -1,1 +1,1 @@
-{"sum":30021955.17067744,"executionTime":25,"requestNumber":56,"arraysize":10000,"usedHeapSize":5761400,"totalHeapSize":9621504}
+{"sum":30021955.17067744,"executionTime":25,"requestNumber":56,"arraysize":10000,"usedHeapSize":5761400,"totalHeapSize":9621504}{"sum":30151472.130694907,"executionTime":38,"requestNumber":56,"arraysize":10000,"usedHeapSize":5699896,"totalHeapSize":9510912}{"sum":29758038.367754076,"executionTime":39,"requestNumber":56,"arraysize":10000,"usedHeapSize":5699896,"totalHeapSize":9510912}

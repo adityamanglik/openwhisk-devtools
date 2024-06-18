@@ -6,7 +6,14 @@ git config --global user.email "am5523@columbia.edu"
 sudo apt install -y openjdk-8-jdk
 sudo apt install -y nodejs npm zip
 sudo apt install -y python3-pip
-sudo apt install -y golang-go
+sudo apt-get install gcc-multilib #for go
+wget https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
+sudo tar -xvf go1.22.4.linux-amd64.tar.gz
+sudo mv go /usr/local
+export GOROOT=/usr/local/go
+export GOPATH=$HOME/go
+export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+source ~/.profile
 pip install pillow
 pip install psutil # Python server
 # Extend file handle limits
