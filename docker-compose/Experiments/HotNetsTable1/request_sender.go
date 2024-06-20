@@ -26,7 +26,7 @@ var actualIterations int = 1000
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:9501/GoNative"
+	goAPI                 = "http://node0:9901/Python"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"

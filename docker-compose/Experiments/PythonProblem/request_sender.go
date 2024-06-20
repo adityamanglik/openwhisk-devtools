@@ -20,13 +20,13 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-var iterations int = 500
-var actualIterations int = 100
+var iterations int = 5000
+var actualIterations int = 1000
 
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:9901/Python"
+	goAPI                 = "http://node0:9501/GoNative"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -36,8 +36,8 @@ const (
 
 // Response structure for unmarshalling JSON data
 type APIResponse struct {
-	ExecutionTime float64 `json:"executionTime"`
-	HeapAlloc     int64 `json:"usedHeapSize"`
+	ExecutionTime int64 `json:"executionTime"`
+	HeapAlloc     int64 `json:"heapAlloc"`
 }
 
 func main() {
@@ -250,7 +250,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 		elapsed := endTime.Sub(startTime)
 
 		responseTimes = append(responseTimes, elapsed.Microseconds())
-		serverTimes = append(serverTimes, int64(apiResp.ExecutionTime))
+		serverTimes = append(serverTimes, apiResp.ExecutionTime)
 		// fmt.Println("Time:", apiResp.ExecutionTime)
 		// Collect usedHeapSize along with other metrics
 		// fmt.Println("UsedHeapSize:", apiResp.UsedHeapSize)

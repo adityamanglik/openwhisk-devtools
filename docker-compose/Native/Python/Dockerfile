@@ -14,9 +14,8 @@ COPY Resources /app/Resources
 # you can list them in a requirements.txt file and uncomment the following line:
 RUN pip install --no-cache-dir -r requirements.txt
 
-# There are no direct Python equivalents for the Node.js-specific environment variables 
-# and command-line flags shown in your JavaScript Dockerfile example.
-# Python runtime behavior can be influenced by other means if necessary.
+# Accept a build argument for the memory limit and set it as an environment variable
+ARG MEMORY_LIMIT
 
 # Command to run the application. Replace 'server.py' with the name of your Python server script.
 CMD ["python", "server.py"]

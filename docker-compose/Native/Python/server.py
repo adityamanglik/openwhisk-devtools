@@ -12,6 +12,10 @@ from PIL import Image, ImageOps
 
 PORT = 9900
 
+def limit_memory(max_memory):
+    soft, hard = resource.getrlimit(resource.RLIMIT_AS)
+    resource.setrlimit(resource.RLIMIT_AS, (max_memory, hard))
+
 class ListNode:
     def __init__(self, value):
         self.value = value
@@ -278,7 +282,11 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.end_headers()
 
 if __name__ == "__main__":
-    # Set the maximum heap memory limit to 128 MB
+    memory_limit = int(os.getenv('MEMORY_LIMIT', '134217728'))  # Default to 128MB if not set
+    if memory_limit < 134217728:
+        memory_limit = 134217728
+    print("Limiting memory to: ", memory_limit)
+    limit_memory(memory_limit)
     # memory_limit = 128 * 1024 * 1024  # 128 MB in bytes
     # try:
         # resource.setrlimit(resource.RLIMIT_AS, (memory_limit, memory_limit))
