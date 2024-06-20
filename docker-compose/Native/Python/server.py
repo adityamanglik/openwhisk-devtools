@@ -286,17 +286,17 @@ if __name__ == "__main__":
         # print(f"Error setting memory limit: {e}")
     
     # Get the current garbage collection thresholds
-    current_thresholds = gc.get_threshold()
-    print(f"Current GC thresholds: {current_thresholds}")
+    # current_thresholds = gc.get_threshold()
+    # print(f"Current GC thresholds: {current_thresholds}")
 
     # Set new garbage collection thresholds
     # This example sets the thresholds to be less aggressive
-    new_thresholds = [10*x for x in current_thresholds]
-    gc.set_threshold(*new_thresholds)
-    gc.disable()
+    # new_thresholds = [10*x for x in current_thresholds]
+    # gc.set_threshold(*new_thresholds)
+    # gc.disable()
     # Verify the new thresholds
-    updated_thresholds = gc.get_threshold()
-    print(f"Updated GC thresholds: {updated_thresholds}")
+    # updated_thresholds = gc.get_threshold()
+    # print(f"Updated GC thresholds: {updated_thresholds}")
     server = HTTPServer(('0.0.0.0', PORT), RequestHandler)
     print("Server running on port", PORT)
     server.serve_forever()
