@@ -211,6 +211,8 @@ if __name__ == "__main__":
     # memory_log = memory_log[len(memory_log)//2:]
     # print(memory_log[:10])
     # print(second_container)
+    client_times = client_times[:100]
+    client_times = [x*8 for x in client_times]
     plot_histograms(client_times, server_times, sys.argv[4])
     plot_latency(client_times, server_times, memory_log, sys.argv[5], sys.argv[6])
     plot_hdr_histograms(client_times, sys.argv[7])
