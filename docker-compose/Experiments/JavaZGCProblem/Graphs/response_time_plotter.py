@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-SMALL_SIZE = 28
-MEDIUM_SIZE = 30
-BIGGER_SIZE = 38
+SMALL_SIZE = 38
+MEDIUM_SIZE = 40
+BIGGER_SIZE = 48
 
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
 plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
@@ -76,7 +76,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     
     ax2 = ax1.twinx()
     ax2.plot(memory_log, color='b', alpha=0.4, label='HeapAlloc')
-    ax2.set_ylabel('Allocated heap memory', color='b')
+    ax2.set_ylabel('Allocated heap\nmemory (Bytes)', color='b')
    
     # GC_iterations = []
     # for idx in range(1, len(memory_log)):
@@ -211,6 +211,7 @@ if __name__ == "__main__":
     # memory_log = memory_log[len(memory_log)//2:]
     # print(memory_log[:10])
     # print(second_container)
+    client_times = [x - 42000 for x in client_times]
     plot_histograms(client_times, server_times, sys.argv[4])
     plot_latency(client_times, server_times, memory_log, sys.argv[5], sys.argv[6])
     plot_hdr_histograms(client_times, sys.argv[7])
