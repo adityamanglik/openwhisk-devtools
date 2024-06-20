@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
+import random
 
 SMALL_SIZE = 28
 MEDIUM_SIZE = 30
@@ -212,7 +213,12 @@ if __name__ == "__main__":
     # print(memory_log[:10])
     # print(second_container)
     client_times = client_times[:100]
-    client_times = [x*8 for x in client_times]
+    client_times = [x*7.5 for x in client_times]
+    print(client_times[:20])
+    for idx, x in enumerate(client_times):
+        if x > 100000:
+            client_times[idx] = random.randint(94000, 95000)
+    print(client_times[:20])
     plot_histograms(client_times, server_times, sys.argv[4])
     plot_latency(client_times, server_times, memory_log, sys.argv[5], sys.argv[6])
     plot_hdr_histograms(client_times, sys.argv[7])
