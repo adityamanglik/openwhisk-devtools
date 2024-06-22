@@ -80,7 +80,7 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
     
     # Plot client times on the primary y-axis
     ax1.plot(range(0, 2), client_times[0:2], color='r', alpha=0.9)
-    ax1.plot(range(1, 200), client_times[1:200], color='purple', alpha=0.9, label='Transient')
+    ax1.plot(range(1, 200), client_times[1:200], color='purple', alpha=0.9, label='Transient', linestyle='--')
     ax1.plot(range(200, len(client_times)), client_times[200:], color='blue', alpha=0.9, label='Stable')
     # Plot cold start latency separately
     ax1.plot(0,client_times[0],marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red", label='Cold Start')

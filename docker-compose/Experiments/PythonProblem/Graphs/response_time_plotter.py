@@ -3,9 +3,9 @@ import numpy as np
 import sys
 import random
 
-SMALL_SIZE = 28
-MEDIUM_SIZE = 30
-BIGGER_SIZE = 38
+SMALL_SIZE = 38
+MEDIUM_SIZE = 40
+BIGGER_SIZE = 48
 
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
 plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
@@ -68,7 +68,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     # Plot med + std on y axis
     median = np.median(client_times)
     stdd = np.std(client_times)
-    ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
+    # ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
     # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
     
     plt.title('Response Times')
