@@ -2,16 +2,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-SMALL_SIZE = 28
-MEDIUM_SIZE = 30
-BIGGER_SIZE = 38
+SMALL_SIZE = 38
+MEDIUM_SIZE = 40
+BIGGER_SIZE = 48
 
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
 plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
 plt.rc('axes', labelsize=MEDIUM_SIZE)    # fontsize of the x and y labels
 plt.rc('xtick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
 plt.rc('ytick', labelsize=SMALL_SIZE)    # fontsize of the tick labels
-plt.rc('legend', fontsize=SMALL_SIZE)    # legend fontsize
+plt.rc('legend', fontsize=33)    # legend fontsize
 plt.rc('figure', titlesize=BIGGER_SIZE)  # fontsize of the figure title
 
 
@@ -56,13 +56,15 @@ def calculate_statistics(times):
 
 def plot_latency(client_times, server_times, memory_log, second_container, output_image_file, output_image_file_1):
     # plot all iterations in line graph
+    print('CT ', client_times[0])
     client_times[0] = 1.1*max(client_times[1:])
-    print(client_times[0])
+    print('CT ', client_times[0])
+    client_times = [x/1000 for x in client_times]
     fig, ax1 = plt.subplots(figsize=(18, 7))
     _, med, _, _, _, stdd = calculate_statistics(client_times)
     
     ax1.set_xlabel('Request Number')
-    ax1.set_ylabel('Client Time')
+    ax1.set_ylabel('Client Latency (ms)')
     # ax1.set_ylim([med - 5*stdd, med + 5*stdd])
     
     # Plot med + std on y axis
@@ -87,7 +89,7 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
     ax1.axvspan(200, len(client_times), facecolor='b', alpha=0.1)
     
     plt.title('Response Times')
-    ax1.legend(loc='upper center', ncols=3)
+    ax1.legend(loc='upper center', ncols=3, frameon=False)
     # ax1.set_yscale('symlog')
     plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     
@@ -120,7 +122,7 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
     # Add titles and legends
     # plt.title('Response Times vs Heap memory allocation')
     # ax1.legend(loc='upper left')
-    ax2.legend(loc='upper right')    
+    # ax2.legend(loc='upper right', frameon=False, framealpha = 0.1)    
     # print(output_image_file.split('.')[0] + "_1.pdf")
     plt.tight_layout(pad=0)
     plt.savefig(output_image_file_1, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
