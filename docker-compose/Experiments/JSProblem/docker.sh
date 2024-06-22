@@ -2,6 +2,7 @@ OW_SERVER_NODE="am_CU@node0"
 ssh $OW_SERVER_NODE "docker rm -vf $(docker ps -aq)"
 ssh $OW_SERVER_NODE "docker rmi -f $(docker images -aq)"
 ssh $OW_SERVER_NODE "docker stop my-js-server"
+ssh $OW_SERVER_NODE "docker run hello-world"
 ssh $OW_SERVER_NODE "docker build -t js-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/JS/"
 ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d  --rm --name my-js-server -p 8801:8800 js-server-image"
 sleep 5
