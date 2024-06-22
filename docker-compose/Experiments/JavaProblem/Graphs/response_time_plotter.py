@@ -2,9 +2,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 import sys
 
-SMALL_SIZE = 28
-MEDIUM_SIZE = 30
-BIGGER_SIZE = 38
+SMALL_SIZE = 38
+MEDIUM_SIZE = 40
+BIGGER_SIZE = 48
 
 plt.rc('font', size=SMALL_SIZE)          # controls default text sizes
 plt.rc('axes', titlesize=SMALL_SIZE)     # fontsize of the axes title
@@ -56,7 +56,7 @@ def calculate_statistics(times):
 def plot_latency(client_times, server_times, memory_log, output_image_file, output_image_file_1):
     # plot all iterations in line graph
     fig, ax1 = plt.subplots(figsize=(15, 6))
-    client_times = [x//1000 for x in client_times]
+    # client_times = [x//1000 for x in client_times]
     _, med, _, _, _, stdd = calculate_statistics(client_times)
     # Plot client times on the primary y-axis
     ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times')
@@ -67,7 +67,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     # Plot med + std on y axis
     median = np.median(client_times)
     stdd = np.std(client_times)
-    ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
+    # ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
     # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
     
     plt.title('Response Times')
@@ -75,8 +75,8 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     
     ax2 = ax1.twinx()
-    ax2.plot(memory_log, color='b', alpha=0.4, label='HeapAlloc')
-    ax2.set_ylabel('Allocated heap memory', color='b')
+    ax2.plot(memory_log, color='b', alpha=0.4, label='HeapAlloc', linestyle='--')
+    ax2.set_ylabel('Heap Memory\n(Bytes)', color='b')
    
     # GC_iterations = []
     # for idx in range(1, len(memory_log)):
