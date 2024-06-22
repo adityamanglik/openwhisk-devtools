@@ -20,7 +20,7 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-var iterations int = 5000
+var iterations int = 500
 var actualIterations int = 1000
 
 // Constants for API endpoints and file names
