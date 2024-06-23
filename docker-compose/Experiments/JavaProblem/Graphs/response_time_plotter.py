@@ -70,7 +70,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     # ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
     # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
     
-    plt.title('Response Times')
+    # plt.title('Response Times')
     # ax1.legend(loc='upper left')
     plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     

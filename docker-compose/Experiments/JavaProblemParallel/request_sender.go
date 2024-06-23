@@ -20,8 +20,8 @@ import (
 	"gonum.org/v1/plot/vg"
 )
 
-var iterations int = 500
-var actualIterations int = 50
+var iterations int = 10
+var actualIterations int = 1000
 
 // Constants for API endpoints and file names
 const (
@@ -38,13 +38,13 @@ const (
 type APIResponse struct {
 	ExecutionTime       int64 `json:"executionTime"`
 	UsedHeapSize        int64 `json:"heapUsedMemory"` // Ensure this matches the JSON key exactly
-	GC1CollectionCount  int64 `json:"gc1CollectionCount"`
-	GC1CollectionTime   int64 `json:"gc1CollectionTime"`
-	GC2CollectionCount  int64 `json:"gc2CollectionCount"`
-	GC2CollectionTime   int64 `json:"gc2CollectionTime"`
-	HeapInitMemory      int64 `json:"heapInitMemory"`      // Removed the colon and space
-	HeapCommittedMemory int64 `json:"heapCommittedMemory"` // Removed the colon and space
-	HeapMaxMemory       int64 `json:"heapMaxMemory"`       // Removed the colon and space
+	// GC1CollectionCount  int64 `json:"gc1CollectionCount"`
+	// GC1CollectionTime   int64 `json:"gc1CollectionTime"`
+	// GC2CollectionCount  int64 `json:"gc2CollectionCount"`
+	// GC2CollectionTime   int64 `json:"gc2CollectionTime"`
+	// HeapInitMemory      int64 `json:"heapInitMemory"`      // Removed the colon and space
+	// HeapCommittedMemory int64 `json:"heapCommittedMemory"` // Removed the colon and space
+	// HeapMaxMemory       int64 `json:"heapMaxMemory"`       // Removed the colon and space
 }
 
 func main() {
@@ -229,29 +229,46 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 
 		startTime := time.Now()
 		resp, err := http.Get(requestURL)
+		fmt.Println("hit1: ", (time.Now().Sub(startTime).Microseconds()))
 		if err != nil {
 			fmt.Println("Error sending request:", err)
 			continue
 		}
-		defer resp.Body.Close()
+		
+		fmt.Println("hit2: ", (time.Now().Sub(startTime).Microseconds()))
 
 		if resp.StatusCode != http.StatusOK {
 			fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
 		}
+		fmt.Println("hit2..5: ", (time.Now().Sub(startTime).Microseconds()))
 
 		// Read and unmarshal the response body
-		responseBody, err := ioutil.ReadAll(resp.Body)
-		if err != nil {
-			fmt.Println("Error reading response body:", err)
-			continue
-		}
+        var apiResp APIResponse
+        decoder := json.NewDecoder(resp.Body)
+        if err := decoder.Decode(&apiResp); err != nil {
+            fmt.Println("Error unmarshalling response:", err)
+            fmt.Println("Response body:", decoder)
+            resp.Body.Close()
+            continue
+        }
+        resp.Body.Close()
 
-		var apiResp APIResponse
-		if err := json.Unmarshal(responseBody, &apiResp); err != nil {
-			fmt.Println("Error unmarshalling response:", err)
-			fmt.Println("Response body:", string(responseBody))
-			continue
-		}
+		// responseBody, err := ioutil.ReadAll(resp.Body)
+		// if err != nil {
+		// 	fmt.Println("Error reading response body:", err)
+		// 	continue
+		// }
+		fmt.Println("hit3: ", (time.Now().Sub(startTime).Microseconds()))
+
+
+		// var apiResp APIResponse
+		// if err := json.Unmarshal(responseBody, &apiResp); err != nil {
+		// 	fmt.Println("Error unmarshalling response:", err)
+		// 	fmt.Println("Response body:", string(responseBody))
+		// 	continue
+		// }
+		// fmt.Println("hit4: ", (time.Now().Sub(startTime).Microseconds()))
+
 
 		endTime := time.Now()
 		elapsed := endTime.Sub(startTime)
