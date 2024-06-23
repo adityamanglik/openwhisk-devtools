@@ -55,8 +55,8 @@ def calculate_statistics(times):
 
 def plot_latency(client_times, server_times, memory_log, output_image_file, output_image_file_1):
     # plot all iterations in line graph
-    client_times = client_times[500:600]
-    memory_log = memory_log[500:600]
+    # client_times = client_times[500:600]
+    # memory_log = memory_log[500:600]
     client_times = [x/1000 for x in client_times]
     fig, ax1 = plt.subplots(figsize=(15, 6))
     # client_times = [x//1000 for x in client_times]
@@ -64,7 +64,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     # Plot client times on the primary y-axis
     ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times')
     ax1.set_xlabel('Request Number')
-    ax1.set_ylabel('Client Time (us)', color='r')
+    ax1.set_ylabel('Client Time (ms)', color='r')
     # ax1.set_ylim([med - 5*stdd, med + 5*stdd])
     
     # Plot med + std on y axis
