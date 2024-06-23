@@ -1,7 +1,7 @@
 OW_SERVER_NODE="am_CU@node0"
 ssh $OW_SERVER_NODE "docker stop my-java-server"
 ssh $OW_SERVER_NODE "docker rmi -f my-java-server"
-ssh $OW_SERVER_NODE "cp /users/am_CU/openwhisk-devtools/docker-compose/Experiments/JavaProblem/Dockerfile /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/Dockerfile"
+ssh $OW_SERVER_NODE "cp /users/am_CU/openwhisk-devtools/docker-compose/Experiments/JavaProblemParallel/Dockerfile /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/Dockerfile"
 ssh $OW_SERVER_NODE "docker build --build-arg GC_FLAGS='-XX:+UseParallelGC -Xms128m -Xmx128m' -t java-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/"
 ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d --rm --name my-java-server -p 8601:8600 java-server-image"
 sleep 5

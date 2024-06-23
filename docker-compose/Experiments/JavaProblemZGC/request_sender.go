@@ -229,18 +229,18 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 
 		startTime := time.Now()
 		resp, err := http.Get(requestURL)
-		fmt.Println("hit1: ", (time.Now().Sub(startTime).Microseconds()))
+		// fmt.Println("hit1: ", (time.Now().Sub(startTime).Microseconds()))
 		if err != nil {
 			fmt.Println("Error sending request:", err)
 			continue
 		}
 		
-		fmt.Println("hit2: ", (time.Now().Sub(startTime).Microseconds()))
+		// fmt.Println("hit2: ", (time.Now().Sub(startTime).Microseconds()))
 
 		if resp.StatusCode != http.StatusOK {
 			fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
 		}
-		fmt.Println("hit2..5: ", (time.Now().Sub(startTime).Microseconds()))
+		// fmt.Println("hit2..5: ", (time.Now().Sub(startTime).Microseconds()))
 
 		// Read and unmarshal the response body
         var apiResp APIResponse
@@ -258,7 +258,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 		// 	fmt.Println("Error reading response body:", err)
 		// 	continue
 		// }
-		fmt.Println("hit3: ", (time.Now().Sub(startTime).Microseconds()))
+		// fmt.Println("hit3: ", (time.Now().Sub(startTime).Microseconds()))
 
 
 		// var apiResp APIResponse
