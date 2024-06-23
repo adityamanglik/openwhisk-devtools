@@ -1,7 +1,8 @@
 # GO_API="http://node0:8180/go"
 OW_SERVER_NODE="am_CU@node0"
 # Define the memory sizes to iterate over
-memory_sizes=("128m" "256m" "512m" "1024m" "2048m")
+# memory_sizes=("128m" "256m" "512m" "1024m" "2048m")
+memory_sizes=("128m" "512m" "10240m")
 
 # Start container on node0 with specified memory allocation
 for memory in "${memory_sizes[@]}"; do
@@ -10,14 +11,15 @@ for memory in "${memory_sizes[@]}"; do
     memory_mib=$(echo $memory | sed 's/m/MiB/')
 
     ssh $OW_SERVER_NODE "docker stop my-go-server"
-    ssh $OW_SERVER_NODE "docker build -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
-    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=${memory} -e GOMEMLIMIT=$memory_mib -d  --rm --name my-go-server -p 9501:9500 go-server-image"
+    ssh $OW_SERVER_NODE "docker build --build-arg GOGC=1000 --build-arg GOMEMLIMIT=$memory_mib -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
+    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=${memory} -d  --rm --name my-go-server -p 9501:9500 go-server-image"
     # Send traffic and record timings
     sleep 2
     # Gut cold start
     curl "http://node0:9501/GoNative?seed=1000&arraysize=10000&requestnumber=56"
     go run request_sender.go 10000
     mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/go_response_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/times_${memory}.txt
+    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/image_response_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/image_${memory}.txt
 done
 cd Graphs/; python response_time_plotter.py
 # Plot timings in SLA plot

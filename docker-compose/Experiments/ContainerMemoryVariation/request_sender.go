@@ -16,13 +16,14 @@ import (
 	// "gonum.org/v1/gonum/stat"
 )
 
-var iterations int = 1000
-var actualIterations int = 999999
+var iterations int = 99
+// var actualIterations int = 99999
 
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
 	goAPI                 = "http://node0:9501/GoNative"
+	goImageAPI            = "http://node0:9501/ImageProcess"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -52,14 +53,19 @@ func main() {
 	// ensure server is alive
 	// checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
-	// Warm up
 	goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
-	iterations = actualIterations
+	// iterations = actualIterations
 	// Actual measurements
-	goResponseTimes, goServerTimes = sendRequests(goAPI, arraysize)
+	// goResponseTimes, goServerTimes = sendRequests(goAPI, arraysize)
 
 	writeTimesToFile(goResponseTimesFile, goResponseTimes)
 	writeTimesToFile(goServerTimesFile, goServerTimes)
+
+	// Image Data
+	goResponseTimes, goServerTimes = sendRequests(goImageAPI, 100)
+	writeTimesToFile("image_response_times.txt", goResponseTimes)
+	writeTimesToFile("image_server_times.txt", goServerTimes)
+
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
 	// calculateAndPrintStats(goServerTimes, "Go Server Times")
 	// filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
