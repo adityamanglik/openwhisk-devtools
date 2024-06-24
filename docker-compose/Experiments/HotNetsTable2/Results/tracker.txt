@@ -1,5 +1,0 @@
-Arraysize: 10000
-Checking server for heartbeat.
-OK Response received from server.
-Response:  {"gc1CollectionCount":0,"gc1CollectionTime":0,"gc2CollectionCount":0,"gc2CollectionTime":0,"heapInitMemory":134217728,"heapUsedMemory":6442592,"heapCommittedMemory":129761280,"heapMaxMemory":129761280,"sum":-5586637464,"seed":9358,"arraysize":10,"request":2147483647,"executionTime":135}
-Warm up done, starting plotting run
