@@ -180,20 +180,20 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 
 	rand.Seed(int64(seed))
 	
-	log.Println("File open: ", time.Now().UnixMicro() - start)
+	// log.Println("File open: ", time.Now().UnixMicro() - start)
 	img := cachedImage
 	
-	log.Println("Decode: ", time.Now().UnixMicro() - start)
+	// log.Println("Decode: ", time.Now().UnixMicro() - start)
 
 	bounds := img.Bounds()
 	newImg := image.NewRGBA(bounds)
 
-	log.Println("Bounds: ", time.Now().UnixMicro() - start)
+	// log.Println("Bounds: ", time.Now().UnixMicro() - start)
 
 	// Resize the image
 	newImg = resize(newImg, ARRAY_SIZE)
 
-	log.Println("Resize: ", time.Now().UnixMicro() - start)
+	// log.Println("Resize: ", time.Now().UnixMicro() - start)
 
 	// Sum all pixel values
 	sum := sumPixels(newImg)
@@ -203,8 +203,8 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 	rnd := rand.New(randomSrc)
 
 	// Add random seed to every pixel
-	for y := bounds.Min.Y; y < bounds.Max.Y/4; y++ {
-		for x := bounds.Min.X; x < bounds.Max.X/4; x++ {
+	for y := bounds.Min.Y; y < bounds.Max.Y/16; y++ {
+		for x := bounds.Min.X; x < bounds.Max.X/16; x++ {
 			originalColor := color.RGBAModel.Convert(img.At(x, y)).(color.RGBA)
 			r := clamp(uint32(originalColor.R) + uint32(rnd.Intn(256)))
 			g := clamp(uint32(originalColor.G) + uint32(rnd.Intn(256)))
@@ -215,19 +215,19 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 	}
 	sum += sumPixels(newImg)
 
-	log.Println("Random pixels: ", time.Now().UnixMicro() - start)
+	// log.Println("Random pixels: ", time.Now().UnixMicro() - start)
 
 	// Flip horizontally
 	newImg = flipHorizontally(newImg)
 	sum += sumPixels(newImg)
 
-	log.Println("Flip: ", time.Now().UnixMicro() - start)
+	// log.Println("Flip: ", time.Now().UnixMicro() - start)
 
 	// Rotate 90 degrees
 	newImg = rotate(newImg, 90)
 	sum += sumPixels(newImg)
 
-	log.Println("Rotate: ", time.Now().UnixMicro() - start)
+	// log.Println("Rotate: ", time.Now().UnixMicro() - start)
 
 	executionTime := time.Now().UnixMicro() - start
 
