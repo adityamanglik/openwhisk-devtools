@@ -6,7 +6,7 @@ git config --global user.email "am5523@columbia.edu"
 sudo apt install -y openjdk-8-jdk
 sudo apt install -y nodejs npm zip
 sudo apt install -y python3-pip
-sudo sudo sysctl -w fs.file-max=262144
+sudo sysctl -w fs.file-max=262144
 sudo sysctl net.core.somaxconn=1024
 sudo sysctl net.core.netdev_max_backlog=2000
 sudo sysctl net.ipv4.tcp_max_syn_backlog=2048
