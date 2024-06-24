@@ -66,7 +66,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times', linewidth=4)
     ax1.set_xlabel('Request Number')
     ax1.set_ylabel('Latency (ms)', color='r')
-    ax1.set_ylim([0, max(client_times)])
+    ax1.set_ylim([0, 2.0])
 
     
     # Plot med + std on y axis

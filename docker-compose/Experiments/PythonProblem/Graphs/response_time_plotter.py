@@ -60,10 +60,10 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     client_times = [x//1000 for x in client_times]
     _, med, _, _, _, stdd = calculate_statistics(client_times)
     # Plot client times on the primary y-axis
-    ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times')
+    ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times', linewidth=4)
     ax1.set_xlabel('Request Number')
-    ax1.set_ylabel('Client Time (ms)', color='r')
-    # ax1.set_ylim([med - 5*stdd, med + 5*stdd])
+    ax1.set_ylabel('Latency (ms)', color='r')
+    ax1.set_ylim([0, 100])
     
     # Plot med + std on y axis
     median = np.median(client_times)
@@ -71,7 +71,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     # ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
     # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
     
-    plt.title('Response Times')
+    # plt.title('Response Times')
     # ax1.legend(loc='upper left')
     plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     
