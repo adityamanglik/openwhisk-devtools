@@ -58,14 +58,15 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     server_times = server_times[400:600]
     server_times = [x/1000 for x in server_times]
     memory_log = memory_log[400:600]
+    memory_log = [x/1000000 for x in memory_log]
     fig, ax1 = plt.subplots(figsize=(15, 6))
     # client_times = [x//1000 for x in client_times]
     # _, med, _, _, _, stdd = calculate_statistics(server_times)
     # Plot client times on the primary y-axis
-    ax1.plot(server_times, color='r', alpha=0.9, label='Latency')
+    ax1.plot(server_times, color='r', alpha=0.9, label='Latency', linewidth=4)
     ax1.set_xlabel('Request Number')
-    ax1.set_ylabel('Client Time (ms)', color='r')
-    # ax1.set_ylim([med - 5*stdd, med + 5*stdd])
+    ax1.set_ylabel('Latency (ms)', color='r')
+    ax1.set_ylim([0, max(server_times)])
     
     # Plot med + std on y axis
     median = np.median(server_times)
@@ -77,8 +78,8 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     
     ax2 = ax1.twinx()
-    ax2.plot(memory_log, color='b', alpha=0.4, label='Memory', linestyle='--')
-    ax2.set_ylabel('Heap Memory\n(Bytes)', color='b')
+    ax2.plot(memory_log, color='b', alpha=0.4, label='Memory', linestyle='--', linewidth=6)
+    ax2.set_ylabel('Heap Memory\n(MB)', color='b')
     # ask matplotlib for the plotted objects and their labels
     lines, labels = ax1.get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
