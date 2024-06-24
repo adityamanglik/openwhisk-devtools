@@ -21,7 +21,7 @@ import (
 )
 
 var iterations int = 10
-var actualIterations int = 199999
+var actualIterations int = 1000
 
 // Constants for API endpoints and file names
 const (
@@ -85,11 +85,11 @@ func main() {
 
 	// calculateAndPrintStats(goResponseTimes, "Go Response Times")
 	// calculateAndPrintStats(goServerTimes, "Go Server Times")
-	filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
-	err := latencyAnalysis(filePath, arraysize, goResponseTimes, goServerTimes)
-	if err != nil {
-	fmt.Println("Error writing to CSV:", err)
-	}
+	// filePath := fmt.Sprintf("./Graphs/Go/%d/latencies.csv", arraysize)
+	// err = latencyAnalysis2(filePath, arraysize, goResponseTimes, goServerTimes)
+	// if err != nil {
+	// fmt.Println("Error writing to CSV:", err)
+	// }
 
 	// // ensure server is alive
 	// checkServerAlive(javaAPI)
@@ -348,39 +348,16 @@ func latencyAnalysis(fileName string, arraySize int, responseTimes, serverTimes 
 		return times[index]
 	}
 
-	summer := func(times []int64) int64 {
-		if len(times) == 0 {
-			return 0
-		}
-		sum := int64(0)
-		for _, num := range(times){
-			sum += num
-		}
-		return sum
-	}
-
 	// Calculate statistics
 	responseP50 := percentile(responseTimes, 0.50)
 	responseP99 := percentile(responseTimes, 0.99)
 	responseP999 := percentile(responseTimes, 0.999)
 	responseP9999 := percentile(responseTimes, 0.9999)
-	responsesum := summer(responseTimes)
-	fmt.Println("Client P50:", responseP50)
-	fmt.Println("Client P99:", responseP99)
-	fmt.Println("Client P999:", responseP999)
-	fmt.Println("Client P9999:", responseP9999)
-	fmt.Println("Client Tput:", responsesum)
 
 	serverP50 := percentile(serverTimes, 0.50)
 	serverP99 := percentile(serverTimes, 0.99)
 	serverP999 := percentile(serverTimes, 0.999)
 	serverP9999 := percentile(serverTimes, 0.9999)
-	serversum := summer(serverTimes)
-	fmt.Println("Server P50:", serverP50)
-	fmt.Println("Server P99:", serverP99)
-	fmt.Println("Server P999:", serverP999)
-	fmt.Println("Server P9999:", serverP9999)
-	fmt.Println("Server Tput:", serversum)
 
 	// Writing headers
 	headers := []string{"ArraySize", "ResponseP50", "ResponseP99", "ResponseP999", "ResponseP9999", "ServerP50", "ServerP99", "ServerP999", "ServerP9999"}
