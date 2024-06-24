@@ -60,7 +60,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     # client_times = client_times[x/1000 for x in client_times]
     memory_log = memory_log[600:]
     fig, ax1 = plt.subplots(figsize=(15, 6))
-    client_times = [x//1000000 for x in client_times]
+    client_times = [x/1000 for x in client_times]
     _, med, _, _, _, stdd = calculate_statistics(client_times)
     # Plot client times on the primary y-axis
     ax1.plot(client_times, color='r', alpha=0.9, label='Latency', linewidth=2)
@@ -80,7 +80,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     
     ax2 = ax1.twinx()
     ax2.plot(memory_log, color='b', alpha=0.5, label='Number of Huge Pages', linewidth=2, linestyle='--')
-    # ax2.set_ylabel('Number of\nHuge Pages', color='b')
+    ax2.set_ylabel('Number of\nHuge Pages', color='b')
     lines, labels = ax1.get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
     ax2.legend(lines + lines2, labels + labels2, loc='upper center', bbox_to_anchor=(0.5, 1.3), ncols=2)
