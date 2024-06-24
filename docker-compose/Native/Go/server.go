@@ -21,6 +21,7 @@ import (
 )
 
 const serverPort = ":9500"
+var cachedImage image.Image
 
 func init() {
 	// debug.SetGCPercent(-1) // Disable the garbage collector
@@ -28,6 +29,31 @@ func init() {
 	// runtime.GOMAXPROCS(2)
 
 	image.RegisterFormat("jpeg", "jpeg", jpeg.Decode, jpeg.DecodeConfig)
+	// Preload the image into the cache
+	err := preloadImage()
+	if err != nil {
+		log.Fatalf("Error preloading image: %v", err)
+	}
+
+}
+
+func preloadImage() error {
+	fileNames := []string{"Resources/img1.jpg", "Resources/img2.jpg"}
+	selectedFile := fileNames[rand.Intn(len(fileNames))]
+
+	file, err := os.Open(selectedFile)
+	if err != nil {
+		return err
+	}
+	defer file.Close()
+
+	img, _, err := image.Decode(file)
+	if err != nil {
+		return err
+	}
+
+	cachedImage = img
+	return nil
 }
 
 func main() {
@@ -154,51 +180,54 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 
 	rand.Seed(int64(seed))
 	
-	// Load an example image
-	fileNames := []string{"Resources/img1.jpg", "Resources/img2.jpg"}
-	selectedFile := fileNames[rand.Intn(len(fileNames))]
-
-	file, err := os.Open(selectedFile)
-	if err != nil {
-		return nil, err
-	}
-	defer file.Close()
-
-	img, _, err := image.Decode(file)
-	if err != nil {
-		return nil, err
-	}
+	log.Println("File open: ", time.Now().UnixMicro() - start)
+	img := cachedImage
+	
+	log.Println("Decode: ", time.Now().UnixMicro() - start)
 
 	bounds := img.Bounds()
 	newImg := image.NewRGBA(bounds)
 
+	log.Println("Bounds: ", time.Now().UnixMicro() - start)
+
 	// Resize the image
 	newImg = resize(newImg, ARRAY_SIZE)
+
+	log.Println("Resize: ", time.Now().UnixMicro() - start)
 
 	// Sum all pixel values
 	sum := sumPixels(newImg)
 
+	// Create a random source and a new random generator
+	randomSrc := rand.NewSource(int64(seed))
+	rnd := rand.New(randomSrc)
+
 	// Add random seed to every pixel
-	for y := bounds.Min.Y; y < bounds.Max.Y; y++ {
-		for x := bounds.Min.X; x < bounds.Max.X; x++ {
-			originalColor := img.At(x, y)
-			r, g, b, a := originalColor.RGBA()
-			r = clamp(r + uint32(rand.Intn(256)))
-			g = clamp(g + uint32(rand.Intn(256)))
-			b = clamp(b + uint32(rand.Intn(256)))
-			newColor := color.RGBA{uint8(r), uint8(g), uint8(b), uint8(a)}
+	for y := bounds.Min.Y; y < bounds.Max.Y/4; y++ {
+		for x := bounds.Min.X; x < bounds.Max.X/4; x++ {
+			originalColor := color.RGBAModel.Convert(img.At(x, y)).(color.RGBA)
+			r := clamp(uint32(originalColor.R) + uint32(rnd.Intn(256)))
+			g := clamp(uint32(originalColor.G) + uint32(rnd.Intn(256)))
+			b := clamp(uint32(originalColor.B) + uint32(rnd.Intn(256)))
+			newColor := color.RGBA{uint8(r), uint8(g), uint8(b), originalColor.A}
 			newImg.Set(x, y, newColor)
 		}
 	}
 	sum += sumPixels(newImg)
 
+	log.Println("Random pixels: ", time.Now().UnixMicro() - start)
+
 	// Flip horizontally
 	newImg = flipHorizontally(newImg)
 	sum += sumPixels(newImg)
 
+	log.Println("Flip: ", time.Now().UnixMicro() - start)
+
 	// Rotate 90 degrees
 	newImg = rotate(newImg, 90)
 	sum += sumPixels(newImg)
+
+	log.Println("Rotate: ", time.Now().UnixMicro() - start)
 
 	executionTime := time.Now().UnixMicro() - start
 
