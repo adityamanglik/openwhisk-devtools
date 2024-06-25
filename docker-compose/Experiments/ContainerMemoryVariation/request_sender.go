@@ -62,7 +62,7 @@ func main() {
 	writeTimesToFile(goServerTimesFile, goServerTimes)
 
 	// Image Data
-	goResponseTimes, goServerTimes = sendRequests(goImageAPI, 100)
+	goResponseTimes, goServerTimes = sendRequests(goImageAPI, 9)
 	writeTimesToFile("image_response_times.txt", goResponseTimes)
 	writeTimesToFile("image_server_times.txt", goServerTimes)
 

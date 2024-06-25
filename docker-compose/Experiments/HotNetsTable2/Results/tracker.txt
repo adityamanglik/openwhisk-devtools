@@ -1,0 +1,90 @@
+Arraysize: 10000
+Checking server for heartbeat.
+OK Response received from server.
+Response:  {"gc1CollectionCount":0,"gc1CollectionTime":0,"gc2CollectionCount":0,"gc2CollectionTime":0,"heapInitMemory":134217728,"heapUsedMemory":6445176,"heapCommittedMemory":129761280,"heapMaxMemory":129761280,"sum":3907981508,"seed":5787,"arraysize":10,"request":2147483647,"executionTime":134}
+Warm up done, starting plotting run
+Client P50: 43990
+Client P99: 47994
+Client P999: 52022
+Client P9999: 64022
+Client Tput: 4407405118
+Server P50: 1140
+Server P99: 3395
+Server P999: 4836
+Server P9999: 5121
+Server Tput: 119318105
+Arraysize: 10000
+Checking server for heartbeat.
+OK Response received from server.
+Response:  {"gc1CollectionCount":0,"gc1CollectionTime":0,"gc2CollectionCount":0,"gc2CollectionTime":0,"heapInitMemory":134217728,"heapUsedMemory":6138712,"heapCommittedMemory":128974848,"heapMaxMemory":128974848,"sum":-2164594406,"seed":4497,"arraysize":10,"request":2147483647,"executionTime":87}
+Warm up done, starting plotting run
+Client P50: 43990
+Client P99: 47996
+Client P999: 52046
+Client P9999: 67840
+Client Tput: 4407744736
+Server P50: 1136
+Server P99: 3119
+Server P999: 6036
+Server P9999: 10402
+Server Tput: 119008370
+Arraysize: 10000
+Checking server for heartbeat.
+OK Response received from server.
+Response:  {"gc1CollectionCount":0,"gc1CollectionTime":0,"gc2CollectionCount":0,"gc2CollectionTime":0,"heapInitMemory":134217728,"heapUsedMemory":8388608,"heapCommittedMemory":134217728,"heapMaxMemory":134217728,"sum":-8488401,"seed":6944,"arraysize":10,"request":2147483647,"executionTime":139}
+Warm up done, starting plotting run
+Client P50: 43990
+Client P99: 48044
+Client P999: 59994
+Client P9999: 79974
+Client Tput: 4413615315
+Server P50: 1191
+Server P99: 1348
+Server P999: 4017
+Server P9999: 31347
+Server Tput: 121482758
+Arraysize: 10000
+Checking server for heartbeat.
+OK Response received from server.
+Response:  {"gc1CollectionCount":0,"gc1CollectionTime":0,"gc2CollectionCount":0,"gc2CollectionTime":0,"heapInitMemory":10737418240,"heapUsedMemory":229067192,"heapCommittedMemory":10379526144,"heapMaxMemory":10379526144,"sum":-6615797204,"seed":518,"arraysize":10,"request":2147483647,"executionTime":79}
+Warm up done, starting plotting run
+Client P50: 43990
+Client P99: 44102
+Client P999: 55965
+Client P9999: 67994
+Client Tput: 4402148643
+Server P50: 1107
+Server P99: 1900
+Server P999: 1970
+Server P9999: 12201
+Server Tput: 114440625
+Arraysize: 10000
+Checking server for heartbeat.
+OK Response received from server.
+Response:  {"gc1CollectionCount":0,"gc1CollectionTime":0,"gc2CollectionCount":0,"gc2CollectionTime":0,"heapInitMemory":10737418240,"heapUsedMemory":214748888,"heapCommittedMemory":10290200576,"heapMaxMemory":10290200576,"sum":607065031,"seed":7045,"arraysize":10,"request":2147483647,"executionTime":80}
+Warm up done, starting plotting run
+Client P50: 43990
+Client P99: 44136
+Client P999: 55887
+Client P9999: 63994
+Client Tput: 4402465015
+Server P50: 1112
+Server P99: 1910
+Server P999: 1968
+Server P9999: 4899
+Server Tput: 115547837
+Arraysize: 10000
+Checking server for heartbeat.
+OK Response received from server.
+Response:  {"gc1CollectionCount":0,"gc1CollectionTime":0,"gc2CollectionCount":0,"gc2CollectionTime":0,"heapInitMemory":10737418240,"heapUsedMemory":8388608,"heapCommittedMemory":10737418240,"heapMaxMemory":10737418240,"sum":32596417,"seed":2335,"arraysize":10,"request":2147483647,"executionTime":111}
+Warm up done, starting plotting run
+Client P50: 43990
+Client P99: 44128
+Client P999: 55890
+Client P9999: 67939
+Client Tput: 4403448658
+Server P50: 1181
+Server P99: 2240
+Server P999: 2299
+Server P9999: 2658
+Server Tput: 121750768
