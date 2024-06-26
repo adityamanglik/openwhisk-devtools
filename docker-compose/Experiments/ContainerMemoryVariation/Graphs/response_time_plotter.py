@@ -255,7 +255,7 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
         percentile_values = [x/1000 for x in percentile_values]
         print(percentile_values)
         percentiles_print = [str(x) for x in percentiles]
-        plt.plot(percentiles_print, percentile_values, marker='o', color = plot_color[index])
+        plt.plot(percentiles_print, percentile_values, marker='o', markersize=20, color = plot_color[index], label = f'LL_{memory}', linewidth=6)
         index += 1
     
     # plt.xlabel('Percentile')
@@ -277,10 +277,10 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     for client_times, memory in zip(image_latencies, memory_sizes):
         # Calculate the response times at each percentile
         percentile_values = [np.percentile(client_times, p) for p in percentiles]
-        percentile_values = [x/100000 for x in percentile_values]
+        percentile_values = [x/10000 for x in percentile_values]
         print(percentile_values)
         percentiles_print = [str(x) for x in percentiles]
-        plt.plot(percentiles_print, percentile_values, marker='x', label=f'{memory}', linestyle = '--', color = plot_color[index])
+        plt.plot(percentiles_print, percentile_values, marker='x', markersize=20, linestyle = '--', color = plot_color[index], label = f'Img_{memory}', linewidth=6)
         index += 1
     # Add the expected service level line
     # expected_service_level = median + 3  # Example value for demonstration
@@ -288,16 +288,17 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
 
     # Set the plot labels and title
     plt.xlabel('Percentile')
-    plt.ylabel('Client Time (ms)')
+    plt.ylabel('Latency (ms)')
     # plt.title('Response Time by Percentile Distribution')
 
     # Set the x-axis to a logarithmic scale
     plt.yscale('symlog')
+    plt.ylim([0, 400])
     # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
 
     # Add grid and legend
     plt.grid(axis='y')
-    plt.legend(loc='upper center', ncols = 3, bbox_to_anchor=(0.5, 1.24))
+    plt.legend(loc='upper center', ncols = 3, bbox_to_anchor=(0.5, 1.4))
 
     # Save the plot to the specified file
     plt.savefig("naivesolution4.pdf", bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
