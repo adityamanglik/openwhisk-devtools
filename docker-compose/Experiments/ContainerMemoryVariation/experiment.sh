@@ -3,7 +3,7 @@ OW_SERVER_NODE="am_CU@node0"
 # Define the memory sizes to iterate over
 # memory_sizes=("128m" "256m" "512m" "1024m" "2048m")
 memory_sizes=("128m" "512m" "10240m")
-
+# memory_sizes=("128m")
 # Start container on node0 with specified memory allocation
 for memory in "${memory_sizes[@]}"; do
     echo "Running with memory size: $memory"
@@ -18,7 +18,7 @@ for memory in "${memory_sizes[@]}"; do
     # Gut cold start
     curl "http://node0:9501/GoNative?seed=1000&arraysize=10000&requestnumber=56"
     go run request_sender.go 10000
-    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/go_response_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/times_${memory}.txt
+    # mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/go_response_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/times_${memory}.txt
     mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/image_response_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/image_${memory}.txt
 done
 cd Graphs/; python response_time_plotter.py

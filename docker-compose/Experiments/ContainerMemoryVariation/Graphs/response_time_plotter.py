@@ -245,7 +245,8 @@ def plot_NOGC_histograms(client_times, output_file):
 def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     # Define the percentiles we are interested in
     percentiles = [50, 90, 99, 99.9, 99.99, 99.999]
-    plot_color = ['#3C91E6', '#9FD356', '#FA824C']
+    plot_color = ['blue', 'red', 'black']
+    plot_alpha = [0.4, 0.9, 0.4]
     # Create the plot
     index = 0
     plt.figure(figsize=(15, 7))
@@ -255,7 +256,7 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
         percentile_values = [x/1000 for x in percentile_values]
         print(percentile_values)
         percentiles_print = [str(x) for x in percentiles]
-        plt.plot(percentiles_print, percentile_values, marker='o', markersize=20, color = plot_color[index], label = f'LL_{memory}', linewidth=6)
+        plt.plot(percentiles_print, percentile_values, marker='o', markersize=20, color = plot_color[index], alpha = plot_alpha[index], label = f'LL_{memory}', linewidth=6)
         index += 1
     
     # plt.xlabel('Percentile')
@@ -280,7 +281,7 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
         percentile_values = [x/10000 for x in percentile_values]
         print(percentile_values)
         percentiles_print = [str(x) for x in percentiles]
-        plt.plot(percentiles_print, percentile_values, marker='x', markersize=20, linestyle = '--', color = plot_color[index], label = f'Img_{memory}', linewidth=6)
+        plt.plot(percentiles_print, percentile_values, marker='x', markersize=20, linestyle = '--', color = plot_color[index],alpha = plot_alpha[index], label = f'Img_{memory}', linewidth=6)
         index += 1
     # Add the expected service level line
     # expected_service_level = median + 3  # Example value for demonstration

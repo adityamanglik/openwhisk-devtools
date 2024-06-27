@@ -53,16 +53,16 @@ func main() {
 	// ensure server is alive
 	// checkServerAlive(goAPI)
 	// javaResponseTimes, javaServerTimes := sendRequests(javaAPI)
-	goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
+	// goResponseTimes, goServerTimes := sendRequests(goAPI, arraysize)
 	// iterations = actualIterations
 	// Actual measurements
 	// goResponseTimes, goServerTimes = sendRequests(goAPI, arraysize)
 
-	writeTimesToFile(goResponseTimesFile, goResponseTimes)
-	writeTimesToFile(goServerTimesFile, goServerTimes)
+	// writeTimesToFile(goResponseTimesFile, goResponseTimes)
+	// writeTimesToFile(goServerTimesFile, goServerTimes)
 
 	// Image Data
-	goResponseTimes, goServerTimes = sendRequests(goImageAPI, 9)
+	goResponseTimes, goServerTimes := sendRequests(goImageAPI, 9)
 	writeTimesToFile("image_response_times.txt", goResponseTimes)
 	writeTimesToFile("image_server_times.txt", goServerTimes)
 
