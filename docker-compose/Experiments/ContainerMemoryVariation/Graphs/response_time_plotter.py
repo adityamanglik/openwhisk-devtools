@@ -245,8 +245,8 @@ def plot_NOGC_histograms(client_times, output_file):
 def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     # Define the percentiles we are interested in
     percentiles = [50, 90, 99, 99.9, 99.99, 99.999]
-    plot_color = ['blue', 'red', 'black']
-    plot_alpha = [0.4, 0.9, 0.5]
+    plot_color = ['blue', 'red', 'green']
+    plot_alpha = [0.8, 0.8, 0.8]
     # Create the plot
     index = 0
     plt.figure(figsize=(15, 7))
@@ -278,7 +278,7 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     for client_times, memory in zip(image_latencies, memory_sizes):
         # Calculate the response times at each percentile
         percentile_values = [np.percentile(client_times, p) for p in percentiles]
-        percentile_values = [x/10000 for x in percentile_values]
+        percentile_values = [x/100000 for x in percentile_values]
         print(percentile_values)
         percentiles_print = [str(x) for x in percentiles]
         plt.plot(percentiles_print, percentile_values, marker='x', markersize=20, linestyle = '--', color = plot_color[index],alpha = plot_alpha[index], label = f'Img_{memory}', linewidth=6)
@@ -293,7 +293,7 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     # plt.title('Response Time by Percentile Distribution')
 
     # Set the x-axis to a logarithmic scale
-    plt.yscale('symlog')
+    # plt.yscale('symlog')
     # plt.ylim([0, 400])
     # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
 
@@ -325,7 +325,7 @@ if __name__ == "__main__":
         read_me = f'image_{mem}.txt'
         with open(read_me, 'r') as f:
             client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
-            # print(client_times[:10])
+            print(client_times[:10])
             image_latencies.append(client_times)
     plot_hdr_histograms(latencies, image_latencies, memory_sizes)
     
