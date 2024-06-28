@@ -293,7 +293,7 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     # plt.title('Response Time by Percentile Distribution')
 
     # Set the x-axis to a logarithmic scale
-    # plt.yscale('symlog')
+    plt.yscale('symlog')
     # plt.ylim([0, 400])
     # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
 
