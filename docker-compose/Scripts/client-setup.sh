@@ -9,7 +9,7 @@ sudo sysctl net.ipv4.tcp_tw_reuse=1
 sudo sysctl -w fs.file-max=262144
 sudo apt install python3-locust -y
 sudo apt install apache2-utils  -y
-sudo apt-get install gcc-multilib #for go
+sudo apt-get install gcc-multilib -y #for go
 wget https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
 sudo tar -xvf go1.22.4.linux-amd64.tar.gz
 sudo mv go /usr/local

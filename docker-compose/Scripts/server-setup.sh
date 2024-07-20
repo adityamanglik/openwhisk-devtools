@@ -10,7 +10,7 @@ sudo sysctl -w fs.file-max=262144
 sudo sysctl net.core.somaxconn=1024
 sudo sysctl net.core.netdev_max_backlog=2000
 sudo sysctl net.ipv4.tcp_max_syn_backlog=2048
-sudo apt-get install gcc-multilib #for go
+sudo apt-get install gcc-multilib -y #for go
 wget https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
 sudo tar -xvf go1.22.4.linux-amd64.tar.gz
 sudo mv go /usr/local
