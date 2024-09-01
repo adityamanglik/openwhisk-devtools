@@ -2,7 +2,7 @@ sudo apt update
 sudo apt -y dist-upgrade
 sudo apt-get install --reinstall linux-firmware
 git config --global user.name "AM"
-git config --global user.email "am5523@columbia.edu"
+git config --global user.email "aditya.account@outlook.com"
 sudo apt install -y openjdk-8-jdk
 sudo apt install -y nodejs npm zip
 sudo apt install -y python3-pip

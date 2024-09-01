@@ -2,7 +2,7 @@ sudo apt update
 sudo apt -y dist-upgrade
 sudo apt install --reinstall linux-firmware
 git config --global user.name "AM"
-git config --global user.email "am5523@columbia.edu"
+git config --global user.email "aditya.account@outlook.com"
 sudo sysctl net.ipv4.ip_local_port_range="15000 61000"
 sudo sysctl net.ipv4.tcp_fin_timeout=30
 sudo sysctl net.ipv4.tcp_tw_reuse=1
