@@ -19,8 +19,8 @@ for memory in "${memory_sizes[@]}"; do
     # Gut cold start
     curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
     go run request_sender.go 10000
-    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/go_response_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/times_${memory}.txt
-    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/image_response_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/image_${memory}.txt
+    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/go_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/times_${memory}.txt
+    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/image_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/image_${memory}.txt
 done
 cd Graphs/; python response_time_plotter.py
 # Plot timings in SLA plot

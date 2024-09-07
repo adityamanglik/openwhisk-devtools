@@ -12,11 +12,11 @@ import (
 	"sort"
 	"strconv"
 	"time"
-
 	// "gonum.org/v1/gonum/stat"
 )
 
-var iterations int = 9999
+var iterations int = 199999
+
 // var actualIterations int = 99999
 
 // Constants for API endpoints and file names
@@ -62,7 +62,7 @@ func main() {
 	writeTimesToFile(goServerTimesFile, goServerTimes)
 
 	// Image Data
-	goResponseTimes, goServerTimes = sendRequests(goImageAPI, 9)
+	// goResponseTimes, goServerTimes = sendRequests(goImageAPI, 9)
 	writeTimesToFile("image_response_times.txt", goResponseTimes)
 	writeTimesToFile("image_server_times.txt", goServerTimes)
 
