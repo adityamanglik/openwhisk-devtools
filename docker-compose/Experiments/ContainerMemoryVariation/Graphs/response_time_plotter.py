@@ -298,18 +298,18 @@ def plot_hdr_histograms(latencies, memory_sizes):
     # plt.axhline(y=expected_service_level, color='orange', linestyle='--', label='Expected Service Level')
 
     # Set the plot labels and title
-    plt.xlabel('Percentile')
+    plt.xlabel('Performance Percentile')
     plt.ylabel('Latency (ms)')
     # plt.title('Response Time by Percentile Distribution')
 
     # Set the x-axis to a logarithmic scale
     plt.yscale('symlog')
     # plt.ylim([0, 400])
-    # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
+    plt.yticks(range(3, 15, 3), range(3, 15, 3))
 
     # Add grid and legend
     plt.grid(axis='y', which ='both')
-    plt.legend(loc='upper center', ncols = 3, bbox_to_anchor=(0.5, 1.4))
+    plt.legend(loc='upper center', ncols = 3, bbox_to_anchor=(0.5, 1.4), frameon = False)
 
     # Save the plot to the specified file
     plt.savefig("naivesolution4.pdf", bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
@@ -321,7 +321,7 @@ if __name__ == "__main__":
         # print("Usage: python script.py <client_time_file> <server_time_file> <memory_file> <dist_image_file> <latency_image_file>")
         # sys.exit(1)
         
-    memory_sizes=["128m", "1024m", "10240m"]
+    memory_sizes=["128m", "256m", "10240m"]
     latencies = []
     for mem in memory_sizes:
         read_me = f'times_{mem}.txt'

@@ -2,7 +2,7 @@
 OW_SERVER_NODE="am_CU@node0"
 # Define the memory sizes to iterate over
 # memory_sizes=("128m" "256m" "512m" "1024m" "2048m")
-memory_sizes=("128m" "1024m" "10240m")
+memory_sizes=("128m" "256m" "10240m")
 # memory_sizes=("128m")
 # Start container on node0 with specified memory allocation
 for memory in "${memory_sizes[@]}"; do
