@@ -10,17 +10,17 @@ for memory in "${memory_sizes[@]}"; do
     # Convert memory size to MiB for GOMEMLIMIT if needed
     memory_mib=$(echo $memory | sed 's/m/MiB/')
 
-    ssh $OW_SERVER_NODE "docker stop my-java-server"
+    ssh $OW_SERVER_NODE "docker stop my-go-server"
     ssh $OW_SERVER_NODE "docker run hello-world"
-    ssh $OW_SERVER_NODE "docker build --build-arg GC_FLAGS='-XX:+UseSerialGC -Xms${memory} -Xmx${memory}' -t java-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Java/"
-    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=${memory} -d --rm --name my-java-server -p 8601:8600 java-server-image"
+    ssh $OW_SERVER_NODE "docker build --build-arg GOGC=1000 --build-arg GOMEMLIMIT=$memory_mib -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
+    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=${memory} -d  --rm --name my-go-server -p 9501:9500 go-server-image"
     # Send traffic and record timings
     sleep 2
     # Gut cold start
-    curl "http://node0:8601/jsonresponse?seed=999&arraysize=99&requestnumber=567"
+    curl "http://node0:9501/GoNative?seed=1000&arraysize=10000&requestnumber=56"
     go run request_sender.go 10000
     mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/go_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/times_${memory}.txt
-    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/image_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/image_${memory}.txt
+    # mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/image_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/image_${memory}.txt
 done
 cd Graphs/; python response_time_plotter.py
 # Plot timings in SLA plot

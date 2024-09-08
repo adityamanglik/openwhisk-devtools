@@ -242,7 +242,7 @@ def plot_NOGC_histograms(client_times, output_file):
     plt.savefig(output_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     plt.close()
     
-def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
+def plot_hdr_histograms(latencies, memory_sizes):
     # Define the percentiles we are interested in
     percentiles = [50, 90, 99, 99.9, 99.99, 99.999]
     plot_color = ['blue', 'red', 'green']
@@ -253,10 +253,11 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     for client_times, memory in zip(latencies, memory_sizes):
         # Calculate the response times at each percentile
         percentile_values = [np.percentile(client_times, p) for p in percentiles]
+        # convert us to ms
         percentile_values = [x/1000 for x in percentile_values]
-        print(percentile_values)
+        print(memory, percentile_values)
         percentiles_print = [str(x) for x in percentiles]
-        plt.plot(percentiles_print, percentile_values, marker='o', markersize=20, color = plot_color[index], alpha = plot_alpha[index], label = f'LL_{memory}', linewidth=6)
+        plt.plot(percentiles_print, percentile_values, marker='o', markersize=20, color = plot_color[index], alpha = plot_alpha[index], label = f'GC_{memory}', linewidth=6)
         index += 1
     
     # plt.xlabel('Percentile')
@@ -274,15 +275,24 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     # # Save the plot to the specified file
     # plt.savefig("naivesolution4.pdf", bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     # plt.figure(figsize=(15, 7))
+
+    # remove GC instances (median + 1 standard deviation)
+    image_latencies = []
+    for latency in latencies:
+        gc_threshold = np.median(latency) + np.std(latency)
+        img_latency = [x for x in latency if x <= gc_threshold]
+        # print(img_latency[:15], len(latency), len(img_latency))
+        image_latencies.append(img_latency)
     index = 0
     for client_times, memory in zip(image_latencies, memory_sizes):
         # Calculate the response times at each percentile
         percentile_values = [np.percentile(client_times, p) for p in percentiles]
-        percentile_values = [x/100000 for x in percentile_values]
-        print(percentile_values)
+        percentile_values = [x/1000 for x in percentile_values]
+        print(memory, percentile_values)
         percentiles_print = [str(x) for x in percentiles]
-        plt.plot(percentiles_print, percentile_values, marker='x', markersize=20, linestyle = '--', color = plot_color[index],alpha = plot_alpha[index], label = f'Img_{memory}', linewidth=6)
+        plt.plot(percentiles_print, percentile_values, marker='x', markersize=20, linestyle = '--', color = plot_color[index],alpha = plot_alpha[index], label = f'Ideal_{memory}', linewidth=6)
         index += 1
+
     # Add the expected service level line
     # expected_service_level = median + 3  # Example value for demonstration
     # plt.axhline(y=expected_service_level, color='orange', linestyle='--', label='Expected Service Level')
@@ -293,12 +303,12 @@ def plot_hdr_histograms(latencies, image_latencies, memory_sizes):
     # plt.title('Response Time by Percentile Distribution')
 
     # Set the x-axis to a logarithmic scale
-    # plt.yscale('symlog')
+    plt.yscale('symlog')
     # plt.ylim([0, 400])
     # plt.xticks(percentiles, labels=[f"{p}%" for p in percentiles])
 
     # Add grid and legend
-    plt.grid(axis='y')
+    plt.grid(axis='y', which ='both')
     plt.legend(loc='upper center', ncols = 3, bbox_to_anchor=(0.5, 1.4))
 
     # Save the plot to the specified file
@@ -317,15 +327,17 @@ if __name__ == "__main__":
         read_me = f'times_{mem}.txt'
         with open(read_me, 'r') as f:
             client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
-            # print(client_times[:10])
+            # Discard noise
+            client_times = client_times[1000:]
+            print(mem, client_times[:15])
             latencies.append(client_times)
     
-    image_latencies = []
-    for mem in memory_sizes:
-        read_me = f'image_{mem}.txt'
-        with open(read_me, 'r') as f:
-            client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
-            print(client_times[:10])
-            image_latencies.append(client_times)
-    plot_hdr_histograms(latencies, image_latencies, memory_sizes)
+    # image_latencies = []
+    # for mem in memory_sizes:
+    #     read_me = f'image_{mem}.txt'
+    #     with open(read_me, 'r') as f:
+    #         client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
+    #         print(client_times[:10])
+    #         image_latencies.append(client_times)
+    plot_hdr_histograms(latencies, memory_sizes)
     
