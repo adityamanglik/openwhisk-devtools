@@ -321,7 +321,7 @@ if __name__ == "__main__":
         # print("Usage: python script.py <client_time_file> <server_time_file> <memory_file> <dist_image_file> <latency_image_file>")
         # sys.exit(1)
         
-    memory_sizes=["128m", "512m", "10240m"]
+    memory_sizes=["128m", "1024m", "10240m"]
     latencies = []
     for mem in memory_sizes:
         read_me = f'times_{mem}.txt'
