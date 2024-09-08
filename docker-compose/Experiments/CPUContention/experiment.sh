@@ -3,24 +3,23 @@ OW_SERVER_NODE="am_CU@node0"
 # Define the memory sizes to iterate over
 # memory_sizes=("128m" "256m" "512m" "1024m" "2048m")
 memory_sizes=("128m" "256m" "10240m")
+cpus=("1" "4" "8" "16" "32")
 # memory_sizes=("128m")
 # Start container on node0 with specified memory allocation
-for memory in "${memory_sizes[@]}"; do
-    echo "Running with memory size: $memory"
-    # Convert memory size to MiB for GOMEMLIMIT if needed
-    memory_mib=$(echo $memory | sed 's/m/MiB/')
-
+for cpu in "${cpus[@]}"; do
+    echo "Running with cpu size: $cpu"
+    
     ssh $OW_SERVER_NODE "docker stop my-go-server"
     ssh $OW_SERVER_NODE "docker run hello-world"
-    ssh $OW_SERVER_NODE "docker build --build-arg GOGC=1000 --build-arg GOMEMLIMIT=$memory_mib -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
-    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=${memory} -d  --rm --name my-go-server -p 9501:9500 go-server-image"
+    ssh $OW_SERVER_NODE "docker build --build-arg GOGC=1 --build-arg GOMEMLIMIT=128MiB --build-arg MAXPROCS=8  -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
+    ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d --rm --name my-go-server -p 9501:9500 go-server-image"
     # Send traffic and record timings
     sleep 2
     # Gut cold start
     curl "http://node0:9501/GoNative?seed=1000&arraysize=10000&requestnumber=56"
     go run request_sender.go 10000
-    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/go_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/times_${memory}.txt
-    # mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/image_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/ContainerMemoryVariation/Graphs/image_${memory}.txt
+    mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/CPUContention/go_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/CPUContention/Graphs/times_${cpu}.txt
+    # mv /users/am_CU/openwhisk-devtools/docker-compose/Experiments/CPUContention/image_server_times.txt /users/am_CU/openwhisk-devtools/docker-compose/Experiments/CPUContention/Graphs/image_${cpu}.txt
 done
 cd Graphs/; python response_time_plotter.py
 # Plot timings in SLA plot

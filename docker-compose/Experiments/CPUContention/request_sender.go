@@ -15,7 +15,7 @@ import (
 	// "gonum.org/v1/gonum/stat"
 )
 
-var iterations int = 999999
+var iterations int = 99
 
 // var actualIterations int = 99999
 
