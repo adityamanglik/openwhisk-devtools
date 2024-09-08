@@ -333,7 +333,7 @@ if __name__ == "__main__":
             client_times = client_times[1000:]
             print(mem, client_times[:15])
             client_stats = calculate_statistics(client_times)
-            stats_text = f'Client Times\nAverage: {client_stats[0]:.2f}\nP50: {client_stats[1]:.2f}\nP90: {client_stats[2]:.2f}\nP99: {client_stats[3]:.2f}\nSTD: {client_stats[5]:.2f}\nSum: {sum(client_stats)}'
+            stats_text = f'Client Times\nAverage: {client_stats[0]:.2f}\nP50: {client_stats[1]:.2f}\nP90: {client_stats[2]:.2f}\nP99: {client_stats[3]:.2f}\nSTD: {client_stats[5]:.2f}\nSum: {client_stats[4]:.2f}'
             print(stats_text)
     
             # latencies.append(client_times)
