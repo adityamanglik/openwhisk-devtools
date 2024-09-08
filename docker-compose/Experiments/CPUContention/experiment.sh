@@ -11,7 +11,7 @@ for cpu in "${cpus[@]}"; do
     
     ssh $OW_SERVER_NODE "docker stop my-go-server"
     ssh $OW_SERVER_NODE "docker run hello-world"
-    ssh $OW_SERVER_NODE "docker build --build-arg GOGC=1 --build-arg GOMEMLIMIT=128MiB --build-arg MAXPROCS=8  -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
+    ssh $OW_SERVER_NODE "docker build --build-arg GOGC=100 --build-arg GOMEMLIMIT=128MiB --build-arg MAXPROCS=${cpu} -t go-server-image /users/am_CU/openwhisk-devtools/docker-compose/Native/Go/"
     ssh $OW_SERVER_NODE "docker run --cpuset-cpus 4 --memory=128m -d --rm --name my-go-server -p 9501:9500 go-server-image"
     # Send traffic and record timings
     sleep 2

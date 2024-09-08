@@ -323,7 +323,7 @@ if __name__ == "__main__":
         # print("Usage: python script.py <client_time_file> <server_time_file> <memory_file> <dist_image_file> <latency_image_file>")
         # sys.exit(1)
         
-    memory_sizes=["128m", "256m", "10240m"]
+    memory_sizes=["1", "4", "8", "16", "32"]
     latencies = []
     for mem in memory_sizes:
         read_me = f'times_{mem}.txt'
@@ -332,7 +332,11 @@ if __name__ == "__main__":
             # Discard noise
             client_times = client_times[1000:]
             print(mem, client_times[:15])
-            latencies.append(client_times)
+            client_stats = calculate_statistics(client_times)
+            stats_text = f'Client Times\nAverage: {client_stats[0]:.2f}\nP50: {client_stats[1]:.2f}\nP90: {client_stats[2]:.2f}\nP99: {client_stats[3]:.2f}\nSTD: {client_stats[5]:.2f}\nSum: {sum(client_stats)}'
+            print(stats_text)
+    
+            # latencies.append(client_times)
     
     # image_latencies = []
     # for mem in memory_sizes:
@@ -341,5 +345,5 @@ if __name__ == "__main__":
     #         client_times = [float(line.strip().split(', ')[1]) for line in f.readlines()]
     #         print(client_times[:10])
     #         image_latencies.append(client_times)
-    plot_hdr_histograms(latencies, memory_sizes)
-    plot_histograms(latencies[0], "dist.pdf")
+    # plot_hdr_histograms(latencies, memory_sizes)
+    # plot_histograms(latencies[0], "dist.pdf")
