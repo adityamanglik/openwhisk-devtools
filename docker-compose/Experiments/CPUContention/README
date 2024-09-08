@@ -1,0 +1,10 @@
+Goal: Draw graph for compares latency for containers with different memory allocations.
+
+Start container
+Send warm up queries
+Send stable queries
+Generates response time distribution
+Generates SLA plot for different memory containers to prove GC is not solvable
+
+Run:
+bash experiment.sh
