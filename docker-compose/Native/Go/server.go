@@ -21,6 +21,7 @@ import (
 )
 
 const serverPort = ":9500"
+
 var cachedImage image.Image
 
 func init() {
@@ -125,7 +126,6 @@ func ImageProcessor(w http.ResponseWriter, r *http.Request) {
 	// log.Printf("Request processed in %v\n", executionTime)
 }
 
-
 func jsonHandler(w http.ResponseWriter, r *http.Request) {
 	params := r.URL.Query()
 	seed := 42               // default seed value
@@ -179,10 +179,10 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 	start := time.Now().UnixMicro()
 
 	rand.Seed(int64(seed))
-	
+
 	// log.Println("File open: ", time.Now().UnixMicro() - start)
 	img := cachedImage
-	
+
 	// log.Println("Decode: ", time.Now().UnixMicro() - start)
 
 	bounds := img.Bounds()
@@ -257,22 +257,22 @@ func ImageLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 
 // Implement a basic nearest-neighbor resizing algorithm
 func resize(img image.Image, newSize int) *image.RGBA {
-    srcBounds := img.Bounds()
-    dstBounds := image.Rect(0, 0, newSize, newSize)
-    newImg := image.NewRGBA(dstBounds)
+	srcBounds := img.Bounds()
+	dstBounds := image.Rect(0, 0, newSize, newSize)
+	newImg := image.NewRGBA(dstBounds)
 
-    xRatio := float64(srcBounds.Dx()) / float64(newSize)
-    yRatio := float64(srcBounds.Dy()) / float64(newSize)
+	xRatio := float64(srcBounds.Dx()) / float64(newSize)
+	yRatio := float64(srcBounds.Dy()) / float64(newSize)
 
-    for y := 0; y < newSize; y++ {
-        for x := 0; x < newSize; x++ {
-            srcX := int(float64(x) * xRatio)
-            srcY := int(float64(y) * yRatio)
-            newImg.Set(x, y, img.At(srcX, srcY))
-        }
-    }
+	for y := 0; y < newSize; y++ {
+		for x := 0; x < newSize; x++ {
+			srcX := int(float64(x) * xRatio)
+			srcY := int(float64(y) * yRatio)
+			newImg.Set(x, y, img.At(srcX, srcY))
+		}
+	}
 
-    return newImg
+	return newImg
 }
 
 func sumPixels(img image.Image) int64 {
@@ -361,6 +361,7 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 
 	gogcValue := os.Getenv("GOGC")
 	gomemlimitValue := os.Getenv("GOMEMLIMIT")
+	procsvalue := os.Getenv("GOMAXPROCS")
 	var m runtime.MemStats
 	runtime.ReadMemStats(&m)
 
@@ -372,6 +373,7 @@ func mainLogic(seed int, ARRAY_SIZE int, REQ_NUM int) ([]byte, error) {
 	response["NumGC"] = m.NumGC
 	response["GOGC"] = gogcValue
 	response["GOMEMLIMIT"] = gomemlimitValue
+	response["GOMAXPROCS"] = procsvalue
 	jsonResponse, err := json.Marshal(response)
 	return jsonResponse, err
 }

@@ -19,11 +19,12 @@ COPY . .
 # Accept build arguments for GOGC and GOMEMLIMIT
 ARG GOGC
 ARG GOMEMLIMIT
+ARG MAXPROCS
 
 # Set environment variables
 ENV GOGC=$GOGC
 ENV GOMEMLIMIT=$GOMEMLIMIT
-ENV GOMAXPROCS=1
+ENV GOMAXPROCS=$MAXPROCS
 
 # Build the Go application
 RUN go build -o server
