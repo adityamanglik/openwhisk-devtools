@@ -127,19 +127,21 @@ def plot_latency(client_times, server_times, memory_log, second_container, outpu
         
     
 
-def plot_histograms(client_times, server_times, output_image_file):
+def plot_histograms(client_times, output_image_file):
+    # adjust times
+    client_times = [x/1000 for x in client_times]
     # Plotting
     fig, ax1 = plt.subplots(figsize=(10, 6))
 
     # Plot client times on the primary y-axis
-    client_times[0] = 1.1*max(client_times[1:])
-    print(client_times[:10])
-    ax1.hist(client_times, bins=200, color='r', alpha=0.7, label='Client Response Times')
-    ax1.set_xlabel('Time (milliseconds)')
-    ax1.set_ylabel('Client Frequency', color='g')
+    # client_times[0] = 1.1*max(client_times[1:])
+    # print(client_times[:10])
+    ax1.hist(client_times, bins=200, color='r', alpha=0.7, label='With GC')
+    ax1.set_xlabel('Latency (ms)')
+    ax1.set_ylabel('Frequency', color='g')
 
     # Plot cold start marker
-    ax1.plot(client_times[0], 3, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red", label='Cold Start')
+    # ax1.plot(client_times[0], 3, marker="*", markersize=20, markeredgecolor="black", markerfacecolor="red", label='Cold Start')
     
     # Create a secondary y-axis for server times
     # ax2 = ax1.twinx()
@@ -147,7 +149,7 @@ def plot_histograms(client_times, server_times, output_image_file):
     # ax2.set_ylabel('Server Frequency', color='b')
 
     # Add titles and legends
-    plt.title('Histogram of Response Times')
+    # plt.title('Histogram of Response Times')
     ax1.legend(loc='upper center')
     # ax2.legend(loc='upper left')
     
@@ -340,4 +342,4 @@ if __name__ == "__main__":
     #         print(client_times[:10])
     #         image_latencies.append(client_times)
     plot_hdr_histograms(latencies, memory_sizes)
-    
+    plot_histograms(latencies[0], "dist.pdf")
