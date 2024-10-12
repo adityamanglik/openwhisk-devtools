@@ -1,6 +1,5 @@
 # Use a base image with Go installed (specify the Go version you need)
 FROM golang
-
 # Set the working directory inside the container
 WORKDIR /app
 
@@ -17,9 +16,9 @@ RUN go mod download
 COPY . .
 
 # Accept build arguments for GOGC and GOMEMLIMIT
-ARG GOGC
-ARG GOMEMLIMIT
-ARG MAXPROCS
+ARG GOGC=1000
+ARG GOMEMLIMIT=128MiB
+ARG GOMAXPROCS=1
 
 # Set environment variables
 ENV GOGC=$GOGC

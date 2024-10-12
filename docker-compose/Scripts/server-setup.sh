@@ -10,14 +10,9 @@ sudo sysctl -w fs.file-max=262144
 sudo sysctl net.core.somaxconn=1024
 sudo sysctl net.core.netdev_max_backlog=2000
 sudo sysctl net.ipv4.tcp_max_syn_backlog=2048
-sudo apt-get install gcc-multilib -y #for go
-wget https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
-sudo tar -xvf go1.22.4.linux-amd64.tar.gz
-sudo mv go /usr/local
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-source ~/.profile
+sudo apt-get install gcc-multilib jq -y #for go
+curl -LO get.golang.org/$(uname)/go_installer && chmod +x go_installer && ./go_installer --version $(curl https://go.dev/dl/?mode=json | jq -r '.[0].version') && rm go_installer
+source /users/am_CU/.bash_profile
 pip install pillow
 pip install psutil # Python server
 # Extend file handle limits

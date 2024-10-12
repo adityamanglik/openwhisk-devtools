@@ -9,15 +9,9 @@ sudo sysctl net.ipv4.tcp_tw_reuse=1
 sudo sysctl -w fs.file-max=262144
 sudo apt install python3-locust -y
 sudo apt install apache2-utils  -y
-sudo apt-get install gcc-multilib -y #for go
-wget https://go.dev/dl/go1.22.4.linux-amd64.tar.gz
-sudo tar -xvf go1.22.4.linux-amd64.tar.gz
-sudo mv go /usr/local
-echo "export GOROOT=/usr/local/go" >> ~/.bashrc
-echo "export GOPATH=$HOME/go" >> ~/.bashrc
-echo "export PATH=$GOPATH/bin:$GOROOT/bin:$PATH" >> ~/.bashrc
-echo "export GO111MODULE=on" >> ~/.bashrc
-source ~/.profile
+sudo apt-get install gcc-multilib jq -y #for go
+curl -LO get.golang.org/$(uname)/go_installer && chmod +x go_installer && ./go_installer --version $(curl https://go.dev/dl/?mode=json | jq -r '.[0].version') && rm go_installer
+source /users/am_CU/.bash_profile
 go get -u gonum.org/v1/gonum/...
 sudo apt install python3-pip -y
 pip install matplotlib requests pandas
