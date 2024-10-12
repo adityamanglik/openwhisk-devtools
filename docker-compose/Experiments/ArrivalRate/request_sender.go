@@ -7,21 +7,13 @@ import (
 	"io/ioutil"
 	"math/rand"
 	"net/http"
-	"os"
 	"sort"
-	"strconv"
 	"time"
 )
 
-var iterations int = 500
-var actualIterations int = 1000
-
 // Constants for API endpoint and file names
 const (
-	goAPI               = "http://node0:9501/GoNative"
-	goResponseTimesFile = "go_response_times.txt"
-	goServerTimesFile   = "go_server_times.txt"
-	goHeapFile          = "go_heap_memory.log"
+	goAPI = "http://node0:9501/GoNative"
 )
 
 // Response structure for unmarshalling JSON data
@@ -31,31 +23,20 @@ type APIResponse struct {
 }
 
 func main() {
-	// Set a default value for arraysize
-	defaultArraySize := 100
-	arraysize := defaultArraySize
+	// Set default values directly in main
+	arraysize := 10000 // Size of the array to process
+	rate := 410.0      // Request rate (requests per second)
+	duration := 60     // Duration of the test in seconds
 
-	// Check if a command line argument is provided
-	if len(os.Args) > 1 {
-		arraysizeStr := os.Args[1]
-		if convertedSize, err := strconv.Atoi(arraysizeStr); err == nil {
-			arraysize = convertedSize // Update only if conversion is successful
-		} else {
-			fmt.Printf("Invalid array size provided, using default value %d\n", defaultArraySize)
-		}
-	}
 	fmt.Printf("\nArraysize: %d\n", arraysize)
+	fmt.Printf("Request Rate: %.2f requests/sec\n", rate)
+	fmt.Printf("Test Duration: %d seconds\n", duration)
 
 	// Ensure server is alive
 	checkServerAlive(goAPI)
 
-	// Warm up
-	goResponseTimes, goServerTimes, _ := sendRequests(goAPI, arraysize)
-	iterations = actualIterations
-	fmt.Printf("Warm up done, starting measurement run\n")
-
 	// Actual measurements
-	goResponseTimes, goServerTimes, _ = sendRequests(goAPI, arraysize)
+	goResponseTimes, goServerTimes, _ := sendRequests(goAPI, arraysize, rate, duration)
 
 	// Perform latency analysis
 	err := latencyAnalysis(arraysize, goResponseTimes, goServerTimes)
@@ -64,18 +45,35 @@ func main() {
 	}
 }
 
-func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
+func sendRequests(apiURL string, arraysize int, rate float64, duration int) ([]int64, []int64, []int64) {
 	var responseTimes []int64
 	var serverTimes []int64
 	var heapSizes []int64
+	// Simulate cold start latency as first reading
+	responseTimes = append(responseTimes, 200000)
+	serverTimes = append(serverTimes, 200000)
+	heapSizes = append(heapSizes, 0)
 
-	for i := 0; i < iterations; i++ {
+	interval := time.Duration(float64(time.Second) / rate)
+	startTime := time.Now()
+	i := 0
+
+	for {
+		currentTime := time.Now()
+		elapsedTime := currentTime.Sub(startTime)
+		if elapsedTime.Seconds() >= float64(duration) {
+			fmt.Printf("Test duration of %d seconds completed.\n", duration)
+			break
+		}
+
+		requestStartTime := time.Now()
+
 		seed := rand.Intn(10000) // Example seed generation
 		requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
 		requestURL2 := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
 		requestURL := fmt.Sprintf("%s&requestnumber=%d", requestURL2, i)
 
-		startTime := time.Now()
+		startTimeReq := time.Now()
 		resp, err := http.Get(requestURL)
 		if err != nil {
 			fmt.Println("Error sending request:", err)
@@ -101,11 +99,20 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 			continue
 		}
 
-		elapsed := time.Since(startTime)
+		elapsed := time.Since(startTimeReq)
 
 		responseTimes = append(responseTimes, elapsed.Microseconds())
 		serverTimes = append(serverTimes, apiResp.ExecutionTime)
 		heapSizes = append(heapSizes, apiResp.HeapAlloc)
+
+		// Calculate time to sleep to maintain the request rate
+		timeTaken := time.Since(requestStartTime)
+		timeToSleep := interval - timeTaken
+		if timeToSleep > 0 {
+			time.Sleep(timeToSleep)
+		}
+		// Increment request counter
+		i++
 	}
 
 	return responseTimes, serverTimes, heapSizes
@@ -113,7 +120,7 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 
 func checkServerAlive(apiURL string) {
 	fmt.Println("Checking server for heartbeat.")
-	for i := 0; i < iterations/10; i++ {
+	for i := 0; i < 10; i++ {
 		seed := rand.Intn(10000) // Random seed generation
 		arraysize := 10          // Do not pollute memory for aliveCheck
 		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
@@ -179,6 +186,7 @@ func latencyAnalysis(arraySize int, responseTimes, serverTimes []int64) error {
 
 	// Print latency statistics
 	fmt.Printf("\nLatency Statistics for Array Size %d:\n", arraySize)
+	fmt.Printf("Total Requests: %d\n", len(responseTimes))
 	fmt.Printf("Response Times (microseconds):\n")
 	fmt.Printf("P50: %d, P90: %d, P95: %d, P99: %d, P99.9: %d, P99.99: %d\n",
 		responseP50, responseP90, responseP95, responseP99, responseP999, responseP9999)
