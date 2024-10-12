@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-// Constants for API endpoint and file names
+// Constants for API endpoint
 const (
 	goAPI = "http://node0:9501/GoNative"
 )
@@ -25,24 +25,28 @@ type APIResponse struct {
 
 func main() {
 	// Set default values directly in main
-	arraysize := 10000 // Size of the array to process
-	rate := 0.1        // Request rate (requests per second)
-	duration := 60     // Duration of the test in seconds
+	arraysize := 10000                       // Size of the array to process
+	rates := []float64{0.1, 1, 10, 200, 400} // Request rates to test
+	duration := 30                           // Duration of the test in seconds
 
 	fmt.Printf("\nArraysize: %d\n", arraysize)
-	fmt.Printf("Request Rate: %.2f requests/sec\n", rate)
 	fmt.Printf("Test Duration: %d seconds\n", duration)
 
 	// Ensure server is alive
 	checkServerAlive(goAPI)
 
-	// Actual measurements
-	goResponseTimes, goServerTimes, _ := sendRequests(goAPI, arraysize, rate, duration)
+	// Loop over the different rates
+	for _, rate := range rates {
+		fmt.Printf("\nTesting at Request Rate: %.2f requests/sec\n", rate)
 
-	// Perform latency analysis
-	err := latencyAnalysis(arraysize, goResponseTimes, goServerTimes)
-	if err != nil {
-		fmt.Println("Error during latency analysis:", err)
+		// Actual measurements
+		goResponseTimes, goServerTimes, _ := sendRequests(goAPI, arraysize, rate, duration)
+
+		// Perform latency analysis
+		err := latencyAnalysis(arraysize, rate, goResponseTimes, goServerTimes)
+		if err != nil {
+			fmt.Println("Error during latency analysis:", err)
+		}
 	}
 }
 
@@ -50,6 +54,7 @@ func sendRequests(apiURL string, arraysize int, rate float64, duration int) ([]i
 	var responseTimes []int64
 	var serverTimes []int64
 	var heapSizes []int64
+
 	// Simulate cold start latency as first reading
 	responseTimes = append(responseTimes, 200000)
 	serverTimes = append(serverTimes, 200000)
@@ -145,7 +150,7 @@ func checkServerAlive(apiURL string) {
 	}
 }
 
-func latencyAnalysis(arraySize int, responseTimes, serverTimes []int64) error {
+func latencyAnalysis(arraySize int, rate float64, responseTimes, serverTimes []int64) error {
 	// Helper function to calculate percentiles
 	percentile := func(times []int64, p float64) int64 {
 		if len(times) == 0 {
@@ -191,7 +196,7 @@ func latencyAnalysis(arraySize int, responseTimes, serverTimes []int64) error {
 	throughput := float64(len(serverTimes)) / totalServerTimeSeconds
 
 	// Print latency statistics
-	fmt.Printf("\nLatency Statistics for Array Size %d:\n", arraySize)
+	fmt.Printf("\nLatency Statistics for Array Size %d at Rate %.2f requests/sec:\n", arraySize, rate)
 	fmt.Printf("Total Requests: %d\n", len(responseTimes))
 	fmt.Printf("Response Times (microseconds):\n")
 	fmt.Printf("P50: %d, P90: %d, P95: %d, P99: %d, P99.9: %d, P99.99: %d, P99.999: %d\n",
