@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
+	"math"
 	"math/rand"
 	"net/http"
 	"sort"
@@ -25,7 +26,7 @@ type APIResponse struct {
 func main() {
 	// Set default values directly in main
 	arraysize := 10000 // Size of the array to process
-	rate := 410.0      // Request rate (requests per second)
+	rate := 0.1        // Request rate (requests per second)
 	duration := 60     // Duration of the test in seconds
 
 	fmt.Printf("\nArraysize: %d\n", arraysize)
@@ -153,7 +154,10 @@ func latencyAnalysis(arraySize int, responseTimes, serverTimes []int64) error {
 		sortedTimes := make([]int64, len(times))
 		copy(sortedTimes, times)
 		sort.Slice(sortedTimes, func(i, j int) bool { return sortedTimes[i] < sortedTimes[j] })
-		index := int(float64(len(sortedTimes)-1) * p)
+		index := int(math.Ceil(float64(len(sortedTimes)-1) * p))
+		if index >= len(sortedTimes) {
+			index = len(sortedTimes) - 1
+		}
 		return sortedTimes[index]
 	}
 
@@ -164,6 +168,7 @@ func latencyAnalysis(arraySize int, responseTimes, serverTimes []int64) error {
 	responseP99 := percentile(responseTimes, 0.99)
 	responseP999 := percentile(responseTimes, 0.999)
 	responseP9999 := percentile(responseTimes, 0.9999)
+	responseP99999 := percentile(responseTimes, 0.99999)
 
 	// Calculate server time statistics
 	serverP50 := percentile(serverTimes, 0.50)
@@ -172,6 +177,7 @@ func latencyAnalysis(arraySize int, responseTimes, serverTimes []int64) error {
 	serverP99 := percentile(serverTimes, 0.99)
 	serverP999 := percentile(serverTimes, 0.999)
 	serverP9999 := percentile(serverTimes, 0.9999)
+	serverP99999 := percentile(serverTimes, 0.99999)
 
 	// Calculate total server time (in microseconds)
 	var totalServerTime int64 = 0
@@ -188,11 +194,11 @@ func latencyAnalysis(arraySize int, responseTimes, serverTimes []int64) error {
 	fmt.Printf("\nLatency Statistics for Array Size %d:\n", arraySize)
 	fmt.Printf("Total Requests: %d\n", len(responseTimes))
 	fmt.Printf("Response Times (microseconds):\n")
-	fmt.Printf("P50: %d, P90: %d, P95: %d, P99: %d, P99.9: %d, P99.99: %d\n",
-		responseP50, responseP90, responseP95, responseP99, responseP999, responseP9999)
+	fmt.Printf("P50: %d, P90: %d, P95: %d, P99: %d, P99.9: %d, P99.99: %d, P99.999: %d\n",
+		responseP50, responseP90, responseP95, responseP99, responseP999, responseP9999, responseP99999)
 	fmt.Printf("Server Execution Times (microseconds):\n")
-	fmt.Printf("P50: %d, P90: %d, P95: %d, P99: %d, P99.9: %d, P99.99: %d\n",
-		serverP50, serverP90, serverP95, serverP99, serverP999, serverP9999)
+	fmt.Printf("P50: %d, P90: %d, P95: %d, P99: %d, P99.9: %d, P99.99: %d, P99.999: %d\n",
+		serverP50, serverP90, serverP95, serverP99, serverP999, serverP9999, serverP99999)
 	fmt.Printf("Throughput based on server time: %.2f requests/second\n", throughput)
 
 	return nil
