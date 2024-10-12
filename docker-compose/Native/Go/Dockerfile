@@ -23,7 +23,7 @@ ARG GOMAXPROCS=1
 # Set environment variables
 ENV GOGC=$GOGC
 ENV GOMEMLIMIT=$GOMEMLIMIT
-ENV GOMAXPROCS=$MAXPROCS
+ENV GOMAXPROCS=$GOMAXPROCS
 
 # Build the Go application
 RUN go build -o server
