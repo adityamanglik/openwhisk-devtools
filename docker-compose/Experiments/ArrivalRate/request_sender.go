@@ -27,7 +27,7 @@ func main() {
 	// Set default values directly in main
 	arraysize := 10000                       // Size of the array to process
 	rates := []float64{0.1, 1, 10, 200, 400} // Request rates to test
-	duration := 30                           // Duration of the test in seconds
+	duration := 60                           // Duration of the test in seconds
 
 	fmt.Printf("\nArraysize: %d\n", arraysize)
 	fmt.Printf("Test Duration: %d seconds\n", duration)
@@ -64,6 +64,16 @@ func sendRequests(apiURL string, arraysize int, rate float64, duration int) ([]i
 	startTime := time.Now()
 	i := 0
 
+	// Create a custom HTTP client with connection reuse
+	client := &http.Client{
+		Transport: &http.Transport{
+			MaxIdleConns:        100,
+			MaxIdleConnsPerHost: 100,
+			IdleConnTimeout:     90 * time.Second,
+		},
+		Timeout: 30 * time.Second,
+	}
+
 	for {
 		currentTime := time.Now()
 		elapsedTime := currentTime.Sub(startTime)
@@ -80,19 +90,21 @@ func sendRequests(apiURL string, arraysize int, rate float64, duration int) ([]i
 		requestURL := fmt.Sprintf("%s&requestnumber=%d", requestURL2, i)
 
 		startTimeReq := time.Now()
-		resp, err := http.Get(requestURL)
+		resp, err := client.Get(requestURL)
 		if err != nil {
 			fmt.Println("Error sending request:", err)
 			continue
 		}
-		defer resp.Body.Close()
 
 		if resp.StatusCode != http.StatusOK {
 			fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
+			resp.Body.Close()
+			continue
 		}
 
 		// Read and unmarshal the response body
 		responseBody, err := ioutil.ReadAll(resp.Body)
+		resp.Body.Close()
 		if err != nil {
 			fmt.Println("Error reading response body:", err)
 			continue
@@ -191,7 +203,6 @@ func latencyAnalysis(arraySize int, rate float64, responseTimes, serverTimes []i
 	}
 
 	// Calculate throughput based on total server time
-	// Convert totalServerTime to seconds
 	totalServerTimeSeconds := float64(totalServerTime) / 1e6
 	throughput := float64(len(serverTimes)) / totalServerTimeSeconds
 
