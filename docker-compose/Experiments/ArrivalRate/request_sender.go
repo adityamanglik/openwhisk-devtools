@@ -25,9 +25,9 @@ type APIResponse struct {
 
 func main() {
 	// Set default values directly in main
-	arraysize := 10000                            // Size of the array to process
-	rates := []float64{0.1, 1, 20, 200, 400, 500} // Request rates to test
-	duration := 900                               // Duration of the test in seconds
+	arraysize := 10000             // Size of the array to process
+	rates := []float64{20, 20, 20} // Request rates to test
+	duration := 900                // Duration of the test in seconds
 
 	fmt.Printf("\nArraysize: %d\n", arraysize)
 	fmt.Printf("Test Duration: %d seconds\n", duration)

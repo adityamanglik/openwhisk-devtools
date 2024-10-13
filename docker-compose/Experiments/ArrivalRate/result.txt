@@ -1,0 +1,202 @@
+am_CU@node0:~/openwhisk-devtools/docker-compose/Experiments/ArrivalRate$ go run request_sender.go 
+
+Arraysize: 10000
+Test Duration: 900 seconds
+Checking server for heartbeat.
+OK Response received from server.
+Response:  {"GOGC":"1000","GOMAXPROCS":"1","GOMEMLIMIT":"128MiB","NextGC":41943040,"NumGC":0,"arraysize":10,"executionTime":143,"heapAlloc":18537472,"heapIdle":5808128,"requestNumber":2147483647,"sum":18530}
+=============================================================================
+Testing at Request Rate: 0.10 requests/sec
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 0.10 requests/sec:
+Total Requests: 91
+Response Times (microseconds):
+P50: 7004, P90: 7959, P95: 8076, P99: 200000, P99.9: 200000, P99.99: 200000, P99.999: 200000
+Server Execution Times (microseconds):
+P50: 6281, P90: 7225, P95: 7262, P99: 200000, P99.9: 200000, P99.99: 200000, P99.999: 200000
+Throughput based on server time: 116.97 requests/second
+=============================================================================
+Testing at Request Rate: 1.00 requests/sec
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 1.00 requests/sec:
+Total Requests: 901
+Response Times (microseconds):
+P50: 6964, P90: 7700, P95: 7946, P99: 9361, P99.9: 200000, P99.99: 200000, P99.999: 200000
+Server Execution Times (microseconds):
+P50: 6268, P90: 6972, P95: 7226, P99: 8591, P99.9: 200000, P99.99: 200000, P99.999: 200000
+Throughput based on server time: 151.54 requests/second
+=============================================================================
+Testing at Request Rate: 20.00 requests/sec
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 20.00 requests/sec:
+Total Requests: 17915
+Response Times (microseconds):
+P50: 6994, P90: 7052, P95: 7075, P99: 7811, P99.9: 12606, P99.99: 28765, P99.999: 200000
+Server Execution Times (microseconds):
+P50: 6270, P90: 6315, P95: 6332, P99: 6877, P99.9: 11839, P99.99: 28003, P99.999: 200000
+Throughput based on server time: 159.20 requests/second
+=============================================================================
+Testing at Request Rate: 200.00 requests/sec
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=10214": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=15408": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=18207": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=19292": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=36990": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=67128": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=74462": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=76649": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=87596": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=120076": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=133274": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=143477": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=148917": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=152236": EOF
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 200.00 requests/sec:
+Total Requests: 165080
+Response Times (microseconds):
+P50: 4221, P90: 4477, P95: 4697, P99: 7499, P99.9: 9893, P99.99: 12343, P99.999: 14910
+Server Execution Times (microseconds):
+P50: 3777, P90: 3964, P95: 4058, P99: 6179, P99.9: 7247, P99.99: 10674, P99.999: 11662
+Throughput based on server time: 267.32 requests/second
+=============================================================================
+Testing at Request Rate: 400.00 requests/sec
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=4349": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=18529": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=20710": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=21501": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=28726": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=42050": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=53930": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=54167": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=67110": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=68515": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=70228": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=79551": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=80446": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=86612": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=96078": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=99644": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=122210": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=126146": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=131002": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=133095": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=138433": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=162932": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=167718": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=184746": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=206589": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=217964": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=234236": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=247471": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=248381": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=256064": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=256475": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=262894": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=276373": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=285581": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=288025": EOF
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 400.00 requests/sec:
+Total Requests: 315845
+Response Times (microseconds):
+P50: 2751, P90: 2862, P95: 3042, P99: 5459, P99.9: 7969, P99.99: 10040, P99.999: 14293
+Server Execution Times (microseconds):
+P50: 2490, P90: 2536, P95: 2557, P99: 4557, P99.9: 4933, P99.99: 6471, P99.999: 9290
+Throughput based on server time: 405.82 requests/second
+
+Testing at Request Rate: 500.00 requests/sec
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=26602": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=47306": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=54841": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=85410": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=86167": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=86612": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=87062": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=87659": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=110793": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=114422": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=136128": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=137277": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=144079": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=149920": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=152677": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=154804": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=156486": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=158533": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=158685": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=168418": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=182808": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=188448": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=194587": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=202381": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=205094": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=208563": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=219149": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=236757": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=244354": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=265022": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=284130": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=300039": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=321968": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=324843": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=330164": EOF
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 500.00 requests/sec:
+Total Requests: 330346
+Response Times (microseconds):
+P50: 2572, P90: 2821, P95: 2904, P99: 5456, P99.9: 7937, P99.99: 8114, P99.999: 10787
+Server Execution Times (microseconds):
+P50: 2315, P90: 2524, P95: 2541, P99: 4396, P99.9: 4904, P99.99: 5100, P99.999: 8887
+Throughput based on server time: 417.30 requests/second
+==========================================================================================
+am_CU@node0:~/openwhisk-devtools/docker-compose/Experiments/ArrivalRate$ go run request_sender.go 
+
+Arraysize: 10000
+Test Duration: 900 seconds
+Checking server for heartbeat.
+OK Response received from server.
+Response:  {"GOGC":"1000","GOMAXPROCS":"1","GOMEMLIMIT":"128MiB","NextGC":41943040,"NumGC":0,"arraysize":10,"executionTime":46,"heapAlloc":19269360,"heapIdle":5013504,"requestNumber":2147483647,"sum":37692}
+
+Testing at Request Rate: 20.00 requests/sec
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=6536": EOF
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 20.00 requests/sec:
+Total Requests: 17925
+Response Times (microseconds):
+P50: 6976, P90: 7032, P95: 7055, P99: 8095, P99.9: 12735, P99.99: 23943, P99.999: 200000
+Server Execution Times (microseconds):
+P50: 6249, P90: 6293, P95: 6312, P99: 7319, P99.9: 11983, P99.99: 23197, P99.999: 200000
+Throughput based on server time: 159.19 requests/second
+==========================================================================================
+Testing at Request Rate: 20.00 requests/sec
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=4207": EOF
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=12419": EOF
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 20.00 requests/sec:
+Total Requests: 17924
+Response Times (microseconds):
+P50: 6980, P90: 7035, P95: 7055, P99: 8225, P99.9: 12874, P99.99: 16655, P99.999: 200000
+Server Execution Times (microseconds):
+P50: 6251, P90: 6295, P95: 6312, P99: 7463, P99.9: 12085, P99.99: 15884, P99.999: 200000
+Throughput based on server time: 159.21 requests/second
+==========================================================================================
+Testing at Request Rate: 20.00 requests/sec
+Error sending request: Get "http://node0:9501/GoNative?seed=0&arraysize=10000&requestnumber=12030": EOF
+Test duration of 900 seconds completed.
+
+Latency Statistics for Array Size 10000 at Rate 20.00 requests/sec:
+Total Requests: 17924
+Response Times (microseconds):
+P50: 6977, P90: 7030, P95: 7051, P99: 8267, P99.9: 12875, P99.99: 85183, P99.999: 200000
+Server Execution Times (microseconds):
+P50: 6254, P90: 6296, P95: 6312, P99: 7366, P99.9: 12052, P99.99: 69410, P99.999: 200000
+Throughput based on server time: 159.11 requests/second
