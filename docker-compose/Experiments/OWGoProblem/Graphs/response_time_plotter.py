@@ -55,9 +55,9 @@ def calculate_statistics(times):
 
 def plot_latency(client_times, server_times, memory_log, output_image_file, output_image_file_1):
     # plot all iterations in line graph
-    server_times = server_times[200:400]
+    server_times = server_times[200:250]
     server_times = [x/1000 for x in server_times]
-    memory_log = memory_log[200:400]
+    memory_log = memory_log[200:250]
     memory_log = [x/1000000 for x in memory_log]
     fig, ax1 = plt.subplots(figsize=(15, 6))
     # client_times = [x//1000 for x in client_times]
@@ -83,33 +83,6 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     ax2.plot(memory_log, color='b', alpha=0.4, label='HeapAlloc', linestyle='--', linewidth=6)
     ax2.set_ylabel('Heap Memory\n(MB)', color='b')
    
-    # GC_iterations = []
-    # for idx in range(1, len(memory_log)):
-    #     # heapalloc, heapidle
-    #     # mark iterations with HeapIdle increase or HeapAlloc decrease as GC calls
-    #     if memory_log[idx][0] < memory_log[idx - 1][0]:
-    #         # print("HeapAlloc")
-    #         # print(memory_log[idx][0], memory_log[idx - 1][0])
-    #         GC_iterations.append(idx)
-    #     # elif memory_log[idx][1] > memory_log[idx - 1][1]:
-    #         # print("HeapIdle")
-    #         # print(memory_log[idx][1], memory_log[idx - 1][1])
-    #         # GC_iterations.append(idx)
-    #     idx += 1
-    # # Mark GC cycle iterations with green vertical lines
-    # for iter in GC_iterations:
-    #     ax1.axvline(x=iter, c = 'green', alpha = 0.27, linestyle = '--')
-        
-    # # Plot second container calls
-    # if second_container != []:
-    #     for req in second_container:
-    #         ax1.scatter(x=req, y = 3500, c = 'blue', alpha = 0.27, marker = '*')
-        
-    # Add titles and legends
-    # plt.title('Response Times vs Heap memory allocation')
-    # ax1.legend(loc='upper left')
-    # ax2.legend(loc='upper right')    
-    # print(output_image_file.split('.')[0] + "_1.pdf")
     plt.savefig(output_image_file_1, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
         
     
