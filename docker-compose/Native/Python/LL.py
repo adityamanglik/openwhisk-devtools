@@ -5,10 +5,7 @@ import math
 import random
 import time
 import psutil
-import gc
-import os
 from urllib.parse import urlparse, parse_qs
-from PIL import Image, ImageOps
 
 PORT = 9900
 
@@ -127,15 +124,15 @@ def mainLogic(seed, ARRAY_SIZE, REQ_NUM):
     memory_full_info = process.memory_full_info()
 
     # Print all available statistics
-    print("memory_info:")
-    for attr in dir(memory_info):
-        if not attr.startswith('_'):
-            print(f"{attr}: {getattr(memory_info, attr)}")
+    # print("memory_info:")
+    # for attr in dir(memory_info):
+    #     if not attr.startswith('_'):
+    #         print(f"{attr}: {getattr(memory_info, attr)}")
 
-    print("\n----------------------\nmemory_full_info:")
-    for attr in dir(memory_full_info):
-        if not attr.startswith('_'):
-            print(f"{attr}: {getattr(memory_full_info, attr)}")
+    # print("\n----------------------\nmemory_full_info:")
+    # for attr in dir(memory_full_info):
+    #     if not attr.startswith('_'):
+    #         print(f"{attr}: {getattr(memory_full_info, attr)}")
     
     response = {
         "sum": sum_val,
