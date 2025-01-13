@@ -54,7 +54,7 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         # Defaults
         seed = 42
-        array_size = 10000
+        array_size = 100
         req_num = 2**53 - 1  # Just as in your original code
 
         if 'seed' in query_components:
