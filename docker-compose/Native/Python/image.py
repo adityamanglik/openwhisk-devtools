@@ -79,13 +79,13 @@ def generateRandomNormal(mean, stdDev):
     return z0 * stdDev + mean
 
 def ImageLogic(seed, ARRAY_SIZE, REQ_NUM):
-    lst = LinkedList()
+    ARRAY_SIZE = 10
     # Start the timer
     start_time = time.perf_counter()
     
-    file_names = ["Resources/img1.jpg", "Resources/img2.jpg"]
-    selected_file = file_names[random.randint(0, len(file_names) - 1)]
-    
+    # file_names = ["Resources/img1.jpg", "Resources/img2.jpg"]
+    # selected_file = file_names[random.randint(0, len(file_names) - 1)]
+    selected_file = "Resources/img1.jpg"
     if not os.path.exists(selected_file):
         raise FileNotFoundError(f"File {selected_file} not found.")
     
@@ -153,15 +153,15 @@ def ImageLogic(seed, ARRAY_SIZE, REQ_NUM):
     memory_full_info = process.memory_full_info()
 
     # Print all available statistics
-    print("memory_info:")
-    for attr in dir(memory_info):
-        if not attr.startswith('_'):
-            print(f"{attr}: {getattr(memory_info, attr)}")
+    # print("memory_info:")
+    # for attr in dir(memory_info):
+    #     if not attr.startswith('_'):
+    #         print(f"{attr}: {getattr(memory_info, attr)}")
 
-    print("\n----------------------\nmemory_full_info:")
-    for attr in dir(memory_full_info):
-        if not attr.startswith('_'):
-            print(f"{attr}: {getattr(memory_full_info, attr)}")
+    # print("\n----------------------\nmemory_full_info:")
+    # for attr in dir(memory_full_info):
+    #     if not attr.startswith('_'):
+    #         print(f"{attr}: {getattr(memory_full_info, attr)}")
     
     response = {
         "sum": sum_val,
