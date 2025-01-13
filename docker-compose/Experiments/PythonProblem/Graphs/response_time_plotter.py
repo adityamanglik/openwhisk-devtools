@@ -61,10 +61,10 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     # find peaks in series
     peak_indices = []
     for i in range(1, len(client_times) - 1):
-        print(client_times[i] - client_times[i - 1], client_times[i] - client_times[i + 1])
+        # print(client_times[i] - client_times[i - 1], client_times[i] - client_times[i + 1])
         if (client_times[i] - client_times[i - 1] >= 100) and (client_times[i] - client_times[i + 1] >= 10000):
             peak_indices.append(i)
-    print('Peaks: ', peak_indices)
+    # print('Peaks: ', peak_indices)
     
     
     client_times = [x//1000 for x in client_times]
