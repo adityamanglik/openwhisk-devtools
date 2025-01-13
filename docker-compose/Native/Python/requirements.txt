@@ -2,3 +2,4 @@ psutil
 pillow
 chameleon
 six
+numpy

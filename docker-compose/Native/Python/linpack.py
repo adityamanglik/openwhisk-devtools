@@ -5,6 +5,7 @@ import random
 import time
 import psutil
 from urllib.parse import urlparse, parse_qs
+import numpy as np
 
 PORT = 9900
 
@@ -17,7 +18,29 @@ def main_logic(seed, array_size, req_num):
     start_time = time.perf_counter()
 
     # ADD LOGIC HERE ####################################################
-    
+    n = array_size  # Use the array_size parameter as the matrix size for LINPACK
+    # Estimate the number of operations performed (in FLOPs)
+    ops = (2.0 * n) * n * n / 3.0 + (2.0 * n) * n
+
+    # Create an n x n array of random numbers in the range [-0.5, 0.5]
+    A = np.random.random_sample((n, n)) - 0.5
+    B = A.sum(axis=1)
+
+    # Convert A and B into matrices
+    A = np.matrix(A)
+    B = np.matrix(B.reshape((n, 1)))
+
+    # Solve the linear system (Ax = B) and measure the latency
+    linpack_start = time.perf_counter()
+    x = np.linalg.solve(A, B)
+    linpack_latency = time.perf_counter() - linpack_start
+
+    # Calculate MFLOPS from the operations count and latency
+    mflops = (ops * 1e-6) / linpack_latency
+
+    # For compatibility with the baseline response,
+    # assign the computed MFLOPS as the 'sum' value.
+    sum_val = mflops
     # END LOGIC HERE ####################################################
 
     end_time = time.perf_counter()
