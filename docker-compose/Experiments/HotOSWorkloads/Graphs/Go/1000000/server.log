@@ -1,0 +1,5 @@
+All docker containers stopped successfully.
+Waiting for container:  http://128.110.96.59:9500/GoNative
+Container started: go-server-image-9500
+Waiting for container:  http://128.110.96.59:9501/GoNative
+Container started: go-server-image-9501
