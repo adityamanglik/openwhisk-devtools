@@ -12,8 +12,8 @@ import (
 	"time"
 )
 
-var iterations int = 5000
-var actualIterations int = 100
+var iterations int = 5
+var actualIterations int = 10
 
 // Constants for API endpoints and file names
 const (
@@ -29,12 +29,13 @@ const (
 // Response structure for unmarshalling JSON data
 type APIResponse struct {
 	ExecutionTime float64 `json:"executionTime"`
-	HeapAlloc     int64 `json:"heapAlloc"`
+	UsedHeapSize  int64   `json:"usedHeapSize"`
+    TotalHeapSize int64   `json:"totalHeapSize"`
 }
 
 func main() {
 	// Set a default value for arraysize
-	defaultArraySize := 100
+	defaultArraySize := 10
 	arraysize := defaultArraySize
 
 	// Check if a command line argument is provided

@@ -44,7 +44,7 @@ def main_logic(seed, array_size, req_num):
     # -----------------------------------------
     # 1) Prepare the data the same way as in lambda_handler
     num_of_rows = array_size
-    num_of_cols = seed
+    num_of_cols = 10
 
     # Create a Chameleon PageTemplate
     tmpl = PageTemplate(BIGTABLE_ZPT)
