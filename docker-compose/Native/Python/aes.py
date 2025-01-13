@@ -4,6 +4,8 @@ import json
 import random
 import time
 import psutil
+import string
+import pyaes
 from urllib.parse import urlparse, parse_qs
 
 PORT = 9900
@@ -17,6 +19,30 @@ def main_logic(seed, array_size, req_num):
     start_time = time.perf_counter()
 
     # ADD LOGIC HERE ####################################################
+
+    def generate(length):
+        letters = string.ascii_lowercase + string.digits
+        return ''.join(random.choice(letters) for i in range(length))
+
+    # Use the baseline's array_size as the length of the message,
+    # and req_num as the number of iterations.
+    length_of_message = array_size
+    num_of_iterations = 10
+
+    message = generate(length_of_message)
+
+    # 128-bit key (16 bytes)
+    KEY = b'\xa1\xf6%\x8c\x87}_\xcd\x89dHE8\xbf\xc9,'
+
+    for loops in range(num_of_iterations):
+        aes = pyaes.AESModeOfOperationCTR(KEY)
+        ciphertext = aes.encrypt(message)
+        # Uncomment the following lines to print the ciphertext and plaintext if desired
+        # print(ciphertext)
+        aes = pyaes.AESModeOfOperationCTR(KEY)
+        plaintext = aes.decrypt(ciphertext)
+        sum_val += len(plaintext)
+
     # END LOGIC HERE ####################################################
 
     end_time = time.perf_counter()

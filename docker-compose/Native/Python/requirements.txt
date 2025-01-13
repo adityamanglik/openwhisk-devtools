@@ -3,3 +3,4 @@ pillow
 chameleon
 six
 numpy
+pyaes
