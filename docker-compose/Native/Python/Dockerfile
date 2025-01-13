@@ -18,4 +18,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 ARG MEMORY_LIMIT
 
 # Command to run the application. Replace 'server.py' with the name of your Python server script.
-CMD ["python", "cham.py"]
+CMD ["python", "float.py"]
