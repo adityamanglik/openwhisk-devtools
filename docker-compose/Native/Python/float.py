@@ -22,7 +22,7 @@ def main_logic(seed, array_size, req_num):
         sin_i = math.sin(i)
         cos_i = math.cos(i)
         sqrt_i = math.sqrt(i)
-        sum += sin_i + cos_i + sqrt_i
+        sum_val += sin_i + cos_i + sqrt_i
     # END LOGIC HERE ####################################################
 
     end_time = time.perf_counter()
