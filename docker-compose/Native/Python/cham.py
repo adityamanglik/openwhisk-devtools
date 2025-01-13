@@ -1,13 +1,43 @@
 from http.server import BaseHTTPRequestHandler, HTTPServer
+import resource
 import json
 import random
 import time
+import psutil
 from urllib.parse import urlparse, parse_qs
 
 PORT = 9900
 
+
 def main_logic(seed, array_size, req_num):
-    pass
+    """Main logic function that builds linked lists, does nested operations, and sums up float values."""
+    random.seed(seed)  # Ensure reproducibility with a given seed
+    sum_val = 0
+    # Start the timer
+    start_time = time.perf_counter()
+
+    # ADD LOGIC HERE ####################################################
+    
+    # END LOGIC HERE ####################################################
+
+    end_time = time.perf_counter()
+    duration_seconds = end_time - start_time
+    duration_microseconds = duration_seconds * 1_000_000
+
+    # Memory usage (optional; might slow things down if done too frequently)
+    process = psutil.Process()
+    memory_info = process.memory_info()
+    memory_full_info = process.memory_full_info()
+
+    response = {
+        "sum": sum_val,
+        "executionTime": duration_microseconds,
+        "requestNumber": req_num,
+        "arraysize": array_size,
+        "usedHeapSize": memory_full_info.uss,  # Unique set size
+        "totalHeapSize": memory_info.vms       # Virtual memory size
+    }
+    return response
 
 class RequestHandler(BaseHTTPRequestHandler):
     def do_GET(self):
