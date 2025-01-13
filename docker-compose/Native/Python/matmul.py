@@ -18,21 +18,13 @@ def main_logic(seed, array_size, req_num):
     start_time = time.perf_counter()
 
     # ADD LOGIC HERE ####################################################
-    # This code is faithful to the original matmul implementation:
-    # - It creates two random matrices of size (array_size x array_size)
-    # - It times only the matrix multiplication using np.matmul
-
     # Generate random matrices (do not include generation time in latency)
     A = np.random.rand(array_size, array_size)
     B = np.random.rand(array_size, array_size)
-
-    # Time the matrix multiplication only, as in the original matmul function
-    matmul_start = time()  # using time() from the standard library
     C = np.matmul(A, B)
-    matmul_latency = time() - matmul_start
 
     # Set the computed latency as the "sum" value in the response.
-    sum_val = matmul_latency
+    sum_val = np.sum(C)
     # END LOGIC HERE ####################################################
 
     end_time = time.perf_counter()
