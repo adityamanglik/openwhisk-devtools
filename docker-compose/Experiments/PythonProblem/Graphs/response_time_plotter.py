@@ -57,15 +57,16 @@ def calculate_statistics(times):
 def plot_latency(client_times, server_times, memory_log, output_image_file, output_image_file_1):
     # plot all iterations in line graph
     fig, ax1 = plt.subplots(figsize=(15, 6))
+    
+    client_times = client_times[:100]
     # Add vertical lines at GC events
     # find peaks in series
     peak_indices = []
     for i in range(1, len(client_times) - 1):
         # print(client_times[i] - client_times[i - 1], client_times[i] - client_times[i + 1])
-        if (client_times[i] - client_times[i - 1] >= 100) and (client_times[i] - client_times[i + 1] >= 10000):
+        if (client_times[i] - client_times[i - 1] >= 600) and (client_times[i] - client_times[i + 1] >= 100):
             peak_indices.append(i)
-    # print('Peaks: ', peak_indices)
-    
+    print('Peaks: ', peak_indices)
     
     client_times = [x//1000 for x in client_times]
     _, med, _, _, _, stdd = calculate_statistics(client_times)
@@ -73,7 +74,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times', linewidth=4)
     ax1.set_xlabel('Request Number')
     ax1.set_ylabel('Latency (ms)', color='r')
-    # ax1.set_ylim([0, 100])
+    ax1.set_ylim([0, max(client_times)])
     for peak in peak_indices:
         ax1.axvline(x = peak, c = 'red', alpha = 0.27, linestyle = '--')
 

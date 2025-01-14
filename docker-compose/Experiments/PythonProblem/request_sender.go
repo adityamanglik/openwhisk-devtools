@@ -12,8 +12,8 @@ import (
 	"time"
 )
 
-var iterations int = 5000
-var actualIterations int = 100
+var iterations int = 1000
+var actualIterations int = 1000
 
 // Constants for API endpoints and file names
 const (
@@ -34,7 +34,7 @@ type APIResponse struct {
 
 func main() {
 	// Set a default value for arraysize
-	defaultArraySize := 100
+	defaultArraySize := 1000
 	arraysize := defaultArraySize
 
 	// Check if a command line argument is provided
