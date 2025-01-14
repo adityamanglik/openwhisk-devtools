@@ -215,6 +215,35 @@ if __name__ == "__main__":
     # memory_log = memory_log[len(memory_log)//2:]
     # print(memory_log[:10])
     # print(second_container)
+            # Calculate client and server stats separately
+    client_stats = calculate_statistics(client_times)
+    server_stats = calculate_statistics(server_times)
+    client_avg, client_median, client_p90, client_p99, client_sum, client_std = client_stats
+    server_avg, server_median, server_p90, server_p99, server_sum, server_std = server_stats
+
+    # Print client stats
+    print("\n--- Client Times Statistics ---")
+    print(f"Count: {len(client_times)}")
+    print(f"Average: {client_avg:.2f} μs")
+    print(f"Median: {client_median:.2f} μs")
+    print(f"P90: {client_p90:.2f} μs")
+    print(f"P99: {client_p99:.2f} μs")
+    print(f"Total (Sum): {client_sum:.2f} μs")
+    print(f"Std Dev: {client_std:.2f} μs")
+    print(f"Peak (Max): {max(client_times):.2f} μs")
+
+    # Print server stats
+    print("\n--- Server Times Statistics ---")
+    print(f"Count: {len(server_times)}")
+    print(f"Average: {server_avg:.2f} μs")
+    print(f"Median: {server_median:.2f} μs")
+    print(f"P90: {server_p90:.2f} μs")
+    print(f"P99: {server_p99:.2f} μs")
+    print(f"Total (Sum): {server_sum:.2f} μs")
+    print(f"Std Dev: {server_std:.2f} μs")
+    print(f"Peak (Max): {max(server_times):.2f} μs")
+    print("-----------\n")
+    # ---
     plot_histograms(client_times, server_times, sys.argv[4])
     plot_latency(client_times, server_times, memory_log, sys.argv[5], sys.argv[6])
     plot_hdr_histograms(client_times, sys.argv[7])

@@ -10,7 +10,6 @@ import (
 	"os"
 	"strconv"
 	"time"
-	"bytes"
 )
 
 var iterations int = 10
@@ -19,7 +18,7 @@ var actualIterations int = 1000
 // Constants for API endpoints and file names
 const (
 	javaAPI               = "http://node0:8180/java"
-	goAPI                 = "http://node0:8080/run"
+	goAPI                 = "http://node0:8601/jsonresponse"
 	javaResponseTimesFile = "java_response_times.txt"
 	goResponseTimesFile   = "go_response_times.txt"
 	javaServerTimesFile   = "java_server_times.txt"
@@ -42,7 +41,7 @@ type APIResponse struct {
 
 func main() {
 	// Set a default value for arraysize
-	defaultArraySize := 10000
+	defaultArraySize := 100
 	arraysize := defaultArraySize
 
 	// Check if a command line argument is provided
@@ -107,50 +106,63 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 	var heapSizes []int64
 
 	for i := 0; i < iterations; i++ {
-		// Generate random seed and construct request payload
-		seed := rand.Int63()
-		payload := map[string]interface{}{
-			"seed":       seed,
-			"arraysize":  arraysize,
-			"request":    i,
-		}
+		// fmt.Printf("Sent request: %d\n", i)
+		seed := rand.Intn(10000) // Example seed generation
+		requestURL1 := fmt.Sprintf("%s?seed=%d", apiURL, seed)
+		requestURL2 := fmt.Sprintf("%s&arraysize=%d", requestURL1, arraysize)
+		requestURL := fmt.Sprintf("%s&requestnumber=%d", requestURL2, i)
 
-		// Serialize payload to JSON
-		payloadBytes, err := json.Marshal(payload)
-		if err != nil {
-			fmt.Println("Error serializing payload:", err)
-			continue
-		}
-
-		// Send POST request with JSON payload
 		startTime := time.Now()
-		resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(payloadBytes))
+		resp, err := http.Get(requestURL)
+		// fmt.Println("hit1: ", (time.Now().Sub(startTime).Microseconds()))
 		if err != nil {
 			fmt.Println("Error sending request:", err)
 			continue
 		}
+		
+		// fmt.Println("hit2: ", (time.Now().Sub(startTime).Microseconds()))
 
-		// Check for non-OK status codes
 		if resp.StatusCode != http.StatusOK {
-			fmt.Printf("Non-OK HTTP status code: %d\n", resp.StatusCode)
-			resp.Body.Close()
-			continue
+			fmt.Println("Non-OK HTTP status code:", resp.StatusCode)
 		}
+		// fmt.Println("hit2..5: ", (time.Now().Sub(startTime).Microseconds()))
 
-		// Parse the response JSON
-		var apiResp APIResponse
-		decoder := json.NewDecoder(resp.Body)
-		if err := decoder.Decode(&apiResp); err != nil {
-			fmt.Println("Error unmarshalling response:", err)
-			resp.Body.Close()
-			continue
-		}
-		resp.Body.Close()
+		// Read and unmarshal the response body
+        var apiResp APIResponse
+        decoder := json.NewDecoder(resp.Body)
+        if err := decoder.Decode(&apiResp); err != nil {
+            fmt.Println("Error unmarshalling response:", err)
+            fmt.Println("Response body:", decoder)
+            resp.Body.Close()
+            continue
+        }
+        resp.Body.Close()
 
-		// Record response times and other metrics
-		elapsed := time.Since(startTime).Microseconds()
-		responseTimes = append(responseTimes, elapsed)
+		// responseBody, err := ioutil.ReadAll(resp.Body)
+		// if err != nil {
+		// 	fmt.Println("Error reading response body:", err)
+		// 	continue
+		// }
+		// fmt.Println("hit3: ", (time.Now().Sub(startTime).Microseconds()))
+
+
+		// var apiResp APIResponse
+		// if err := json.Unmarshal(responseBody, &apiResp); err != nil {
+		// 	fmt.Println("Error unmarshalling response:", err)
+		// 	fmt.Println("Response body:", string(responseBody))
+		// 	continue
+		// }
+		// fmt.Println("hit4: ", (time.Now().Sub(startTime).Microseconds()))
+
+
+		endTime := time.Now()
+		elapsed := endTime.Sub(startTime)
+
+		responseTimes = append(responseTimes, elapsed.Microseconds())
 		serverTimes = append(serverTimes, apiResp.ExecutionTime)
+		// fmt.Println("Time:", apiResp.ExecutionTime)
+		// Collect usedHeapSize along with other metrics
+		// fmt.Println("UsedHeapSize:", apiResp.UsedHeapSize)
 		heapSizes = append(heapSizes, apiResp.UsedHeapSize)
 	}
 
@@ -158,59 +170,31 @@ func sendRequests(apiURL string, arraysize int) ([]int64, []int64, []int64) {
 }
 
 func checkServerAlive(apiURL string) {
-    fmt.Println("Checking server for heartbeat.")
-    for i := 0; i < iterations/10; i++ {
-        seed := rand.Intn(10000) // Random seed generation
-        arraysize := 10          // Minimal memory usage for alive check
-        payload := map[string]interface{}{
-            "seed":      seed,
-            "arraysize": arraysize,
-        }
-
-        // Serialize payload to JSON
-        payloadBytes, err := json.Marshal(payload)
-        if err != nil {
-            fmt.Println("Error serializing payload:", err)
-            continue
-        }
-
-        // Send POST request with JSON payload
-        resp, err := http.Post(apiURL, "application/json", bytes.NewBuffer(payloadBytes))
-        if err != nil {
-            fmt.Println("Error sending request:", err)
-            time.Sleep(time.Second)
-            continue
-        }
-
-        // Log HTTP status code
-        fmt.Printf("HTTP Status Code: %d\n", resp.StatusCode)
-
-        // Read and log the response body
-        responseBody, err := ioutil.ReadAll(resp.Body)
-        resp.Body.Close() // Ensure the body is closed after reading
-        if err != nil {
-            fmt.Println("Error reading response body:", err)
-            time.Sleep(time.Second)
-            continue
-        }
-
-        if len(responseBody) == 0 {
-            fmt.Println("Response body is empty.")
-        } else {
-            fmt.Println("Response:", string(responseBody))
-        }
-
-        // Exit if the server responds with OK
-        if resp.StatusCode == http.StatusOK {
-            fmt.Println("Server is alive and responding.")
-            break
-        } else {
-            fmt.Printf("Server responded with non-OK status: %d\n", resp.StatusCode)
-            time.Sleep(time.Second)
-        }
-    }
+	fmt.Println("Checking server for heartbeat.")
+	for i := 0; i < iterations/10; i++ {
+		seed := rand.Intn(10000) // Random seed generation
+		arraysize := 10          // Do not pollute memory for aliveCheck
+		requestURL := fmt.Sprintf("%s?seed=%d&arraysize=%d", apiURL, seed, arraysize)
+		resp, err := http.Get(requestURL)
+		if err != nil {
+			fmt.Println("Error sending request:", err)
+			time.Sleep(time.Second)
+			continue
+		}
+		// Check if the HTTP status code is 200 (OK)
+		if resp.StatusCode == http.StatusOK {
+			fmt.Println("OK Response received from server.")
+			// Read and unmarshal the response body
+			responseBody, _ := ioutil.ReadAll(resp.Body)
+			resp.Body.Close()
+			fmt.Println("Response: ", string(responseBody))
+			// Break out of the loop if a correct response is received
+			break
+		} else {
+			resp.Body.Close()
+		}
+	}
 }
-
 
 // Function to log time values to a file
 func writeTimesToFile(filename string, times []int64) {

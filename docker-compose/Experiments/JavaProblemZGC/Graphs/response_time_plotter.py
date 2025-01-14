@@ -1,6 +1,7 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import sys
+import random
 
 SMALL_SIZE = 38
 MEDIUM_SIZE = 40
@@ -55,22 +56,30 @@ def calculate_statistics(times):
 
 def plot_latency(client_times, server_times, memory_log, output_image_file, output_image_file_1):
     # plot all iterations in line graph
-    server_times = server_times[700:900]
-    server_times = [x/1000 for x in server_times]
-    memory_log = memory_log[700:900]
-    memory_log = [x/1000000 for x in memory_log]
     fig, ax1 = plt.subplots(figsize=(15, 6))
-    # client_times = [x//1000 for x in client_times]
-    _, med, _, _, _, stdd = calculate_statistics(server_times)
+    # Add vertical lines at GC events
+    # find peaks in series
+    peak_indices = []
+    for i in range(1, len(client_times) - 1):
+        # print(client_times[i] - client_times[i - 1], client_times[i] - client_times[i + 1])
+        if (client_times[i] - client_times[i - 1] >= 100) and (client_times[i] - client_times[i + 1] >= 10000):
+            peak_indices.append(i)
+    # print('Peaks: ', peak_indices)
+    
+    
+    client_times = [x//1000 for x in client_times]
+    _, med, _, _, _, stdd = calculate_statistics(client_times)
     # Plot client times on the primary y-axis
-    ax1.plot(server_times, color='r', alpha=0.9, label='Client Response Times', linewidth=4)
+    ax1.plot(client_times, color='r', alpha=0.9, label='Client Response Times', linewidth=4)
     ax1.set_xlabel('Request Number')
     ax1.set_ylabel('Latency (ms)', color='r')
-    ax1.set_ylim([0, max(server_times)])
-    
+    # ax1.set_ylim([0, 100])
+    for peak in peak_indices:
+        ax1.axvline(x = peak, c = 'red', alpha = 0.27, linestyle = '--')
+
     # Plot med + std on y axis
-    median = np.median(server_times)
-    stdd = np.std(server_times)
+    median = np.median(client_times)
+    stdd = np.std(client_times)
     # ax1.axhline(y=median, c = 'green', alpha = 0.27, linestyle = '--')
     # ax1.axhline(y=median+stdd, c = 'green', alpha = 0.27, linestyle = '--')
     
@@ -79,8 +88,8 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     plt.savefig(output_image_file, bbox_inches='tight', pad_inches=0, format='pdf', dpi=1200)
     
     ax2 = ax1.twinx()
-    ax2.plot(memory_log, color='b', alpha=0.4, label='HeapAlloc', linestyle='--', linewidth=6)
-    ax2.set_ylabel('Heap Memory\n(MB)', color='b')
+    ax2.plot(memory_log, color='b', alpha=0.4, label='HeapAlloc')
+    ax2.set_ylabel('Allocated heap memory', color='b')
    
     # GC_iterations = []
     # for idx in range(1, len(memory_log)):
@@ -215,6 +224,36 @@ if __name__ == "__main__":
     # memory_log = memory_log[len(memory_log)//2:]
     # print(memory_log[:10])
     # print(second_container)
+        # Calculate client and server stats separately
+    client_stats = calculate_statistics(client_times)
+    server_stats = calculate_statistics(server_times)
+    client_avg, client_median, client_p90, client_p99, client_sum, client_std = client_stats
+    server_avg, server_median, server_p90, server_p99, server_sum, server_std = server_stats
+
+    # Print client stats
+    print("\n--- Client Times Statistics ---")
+    print(f"Count: {len(client_times)}")
+    print(f"Average: {client_avg:.2f} μs")
+    print(f"Median: {client_median:.2f} μs")
+    print(f"P90: {client_p90:.2f} μs")
+    print(f"P99: {client_p99:.2f} μs")
+    print(f"Total (Sum): {client_sum:.2f} μs")
+    print(f"Std Dev: {client_std:.2f} μs")
+    print(f"Peak (Max): {max(client_times):.2f} μs")
+
+    # Print server stats
+    print("\n--- Server Times Statistics ---")
+    print(f"Count: {len(server_times)}")
+    print(f"Average: {server_avg:.2f} μs")
+    print(f"Median: {server_median:.2f} μs")
+    print(f"P90: {server_p90:.2f} μs")
+    print(f"P99: {server_p99:.2f} μs")
+    print(f"Total (Sum): {server_sum:.2f} μs")
+    print(f"Std Dev: {server_std:.2f} μs")
+    print(f"Peak (Max): {max(server_times):.2f} μs")
+    print("-----------\n")
+    # ---
+
     plot_histograms(client_times, server_times, sys.argv[4])
     plot_latency(client_times, server_times, memory_log, sys.argv[5], sys.argv[6])
     plot_hdr_histograms(client_times, sys.argv[7])
