@@ -34,7 +34,7 @@ type APIResponse struct {
 
 func main() {
 	// Set a default value for arraysize
-	defaultArraySize := 500
+	defaultArraySize := 5
 	arraysize := defaultArraySize
 
 	// Check if a command line argument is provided
