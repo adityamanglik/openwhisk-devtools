@@ -12,8 +12,8 @@ import (
 	"time"
 )
 
-var iterations int = 10
-var actualIterations int = 1000
+var iterations int = 1000
+var actualIterations int = 500
 
 // Constants for API endpoints and file names
 const (
