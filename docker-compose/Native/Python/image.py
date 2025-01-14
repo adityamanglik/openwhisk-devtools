@@ -79,6 +79,7 @@ def generateRandomNormal(mean, stdDev):
     return z0 * stdDev + mean
 
 def ImageLogic(seed, ARRAY_SIZE, REQ_NUM):
+    ARRAY_SIZE = 5
     # Start the timer
     start_time = time.perf_counter()
     
