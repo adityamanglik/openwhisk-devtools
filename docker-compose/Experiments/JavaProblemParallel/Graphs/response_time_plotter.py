@@ -83,7 +83,7 @@ def plot_latency(client_times, server_times, memory_log, output_image_file, outp
     # ask matplotlib for the plotted objects and their labels
     lines, labels = ax1.get_legend_handles_labels()
     lines2, labels2 = ax2.get_legend_handles_labels()
-    ax2.legend(lines + lines2, labels + labels2, loc='upper center', bbox_to_anchor=(0.5, 1.28), ncols=2)
+    # ax2.legend(lines + lines2, labels + labels2, loc='upper center', bbox_to_anchor=(0.5, 1.28), ncols=2)
     # ax1.legend(loc='upper center', frameon=False, bbox_to_anchor=(0.5, 1.25))
     # GC_iterations = []
     # for idx in range(1, len(memory_log)):
